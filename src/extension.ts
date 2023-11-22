@@ -1,46 +1,55 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+    console.log('Congratulations, your extension "ludwig" is now active!');
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "ludwig" is now active!');
+    // Map to track highlighted HTML elements and their positions
+    const highlightedElements = new Map<string, vscode.Range[]>();
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('ludwig.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Ludwig!');
-	});
+    // Function to highlight elements based on a condition (to be defined later)
+    function highlightElements(document: vscode.TextDocument) {
+        // Define the logic to highlight HTML elements based on certain conditions
+        // Add ranges of elements to the highlightedElements map
+    }
 
-		// Register an event listener for document opening
-	let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
-		// Check if the opened document is an HTML file
-		if (document.languageId === 'html') {
-			// Log a statement when an HTML file is opened
-			console.log(`HTML file opened: ${document.fileName}`);
-		}
-	});
+    // Command to trigger the highlighting functionality
+    let highlightCommandDisposable = vscode.commands.registerCommand('ludwig.highlightElements', () => {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor && activeEditor.document.languageId === 'html') {
+            const document = activeEditor.document;
+            highlightElements(document);
+        }
+    });
 
-	let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file' }, {
-		provideHover(document, position, token) {
-			const range = document.getWordRangeAtPosition(position);
-			if (range) {
-				const text = document.getText(range);
-				const hoverMessage = new vscode.MarkdownString(`Hovered over: **${text}**`);
-				return new vscode.Hover(hoverMessage, range);
-			}
-		}
-	});
+    // Register onDidOpenTextDocument event to immediately highlight elements when an HTML file is opened
+    let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
+        if (document.languageId === 'html') {
+            highlightElements(document);
+        }
+    });
 
-	context.subscriptions.push(disposable, documentOpenDisposable, hoverProviderDisposable);
+    // Hover provider to show a popup window with ARIA recommendations
+    let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'html' }, {
+        provideHover(document, position, token) {
+            const wordRange = document.getWordRangeAtPosition(position, /<\w+>/);
+            if (wordRange) {
+                const word = document.getText(wordRange);
+
+                // Check if the element has been highlighted
+                const highlightedRanges = highlightedElements.get(word);
+                if (highlightedRanges) {
+                    // Define the ARIA recommendation information based on the highlighted element
+                    const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
+
+                    const hoverMessage = new vscode.MarkdownString(ariaRecommendationInfo);
+                    return new vscode.Hover(hoverMessage, wordRange);
+                }
+            }
+            return null;
+        }
+    });
+
+    context.subscriptions.push(highlightCommandDisposable, documentOpenDisposable, hoverProviderDisposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
