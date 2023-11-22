@@ -19,7 +19,27 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Hello World from Ludwig!');
 	});
 
-	context.subscriptions.push(disposable);
+		// Register an event listener for document opening
+	let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
+		// Check if the opened document is an HTML file
+		if (document.languageId === 'html') {
+			// Log a statement when an HTML file is opened
+			console.log(`HTML file opened: ${document.fileName}`);
+		}
+	});
+
+	let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file' }, {
+		provideHover(document, position, token) {
+			const range = document.getWordRangeAtPosition(position);
+			if (range) {
+				const text = document.getText(range);
+				const hoverMessage = new vscode.MarkdownString(`Hovered over: **${text}**`);
+				return new vscode.Hover(hoverMessage, range);
+			}
+		}
+	});
+
+	context.subscriptions.push(disposable, documentOpenDisposable, hoverProviderDisposable);
 }
 
 // This method is called when your extension is deactivated
