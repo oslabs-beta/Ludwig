@@ -53,7 +53,7 @@ function activate(context) {
             }
             // Store the highlighted ranges in the map
             highlightedElements.set('div', highlightedRanges);
-            // Apply the decorations to highlight the lines
+            // Apply red background thing to highlight the lines
             const decorationType = vscode.window.createTextEditorDecorationType({
                 isWholeLine: true,
                 overviewRulerLane: vscode.OverviewRulerLane.Right,
