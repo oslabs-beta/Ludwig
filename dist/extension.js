@@ -30,27 +30,86 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deactivate = exports.activate = void 0;
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = __importStar(__webpack_require__(1));
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 function activate(context) {
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
     console.log('Congratulations, your extension "ludwig" is now active!');
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('ludwig.helloWorld', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from Ludwig!');
+    // Map to track highlighted HTML elements and their positions
+    const highlightedElements = new Map();
+    // Function to highlight lines containing "div"
+    function highlightElements(document) {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor) {
+            const highlightedRanges = [];
+            // Loop through each line in the document
+            for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
+                const line = document.lineAt(lineNumber);
+                const lineText = line.text.toLowerCase(); // Convert to lowercase for case-insensitive check
+                // Check if the line contains "div"
+                if (lineText.includes('div')) {
+                    // Create a range for the entire line
+                    const lineRange = new vscode.Range(line.range.start, line.range.end);
+                    highlightedRanges.push(lineRange);
+                }
+            }
+            // Store the highlighted ranges in the map
+            highlightedElements.set('div', highlightedRanges);
+            // Apply red background thing to highlight the lines
+            const decorationType = vscode.window.createTextEditorDecorationType({
+                isWholeLine: true,
+                overviewRulerLane: vscode.OverviewRulerLane.Right,
+                overviewRulerColor: 'red',
+                backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            });
+            activeEditor.setDecorations(decorationType, highlightedRanges);
+        }
+    }
+    // Register onDidChangeTextDocument event to trigger highlighting when the document changes
+    let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
+        if (event.document.languageId === 'html') {
+            highlightElements(event.document);
+        }
     });
-    context.subscriptions.push(disposable);
+    // Register onDidChangeActiveTextEditor event to trigger highlighting when the active editor changes
+    let activeEditorChangeDisposable = vscode.window.onDidChangeActiveTextEditor((editor) => {
+        if (editor && editor.document.languageId === 'html') {
+            highlightElements(editor.document);
+        }
+    });
+    // Command to trigger the highlighting functionality
+    let highlightCommandDisposable = vscode.commands.registerCommand('ludwig.highlightElements', () => {
+        const activeEditor = vscode.window.activeTextEditor;
+        if (activeEditor && activeEditor.document.languageId === 'html') {
+            const document = activeEditor.document;
+            highlightElements(document);
+        }
+    });
+    // Register onDidOpenTextDocument event to immediately highlight elements when an HTML file is opened
+    let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document) => {
+        if (document.languageId === 'html') {
+            highlightElements(document);
+        }
+    });
+    // Hover provider to show a popup window with ARIA recommendations
+    let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'html' }, {
+        provideHover(document, position, token) {
+            const wordRange = document.getWordRangeAtPosition(position, /<\w+>/);
+            if (wordRange) {
+                const word = document.getText(wordRange).toLowerCase(); // Convert to lowercase for case-insensitive check
+                // Check if the element has been highlighted
+                const highlightedRanges = highlightedElements.get('div'); // Check for 'div' since that's what we are currently highlighting
+                if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
+                    // Define the ARIA recommendation information based on the highlighted element
+                    const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
+                    const hoverMessage = new vscode.MarkdownString(ariaRecommendationInfo);
+                    return new vscode.Hover(hoverMessage, wordRange);
+                }
+            }
+            return null;
+        }
+    });
+    context.subscriptions.push(highlightCommandDisposable, documentOpenDisposable, hoverProviderDisposable, documentChangeDisposable, activeEditorChangeDisposable);
 }
 exports.activate = activate;
-// This method is called when your extension is deactivated
 function deactivate() { }
 exports.deactivate = deactivate;
 

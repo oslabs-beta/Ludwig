@@ -9,13 +9,15 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:html"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ludwig.helloWorld",
-        "title": "Hello World"
+        "command": "ludwig.highlightElements",
+        "title": "Ludwig: Highlight"
       }
     ]
   },
