@@ -30,26 +30,56 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deactivate = exports.activate = void 0;
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 const vscode = __importStar(__webpack_require__(1));
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 function activate(context) {
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-    console.log('Congratulations, your extension "ludwig" is now active!');
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
-    let disposable = vscode.commands.registerCommand('ludwig.helloWorld', () => {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
-        vscode.window.showInformationMessage('Hello World from Ludwig!');
+    // Register the hover provider for HTML
+    let htmlDisposable = vscode.languages.registerHoverProvider('html', {
+        provideHover(document, position, token) {
+            console.log('I am hovering!');
+            const range = document.getWordRangeAtPosition(position);
+            const word = document.getText(range);
+            console.log(word, typeof word);
+            let link = '';
+            if (word === 'test') {
+                link = 'www.google.com'
+            } else if (word === 'html') {
+                link = 'www.wikipedia.com'
+            }
+            const hoverContent = new vscode.MarkdownString(`[${word}](command:extension.showModal) ${link}`);
+            return new vscode.Hover(hoverContent, range);
+        }
     });
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(htmlDisposable);
+    // Register the hover provider for plaintext
+    let plaintextDisposable = vscode.languages.registerHoverProvider('plaintext', {
+        provideHover(document, position, token) {
+            console.log('I am hovering!');
+            const range = document.getWordRangeAtPosition(position);
+            const word = document.getText(range);
+            const hoverContent = new vscode.MarkdownString(`[${word}](command:extension.showModal)`);
+            return new vscode.Hover(hoverContent, range);
+        }
+    });
+    context.subscriptions.push(plaintextDisposable);
+    // Register the command to show the modal
+    let commandDisposable = vscode.commands.registerCommand('extension.showModal', () => {
+        console.log('I am a Modal!');
+        vscode.window.showInformationMessage('Modal triggered with word: ' + getCurrentWord());
+    });
+    context.subscriptions.push(commandDisposable);
 }
 exports.activate = activate;
+function getCurrentWord() {
+    const editor = vscode.window.activeTextEditor;
+    if (editor) {
+        const selection = editor.selection;
+        const wordRange = editor.document.getWordRangeAtPosition(selection.start);
+        if (wordRange) {
+            return editor.document.getText(wordRange);
+        }
+    }
+    return undefined;
+}
 // This method is called when your extension is deactivated
 function deactivate() { }
 exports.deactivate = deactivate;
