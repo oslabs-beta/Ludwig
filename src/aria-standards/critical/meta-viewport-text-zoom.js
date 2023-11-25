@@ -8,8 +8,10 @@ const htmlCode = `
   <head>
     <meta charset="utf-8" />
     <title>Sample Title</title>
+    <meta http-equiv="refresh" content="0; URL=https://planet-express.example.com">
   </head>
   <body>
+  <img src='someurlhere.com' alt='a cute photo' />
     <header aria-hidden="true">This is the header!</header>
     <div class="link container">
       <a href="https://www.example.com">Click me</a>
@@ -31,23 +33,23 @@ const ludwig = document.body;
 // default message with specific aria-fail found and link to docs
 const defaultMsg = {};
 
-// buttons have discernible text
-function checkButtonText() {
-  const buttons = ludwig.querySelectorAll('button');
-  console.log(buttons);
+// <meta name=”viewport”> does not disable text scaling and zooming
+function checkMetaViewportTextResize() {
+  const meta = document.querySelectorAll('meta');
+  console.log(meta);
+  
+  // check if each el has the attribute name with the value "viewport"
+  meta.forEach((el, i) => {
+    const name = el.getAttribute('name');
+    console.log('name', name);
 
-  // check innerHTMl or innerText to make sure it is not missing or an empty string
-  buttons.forEach((el, i) => {
-    if (el.innerHTML === '') {
-      console.log(`Button ${i + 1} does not contain inner html indicating it's function.`);
-    } else if (el.innerText === '') {
-      console.log(`Button ${i + 1} does not contain inner text indicating it's function.`);
-    } else {
-      // ????
-    }
+    if (name === 'viewport') {
+      // make sure that text zooming/scaling has not been disabled
+      if () {
+        console.log(`Meta with attribute name="viewport" ${i + 1} should not disable text resizing`);
+      }
+    };
   });
-
 }
 
-
-checkButtonText();
+checkMetaViewportTextResize();

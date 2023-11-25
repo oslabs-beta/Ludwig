@@ -16,6 +16,12 @@ const htmlCode = `
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
+    <map>
+      <area shape="rect" coords="0,0,30,30"
+      href="reference.html" alt="Reference">
+      <area shape="rect" coords="34,34,100,100"
+      href="media.html" alt ="">
+    </map>
     <div id="duplicate">Something</div>
     <input id="duplicate" type="button">
     <div>GorbleGorble</div>
@@ -31,23 +37,21 @@ const ludwig = document.body;
 // default message with specific aria-fail found and link to docs
 const defaultMsg = {};
 
-// buttons have discernible text
-function checkButtonText() {
-  const buttons = ludwig.querySelectorAll('button');
-  console.log(buttons);
+// <area> elements of image maps have alternate text
+function checkAreaMapAltText() {
+  const areas = ludwig.querySelectorAll('area');
+  console.log(areas);
+  
+  // check if each el has alt text
+  areas.forEach((el, i) => {
+    const altText = el.getAttribute('alt');
+    console.log('alt text', altText);
 
-  // check innerHTMl or innerText to make sure it is not missing or an empty string
-  buttons.forEach((el, i) => {
-    if (el.innerHTML === '') {
-      console.log(`Button ${i + 1} does not contain inner html indicating it's function.`);
-    } else if (el.innerText === '') {
-      console.log(`Button ${i + 1} does not contain inner text indicating it's function.`);
-    } else {
-      // ????
+    if (!altText | altText === '') {
+      console.log(`Area map ${i + 1} is missing alt text`);
     }
   });
 
 }
 
-
-checkButtonText();
+// checkAreaMapAltText();
