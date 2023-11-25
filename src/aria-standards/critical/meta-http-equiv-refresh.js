@@ -38,7 +38,7 @@ function checkMetaHttpRefresh() {
   const meta = document.querySelectorAll('meta');
   console.log(meta);
   
-  // check if each el has alt text
+  // check if each el has http-equiv attribute
   meta.forEach((el, i) => {
     const httpEquiv = el.getAttribute('http-equiv');
     console.log('http-equiv', httpEquiv);
