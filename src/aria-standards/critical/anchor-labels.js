@@ -36,6 +36,9 @@ function evalAnchors() {
   const anchors = ludwig.querySelectorAll('a');
   console.log('anchors ', anchors);
 
+  // push missing anchors into array, like you mentioned below
+  const anchorsWithoutAriaLabel = [];
+
   anchors.forEach((link, index) => {
     const ariaLabel = link.getAttribute('aria-label');
 
@@ -43,6 +46,14 @@ function evalAnchors() {
     // could inlcude logic to make sure the aria-label matches content 
     if (!ariaLabel) {
       console.log(`Link ${index + 1} is missing aria-label`);
+      anchorsWithoutAriaLabel.push(link.outerHTML); // push here
     }
   });
+  return anchorsWithoutAriaLabel; // return that array
 }
+
+// export to extension.ts
+
+module.exports = {
+  evalAnchors
+};

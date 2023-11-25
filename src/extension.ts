@@ -1,4 +1,7 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
+const evalAnchors = require('./aria-standards/critical/anchor-labels.js'); // import anchor-labels file
+
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ludwig" is now active!');
@@ -13,13 +16,15 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
 
+            // invoke evalAnchors to get array of anchor elements without ARIA labels
+            const anchorsWithoutAriaLabel = evalAnchors();
+
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
-                const lineText = line.text.toLowerCase(); // Convert to lowercase for case-insensitive check
 
-                // Check if the line contains "div"
-                if (lineText.includes('div')) {
+                // Check if the line's anchor is missing aria-label
+                if (anchorsWithoutAriaLabel.includes(line.text.trim())) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
@@ -27,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             // Store the highlighted ranges in the map
-            highlightedElements.set('div', highlightedRanges);
+            highlightedElements.set('anchorWithoutAriaLabel', highlightedRanges);
 
             // Apply red background thing to highlight the lines
             const decorationType = vscode.window.createTextEditorDecorationType({
@@ -79,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const word = document.getText(wordRange).toLowerCase(); // Convert to lowercase for case-insensitive check
 
                 // Check if the element has been highlighted
-                const highlightedRanges = highlightedElements.get('div'); // Check for 'div' since that's what we are currently highlighting
+                const highlightedRanges = highlightedElements.get('anchorWithoutAriaLabel');
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     // Define the ARIA recommendation information based on the highlighted element
                     const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
