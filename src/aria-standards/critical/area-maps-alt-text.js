@@ -20,7 +20,7 @@ const htmlCode = `
       <area shape="rect" coords="0,0,30,30"
       href="reference.html" alt="Reference">
       <area shape="rect" coords="34,34,100,100"
-      href="media.html" alt="Audio visual lab">
+      href="media.html" alt ="">
     </map>
     <div id="duplicate">Something</div>
     <input id="duplicate" type="button">
@@ -47,9 +47,11 @@ function checkAreaMapAltText() {
     const altText = el.getAttribute('alt');
     console.log('alt text', altText);
 
-    if (!altText) {
+    if (!altText | altText === '') {
       console.log(`Area map ${i + 1} is missing alt text`);
     }
   });
 
 }
+
+// checkAreaMapAltText();
