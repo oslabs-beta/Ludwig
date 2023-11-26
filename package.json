@@ -17,7 +17,7 @@
     "commands": [
       {
         "command": "ludwig.highlightElements",
-        "title": "Ludwig: Highlight"
+        "title": "Ludwig: Compose"
       }
     ]
   },
