@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-const evalAnchors = require('./aria-standards/critical/anchor-labels.js'); // import anchor-labels file
+const { compileLogic } = require('./logicCompiler.ts');
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -10,21 +10,23 @@ export function activate(context: vscode.ExtensionContext) {
     const highlightedElements = new Map<string, vscode.Range[]>();
 
     // Function to highlight lines containing "div"
-    function highlightElements(document: vscode.TextDocument) {
+// Function to highlight lines based on anchors without aria-label
+    async function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
 
-            // invoke evalAnchors to get array of anchor elements without ARIA labels
-            const anchorsWithoutAriaLabel = evalAnchors();
+            // invoke compileLogic to get object with ARIA recommendations
+            const ariaRecommendations = await compileLogic();
 
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
 
-                // Check if the line's anchor is missing aria-label
-                if (anchorsWithoutAriaLabel.includes(line.text.trim())) {
+                // Check if the line's anchor is in the object
+                const key = line.text.trim();
+                if (key in ariaRecommendations) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
@@ -32,7 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
             // Store the highlighted ranges in the map
-            highlightedElements.set('anchorWithoutAriaLabel', highlightedRanges);
+            highlightedElements.set('ariaRecommendations', highlightedRanges);
 
             // Apply red background thing to highlight the lines
             const decorationType = vscode.window.createTextEditorDecorationType({
@@ -45,6 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
             activeEditor.setDecorations(decorationType, highlightedRanges);
         }
     }
+
 
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
     let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
@@ -84,7 +87,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const word = document.getText(wordRange).toLowerCase(); // Convert to lowercase for case-insensitive check
 
                 // Check if the element has been highlighted
-                const highlightedRanges = highlightedElements.get('anchorWithoutAriaLabel');
+                const highlightedRanges = highlightedElements.get('ariaRecommendations');
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     // Define the ARIA recommendation information based on the highlighted element
                     const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
