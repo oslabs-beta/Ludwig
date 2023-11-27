@@ -9,13 +9,21 @@ export function activate(context: vscode.ExtensionContext) {
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
 
-    // Function to highlight lines containing "div"
-// Function to highlight lines based on anchors without aria-label
+    // Create decoration type outside of the function
+    const decorationType = vscode.window.createTextEditorDecorationType({
+        isWholeLine: true,
+        overviewRulerLane: vscode.OverviewRulerLane.Right,
+        overviewRulerColor: 'red',
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+    });
+
+    // Function to highlight lines based on anchors without aria-label
     async function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
+            const highlightedLines = new Set<number>();
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
@@ -26,27 +34,25 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's anchor is in the object
                 const key = line.text.trim();
-                if (key in ariaRecommendations) {
+                if (key in ariaRecommendations && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
+                    highlightedLines.add(lineNumber);
                 }
             }
 
-            // Store the highlighted ranges in the map
-            highlightedElements.set('ariaRecommendations', highlightedRanges);
+            // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
+            activeEditor.setDecorations(decorationType, []);
 
             // Apply red background thing to highlight the lines
-            const decorationType = vscode.window.createTextEditorDecorationType({
-                isWholeLine: true,
-                overviewRulerLane: vscode.OverviewRulerLane.Right,
-                overviewRulerColor: 'red',
-                backgroundColor: 'rgba(255, 0, 0, 0.2)',
-            });
-
             activeEditor.setDecorations(decorationType, highlightedRanges);
+
+            // Store the highlighted ranges in the map for hover stuff later
+            highlightedElements.set('ariaRecommendations', highlightedRanges);
         }
     }
+    
 
 
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
