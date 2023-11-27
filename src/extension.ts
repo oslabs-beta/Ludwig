@@ -27,14 +27,15 @@ export function activate(context: vscode.ExtensionContext) {
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
+            const elementsToHighlight = Object.keys(ariaRecommendations);
 
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
 
-                // Check if the line's anchor is in the object
+                // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-                if (key in ariaRecommendations && !highlightedLines.has(lineNumber)) {
+                if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
