@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>();
+            const highlightedLines = new Set<number>(); // this will be used to not highlight the same thing more than once
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
