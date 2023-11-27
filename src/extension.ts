@@ -1,4 +1,7 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
+const { compileLogic } = require('./logicCompiler.ts');
+
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ludwig" is now active!');
@@ -6,40 +9,52 @@ export function activate(context: vscode.ExtensionContext) {
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
 
-    // Function to highlight lines containing "div"
-    function highlightElements(document: vscode.TextDocument) {
+    // Create decoration type outside of the function
+    const decorationType = vscode.window.createTextEditorDecorationType({
+        isWholeLine: true,
+        overviewRulerLane: vscode.OverviewRulerLane.Right,
+        overviewRulerColor: 'red',
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+    });
+
+    // Function to highlight lines based on anchors without aria-label
+    async function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
+            const highlightedLines = new Set<number>();
+
+            // invoke compileLogic to get object with ARIA recommendations
+            const ariaRecommendations = await compileLogic();
+            const elementsToHighlight = Object.keys(ariaRecommendations);
 
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
-                const lineText = line.text.toLowerCase(); // Convert to lowercase for case-insensitive check
 
-                // Check if the line contains "div"
-                if (lineText.includes('div')) {
+                // Check if the line's content matches any element to highlight
+                const key = line.text.trim();
+                if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
+                    highlightedLines.add(lineNumber);
                 }
             }
 
-            // Store the highlighted ranges in the map
-            highlightedElements.set('div', highlightedRanges);
+            // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
+            activeEditor.setDecorations(decorationType, []);
 
             // Apply red background thing to highlight the lines
-            const decorationType = vscode.window.createTextEditorDecorationType({
-                isWholeLine: true,
-                overviewRulerLane: vscode.OverviewRulerLane.Right,
-                overviewRulerColor: 'red',
-                backgroundColor: 'rgba(255, 0, 0, 0.2)',
-            });
-
             activeEditor.setDecorations(decorationType, highlightedRanges);
+
+            // Store the highlighted ranges in the map for hover stuff later
+            highlightedElements.set('ariaRecommendations', highlightedRanges);
         }
     }
+    
+
 
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
     let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
@@ -79,7 +94,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const word = document.getText(wordRange).toLowerCase(); // Convert to lowercase for case-insensitive check
 
                 // Check if the element has been highlighted
-                const highlightedRanges = highlightedElements.get('div'); // Check for 'div' since that's what we are currently highlighting
+                const highlightedRanges = highlightedElements.get('ariaRecommendations');
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     // Define the ARIA recommendation information based on the highlighted element
                     const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
