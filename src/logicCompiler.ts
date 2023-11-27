@@ -5,12 +5,18 @@ export interface AriaRecommendations {
 }
 
 export async function compileLogic(): Promise<AriaRecommendations> {
-    const anchorsWithoutAriaLabel = await evalAnchors();
     const ariaRecommendations: AriaRecommendations = {};
+
+    const anchorsWithoutAriaLabel = await evalAnchors();
+    console.log(anchorsWithoutAriaLabel);
+    // other file functions here
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
         ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
     });
+    
+
+    // iterate through each here
 
     return ariaRecommendations;
 }

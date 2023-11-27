@@ -35,6 +35,9 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
+
+                console.log(`Line ${lineNumber + 1}: '${key}'`); // displays keys on respective lines - might help later for webview
+
                 if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
