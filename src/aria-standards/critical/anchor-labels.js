@@ -1,7 +1,7 @@
 const vscode = require('vscode');
-const fs = require('fs');
-const jsdom = require('jsdom');
 const { JSDOM } = require('jsdom');
+// const fs = require('fs');
+// const jsdom = require('jsdom');
 
 // const htmlCode = `
 // <!DOCTYPE html>
