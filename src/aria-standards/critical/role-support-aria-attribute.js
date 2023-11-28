@@ -18,7 +18,7 @@ const htmlCode = `
       <p>Contact</p>
     </div>
     <label for="search-box">
-    <input role="searchbox" id="search-box">
+    <div role="searchbox" aria-label="search">
     <div class="link container" role="menubar">
       <a href="https://www.example.com">Click me</a>
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
@@ -236,13 +236,15 @@ function checkAriaRoles() {
           forIDMatch = true;
         }
       });
-      console.log('el:', el.nodeName);
-      console.log('id:', id);
-      console.log('forIDMatch:', forIDMatch);
-      console.log('SEARCHBOX labels arr:', labelForArr);
-      // if (type is input & id doesn't match) --> if (type is input & type doesn't equal 'search) --> if (no labelledby or label exists) --> push to error arr
-      if ((el.nodeName === 'INPUT' && !forIDMatch) || (el.nodeName === 'INPUT' && type !== 'search') || (!labelledby && !label)) { //<--NEED TO FIX STILL!
-        roleSupportLines.push(el.nodeName);
+      // else if for the input type and see if second test is an OR
+      if (el.nodeName === 'INPUT') {
+        if (!forIDMatch && type !== 'search') {
+          roleSupportLines.push(el.nodeName);
+        }
+      } else {
+        if (!label && !labelledby) {
+          roleSupportLines.push(el.nodeName);
+        }
       }
       break;
     }
