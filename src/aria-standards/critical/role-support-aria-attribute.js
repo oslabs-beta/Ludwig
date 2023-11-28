@@ -523,233 +523,187 @@ function checkAriaRoles() {
 
   // avoid using the following roles: application, article, cell, columnheader, definition, directory, document, figure, group, heading, img, list, listitem, meter, row, rowgroup, rowheader, seperator, table, term, button, checkbox, gridcell, link, menuitem, menuitemcheckbox, menuitemradio, option, progressbar, radio, textbox, grid, listbox, radiogroup, command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget, and window.
     case 'application': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'article': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'cell': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'columnheader': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'definition': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'directory': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'document': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'figure': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'group': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'heading': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'img': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'list': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'listitem': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'meter': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'row': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'rowgroup': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'rowheader': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'seperator': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'table': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'term': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'button': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'checkbox': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'gridcell': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'link': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'menuitem': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'menuitemcheckbox': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'menuitemradio': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'option': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'progressbar': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'radio': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'textbox': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'grid': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'listbox': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'radiogroup': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'command': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'composite': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'input': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'landmark': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'range': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'roletype': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'section': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'sectionhead': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'select': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'structure': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'widget': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
     case 'window': {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
       break;
     }
   
