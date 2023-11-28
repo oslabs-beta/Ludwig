@@ -102,21 +102,21 @@ export function activate(context: vscode.ExtensionContext) {
                 
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
-                                        
+                    const highlightedLine = document.getText(wordRange);                    
                     compileLogic()
                     .then((ariaRecommendations : object) => {//gets an object with {key= each element that failed, value =  associated recommendation}
 
-                        for(const rec in ariaRecommendations){
-                            for(let i = 0; i < highlightedRanges.length; i++) {
-                                const highlightedLine = document.getText(highlightedRanges[i]).trim();
-                                if(rec === highlightedLine) {
-                                    // console.log(`${rec} = ${highlightedLine}`);
-                                    console.log(ariaRecommendations[rec]);
-                                    // const recommendations = `Ludwig Recommends:\n\n ${ariaRecommendations[rec]}.`;
+                        // for(const rec in ariaRecommendations){
+                        //     for(let i = 0; i < highlightedRanges.length; i++) {
+                        //         const highlightedLine = document.getText(highlightedRanges[i]).trim();
+                        //         if(rec === highlightedLine) {
+                        //             // console.log(`${rec} = ${highlightedLine}`);
+                        //             console.log(ariaRecommendations[rec]);
+                        //             // const recommendations = `Ludwig Recommends:\n\n ${ariaRecommendations[rec]}.`;
 
-                                }
-                            }
-                        }
+                        //         }
+                        //     }
+                        // }
 
                     });
 
