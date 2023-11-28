@@ -24,11 +24,21 @@ const htmlCode = `
       <p>Another tip.</p>
       <p>More tips!!</p>
     </div>
+    <ul role="tree" aria-labelledby="treeLabel">
+      <li role="treeitem" aria-expanded="true">
+      <li role="treeitem" aria-expanded="true">
+      <li role="treeitem" aria-expanded="true">
+    </ul>
     <button role="switch" aria-checked="false"></button>
     <div id="duplicate">Something</div>
     <input id="duplicate" type="button" role="button">
     <div>GorbleGorble</div>
     <button name='button' role='button'>clickclickclick</button>
+    <ol role="menubar">
+      <li>Are</li>
+      <li>A</li>
+      <li>Menu</li>
+    </ol>
     <img src="someurl.jpg" role="presentation" aria-label="img of lake"/>
     <div role="feed">
       <p>An article full of really cool info.</p>
@@ -59,7 +69,7 @@ function checkAriaRoles() {
   // what to do if role does not exist? 
   const elementRoles = [];
   allElement.forEach((el) => {
-    const item = [el, el.parentNode, el.children];
+    const item = [el, el.parentElement, el.children];
     const role = el.getAttribute('role');
     item.push(role);
     elementRoles.push(item);
@@ -173,7 +183,7 @@ function checkAriaRoles() {
   // switch role has the aria-checked attribute as required
   case 'switch': {
     const checked = el.getAttribute('aria-checked');
-    console.log('SWITCH:', checked);
+    // console.log('SWITCH:', checked);
     if (!checked || (checked !== 'true' || checked !== 'false')) { //<--NEED TO FIX STILL!
       roleSupportLines.push(el.nodeName);
       // roleSupportLines.push(lineNumber);
@@ -186,17 +196,56 @@ function checkAriaRoles() {
   // tabpanel role indicates the element is a container for the resources associated with a tab role, where each tab is contained in a tablist.
 
   // treeitem role must have a parent node with the role=tree
+  case 'treeitem': {
+    const parentRole = parent.getAttribute('role');
+    if (parentRole !== 'tree') {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // COMPOSITE WIDGET
   // combobox role is required to have aria-expanded attribute
+  case 'combobox': {
+    const expanded = el.getAttribute('aria-expanded');
+    if (!expanded) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // menu role must have a list of children nodes
+  case 'menu': {
+    if (children.length === 0) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // menubar role is a menu that is visually persistant, required to have list of children nodes
+  case 'menubar': {
+    if (children.length === 0) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // tablist role is the parent element for nodes containing role of tab or tabpanel
 
   // tree role must have children nodes with the role=treeitem
+  case 'tree': {
+    const childRole = children[0].getAttribute('role');
+    // console.log('TREE:', childRole)
+    if (children.length === 0 || childRole !== 'tree') {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // treegrid role is a grid or table (combo of tree and grid); required to have child nodes and that if there is a parent row, that the attr aria-expanded exists; must have the attr aria-label or aria-labelledby (only ONE, not BOTH)
 
