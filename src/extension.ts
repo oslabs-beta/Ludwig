@@ -8,6 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
+    // const ariaObject = new Map<string, object>(); // test map - can it take object like this?
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
@@ -23,7 +24,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>();
+            const highlightedLines = new Set<number>(); // this will be used to not highlight the same thing more than once
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
@@ -35,6 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
+
+                console.log(`Line ${lineNumber + 1}: '${key}'`); // displays keys on respective lines - might help later for webview
+
                 if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
@@ -51,6 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
+            // ariaObject.set('recInfo', ariaRecommendations); // setting test object
         }
     }
     
@@ -95,6 +100,10 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the element has been highlighted
                 const highlightedRanges = highlightedElements.get('ariaRecommendations');
+
+                // // possible method for retrieving object with necessary properties
+                // const ariaInfo = ariaObject.get('recInfo');
+
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     // Define the ARIA recommendation information based on the highlighted element
                     const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
