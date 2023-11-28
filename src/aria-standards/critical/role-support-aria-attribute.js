@@ -57,6 +57,11 @@ const htmlCode = `
       aria-labelledby="day">
       1
     </div>
+    <form id="search" role="search">
+      <label for="search-input">Search this site</label>
+      <input type="search" id="search-input" name="search" spellcheck="false">
+      <input value="Submit" type="submit">
+    </form>
     <button type="button" tabindex="-1" aria-label="next day">˲</button>
     <ol role="menubar">
       <li>Are</li>
@@ -488,7 +493,24 @@ function checkAriaRoles() {
       break;
     }
 
-  // search role ??? 
+  // search role has best practice of using a form element or designated top parent element containing all search elements
+    case 'search': {
+      const childAttr = [];
+      Array.from(children).forEach(el => {
+        const id = el.getAttribute('id');
+        const type = el.getAttribute('type');
+        const label = el.getAttribute('label');
+        const name = el.getAttribute('name');
+        childAttr.push(id, type, label, name);
+      });
+      // console.log('SEARCH', childAttr);
+      if (el.nodeName !== 'FORM' || !childAttr.includes('search')) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
+    }
+
 
   // LIVE REGION ROLES
   // alert role should only be used for text content (not links or buttons), should be used sparingly
