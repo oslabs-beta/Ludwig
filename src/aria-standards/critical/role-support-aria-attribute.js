@@ -180,6 +180,7 @@ function checkAriaRoles() {
   // math role must either be an img or must use aria-label to provide a string that represents the expression
     case 'math': {
       const label = el.getAttribute('aria-label');
+      // if (element is not an image) --> if (label doesn't exist OR label is empty string) --> push into err arr
       if (el.nameNode !== 'IMG' || (!label || label === '')) { //<--still need to fix!
         roleSupportLines.push(el);
       }
