@@ -159,8 +159,7 @@ function checkAriaRoles() {
   // toolbar role must group 3 or more elements (must have 3 or more child nodes)
     case 'toolbar': {
       if (children.length < 3) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -168,8 +167,7 @@ function checkAriaRoles() {
   // tooltip role cannot contain interactive elements such as buttons, links or inputs
     case 'tooltip': {
       if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || el.nodeName === 'INPUT') {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -177,8 +175,7 @@ function checkAriaRoles() {
   // feed role must contain scrollable list of articles
     case 'feed': {
       if (!children.namedItem('article')) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -187,8 +184,7 @@ function checkAriaRoles() {
     case 'math': {
       const label = el.getAttribute('aria-label');
       if (el.nameNode !== 'IMG' || !label || label === '') {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -198,8 +194,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if (label || labelledby) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -219,8 +214,7 @@ function checkAriaRoles() {
       const controls = el.getAttribute('aria-controls');
       const valueNow = el.getAttribute('aria-valuenow');
       if (!controls || !valueNow) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -232,7 +226,6 @@ function checkAriaRoles() {
       // console.log('SEARCHBOX:', label);
       if (el.nodeName !== 'INPUT' || type !== 'search' || (!type && !label)) { //<--NEED TO FIX STILL!
         roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
       }
       break;
     }
@@ -241,8 +234,7 @@ function checkAriaRoles() {
     case 'slider': {
       const valueNow = el.getAttribute('aria-valuenow');
       if (!valueNow) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -253,8 +245,7 @@ function checkAriaRoles() {
       const labelledby = el.getAttribute('aria-labelledby');
       const tabIndex = el.getAttribute('tabindex');
       if ((el !== 'INPUT' && !tabIndex) || (!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -266,7 +257,6 @@ function checkAriaRoles() {
       // console.log('SWITCH:', checked);
       if (!checked || (checked !== 'true' && checked !== 'false')) { //<--NEED TO FIX STILL!
         roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
       }
       break;
     }
@@ -288,12 +278,8 @@ function checkAriaRoles() {
           ariaOwns = true;
         }
       });
-      // console.log('TAB:', parentRole);
-      // console.log('arr + aria-owns:', aoArr, ariaOwns);
-      // console.log('id:', id);
       if (parentRole !== 'tablist' && !ariaOwns) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -301,7 +287,6 @@ function checkAriaRoles() {
   // tabpanel role indicates the element is a container for the resources associated with a tab role, where each tab is contained in a tablist.
     case 'tabpanel': {
       const labelledby = el.getAttribute('aria-labelledby');
-      // console.log('TABPANEL:', labelledby);
       // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
       const tabsIdArr = [];
       elementRoles.forEach((el) => {
@@ -309,10 +294,8 @@ function checkAriaRoles() {
           tabsIdArr.push(el[0].getAttribute('id'));
         }
       });
-      // console.log('Tabs Id Arr:', tabsIdArr);
       if (!tabsIdArr.includes(labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -321,8 +304,7 @@ function checkAriaRoles() {
     case 'treeitem': {
       const parentRole = parent.getAttribute('role');
       if (parentRole !== 'tree') {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -332,8 +314,7 @@ function checkAriaRoles() {
     case 'combobox': {
       const expanded = el.getAttribute('aria-expanded');
       if (!expanded) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -341,8 +322,7 @@ function checkAriaRoles() {
   // menu role must have a list of children nodes
     case 'menu': {
       if (children.length === 0) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -350,8 +330,7 @@ function checkAriaRoles() {
   // menubar role is a menu that is visually persistant, required to have list of children nodes
     case 'menubar': {
       if (children.length === 0) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -365,10 +344,8 @@ function checkAriaRoles() {
         nonTabs = true;
       }
     });
-    // console.log('childRoles:', childRoles);
     if (children.length === 0 || nonTabs) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+      roleSupportLines.push(el);
     }
     break;
   }
@@ -376,10 +353,8 @@ function checkAriaRoles() {
   // tree role must have children nodes with the role=treeitem
     case 'tree': {
       const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
-      // console.log('TREE:', childRole)
       if (children.length === 0 || childRole !== 'tree') {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -391,8 +366,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if (children.length === 0) { //<--NEED TO ADD MORE TEST CONDITIONALS
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -407,8 +381,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'HEADER' || count > 1) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -422,8 +395,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'ASIDE' || count > 1) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -437,8 +409,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'FOOTER' || count > 1) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -446,8 +417,7 @@ function checkAriaRoles() {
   // form role must not be a form element
     case 'form': {
       if (el.nodeName === 'FORM') {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -461,8 +431,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'MAIN' || count > 1) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -476,8 +445,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'NAV' || count > 1) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -487,8 +455,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -505,8 +472,7 @@ function checkAriaRoles() {
       });
       // console.log('SEARCH', childAttr);
       if (el.nodeName !== 'FORM' || !childAttr.includes('search')) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -522,8 +488,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -538,10 +503,8 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       const describedby = el.getAttribute('aria-describedby');
-      console.log('DIALOG:', label, labelledby);
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
@@ -551,8 +514,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push(el.nodeName);
-        // roleSupportLines.push(lineNumber);
+        roleSupportLines.push(el);
       }
       break;
     }
