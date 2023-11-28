@@ -238,7 +238,7 @@ function checkAriaRoles() {
 
   // tree role must have children nodes with the role=treeitem
   case 'tree': {
-    const childRole = children[0].getAttribute('role');
+    const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
     // console.log('TREE:', childRole)
     if (children.length === 0 || childRole !== 'tree') {
       roleSupportLines.push(el.nodeName);
@@ -248,6 +248,17 @@ function checkAriaRoles() {
   }
 
   // treegrid role is a grid or table (combo of tree and grid); required to have child nodes and that if there is a parent row, that the attr aria-expanded exists; must have the attr aria-label or aria-labelledby (only ONE, not BOTH)
+  case 'treegrid': {
+    const parentRow = Array.from(parent);
+    console.log('parentRow', parentRow);
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    if (label || labelledby) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // LANDMARK ROLES: use SPARINGLY (one per doc is best practice)
   // banner role should not be on a header element and should only be one element with this role
