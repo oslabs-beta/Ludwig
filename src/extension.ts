@@ -112,9 +112,9 @@ export function activate(context: vscode.ExtensionContext) {
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : object) => {
                                     const recommendation = ariaRecommendations[lineText];
-                                    const displayedRec = `${recommendation}`;
+                                    const displayedRec = `Luwig Recommendation:\n\n${recommendation.desc}`;
                                     // console.log('Display recommendation:',displayedRec);
-                                    const displayedLink = `[Read More](https://developer.mozilla.org/en-US/docs/Web/Accessibility)`; //need associated link
+                                    const displayedLink = `[Read More](${recommendation.link})`;
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                     return new vscode.Hover(hoverMessage, wordRange);
