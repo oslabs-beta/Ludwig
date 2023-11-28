@@ -107,7 +107,7 @@ export function activate(context: vscode.ExtensionContext) {
                         const lineText = document.getText(lineRange).trim();
                         // console.log('highlighted line:', lineText);
 
-                        // if(lineText.includes(hoveredWord)) { //checks if the highlighted line
+                        if(lineText.includes(hoveredWord)) { //checks if the highlighted line
                             // console.log(`${lineText} HAS ${hoveredWord}`);
 
                             return compileLogic()
@@ -121,7 +121,7 @@ export function activate(context: vscode.ExtensionContext) {
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                     return new vscode.Hover(hoverMessage, lineRange);
                                 });
-                        // }
+                        }
                     }
                 }
             }
