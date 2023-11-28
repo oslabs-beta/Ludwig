@@ -16,6 +16,7 @@ const htmlCode = `
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
+    <p role="math">a + b = c</p>
     <div role="toolbar">
       <p>A tip!</p>
       <p>Another tip.</p>
@@ -25,6 +26,9 @@ const htmlCode = `
     <input id="duplicate" type="button" role="button">
     <div>GorbleGorble</div>
     <button name='button' role='button'>clickclickclick</button>
+    <div role="feed">
+      <p>An article full of really cool info.</p>
+    </div>
   </body>
 </html>
 `;
@@ -51,7 +55,7 @@ function checkAriaRoles() {
   // what to do if role does not exist? 
   const elementRoles = [];
   allElement.forEach((el) => {
-    const item = [el.nodeName, el.parentNode, el.children];
+    const item = [el, el.parentNode, el.children];
     const role = el.getAttribute('role');
     item.push(role);
     elementRoles.push(item);
@@ -72,7 +76,7 @@ function checkAriaRoles() {
   // toolbar role must group 3 or more elements (must have 3 or more child nodes)
       case 'toolbar': {
         if (children.length < 3) {
-          roleSupportLines.push(el);
+          roleSupportLines.push(el.nodeName);
           // roleSupportLines.push(lineNumber);
         }
         break;
@@ -80,16 +84,31 @@ function checkAriaRoles() {
 
   // tooltip role cannot contain interactive elements such as buttons, links or inputs
   case 'tooltip': {
-    if (el === 'BUTTON' || el === 'A' || el === 'INPUT') {
-      roleSupportLines.push(el);
+    if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || el.nodeName === 'INPUT') {
+      roleSupportLines.push(el.nodeName);
       // roleSupportLines.push(lineNumber);
     }
     break;
   }
   
   // feed role must contain scrollable list of articles
+  case 'feed': {
+    if (!children.namedItem('article')) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // math role must either be an img or must use aria-label to provide a string that represents the expression
+  case 'math': {
+    const label = el.getAttribute('aria-label');
+    if (el.nameNode !== 'IMG' || !label || label === '') {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // presentation role (ignores semantic html and on nested children except for input and links) ??
 
