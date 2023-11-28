@@ -12,7 +12,7 @@ const htmlCode = `
   <body>
   <div role="main" id="main-container">
     <header>This is the header!</header>
-    <div role="complementary"></div>
+    <div role=""></div>
     <div role="navigation" aria-label="Main">
       <p>Home</p>
       <p>Contact</p>
@@ -44,6 +44,20 @@ const htmlCode = `
     <input id="duplicate" type="button">
     <div>GorbleGorble</div>
     <button name='button' role='button'>clickclickclick</button>
+    <img role="banner">
+    <p id="day">Enter the day of the month</p>
+    <button type="button" tabindex="-1" aria-label="previous day">˱</button>
+    <div
+      role="spinbutton"
+      tabindex="0"
+      aria-valuenow="1"
+      aria-valuetext="first"
+      aria-valuemin="1"
+      aria-valuemax="31"
+      aria-labelledby="day">
+      1
+    </div>
+    <button type="button" tabindex="-1" aria-label="next day">˲</button>
     <ol role="menubar">
       <li>Are</li>
       <li>A</li>
@@ -228,7 +242,18 @@ function checkAriaRoles() {
       break;
     }
 
-  // spinbutton role ???
+  // spinbutton role requires a label - if input element is used then associated label, if not, aria-labelledby or aria-label; if not input element, then tabindex attribute must be present
+    case 'spinbutton': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      const tabIndex = el.getAttribute('tabindex');
+      if ((el !== 'INPUT' && !tabIndex) || (!label && !labelledby) || (label && labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
+    }
+
 
   // switch role has the aria-checked attribute as required
     case 'switch': {
@@ -370,7 +395,13 @@ function checkAriaRoles() {
   // LANDMARK ROLES: use SPARINGLY (one per doc is best practice)
   // banner role should not be on a header element and should only be one element with this role
     case 'banner': {
-      if (el.nodeName === 'HEADER') { //<-- how to check for more than one?
+      let count = 0;
+      elementRoles.forEach((el) => {
+        if (el[3] === 'banner') {
+          count++;
+        }
+      });
+      if (el.nodeName === 'HEADER' || count > 1) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -379,7 +410,13 @@ function checkAriaRoles() {
 
   // complementary role must only have one on page, must not be the aside html element
     case 'complementary': {
-      if (el.nodeName === 'ASIDE') { //<-- how to check for more than one?
+      let count = 0;
+      elementRoles.forEach((el) => {
+        if (el[3] === 'complementary') {
+          count++;
+        }
+      });
+      if (el.nodeName === 'ASIDE' || count > 1) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -388,7 +425,13 @@ function checkAriaRoles() {
 
   // contentinfo role must only have one on page, must not be a footer element
     case 'contentinfo': {
-      if (el.nodeName === 'FOOTER') { //<-- how to check for more than one?
+      let count = 0;
+      elementRoles.forEach((el) => {
+        if (el[3] === 'contentinfo') {
+          count++;
+        }
+      });
+      if (el.nodeName === 'FOOTER' || count > 1) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -406,7 +449,13 @@ function checkAriaRoles() {
 
   // main role must only have one on page, must not be a main element
     case 'main': {
-      if (el.nodeName === 'MAIN') { //<-- how to check for more than one?
+      let count = 0;
+      elementRoles.forEach((el) => {
+        if (el[3] === 'main') {
+          count++;
+        }
+      });
+      if (el.nodeName === 'MAIN' || count > 1) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -415,7 +464,13 @@ function checkAriaRoles() {
 
   // navigation role must only have one on page, must not be a nav element
     case 'navigation': {
-      if (el.nodeName === 'NAV') { //<-- how to check for more than one?
+      let count = 0;
+      elementRoles.forEach((el) => {
+        if (el[3] === 'navigation') {
+          count++;
+        }
+      });
+      if (el.nodeName === 'NAV' || count > 1) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -721,5 +776,5 @@ function checkAriaRoles() {
 
 }
 
-// BEFORE PUSHING A LAST COMMIT --> CHANGE ALL PUSH el.nodeName to jsut el
+// BEFORE PUSHING A LAST COMMIT --> CHANGE ALL PUSH el.nodeName to just el
 checkAriaRoles();
