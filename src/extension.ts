@@ -8,6 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
+    // const ariaObject = new Map<string, object>(); // test map - can it take object like this?
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
@@ -54,6 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
+            // ariaObject.set('recInfo', ariaRecommendations); // setting test object
         }
     }
     
@@ -98,6 +100,10 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the element has been highlighted
                 const highlightedRanges = highlightedElements.get('ariaRecommendations');
+
+                // // possible method for retrieving object with necessary properties
+                // const ariaInfo = ariaObject.get('recInfo');
+
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     // Define the ARIA recommendation information based on the highlighted element
                     const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';

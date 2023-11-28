@@ -1,32 +1,5 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
-// const fs = require('fs');
-// const jsdom = require('jsdom');
-
-// const htmlCode = `
-// <!DOCTYPE html>
-// <html lang="en">
-//   <head>
-//     <meta charset="utf-8" />
-//     <title>Sample Title</title>
-//   </head>
-//   <body>
-//     <header aria-hidden="true">This is the header!</header>
-//     <div class="link container">
-//       <a href="https://www.example.com">Click me</a>
-//       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
-//       <a aria-label="Click me" href="https://www.example.com">Click me</a>
-//     </div>
-//     <div id="duplicate">Something</div>
-//     <input id="duplicate" type="button">
-//     <div>GorbleGorble</div>
-//     <button name='button'>clickclickclick</button>
-//   </body>
-// </html>
-// `;
-
-// // default message with specific aria-fail found and link to docs
-// const defaultMsg = {};
 
 // logic for if anchors have a label
 function evalAnchors() {
