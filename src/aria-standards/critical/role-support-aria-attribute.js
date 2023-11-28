@@ -41,7 +41,7 @@ const htmlCode = `
     </ul>
     <button role="switch" aria-checked="false"></button>
     <div id="duplicate">Something</div>
-    <input id="duplicate" type="button" role="button">
+    <input id="duplicate" type="button">
     <div>GorbleGorble</div>
     <button name='button' role='button'>clickclickclick</button>
     <ol role="menubar">
@@ -50,6 +50,43 @@ const htmlCode = `
       <li>Menu</li>
     </ol>
     <img src="someurl.jpg" role="presentation" aria-label="img of lake"/>
+    <div class="tabs">
+  <div role="tablist" aria-label="Sample Tabs">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="panel-1"
+      id="tab-1"
+      tabindex="0">
+      First Tab
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-2"
+      id="tab-2"
+      tabindex="-1">
+      Second Tab
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="panel-3"
+      id="tab-3"
+      tabindex="-1">
+      Third Tab
+    </button>
+  </div>
+  <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
+    <p>Content for the first panel</p>
+  </div>
+  <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
+    <p>Content for the second panel</p>
+  </div>
+  <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
+    <p>Content for the third panel</p>
+  </div>
+</div>
     <div role="feed">
       <p>An article full of really cool info.</p>
     </div>
@@ -197,7 +234,7 @@ function checkAriaRoles() {
     case 'switch': {
       const checked = el.getAttribute('aria-checked');
       // console.log('SWITCH:', checked);
-      if (!checked || (checked !== 'true' || checked !== 'false')) { //<--NEED TO FIX STILL!
+      if (!checked || (checked !== 'true' && checked !== 'false')) { //<--NEED TO FIX STILL!
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
       }
@@ -205,6 +242,31 @@ function checkAriaRoles() {
     }
 
   // tab role are elements that must either be a child of an element with the tablist role, or have their id as part of the aria-owns property of a tablist
+    case 'tab': {
+      const parentRole = parent.getAttribute('role');
+      const id = el.getAttribute('id');
+      // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
+      const aoArr = [];
+      elementRoles.forEach((el) => {
+        if (el[3] === 'tablist') {
+          aoArr.push(el[0].getAttribute('aria-owns'));
+        }
+      });
+      let ariaOwns = false;
+      aoArr.forEach(el => {
+        if (el === id) {
+          ariaOwns = true;
+        }
+      });
+      console.log('TAB:', parentRole);
+      console.log('arr + aria-owns:', aoArr, ariaOwns);
+      console.log('id:', id);
+      if (parentRole !== 'tablist' && !ariaOwns) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
+    }
 
   // tabpanel role indicates the element is a container for the resources associated with a tab role, where each tab is contained in a tablist.
 
