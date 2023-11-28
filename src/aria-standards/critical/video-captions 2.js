@@ -6,6 +6,7 @@ function videoCaptions() {
   const activeEditor = vscode.window.activeTextEditor;
 
   if (activeEditor && activeEditor.document.languageId === 'html') {
+    const htmlCode = activeEditor.document.getText();
     const { window } = new JSDOM(htmlCode);
     const document = window.document;
     const ludwig = document.body;
