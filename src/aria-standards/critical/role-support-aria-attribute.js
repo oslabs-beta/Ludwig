@@ -10,7 +10,13 @@ const htmlCode = `
     <title>Sample Title</title>
   </head>
   <body>
-    <header aria-hidden="true" role="heading">This is the header!</header>
+  <div role="main" id="main-container">
+    <header>This is the header!</header>
+    <div role="complementary"></div>
+    <div role="navigation" aria-label="Main">
+      <p>Home</p>
+      <p>Contact</p>
+    </div>
     <input role="searchbox" label="search">
     <div class="link container" role="menubar">
       <a href="https://www.example.com">Click me</a>
@@ -18,11 +24,14 @@ const htmlCode = `
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
     <p role="math">a + b = c</p>
+    <div role="region" aria-label="Example"></div>
     <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
     <div role="toolbar">
       <p>A tip!</p>
       <p>Another tip.</p>
       <p>More tips!!</p>
+    </div>
+    <div role="form">
     </div>
     <ul role="tree" aria-labelledby="treeLabel">
       <li role="treeitem" aria-expanded="true">
@@ -43,7 +52,10 @@ const htmlCode = `
     <div role="feed">
       <p>An article full of really cool info.</p>
     </div>
+    </div>
   </body>
+  <div role="contentinfo">
+  </div>
 </html>
 `;
 
@@ -74,7 +86,7 @@ function checkAriaRoles() {
     item.push(role);
     elementRoles.push(item);
   });
-  console.log(elementRoles);
+  // console.log(elementRoles);
   
   // iterate through elementRoles, checking role against type according to guidelines on: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
 
@@ -253,7 +265,7 @@ function checkAriaRoles() {
     console.log('parentRow', parentRow);
     const label = el.getAttribute('aria-label');
     const labelledby = el.getAttribute('aria-labelledby');
-    if (label || labelledby) {
+    if (children.length === 0) { //<--NEED TO ADD MORE TEST CONDITIONALS
       roleSupportLines.push(el.nodeName);
       // roleSupportLines.push(lineNumber);
     }
@@ -262,18 +274,70 @@ function checkAriaRoles() {
 
   // LANDMARK ROLES: use SPARINGLY (one per doc is best practice)
   // banner role should not be on a header element and should only be one element with this role
+  case 'banner': {
+    if (el.nodeName === 'HEADER') { //<-- how to check for more than one?
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // complementary role must only have one on page, must not be the aside html element
+  case 'complementary': {
+    if (el.nodeName === 'ASIDE') { //<-- how to check for more than one?
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // contentinfo role must only have one on page, must not be a footer element
+  case 'contentinfo': {
+    if (el.nodeName === 'FOOTER') { //<-- how to check for more than one?
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // form role must not be a form element
+  case 'form': {
+    if (el.nodeName === 'FORM') {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // main role must only have one on page, must not be a main element
+  case 'main': {
+    if (el.nodeName === 'MAIN') { //<-- how to check for more than one?
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // navigation role must only have one on page, must not be a nav element
+  case 'navigation': {
+    if (el.nodeName === 'NAV') { //<-- how to check for more than one?
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // region role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
+  case 'region': {
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    console.log('REGION:', label, labelledby);
+    if ((!label && !labelledby) || (label && labelledby)) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // search role ??? 
 
@@ -304,4 +368,5 @@ function checkAriaRoles() {
 
 }
 
+// BEFORE PUSHING A LAST COMMIT --> CHANGE ALL PUSH el.nodeName to jsut el
 checkAriaRoles();
