@@ -6,10 +6,10 @@ const { checkButtonText } = require('./aria-standards/critical/button-text.js');
 const { checkUniqueIds } = require('./aria-standards/critical/unique-ids.js');
 const { checkImgAltText } = require('./aria-standards/critical/img-alt-text.js');
 const { checkMetaViewportTextResize } = require('./aria-standards/critical/meta-viewport-text-zoom.js');
-
+const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
 export interface AriaRecommendations {
-    [key: string]: string;
+    [key: string]: object;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
