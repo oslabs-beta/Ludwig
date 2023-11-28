@@ -25,6 +25,7 @@ const htmlCode = `
     </div>
     <p role="math">a + b = c</p>
     <div role="region" aria-label="Example"></div>
+    <article role="marquee" aria-labelledby="example"></article>
     <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
     <div role="toolbar">
       <p>A tip!</p>
@@ -100,52 +101,52 @@ function checkAriaRoles() {
 
   // DOM STRUCTURE
   // toolbar role must group 3 or more elements (must have 3 or more child nodes)
-      case 'toolbar': {
-        if (children.length < 3) {
-          roleSupportLines.push(el.nodeName);
-          // roleSupportLines.push(lineNumber);
-        }
-        break;
+    case 'toolbar': {
+      if (children.length < 3) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
       }
+      break;
+    }
 
   // tooltip role cannot contain interactive elements such as buttons, links or inputs
-  case 'tooltip': {
-    if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || el.nodeName === 'INPUT') {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'tooltip': {
+      if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || el.nodeName === 'INPUT') {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
   
   // feed role must contain scrollable list of articles
-  case 'feed': {
-    if (!children.namedItem('article')) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'feed': {
+      if (!children.namedItem('article')) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // math role must either be an img or must use aria-label to provide a string that represents the expression
-  case 'math': {
-    const label = el.getAttribute('aria-label');
-    if (el.nameNode !== 'IMG' || !label || label === '') {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'math': {
+      const label = el.getAttribute('aria-label');
+      if (el.nameNode !== 'IMG' || !label || label === '') {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // presentation role should not have accccessible name as it and its children are 'hidden'; should not have attributes: aria-labelledby or aria-label
-  case 'presentation': {
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    if (label || labelledby) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'presentation': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      if (label || labelledby) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // note role has content which is parenthetic or ancillary to the main content
   // case 'note': {
@@ -158,186 +159,185 @@ function checkAriaRoles() {
 
   // WIDGET ROLES
   // scrollbar role has two required attributes: aria-controls and aria-valuenow
-  case 'scrollbar': {
-    const controls = el.getAttribute('aria-controls');
-    const valueNow = el.getAttribute('aria-valuenow');
-    if (!controls || !valueNow) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'scrollbar': {
+      const controls = el.getAttribute('aria-controls');
+      const valueNow = el.getAttribute('aria-valuenow');
+      if (!controls || !valueNow) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // searchbox role is type input and with either type='search' or an associated label
-  case 'searchbox': {
-    const label = el.getAttribute('aria-label');
-    const type = el.getAttribute('type');
-    // console.log('SEARCHBOX:', label);
-    if (el.nodeName !== 'INPUT' || type !== 'search' || (!type && !label)) { //<--NEED TO FIX STILL!
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'searchbox': {
+      const label = el.getAttribute('aria-label');
+      const type = el.getAttribute('type');
+      // console.log('SEARCHBOX:', label);
+      if (el.nodeName !== 'INPUT' || type !== 'search' || (!type && !label)) { //<--NEED TO FIX STILL!
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // slider role defines an input where the user selects a value from within a given range
-  case 'slider': {
-    const valueNow = el.getAttribute('aria-valuenow');
-    if (!valueNow) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'slider': {
+      const valueNow = el.getAttribute('aria-valuenow');
+      if (!valueNow) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // spinbutton role ???
 
   // switch role has the aria-checked attribute as required
-  case 'switch': {
-    const checked = el.getAttribute('aria-checked');
-    // console.log('SWITCH:', checked);
-    if (!checked || (checked !== 'true' || checked !== 'false')) { //<--NEED TO FIX STILL!
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'switch': {
+      const checked = el.getAttribute('aria-checked');
+      // console.log('SWITCH:', checked);
+      if (!checked || (checked !== 'true' || checked !== 'false')) { //<--NEED TO FIX STILL!
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // tab role are elements that must either be a child of an element with the tablist role, or have their id as part of the aria-owns property of a tablist
 
   // tabpanel role indicates the element is a container for the resources associated with a tab role, where each tab is contained in a tablist.
 
   // treeitem role must have a parent node with the role=tree
-  case 'treeitem': {
-    const parentRole = parent.getAttribute('role');
-    if (parentRole !== 'tree') {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'treeitem': {
+      const parentRole = parent.getAttribute('role');
+      if (parentRole !== 'tree') {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // COMPOSITE WIDGET
   // combobox role is required to have aria-expanded attribute
-  case 'combobox': {
-    const expanded = el.getAttribute('aria-expanded');
-    if (!expanded) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'combobox': {
+      const expanded = el.getAttribute('aria-expanded');
+      if (!expanded) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // menu role must have a list of children nodes
-  case 'menu': {
-    if (children.length === 0) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'menu': {
+      if (children.length === 0) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // menubar role is a menu that is visually persistant, required to have list of children nodes
-  case 'menubar': {
-    if (children.length === 0) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'menubar': {
+      if (children.length === 0) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // tablist role is the parent element for nodes containing role of tab or tabpanel
 
   // tree role must have children nodes with the role=treeitem
-  case 'tree': {
-    const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
-    // console.log('TREE:', childRole)
-    if (children.length === 0 || childRole !== 'tree') {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'tree': {
+      const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
+      // console.log('TREE:', childRole)
+      if (children.length === 0 || childRole !== 'tree') {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // treegrid role is a grid or table (combo of tree and grid); required to have child nodes and that if there is a parent row, that the attr aria-expanded exists; must have the attr aria-label or aria-labelledby (only ONE, not BOTH)
-  case 'treegrid': {
-    const parentRow = Array.from(parent);
-    console.log('parentRow', parentRow);
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    if (children.length === 0) { //<--NEED TO ADD MORE TEST CONDITIONALS
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'treegrid': {
+      const parentRow = Array.from(parent);
+      console.log('parentRow', parentRow);
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      if (children.length === 0) { //<--NEED TO ADD MORE TEST CONDITIONALS
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // LANDMARK ROLES: use SPARINGLY (one per doc is best practice)
   // banner role should not be on a header element and should only be one element with this role
-  case 'banner': {
-    if (el.nodeName === 'HEADER') { //<-- how to check for more than one?
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'banner': {
+      if (el.nodeName === 'HEADER') { //<-- how to check for more than one?
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // complementary role must only have one on page, must not be the aside html element
-  case 'complementary': {
-    if (el.nodeName === 'ASIDE') { //<-- how to check for more than one?
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'complementary': {
+      if (el.nodeName === 'ASIDE') { //<-- how to check for more than one?
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // contentinfo role must only have one on page, must not be a footer element
-  case 'contentinfo': {
-    if (el.nodeName === 'FOOTER') { //<-- how to check for more than one?
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'contentinfo': {
+      if (el.nodeName === 'FOOTER') { //<-- how to check for more than one?
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // form role must not be a form element
-  case 'form': {
-    if (el.nodeName === 'FORM') {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'form': {
+      if (el.nodeName === 'FORM') {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // main role must only have one on page, must not be a main element
-  case 'main': {
-    if (el.nodeName === 'MAIN') { //<-- how to check for more than one?
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'main': {
+      if (el.nodeName === 'MAIN') { //<-- how to check for more than one?
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // navigation role must only have one on page, must not be a nav element
-  case 'navigation': {
-    if (el.nodeName === 'NAV') { //<-- how to check for more than one?
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'navigation': {
+      if (el.nodeName === 'NAV') { //<-- how to check for more than one?
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // region role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
-  case 'region': {
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    console.log('REGION:', label, labelledby);
-    if ((!label && !labelledby) || (label && labelledby)) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'region': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      if ((!label && !labelledby) || (label && labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // search role ??? 
 
@@ -347,6 +347,15 @@ function checkAriaRoles() {
   // log role (used where content may change i.e. chatbox, feed, message history, etc) ???
 
   // marquee role (non-essential info that changes freq.) requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
+  case 'marquee': {
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    if ((!label && !labelledby) || (label && labelledby)) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // status role (not important enough to be an alert) - no tests to cover?
 
@@ -354,13 +363,34 @@ function checkAriaRoles() {
 
   // WINDOW ROLES
   // alertdialog role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH) AND attr aria-describedby AND must be a modal
+  case 'alertdialog': {
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    const describedby = el.getAttribute('aria-describedby');
+    console.log('DIALOG:', label, labelledby);
+    if ((!label && !labelledby) || (label && labelledby)) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // dialog role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
+  case 'dialog': {
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    if ((!label && !labelledby) || (label && labelledby)) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // ABSTRACT ROLES: for browsers and dom org ONLY, not assigned by author
 
   // avoid using the following roles: application, article, cell, columnheader, definition, directory, document, figure, group, heading, img, list, listitem, meter, row, rowgroup, rowheader, seperator, table, term, button, checkbox, gridcell, link, menuitem, menuitemcheckbox, menuitemradio, option, progressbar, radio, textbox, grid, listbox, radiogroup, command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget, and window.
 
+  
     }
   });
 
