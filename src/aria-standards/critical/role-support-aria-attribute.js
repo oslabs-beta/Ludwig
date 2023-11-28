@@ -258,9 +258,9 @@ function checkAriaRoles() {
           ariaOwns = true;
         }
       });
-      console.log('TAB:', parentRole);
-      console.log('arr + aria-owns:', aoArr, ariaOwns);
-      console.log('id:', id);
+      // console.log('TAB:', parentRole);
+      // console.log('arr + aria-owns:', aoArr, ariaOwns);
+      // console.log('id:', id);
       if (parentRole !== 'tablist' && !ariaOwns) {
         roleSupportLines.push(el.nodeName);
         // roleSupportLines.push(lineNumber);
@@ -269,6 +269,23 @@ function checkAriaRoles() {
     }
 
   // tabpanel role indicates the element is a container for the resources associated with a tab role, where each tab is contained in a tablist.
+    case 'tabpanel': {
+      const labelledby = el.getAttribute('aria-labelledby');
+      // console.log('TABPANEL:', labelledby);
+      // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
+      const tabsIdArr = [];
+      elementRoles.forEach((el) => {
+        if (el[3] === 'tab') {
+          tabsIdArr.push(el[0].getAttribute('id'));
+        }
+      });
+      // console.log('Tabs Id Arr:', tabsIdArr);
+      if (!tabsIdArr.includes(labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
+    }
 
   // treeitem role must have a parent node with the role=tree
     case 'treeitem': {
@@ -310,6 +327,21 @@ function checkAriaRoles() {
     }
 
   // tablist role is the parent element for nodes containing role of tab or tabpanel
+  case 'tablist': {
+    const childRoles = Array.from(children, el => el.getAttribute('role'));
+    let nonTabs = false;
+    childRoles.forEach(el => {
+      if (el !== 'tab' && el !== 'tabpanel') {
+        nonTabs = true;
+      }
+    });
+    // console.log('childRoles:', childRoles);
+    if (children.length === 0 || nonTabs) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // tree role must have children nodes with the role=treeitem
     case 'tree': {
