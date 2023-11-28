@@ -11,21 +11,25 @@ const htmlCode = `
   </head>
   <body>
     <header aria-hidden="true" role="heading">This is the header!</header>
+    <input role="searchbox" label="search">
     <div class="link container" role="menubar">
       <a href="https://www.example.com">Click me</a>
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
     <p role="math">a + b = c</p>
+    <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
     <div role="toolbar">
       <p>A tip!</p>
       <p>Another tip.</p>
       <p>More tips!!</p>
     </div>
+    <button role="switch" aria-checked="false"></button>
     <div id="duplicate">Something</div>
     <input id="duplicate" type="button" role="button">
     <div>GorbleGorble</div>
     <button name='button' role='button'>clickclickclick</button>
+    <img src="someurl.jpg" role="presentation" aria-label="img of lake"/>
     <div role="feed">
       <p>An article full of really cool info.</p>
     </div>
@@ -110,20 +114,72 @@ function checkAriaRoles() {
     break;
   }
 
-  // presentation role (ignores semantic html and on nested children except for input and links) ??
+  // presentation role should not have accccessible name as it and its children are 'hidden'; should not have attributes: aria-labelledby or aria-label
+  case 'presentation': {
+    const label = el.getAttribute('aria-label');
+    const labelledby = el.getAttribute('aria-labelledby');
+    if (label || labelledby) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // note role has content which is parenthetic or ancillary to the main content
+  // case 'note': {
+  //   if () {
+  //     roleSupportLines.push(el.nodeName);
+  //     // roleSupportLines.push(lineNumber);
+  //   }
+  //   break;
+  // }
 
   // WIDGET ROLES
   // scrollbar role has two required attributes: aria-controls and aria-valuenow
+  case 'scrollbar': {
+    const controls = el.getAttribute('aria-controls');
+    const valueNow = el.getAttribute('aria-valuenow');
+    if (!controls || !valueNow) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
-  // searchbar role is type input and with either type='search' or an associated label
+  // searchbox role is type input and with either type='search' or an associated label
+  case 'searchbox': {
+    const label = el.getAttribute('aria-label');
+    const type = el.getAttribute('type');
+    // console.log('SEARCHBOX:', label);
+    if (el.nodeName !== 'INPUT' || type !== 'search' || (!type && !label)) { //<--NEED TO FIX STILL!
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // slider role defines an input where the user selects a value from within a given range
+  case 'slider': {
+    const valueNow = el.getAttribute('aria-valuenow');
+    if (!valueNow) {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // spinbutton role ???
 
   // switch role has the aria-checked attribute as required
+  case 'switch': {
+    const checked = el.getAttribute('aria-checked');
+    console.log('SWITCH:', checked);
+    if (!checked || (checked !== 'true' || checked !== 'false')) { //<--NEED TO FIX STILL!
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+    }
+    break;
+  }
 
   // tab role are elements that must either be a child of an element with the tablist role, or have their id as part of the aria-owns property of a tablist
 
