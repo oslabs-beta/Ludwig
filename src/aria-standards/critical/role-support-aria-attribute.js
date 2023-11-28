@@ -24,7 +24,8 @@ const htmlCode = `
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
-    <img role="math">a + b = c</p>
+    <img role="math" src="someurl.jpg">
+    <p role="math" aria-label="math-text">
     <div role="region" aria-label="Example"></div>
     <article role="marquee" aria-labelledby="example"></article>
     <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
@@ -180,9 +181,9 @@ function checkAriaRoles() {
   // math role must either be an img or must use aria-label to provide a string that represents the expression
     case 'math': {
       const label = el.getAttribute('aria-label');
-      // if (element is not an image) --> if (label doesn't exist OR label is empty string) --> push into err arr
-      if (el.nameNode !== 'IMG' || (!label || label === '')) { //<--still need to fix!
-        roleSupportLines.push(el);
+      const tagName = el.nodeName;
+      if (tagName !== 'IMG' && !label) {
+          roleSupportLines.push(el);
       }
       break;
     }
@@ -730,9 +731,8 @@ function checkAriaRoles() {
   });
 
   console.log('roleSupportLines:', roleSupportLines);
-  roleSupportLines.forEach(el => console.log('error EL:', el.nodeName));
+  // roleSupportLines.forEach(el => console.log('error EL:', el.nodeName));
 
 }
 
-// BEFORE PUSHING A LAST COMMIT --> CHANGE ALL PUSH el.nodeName to just el
 checkAriaRoles();
