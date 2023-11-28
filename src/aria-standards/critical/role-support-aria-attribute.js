@@ -347,15 +347,15 @@ function checkAriaRoles() {
   // log role (used where content may change i.e. chatbox, feed, message history, etc) ???
 
   // marquee role (non-essential info that changes freq.) requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
-  case 'marquee': {
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    if ((!label && !labelledby) || (label && labelledby)) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'marquee': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      if ((!label && !labelledby) || (label && labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // status role (not important enough to be an alert) - no tests to cover?
 
@@ -363,33 +363,262 @@ function checkAriaRoles() {
 
   // WINDOW ROLES
   // alertdialog role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH) AND attr aria-describedby AND must be a modal
-  case 'alertdialog': {
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    const describedby = el.getAttribute('aria-describedby');
-    console.log('DIALOG:', label, labelledby);
-    if ((!label && !labelledby) || (label && labelledby)) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'alertdialog': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      const describedby = el.getAttribute('aria-describedby');
+      console.log('DIALOG:', label, labelledby);
+      if ((!label && !labelledby) || (label && labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // dialog role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH)
-  case 'dialog': {
-    const label = el.getAttribute('aria-label');
-    const labelledby = el.getAttribute('aria-labelledby');
-    if ((!label && !labelledby) || (label && labelledby)) {
-      roleSupportLines.push(el.nodeName);
-      // roleSupportLines.push(lineNumber);
+    case 'dialog': {
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      if ((!label && !labelledby) || (label && labelledby)) {
+        roleSupportLines.push(el.nodeName);
+        // roleSupportLines.push(lineNumber);
+      }
+      break;
     }
-    break;
-  }
 
   // ABSTRACT ROLES: for browsers and dom org ONLY, not assigned by author
 
   // avoid using the following roles: application, article, cell, columnheader, definition, directory, document, figure, group, heading, img, list, listitem, meter, row, rowgroup, rowheader, seperator, table, term, button, checkbox, gridcell, link, menuitem, menuitemcheckbox, menuitemradio, option, progressbar, radio, textbox, grid, listbox, radiogroup, command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget, and window.
-
+    case 'application': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'article': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'cell': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'columnheader': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'definition': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'directory': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'document': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'figure': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'group': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'heading': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'img': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'list': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'listitem': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'meter': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'row': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'rowgroup': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'rowheader': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'seperator': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'table': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'term': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'button': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'checkbox': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'gridcell': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'link': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'menuitem': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'menuitemcheckbox': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'menuitemradio': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'option': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'progressbar': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'radio': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'textbox': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'grid': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'listbox': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'radiogroup': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'command': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'composite': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'input': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'landmark': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'range': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'roletype': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'section': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'sectionhead': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'select': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'structure': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'widget': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
+    case 'window': {
+      roleSupportLines.push(el.nodeName);
+      // roleSupportLines.push(lineNumber);
+      break;
+    }
   
     }
   });
