@@ -17,13 +17,14 @@ const htmlCode = `
       <p>Home</p>
       <p>Contact</p>
     </div>
-    <input role="searchbox" label="search">
+    <label for="search-box">
+    <input role="searchbox" id="search-box">
     <div class="link container" role="menubar">
       <a href="https://www.example.com">Click me</a>
       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
       <a aria-label="Click me" href="https://www.example.com">Click me</a>
     </div>
-    <p role="math">a + b = c</p>
+    <img role="math">a + b = c</p>
     <div role="region" aria-label="Example"></div>
     <article role="marquee" aria-labelledby="example"></article>
     <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
@@ -127,15 +128,11 @@ const defaultMsg = {};
 function checkAriaRoles() {
   // compile all html elements into node list
   const allElement = ludwig.querySelectorAll('*');
-  // console.log(allElement);
-
-  // add lineNumber variable - pass in document to figure out line logic
 
   // array to hold output of the line numbers of failed html tests  
   const roleSupportLines = [];
 
   // extract roles from every element
-  // what to do if role does not exist? 
   const elementRoles = [];
   allElement.forEach((el) => {
     const item = [el, el.parentElement, el.children];
@@ -183,13 +180,13 @@ function checkAriaRoles() {
   // math role must either be an img or must use aria-label to provide a string that represents the expression
     case 'math': {
       const label = el.getAttribute('aria-label');
-      if (el.nameNode !== 'IMG' || !label || label === '') {
+      if (el.nameNode !== 'IMG' || (!label || label === '')) { //<--still need to fix!
         roleSupportLines.push(el);
       }
       break;
     }
 
-  // presentation role should not have accccessible name as it and its children are 'hidden'; should not have attributes: aria-labelledby or aria-label
+  // presentation role should not have accessible name as it and its children are 'hidden'; should not have attributes: aria-labelledby or aria-label
     case 'presentation': {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
@@ -202,8 +199,7 @@ function checkAriaRoles() {
   // note role has content which is parenthetic or ancillary to the main content
   // case 'note': {
   //   if () {
-  //     roleSupportLines.push(el.nodeName);
-  //     // roleSupportLines.push(lineNumber);
+  //     roleSupportLines.push(el);
   //   }
   //   break;
   // }
@@ -221,10 +217,30 @@ function checkAriaRoles() {
 
   // searchbox role is type input and with either type='search' or an associated label
     case 'searchbox': {
-      const label = el.getAttribute('aria-label');
       const type = el.getAttribute('type');
-      // console.log('SEARCHBOX:', label);
-      if (el.nodeName !== 'INPUT' || type !== 'search' || (!type && !label)) { //<--NEED TO FIX STILL!
+      const label = el.getAttribute('aria-label');
+      const labelledby = el.getAttribute('aria-labelledby');
+      const id = el.getAttribute('id');
+      // search for label 'for' - match to id from searchbox
+      const labelForArr = [];
+      elementRoles.forEach((el) => {
+        if (el[0].nodeName === 'LABEL') {
+          labelForArr.push(el[0].getAttribute('for'));
+        }
+      });
+      // check attr: id for match in labels arr
+      let forIDMatch = false;
+      labelForArr.forEach(el => {
+        if (el === id) {
+          forIDMatch = true;
+        }
+      });
+      console.log('el:', el.nodeName);
+      console.log('id:', id);
+      console.log('forIDMatch:', forIDMatch);
+      console.log('SEARCHBOX labels arr:', labelForArr);
+      // if (type is input & id doesn't match) --> if (type is input & type doesn't equal 'search) --> if (no labelledby or label exists) --> push to error arr
+      if ((el.nodeName === 'INPUT' && !forIDMatch) || (el.nodeName === 'INPUT' && type !== 'search') || (!labelledby && !label)) { //<--NEED TO FIX STILL!
         roleSupportLines.push(el.nodeName);
       }
       break;
@@ -353,7 +369,7 @@ function checkAriaRoles() {
   // tree role must have children nodes with the role=treeitem
     case 'tree': {
       const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
-      if (children.length === 0 || childRole !== 'tree') {
+      if (children.length === 0 || childRole !== 'treeitem') {
         roleSupportLines.push(el);
       }
       break;
@@ -711,6 +727,7 @@ function checkAriaRoles() {
   });
 
   console.log('roleSupportLines:', roleSupportLines);
+  roleSupportLines.forEach(el => console.log('error EL:', el.nodeName));
 
 }
 
