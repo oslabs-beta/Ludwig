@@ -92,7 +92,7 @@ export function activate(context: vscode.ExtensionContext) {
             const wordRange = document.getWordRangeAtPosition(position); 
 
             if (wordRange) { //checks if the cursor is currently on a word or letter
-                const word = document.getText(wordRange).toLowerCase(); //gets only the text of current word being hovered over
+                const hoveredWord = document.getText(wordRange).toLowerCase(); //gets only the text of current word being hovered over
                 // console.log(word);
 
                 //is an array where each element is a vscode.Range Object representing the range of the highlighted line
@@ -102,31 +102,27 @@ export function activate(context: vscode.ExtensionContext) {
                 
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
-                    const highlightedLine = document.getText(wordRange);                    
-                    compileLogic()
-                    .then((ariaRecommendations : object) => {//gets an object with {key= each element that failed, value =  associated recommendation}
+                    for (const range of highlightedRanges){
+                        const lineRange = new vscode.Range(range.start.line, 0, range.end.line, document.lineAt(range.end.line).text.length);
+                        const lineText = document.getText(lineRange).trim();
+                        // console.log('highlighted line:', lineText);
 
-                        // for(const rec in ariaRecommendations){
-                        //     for(let i = 0; i < highlightedRanges.length; i++) {
-                        //         const highlightedLine = document.getText(highlightedRanges[i]).trim();
-                        //         if(rec === highlightedLine) {
-                        //             // console.log(`${rec} = ${highlightedLine}`);
-                        //             console.log(ariaRecommendations[rec]);
-                        //             // const recommendations = `Ludwig Recommends:\n\n ${ariaRecommendations[rec]}.`;
+                        // if(lineText.includes(hoveredWord)) { //checks if the highlighted line
+                            // console.log(`${lineText} HAS ${hoveredWord}`);
 
-                        //         }
-                        //     }
+                            return compileLogic()
+                                .then((ariaRecommendations : object) => {//gets an object with {key= each element that failed, value =  associated recommendation}
+                                    const recommendation = ariaRecommendations[lineText];
+                                    // console.log('ariaRecommendation',ariaRecommendations);
+                                    // console.log('recommendation',recommendation);
+                                    const displayedRec = `${recommendation}`;
+                                    const displayedLink = `[Read More](https://developer.mozilla.org/en-US/docs/Web/Accessibility)`;
+                                    const hoverMessage = new vscode.MarkdownString();
+                                    hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
+                                    return new vscode.Hover(hoverMessage, lineRange);
+                                });
                         // }
-
-                    });
-
-                        const recommendations = `Ludwig Recommends:\n\n Update the element to conform to ARIA standards.`;
-                        const readMoreLink = `[Read More](https://developer.mozilla.org/en-US/docs/Web/Accessibility)`;
-
-                        const hoverMessage = new vscode.MarkdownString();
-                        hoverMessage.appendMarkdown(`${recommendations}\n\n${readMoreLink}`);
-
-                        return new vscode.Hover(hoverMessage, wordRange);
+                    }
                 }
             }
 
