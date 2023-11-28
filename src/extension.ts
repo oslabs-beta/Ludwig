@@ -104,12 +104,12 @@ export function activate(context: vscode.ExtensionContext) {
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 // if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     for (const range of highlightedRanges){ 
-                        const lineText = document.getText(range).trim();
+                        const lineText = document.getText(range).trim(); //get the current highlighted line text
                         
-                        if(lineText === hoveredLineText) { //checks if the highlighted line has the currently hovered word
+                        if(lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
                             // console.log('highlighted line:', lineText);
 
-                            return compileLogic()//gets an object with {key= each element that failed, value =  associated recommendation object(?)}
+                            return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : object) => {
                                     const recommendation = ariaRecommendations[lineText];
                                     const displayedRec = `${recommendation}`;
