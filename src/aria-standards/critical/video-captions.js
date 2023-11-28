@@ -1,4 +1,3 @@
-
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 
@@ -32,4 +31,4 @@ function videoCaptions() {
 
 module.exports = {
   videoCaptions
-}
+};

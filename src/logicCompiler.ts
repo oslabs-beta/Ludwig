@@ -7,8 +7,11 @@ const { checkImgAltText } = require('./aria-standards/critical/img-alt-text.js')
 const { inputButtonText } = require('./aria-standards/critical/input-button.js');
 const { checkMetaHttpRefresh } = require('./aria-standards/critical/meta-http-equiv-refresh.js');
 const { checkMetaViewportTextResize } = require('./aria-standards/critical/meta-viewport-text-zoom.js');
+const { selectName } = require('./aria-standards/critical/select-name.js');
 const { checkUniqueIds } = require('./aria-standards/critical/unique-ids.js');
-
+const { videoCaptions } = require('./aria-standards/critical/video-captions.js');
+// import object with links and descriptions
+const ariaObject = require('./aria-standards/critical/aria-object.js');
 
 export interface AriaRecommendations {
     [key: string]: string;
@@ -73,6 +76,13 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
         ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
     });
 
+    // select-name
+    const selectArray = await selectName();
+
+    selectArray.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+    });
+
     // unique-ids
     const duplicateElements = await checkUniqueIds();
 
@@ -80,5 +90,13 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
         ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
     });
 
+    // video-captions
+    const videosArray = await videoCaptions();
+
+    videosArray.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+    });
+
+    // RETURN FINAL OBJECT
     return ariaRecommendations;
 }

@@ -1,4 +1,4 @@
-const ariaObject = {
+export const ariaObject = {
 
     areaAltText: {
         link: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H24.html',
