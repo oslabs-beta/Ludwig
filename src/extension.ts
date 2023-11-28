@@ -92,38 +92,36 @@ export function activate(context: vscode.ExtensionContext) {
             const wordRange = document.getWordRangeAtPosition(position); 
 
             if (wordRange) { //checks if the cursor is currently on a word or letter
-                const hoveredWord = document.getText(wordRange).toLowerCase(); //gets only the text of current word being hovered over
-                // console.log(word);
+                const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
+                // console.log('hovered Word :', hoveredWord);
+                const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
+                const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
+                // console.log('hovered Line :',hoveredLineText);
 
                 //is an array where each element is a vscode.Range Object representing the range of the highlighted line
                 const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
-
-                // console.log(document.getText(highlightedRanges[0])); //gets the text of the highlighted line (first line only)
                 
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
-                if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
-                    for (const range of highlightedRanges){
-                        const lineRange = new vscode.Range(range.start.line, 0, range.end.line, document.lineAt(range.end.line).text.length);
-                        const lineText = document.getText(lineRange).trim();
-                        // console.log('highlighted line:', lineText);
+                // if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
+                    for (const range of highlightedRanges){ 
+                        const lineText = document.getText(range).trim();
+                        
+                        if(lineText === hoveredLineText) { //checks if the highlighted line has the currently hovered word
+                            // console.log('highlighted line:', lineText);
 
-                        if(lineText.includes(hoveredWord)) { //checks if the highlighted line
-                            // console.log(`${lineText} HAS ${hoveredWord}`);
-
-                            return compileLogic()
-                                .then((ariaRecommendations : object) => {//gets an object with {key= each element that failed, value =  associated recommendation}
+                            return compileLogic()//gets an object with {key= each element that failed, value =  associated recommendation object(?)}
+                                .then((ariaRecommendations : object) => {
                                     const recommendation = ariaRecommendations[lineText];
-                                    // console.log('ariaRecommendation',ariaRecommendations);
-                                    // console.log('recommendation',recommendation);
                                     const displayedRec = `${recommendation}`;
-                                    const displayedLink = `[Read More](https://developer.mozilla.org/en-US/docs/Web/Accessibility)`;
+                                    // console.log('Display recommendation:',displayedRec);
+                                    const displayedLink = `[Read More](https://developer.mozilla.org/en-US/docs/Web/Accessibility)`; //need associated link
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
-                                    return new vscode.Hover(hoverMessage, lineRange);
+                                    return new vscode.Hover(hoverMessage, wordRange);
                                 });
                         }
                     }
-                }
+                // }
             }
 
             return null;
