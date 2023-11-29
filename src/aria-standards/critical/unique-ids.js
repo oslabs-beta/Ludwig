@@ -20,7 +20,7 @@ function checkUniqueIds() {
       const id = element.id;
 
       if (idSet.has(id)) {
-        console.error(`Duplicate id found: ${id}`);
+        // console.error(`Duplicate id found: ${id}`);
         // Store the element with duplicate id in the array
         duplicateElements.push(element.outerHTML);
       } else {

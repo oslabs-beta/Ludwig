@@ -12,18 +12,18 @@ function checkMetaHttpRefresh() {
     const ludwig = document.body;
 
     const meta = document.querySelectorAll('meta');
-    console.log(meta);
+    // console.log(meta);
 
     const metaWrongContent = [];
     
     // check if each el has http-equiv attribute
     meta.forEach((el, i) => {
       const httpEquiv = el.getAttribute('http-equiv');
-      console.log('http-equiv', httpEquiv);
+      // console.log('http-equiv', httpEquiv);
 
       // each content attr must have a value that has a number that is 0
       const content = el.getAttribute('content');
-      console.log('content', content);
+      // console.log('content', content);
 
       if (httpEquiv === 'refresh') {
         // if content does not exist, does not begin with the number 0 or is not followed by "URL="

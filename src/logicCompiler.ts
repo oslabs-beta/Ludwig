@@ -10,11 +10,12 @@ const { checkMetaViewportTextResize } = require('./aria-standards/critical/meta-
 const { selectName } = require('./aria-standards/critical/select-name.js');
 const { checkUniqueIds } = require('./aria-standards/critical/unique-ids.js');
 const { videoCaptions } = require('./aria-standards/critical/video-captions.js');
-// import object with links and descriptions
-const ariaObject = require('./aria-standards/critical/aria-object.js');
+
+const { ariaObject } = require('./aria-standards/critical/aria-object.js');
+
 
 export interface AriaRecommendations {
-    [key: string]: string;
+    [key: string]: object;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
@@ -24,77 +25,78 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.anchorLabel;
     });
 
     // area-maps-alt-text
     const areaMapsWithoutAltText = await checkAreaMapAltText();
 
     areaMapsWithoutAltText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
+        ariaRecommendations[element] = ariaObject.areaAltText;
+      });
 
     // aria-hidden
     const hiddenAria = await checkAriaHidden();
 
     hiddenAria.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
+        ariaRecommendations[element] = ariaObject.ariaHidden;
+      });
 
     // button-text
     const buttonText = await checkButtonText();
 
     buttonText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
-
-    // img-alt-text
-    const imgAlts = await checkImgAltText();
-    
-    imgAlts.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
-
-    // input-button
-    const inputButtonsWithoutText = await inputButtonText();
-
-    inputButtonsWithoutText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
-
-    // meta-http-equiv-refresh
-    const metaWrongContent = await checkMetaHttpRefresh();
-
-    metaWrongContent.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
-
-    // meta-viewport-text-zoom
-    const metaViewportElements = await checkMetaViewportTextResize();
-
-    metaViewportElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
-    });
-
-    // select-name
-    const selectArray = await selectName();
-
-    selectArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.discernibleButtonText;
     });
 
     // unique-ids
     const duplicateElements = await checkUniqueIds();
 
     duplicateElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.uniqueIDs;
+      });
+
+    // img alt text
+    const imgAlts = await checkImgAltText();
+    
+    imgAlts.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.imageAlts;
     });
+
+    // input-button
+    const inputButtonsWithoutText = await inputButtonText();
+
+    inputButtonsWithoutText.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.inputButton;
+    });
+
+    // meta-http-equiv-refresh
+    const metaWrongContent = await checkMetaHttpRefresh();
+
+    metaWrongContent.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
+    });
+
+    // meta-viewport-text-zoom
+    const metaViewportElements = await checkMetaViewportTextResize();
+
+    metaViewportElements.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.metaViewport;
+      });
+
+    // select-name
+    const selectArray = await selectName();
+
+    selectArray.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.selectHasAccessName;
+    });
+
 
     // video-captions
     const videosArray = await videoCaptions();
 
     videosArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.videoCaptions;
     });
 
     // RETURN FINAL OBJECT
