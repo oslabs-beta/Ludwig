@@ -23,7 +23,7 @@ function evalAnchors() {
       // could push missing anchors into an object for more intentional use 
       // could inlcude logic to make sure the aria-label matches content 
       if (!ariaLabel) {
-        console.log(`Link ${index + 1} is missing aria-label`);
+        // console.log(`Link ${index + 1} is missing aria-label`);
         anchorsWithoutAriaLabel.push(link.outerHTML); // push here
       }
     });
