@@ -102,7 +102,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
                 
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
-                // if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
+                if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     for (const range of highlightedRanges){ 
                         const lineText = document.getText(range).trim(); //get the current highlighted line text
                         
@@ -110,7 +110,7 @@ export function activate(context: vscode.ExtensionContext) {
                             // console.log('highlighted line:', lineText);
 
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
-                                .then((ariaRecommendations : object) => {
+                                .then((ariaRecommendations : {[key: string]: any}) => {
                                     const recommendation = ariaRecommendations[lineText];
                                     const displayedRec = `Luwig Recommendation:\n\n${recommendation.desc}`;
                                     // console.log('Display recommendation:',displayedRec);
@@ -121,7 +121,7 @@ export function activate(context: vscode.ExtensionContext) {
                                 });
                         }
                     }
-                // }
+                }
             }
 
             return null;

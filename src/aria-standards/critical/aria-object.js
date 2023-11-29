@@ -2,7 +2,7 @@ const ariaObject = {
 
   areaAltText: {
       link: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H24.html',
-      desc: '<area> elements of image maps should have alternate text.'
+      desc: '```<area>``` elements of image maps should have alternate text.'
   },
 
   elementRole: {
@@ -14,7 +14,7 @@ const ariaObject = {
 
   ariaHidden: {
       link: 'https://www.w3.org/TR/wai-aria-1.1/#aria-hidden ',
-      desc: 'Aria-hidden=”true” should not be present on the document body.'
+      desc: '```Aria-hidden=”true”``` should not be present on the document body.'
   },
 
   requiredAttributes: {
@@ -63,7 +63,7 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H67.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA10.html'
       ],
-      desc: '<img> elements require alternate text or a role of none or presentation.'
+      desc: '```<img>``` elements require alternate text or a role of none or presentation.'
   },
 
   inputButton: {
@@ -118,7 +118,7 @@ const ariaObject = {
   },
 
   anchorLabel: {
-    link: 'https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA8.html',
+    link: 'https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA8.html',
     desc: 'Provide an aria-label attribute with a descriptive text label on a link.'
   },
 
