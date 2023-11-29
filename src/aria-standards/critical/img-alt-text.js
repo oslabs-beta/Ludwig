@@ -34,3 +34,4 @@ function checkImgAltText() {
 module.exports = {
   checkImgAltText
 };
+
