@@ -96,12 +96,12 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H76.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/failures/F41.html'
       ],
-      desc: '<meta http-equiv=”refresh”> should not be used for delayed refresh.'
+      desc: '```<meta http-equiv=”refresh”>``` should not be used for delayed refresh.'
   },
 
   metaViewport: {
       link: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html',
-      desc: '<meta name=”viewport”> should not disable text scaling and zooming.'
+      desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
   },
 
   selectHasAccessName: {
