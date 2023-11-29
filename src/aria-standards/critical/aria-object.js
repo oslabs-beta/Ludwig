@@ -76,7 +76,7 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/failures/F65.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H36.html'
       ],
-      desc: '<input type=”image”> elements require alternative text.'
+      desc: '```<input type=”image”>``` elements require alternative text.'
   },
 
   formsHaveLabels: {
@@ -96,12 +96,12 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H76.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/failures/F41.html'
       ],
-      desc: '<meta http-equiv=”refresh”> should not be used for delayed refresh.'
+      desc: '```<meta http-equiv=”refresh”>``` should not be used for delayed refresh.'
   },
 
   metaViewport: {
       link: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html',
-      desc: '<meta name=”viewport”> should not disable text scaling and zooming.'
+      desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
   },
 
   selectHasAccessName: {
@@ -114,7 +114,7 @@ const ariaObject = {
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G87.html',
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G93.html'
       ],
-      desc: '<video> elements have captions.'
+      desc: '```<video>``` elements have captions.'
   },
 
   anchorLabel: {
