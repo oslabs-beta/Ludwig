@@ -2,13 +2,11 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 const { compileLogic } = require('./logicCompiler.ts');
 
-
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ludwig" is now active!');
 
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
-    // const ariaObject = new Map<string, object>(); // test map - can it take object like this?
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
@@ -24,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>(); // this will be used to not highlight the same thing more than once
+            const highlightedLines = new Set<number>();
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
@@ -36,9 +34,6 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-
-                console.log(`Line ${lineNumber + 1}: '${key}'`); // displays keys on respective lines - might help later for webview
-
                 if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
                     // Create a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
@@ -55,7 +50,6 @@ export function activate(context: vscode.ExtensionContext) {
 
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
-            // ariaObject.set('recInfo', ariaRecommendations); // setting test object
         }
     }
     
@@ -94,24 +88,43 @@ export function activate(context: vscode.ExtensionContext) {
     // Hover provider to show a popup window with ARIA recommendations
     let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'html' }, {
         provideHover(document, position, token) {
-            const wordRange = document.getWordRangeAtPosition(position, /<\w+>/);
-            if (wordRange) {
-                const word = document.getText(wordRange).toLowerCase(); // Convert to lowercase for case-insensitive check
+            //is a vscode.Range (which is an obj) of whatever word that the cursor is currently positioned over. Range auto separates by spaces.
+            const wordRange = document.getWordRangeAtPosition(position); 
 
-                // Check if the element has been highlighted
-                const highlightedRanges = highlightedElements.get('ariaRecommendations');
+            if (wordRange) { //checks if the cursor is currently on a word or letter
+                const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
+                // console.log('HOVERED WORD :', hoveredWord);
+                const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
+                const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
+                // console.log('HOVERED LINE :',hoveredLineText);
 
-                // // possible method for retrieving object with necessary properties
-                // const ariaInfo = ariaObject.get('recInfo');
-
+                //is an array where each element is a vscode.Range Object representing the range of the highlighted line
+                const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
+                
+                //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
-                    // Define the ARIA recommendation information based on the highlighted element
-                    const ariaRecommendationInfo = 'ARIA recommendation: [info to be defined later]';
+                    for (const range of highlightedRanges){ 
+                        const lineText = document.getText(range).trim(); //get the current highlighted line text
+                        
+                        if(lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
+                            // console.log('highlighted line:', lineText);
 
-                    const hoverMessage = new vscode.MarkdownString(ariaRecommendationInfo);
-                    return new vscode.Hover(hoverMessage, wordRange);
+                            return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
+                                .then((ariaRecommendations : {[key: string]: any}) => {
+                                    // console.log('ARIA RECS :',ariaRecommendations);
+                                    const recommendation = ariaRecommendations[lineText];
+                                    const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
+                                    // console.log('DISPLAYED REC:',recommendation.desc);
+                                    const displayedLink = `[Read More](${recommendation.link})`; //TO DO: need logic to handle if its an array of links.
+                                    const hoverMessage = new vscode.MarkdownString();
+                                    hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
+                                    return new vscode.Hover(hoverMessage, wordRange);
+                                });
+                        }
+                    }
                 }
             }
+
             return null;
         }
     });

@@ -21,7 +21,7 @@ function checkImgAltText() {
 
     img.forEach((img, index) => {
       const altText = img.getAttribute('alt');
-      console.log('alt text', altText);
+      // console.log('alt text', altText);
 
       if (!altText) {
           imgAlt.push(img.outerHTML);
