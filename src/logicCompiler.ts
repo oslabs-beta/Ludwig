@@ -67,14 +67,14 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const inputButtonsWithoutText = await inputButtonText();
 
     inputButtonsWithoutText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.inputButton;
     });
 
     // meta-http-equiv-refresh
     const metaWrongContent = await checkMetaHttpRefresh();
 
     metaWrongContent.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
     });
 
     // meta-viewport-text-zoom
@@ -88,7 +88,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const selectArray = await selectName();
 
     selectArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.selectHasAccessName;
     });
 
 
@@ -96,7 +96,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const videosArray = await videoCaptions();
 
     videosArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = 'ARIA Recommendation: [info to be defined later]';
+        ariaRecommendations[element] = ariaObject.videoCaptions;
     });
 
     // RETURN FINAL OBJECT

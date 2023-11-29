@@ -93,10 +93,10 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (wordRange) { //checks if the cursor is currently on a word or letter
                 const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
-                // console.log('hovered Word :', hoveredWord);
+                // console.log('HOVERED WORD :', hoveredWord);
                 const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
                 const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
-                // console.log('hovered Line :',hoveredLineText);
+                // console.log('HOVERED LINE :',hoveredLineText);
 
                 //is an array where each element is a vscode.Range Object representing the range of the highlighted line
                 const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
@@ -111,9 +111,10 @@ export function activate(context: vscode.ExtensionContext) {
 
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : {[key: string]: any}) => {
+                                    // console.log('ARIA RECS :',ariaRecommendations);
                                     const recommendation = ariaRecommendations[lineText];
                                     const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
-                                    // console.log('Display recommendation:',displayedRec);
+                                    // console.log('DISPLAYED REC:',recommendation.desc);
                                     const displayedLink = `[Read More](${recommendation.link})`; //TO DO: need logic to handle if its an array of links.
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);

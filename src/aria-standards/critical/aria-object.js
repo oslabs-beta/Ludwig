@@ -14,7 +14,7 @@ const ariaObject = {
 
   ariaHidden: {
       link: 'https://www.w3.org/TR/wai-aria-1.1/#aria-hidden ',
-      desc: '```Aria-hidden=”true”``` should not be present on the document body.'
+      desc: '```aria-hidden=”true”``` should not be present on the document body.'
   },
 
   requiredAttributes: {
