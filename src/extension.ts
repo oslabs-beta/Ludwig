@@ -114,7 +114,7 @@ export function activate(context: vscode.ExtensionContext) {
                                     const recommendation = ariaRecommendations[lineText];
                                     const displayedRec = `Luwig Recommendation:\n\n${recommendation.desc}`;
                                     // console.log('Display recommendation:',displayedRec);
-                                    const displayedLink = `[Read More](${recommendation.link})`;
+                                    const displayedLink = `[Read More](${recommendation.link})`; //TO DO: need logic for if the links are in an array.
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                     return new vscode.Hover(hoverMessage, wordRange);

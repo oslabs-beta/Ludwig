@@ -19,7 +19,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.elementRole; //UPDATE THIS
+        ariaRecommendations[element] = ariaObject.anchorLabel;
     });
 
     // area-maps-alt-text

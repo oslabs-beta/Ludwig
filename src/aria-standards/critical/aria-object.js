@@ -115,7 +115,12 @@ const ariaObject = {
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G93.html'
       ],
       desc: '<video> elements have captions.'
-  }
+  },
+
+  anchorLabel: {
+    link: 'https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA8.html',
+    desc: 'Provide an aria-label attribute with a descriptive text label on a link.'
+  },
 
 };
 
