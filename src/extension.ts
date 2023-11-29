@@ -52,7 +52,6 @@ export function activate(context: vscode.ExtensionContext) {
             highlightedElements.set('ariaRecommendations', highlightedRanges);
         }
     }
-    
 
 
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
@@ -73,21 +72,6 @@ export function activate(context: vscode.ExtensionContext) {
     let highlightCommandDisposable = vscode.commands.registerCommand('ludwig.highlightElements', () => {
         const activeEditor = vscode.window.activeTextEditor;
         if (activeEditor && activeEditor.document.languageId === 'html') {
-            // // Add sound effect
-            // const soundPath = '../assets/beethovens-5th-symphony-text-email-tone-no.mp3';
-            // const soundUri = vscode.Uri.file(soundPath);
-
-            // vscode.window.showInformationMessage('Elements highlighted! Click "Play Sound" to play the sound.', ...['Play Sound'])
-            // .then((selection) => {
-            //     if (selection === 'Play Sound') {
-            //         const panel = vscode.window.createWebviewPanel('audioPlayer', 'Audio Player', vscode.ViewColumn.Active, {
-            //             enableScripts: true
-            //         });
-
-            //         panel.webview.html = `<audio autoplay controls><source src="${panel.webview.asWebviewUri(soundUri)}" type="audio/mp3"></audio>`;
-            //     }
-            // });
-
             const document = activeEditor.document;
             highlightElements(document);
         }
