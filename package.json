@@ -14,7 +14,7 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "languages": [
+    "commands": [
       {
         "command": "ludwig.highlightElements",
         "title": "Ludwig: Compose"
