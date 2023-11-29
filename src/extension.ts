@@ -112,7 +112,7 @@ export function activate(context: vscode.ExtensionContext) {
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : {[key: string]: any}) => {
                                     const recommendation = ariaRecommendations[lineText];
-                                    const displayedRec = `Luwig Recommendation:\n\n${recommendation.desc}`;
+                                    const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                     // console.log('Display recommendation:',displayedRec);
                                     const displayedLink = `[Read More](${recommendation.link})`; //TO DO: need logic for if the links are in an array.
                                     const hoverMessage = new vscode.MarkdownString();
