@@ -10,6 +10,8 @@ const { checkMetaViewportTextResize } = require('./aria-standards/critical/meta-
 const { selectName } = require('./aria-standards/critical/select-name.js');
 const { checkUniqueIds } = require('./aria-standards/critical/unique-ids.js');
 const { videoCaptions } = require('./aria-standards/critical/video-captions.js');
+const { checkLabels } = require('./aria-standards/critical/ARIAlogic.js');
+const { checkAriaRoles } = require('./aria-standards/critical/role-support-aria-attribute.js');
 
 const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
@@ -97,6 +99,20 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
 
     videosArray.forEach((element: string, index: number) => {
         ariaRecommendations[element] = ariaObject.videoCaptions;
+    });
+
+    // ARIAlogic - forms have labels
+    const formArray = await checkLabels();
+
+    formArray.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.formsHaveLabels;
+    });
+
+    // role-support-aria-attribute
+    const roleSupportHtml = await checkAriaRoles();
+
+    roleSupportHtml.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = { WHAT: 'DO WE PUT HERE'}; // REVISIT*******************
     });
 
     // RETURN FINAL OBJECT
