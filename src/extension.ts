@@ -115,7 +115,7 @@ export function activate(context: vscode.ExtensionContext) {
                                     const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                     // console.log('DISPLAYED REC:',recommendation.desc);
                                     const firstLink = recommendation.link instanceof Array ? recommendation.link[0] : recommendation.link;
-                                    const displayedLink = `[Read More](${firstLink})`; //TO DO: need logic to handle if its an array of links.
+                                    const displayedLink = `[Read More](${firstLink})`;
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                     return new vscode.Hover(hoverMessage, wordRange);
