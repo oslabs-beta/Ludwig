@@ -23,9 +23,20 @@
   "viewsContainers": {
     "activitybar": [
       {
-        "id": "ludwigView",
+        "id": "ludwigActivityBar",
         "title": "Ludwig",
-        "icon": "./assets/Ludwig Logo-Icon.png"
+        "icon": "assets/Ludwig-Logo-Icon.png"
+      }
+    ]
+  },
+  "views": {
+    "ludwigActivityBar": [               
+      {
+        "id": "ludwigSidebarView",    
+        "name": "Compose",
+        "contextualTitle": "Ludwig",
+        "webview": "test.html"
+        
       }
     ]
   }
