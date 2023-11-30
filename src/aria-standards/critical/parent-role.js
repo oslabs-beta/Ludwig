@@ -121,7 +121,37 @@ function checkParentRole() {
 
     switch (role) {
 
+      // tab role are elements that must either be a child of an element with the tablist role, or have their id as part of the aria-owns property of a tablist
+      case 'tab': {
+        const parentRole = parent.getAttribute('role');
+        const id = el.getAttribute('id');
+        // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
+        const aoArr = [];
+        elementRoles.forEach((el) => {
+          if (el[3] === 'tablist') {
+            aoArr.push(el[0].getAttribute('aria-owns'));
+          }
+        });
+        let ariaOwns = false;
+        aoArr.forEach(el => {
+          if (el === id) {
+            ariaOwns = true;
+          }
+        });
+        if (parentRole !== 'tablist' && !ariaOwns) {
+          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role']);
+        }
+        break;
+      }
 
+      // treeitem role must have a parent node with the role=tree
+      case 'treeitem': {
+        const parentRole = parent.getAttribute('role');
+        if (parentRole !== 'tree') {
+          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
+        }
+        break;
+      }
 
     }
   });
