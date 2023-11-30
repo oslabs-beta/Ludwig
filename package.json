@@ -19,7 +19,16 @@
         "command": "ludwig.highlightElements",
         "title": "Ludwig: Compose"
       }
+    ],
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "ludwigView",
+        "title": "Ludwig",
+        "icon": "./assets/Ludwig Logo-Icon.png"
+      }
     ]
+  }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
