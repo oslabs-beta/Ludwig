@@ -53,7 +53,7 @@ const ariaObject = {
 
   uniqueIDs: {
       link: 'https://www.w3.org/WAI/WCAG21/Techniques/failures/F77.html',
-      desc: 'IDs used in Aria and Labels must be unique.'
+      desc: 'IDs must be unique.'
   },
 
   imageAlts: {
@@ -76,7 +76,7 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/failures/F65.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H36.html'
       ],
-      desc: '<input type=”image”> elements require alternative text.'
+      desc: '```<input type=”image”>``` elements require alternative text.'
   },
 
   formsHaveLabels: {
@@ -114,7 +114,7 @@ const ariaObject = {
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G87.html',
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G93.html'
       ],
-      desc: '<video> elements have captions.'
+      desc: '```<video>``` elements must have captions.'
   },
 
   anchorLabel: {
