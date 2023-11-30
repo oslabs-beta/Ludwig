@@ -18,6 +18,10 @@
       {
         "command": "ludwig.highlightElements",
         "title": "Ludwig: Compose"
+      },
+      {
+        "command": "ludwig.toggleOff",
+        "title": "Ludwig: Fermata"
       }
     ]
   },

@@ -16,6 +16,8 @@ export function activate(context: vscode.ExtensionContext) {
         backgroundColor: 'rgba(255, 0, 0, 0.2)',
     });
 
+    let isExtensionActive = true;
+
     // Function to highlight lines based on anchors without aria-label
     async function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
@@ -57,30 +59,49 @@ export function activate(context: vscode.ExtensionContext) {
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
     let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
         if (event.document.languageId === 'html') {
-            highlightElements(event.document);
+            if(isExtensionActive){
+                highlightElements(event.document);
+            }
         }
     });
 
     // Register onDidChangeActiveTextEditor event to trigger highlighting when the active editor changes
     let activeEditorChangeDisposable = vscode.window.onDidChangeActiveTextEditor((editor) => {
         if (editor && editor.document.languageId === 'html') {
-            highlightElements(editor.document);
+            if(isExtensionActive){
+                highlightElements(editor.document);
+            }
         }
     });
 
     // Command to trigger the highlighting functionality
     let highlightCommandDisposable = vscode.commands.registerCommand('ludwig.highlightElements', () => {
+        if(!isExtensionActive) {
+            isExtensionActive = true;
+        }
         const activeEditor = vscode.window.activeTextEditor;
         if (activeEditor && activeEditor.document.languageId === 'html') {
             const document = activeEditor.document;
-            highlightElements(document);
+            if(isExtensionActive){
+                highlightElements(document);
+            }
         }
+    });
+
+    let toggleOffCommandDisposable = vscode.commands.registerCommand('ludwig.toggleOff', () => {
+        if(isExtensionActive) {
+            isExtensionActive = false;
+        }
+        const activeEditor = vscode.window.activeTextEditor;
+        activeEditor?.setDecorations(decorationType, []);
     });
 
     // Register onDidOpenTextDocument event to immediately highlight elements when an HTML file is opened
     let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
         if (document.languageId === 'html') {
-            highlightElements(document);
+            if(isExtensionActive){
+                highlightElements(document);
+            }
         }
     });
 
