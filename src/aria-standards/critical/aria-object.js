@@ -88,7 +88,7 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA14.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H65.html'
       ],
-      desc: 'All forms have appropriate labels.'
+      desc: 'All forms must have appropriate labels.'
   },
 
   metaEquivRefresh: {
