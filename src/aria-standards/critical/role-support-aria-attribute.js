@@ -199,12 +199,25 @@ function checkAriaRoles() {
     }
 
   // note role has content which is parenthetic or ancillary to the main content
-  // case 'note': {
-  //   if () {
-  //     roleSupportLines.push(el);
-  //   }
-  //   break;
-  // }
+  case 'note': {
+    const tagswNote = el.querySelectorAll('[role="note"]');
+    tagswNote.forEach((tag) => {
+      if(tag.tagName !== 'DIV' && tag.tagName !== '') {
+        roleSupportLines.push(el);
+      }
+    });
+    break;
+  }
+
+  // log case should be associated with divs or list items 
+  case 'log': {
+    const tagswLog = el.querySelectorAll('[role="log"]');
+    tagswLog.forEach((tag) => {
+      if(tag.tagName !== 'UL' && tag.tagName !== 'OL' && tag.tagName !== 'DIV') {
+        roleSupportLines.push(el);
+      }
+    });
+  }
 
   // WIDGET ROLES
   // scrollbar role has two required attributes: aria-controls and aria-valuenow
@@ -500,6 +513,12 @@ function checkAriaRoles() {
 
   // LIVE REGION ROLES
   // alert role should only be used for text content (not links or buttons), should be used sparingly
+  case 'alert': {
+    if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || (el.nodeName === 'INPUT' && type === 'button')) {
+      roleSupportLines.push(el);
+    }
+    break;
+  }
 
   // log role (used where content may change i.e. chatbox, feed, message history, etc) ???
 
@@ -514,8 +533,26 @@ function checkAriaRoles() {
     }
 
   // status role (not important enough to be an alert) - no tests to cover?
+  case 'status': {
+    const tagswStatus = el.querySelectorAll('[role="status"]');
+    tagswStatus.forEach((tag) => {
+      if (tag.tagName !== "DIV" && tag.tagName !== "SPAN" && tag.tagName !== "SECTION" && tag.tagName !== "P") {
+        roleSupportLines.push(tag);
+      }
+    });
+  }
 
   // timer role - unsure how to test for this?? specific to each use cases
+  // 
+  case 'timerrole': {
+    const tagswTimer = el.querySelectorAll(['role="timer"']);
+    tagswTimer.forEach((tag) => {
+      if (tag.tagName !== 'TIMER' && tag.tagName !== 'DIV') {
+        roleSupportLines.push(tag);
+      }
+    });
+    break;
+  }
 
   // WINDOW ROLES
   // alertdialog role requires either a aria-labelledby attr or aria-label (ONLY one, not BOTH) AND attr aria-describedby AND must be a modal
