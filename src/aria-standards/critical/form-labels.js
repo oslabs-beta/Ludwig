@@ -36,14 +36,15 @@ function checkLabels() {
       // console.log(inputsArray);
       for (let i = 0; i < labelsArray.length; i++) {
         // console.log(labelsArray[i]);
-        const inputId = inputsArray[i].getAttribute('id');
-        const labelFor = labelsArray[i].getAttribute('for');
-        if (inputId !== labelFor) {
-          formArray.push(form.outerHTML);
-        }
+        // if(inputsArray[i].getAttribute('id') || labelsArray[i].getAttribute('for')){
+          const inputId = inputsArray[i].getAttribute('id');
+          const labelFor = labelsArray[i].getAttribute('for');
+          if (inputId !== labelFor) {
+            formArray.push(form.outerHTML);
+          }
+        // }
       }
     });
-    console.log(formArray);
     return formArray;
   }
 }
