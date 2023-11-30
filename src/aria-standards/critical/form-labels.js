@@ -1,46 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 
-// const htmlCode = `
-// <!DOCTYPE html>
-// <html lang="en">
-//   <head>
-//     <meta charset="utf-8" />
-//     <title>Sample Title</title>
-//   </head>
-//   <body>
-//     <header aria-hidden="true">This is the header!</header>
-//     <div class="link container">
-//       <a href="https://www.example.com">Click me</a>
-//       <a aria-label="tag-2" href="https://www.example.com">Click me</a>
-//       <a aria-label="Click me" href="https://www.example.com">Click me</a>
-//     </div>
-//     <form>
-//       <label for="firstname">First name:</label>
-//       <input type="text" name="firstname" id="firstname">
-//     </form>
-//     <div>Something</div>
-//     <div>GorbleGorble</div>
-//     <button>clickclickclick</button>
-//     <form>
-//       <label for="test">First name:</label>
-//       <input type="text" name="firteststname" id="test">
-//       <label for="test2">First name:</label>
-//       <input type="text" name="firteststname" id="test1">
-//     </form>
-//   </body>
-// </html>
-// `;
-
-// const { window } = new JSDOM(htmlCode);
-// const document = window.document;
-// const ludwig = document.body;
-
-// console.log(ludwig.innerHTML);
-
-// // default message with specific aria-fail found and link to docs
-// const defaultMsg = {};
-
 function checkLabels() {
   const activeEditor = vscode.window.activeTextEditor;
 

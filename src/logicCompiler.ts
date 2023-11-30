@@ -10,7 +10,7 @@ const { checkMetaViewportTextResize } = require('./aria-standards/critical/meta-
 const { selectName } = require('./aria-standards/critical/select-name.js');
 const { checkUniqueIds } = require('./aria-standards/critical/unique-ids.js');
 const { videoCaptions } = require('./aria-standards/critical/video-captions.js');
-const { checkLabels } = require('./aria-standards/critical/ARIAlogic.js');
+const { checkLabels } = require('./aria-standards/critical/form-labels.js');
 const { checkAriaRoles } = require('./aria-standards/critical/role-support-aria-attribute.js');
 
 const { ariaObject } = require('./aria-standards/critical/aria-object.js');
