@@ -129,12 +129,35 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
+    //Primary Sidebar Webview View Provider
+    class SidebarProvider {
+        constructor(){}
+        //Call when view first becomes visible:
+        resolveWebviewView(webviewView: vscode.WebviewView) {
+            webviewView.webview.options = {
+              enableScripts: true,  
+            };
+
+            webviewView.webview.html = `
+                <h1>HELLO LUDWIG!</h1>
+            `;
+
+        }
+
+    }
+
+    //Register Primary Sidebar Provider
+    const sidebarProvider = new SidebarProvider();
+    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView",sidebarProvider);
+
+
     context.subscriptions.push(
         highlightCommandDisposable,
         documentOpenDisposable,
         hoverProviderDisposable,
         documentChangeDisposable,
-        activeEditorChangeDisposable
+        activeEditorChangeDisposable,
+        sidebarDisposable
     );
 }
 

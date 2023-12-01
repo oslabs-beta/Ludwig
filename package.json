@@ -35,8 +35,7 @@
         "id": "ludwigSidebarView",    
         "name": "Compose",
         "contextualTitle": "Ludwig",
-        "webview": "test.html"
-        
+        "type": "webview"
       }
     ]
   }
