@@ -23,7 +23,26 @@
         "command": "ludwig.toggleOff",
         "title": "Ludwig: Caesura"
       }
+    ],
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "ludwigActivityBar",
+        "title": "Ludwig",
+        "icon": "assets/Ludwig-Logo-Icon.png"
+      }
     ]
+  },
+  "views": {
+    "ludwigActivityBar": [               
+      {
+        "id": "ludwigSidebarView",    
+        "name": "Compose",
+        "contextualTitle": "Ludwig",
+        "type": "webview"
+      }
+    ]
+  }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
