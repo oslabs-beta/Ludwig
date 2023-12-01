@@ -102,7 +102,6 @@ const ariaObject = {
   metaViewport: {
       link: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html',
       desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
-      desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
   },
 
   selectHasAccessName: {
