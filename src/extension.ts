@@ -158,13 +158,10 @@ export function activate(context: vscode.ExtensionContext) {
             webviewView.webview.options = {
               enableScripts: true,  
             };
-
             webviewView.webview.html = `
                 <h1>HELLO LUDWIG!</h1>
             `;
-
         }
-
     }
 
     //Register Primary Sidebar Provider
