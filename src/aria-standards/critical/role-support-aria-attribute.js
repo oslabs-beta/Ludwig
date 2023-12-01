@@ -771,7 +771,7 @@ function checkAriaRoles() {
   // arr[1] --> link to specific role documentation on mdn
   return roleSupportLines;
 }
-
+}
 module.exports = {
   checkAriaRoles
 };
