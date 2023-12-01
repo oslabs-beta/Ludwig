@@ -10,6 +10,7 @@ const htmlCode = `
     <title>Sample Title</title>
   </head>
   <body>
+  <div role="status"></div>
   <div role="main" id="main-container">
     <header>This is the header!</header>
     <div role=""></div>
@@ -17,6 +18,8 @@ const htmlCode = `
       <p>Home</p>
       <p>Contact</p>
     </div>
+    <h2 role="alert"></h2>
+    <div role="log"></div>
     <label for="search-box">
     <div role="searchbox" aria-label="search">
     <div class="link container" role="menubar">
@@ -181,8 +184,7 @@ function checkAriaRoles() {
   // math role must either be an img or must use aria-label to provide a string that represents the expression
     case 'math': {
       const label = el.getAttribute('aria-label');
-      const tagName = el.nodeName;
-      if (tagName !== 'IMG' && !label) {
+      if (el.nodeName !== 'IMG' && !label) {
           roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/math_role']);
       }
       break;
@@ -200,23 +202,17 @@ function checkAriaRoles() {
 
   // note role has content which is parenthetic or ancillary to the main content
   case 'note': {
-    const tagswNote = el.querySelectorAll('[role="note"]');
-    tagswNote.forEach((tag) => {
-      if(tag.tagName !== 'DIV' && tag.tagName !== '') {
+      if(el.nodeName !== 'DIV' && el.nodeName !== '') {
         roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/note_role']);
       }
-    });
     break;
   }
 
   // log case should be associated with divs or list items 
   case 'log': {
-    const tagswLog = el.querySelectorAll('[role="log"]');
-    tagswLog.forEach((tag) => {
-      if(tag.tagName !== 'UL' && tag.tagName !== 'OL' && tag.tagName !== 'DIV') {
+      if(el.nodeName !== 'UL' && el.nodeName !== 'OL' && el.nodeName !== 'DIV') {
         roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/log_role']);
-      }
-    });
+    }
   }
 
   // WIDGET ROLES
@@ -534,23 +530,17 @@ function checkAriaRoles() {
 
   // status role (not important enough to be an alert) - no tests to cover?
   case 'status': {
-    const tagswStatus = el.querySelectorAll('[role="status"]');
-    tagswStatus.forEach((tag) => {
-      if (tag.tagName !== "DIV" && tag.tagName !== "SPAN" && tag.tagName !== "SECTION" && tag.tagName !== "P") {
-        roleSupportLines.push([tag, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role']);
+      if (el.nodeName !== "DIV" && el.nodeName !== "SPAN" && el.nodeName !== "SECTION" && el.nodeName !== "P") {
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role']);
       }
-    });
   }
 
   // timer role - unsure how to test for this?? specific to each use cases
   // 
   case 'timer': {
-    const tagswTimer = el.querySelectorAll(['role="timer"']);
-    tagswTimer.forEach((tag) => {
-      if (tag.tagName !== 'TIMER' && tag.tagName !== 'DIV') {
-        roleSupportLines.push([tag, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/timer_role']);
+      if (el.nodeName !== 'TIMER' && el.nodeName !== 'DIV') {
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/timer_role']);
       }
-    });
     break;
   }
 
