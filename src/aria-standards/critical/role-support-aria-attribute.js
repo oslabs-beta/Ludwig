@@ -2,132 +2,6 @@ const e = require('express');
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 
-const htmlCode = `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Sample Title</title>
-  </head>
-  <body>
-  <div role="status"></div>
-  <div role="main" id="main-container">
-    <header>This is the header!</header>
-    <div role=""></div>
-    <div role="navigation" aria-label="Main">
-      <p>Home</p>
-      <p>Contact</p>
-    </div>
-    <h2 role="alert"></h2>
-    <div role="log"></div>
-    <label for="search-box">
-    <div role="searchbox" aria-label="search">
-    <div class="link container" role="menubar">
-      <a href="https://www.example.com">Click me</a>
-      <a aria-label="tag-2" href="https://www.example.com">Click me</a>
-      <a aria-label="Click me" href="https://www.example.com">Click me</a>
-    </div>
-    <img role="math" src="someurl.jpg">
-    <p role="math" aria-label="math-text">
-    <div role="region" aria-label="Example"></div>
-    <article role="marquee" aria-labelledby="example"></article>
-    <meter id="fuel" role="slider" min="0" max="100" value="50" aria-valuenow="50">at 50/100</meter>
-    <div role="toolbar">
-      <p>A tip!</p>
-      <p>Another tip.</p>
-      <p>More tips!!</p>
-    </div>
-    <div role="form">
-    </div>
-    <ul role="tree" aria-labelledby="treeLabel">
-      <li role="treeitem" aria-expanded="true">
-      <li role="treeitem" aria-expanded="true">
-      <li role="treeitem" aria-expanded="true">
-    </ul>
-    <button role="switch" aria-checked="false"></button>
-    <div id="duplicate">Something</div>
-    <input id="duplicate" type="button">
-    <div>GorbleGorble</div>
-    <button name='button' role='button'>clickclickclick</button>
-    <img role="banner">
-    <p id="day">Enter the day of the month</p>
-    <button type="button" tabindex="-1" aria-label="previous day">˱</button>
-    <div
-      role="spinbutton"
-      tabindex="0"
-      aria-valuenow="1"
-      aria-valuetext="first"
-      aria-valuemin="1"
-      aria-valuemax="31"
-      aria-labelledby="day">
-      1
-    </div>
-    <form id="search" role="search">
-      <label for="search-input">Search this site</label>
-      <input type="search" id="search-input" name="search" spellcheck="false">
-      <input value="Submit" type="submit">
-    </form>
-    <button type="button" tabindex="-1" aria-label="next day">˲</button>
-    <ol role="menubar">
-      <li>Are</li>
-      <li>A</li>
-      <li>Menu</li>
-    </ol>
-    <img src="someurl.jpg" role="presentation" aria-label="img of lake"/>
-    <div class="tabs">
-  <div role="tablist" aria-label="Sample Tabs">
-    <button
-      role="tab"
-      aria-selected="true"
-      aria-controls="panel-1"
-      id="tab-1"
-      tabindex="0">
-      First Tab
-    </button>
-    <button
-      role="tab"
-      aria-selected="false"
-      aria-controls="panel-2"
-      id="tab-2"
-      tabindex="-1">
-      Second Tab
-    </button>
-    <button
-      role="tab"
-      aria-selected="false"
-      aria-controls="panel-3"
-      id="tab-3"
-      tabindex="-1">
-      Third Tab
-    </button>
-  </div>
-  <div id="panel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
-    <p>Content for the first panel</p>
-  </div>
-  <div id="panel-2" role="tabpanel" tabindex="0" aria-labelledby="tab-2" hidden>
-    <p>Content for the second panel</p>
-  </div>
-  <div id="panel-3" role="tabpanel" tabindex="0" aria-labelledby="tab-3" hidden>
-    <p>Content for the third panel</p>
-  </div>
-</div>
-    <div role="feed">
-      <p>An article full of really cool info.</p>
-    </div>
-    </div>
-  </body>
-  <div role="contentinfo">
-  </div>
-</html>
-`;
-
-// const { window } = new JSDOM(htmlCode);
-// const document = window.document;
-// const ludwig = document.body;
-
-// // default message with specific aria-fail found and link to docs
-// const defaultMsg = {};
-
 // check to see if an element’s role supports its ARIA attributes
 function checkAriaRoles() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -152,10 +26,8 @@ function checkAriaRoles() {
       item.push(role);
       elementRoles.push(item);
     });
-    // console.log(elementRoles);
     
     // iterate through elementRoles, checking role against type according to guidelines on: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
-
     elementRoles.forEach((arr) => {
       const el = arr[0];
       const parent = arr[1];
@@ -578,187 +450,187 @@ function checkAriaRoles() {
 
     // avoid using the following roles: application, article, cell, columnheader, definition, directory, document, figure, group, heading, img, list, listitem, meter, row, rowgroup, rowheader, seperator, table, term, button, checkbox, gridcell, link, menuitem, menuitemcheckbox, menuitemradio, option, progressbar, radio, textbox, grid, listbox, radiogroup, command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget, and window.
       case 'application': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/application_role']);
         break;
       }
       case 'article': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/article_role']);
         break;
       }
       case 'cell': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/cell_role']);
         break;
       }
       case 'columnheader': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/columnheader_role']);
         break;
       }
       case 'definition': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/definition_role']);
         break;
       }
       case 'directory': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/directory_role']);
         break;
       }
       case 'document': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/document_role']);
         break;
       }
       case 'figure': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/figure_role']);
         break;
       }
       case 'group': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role']);
         break;
       }
       case 'heading': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role']);
         break;
       }
       case 'img': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role']);
         break;
       }
       case 'list': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role']);
         break;
       }
       case 'listitem': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listitem_role']);
         break;
       }
       case 'meter': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role']);
         break;
       }
       case 'row': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/row_role']);
         break;
       }
       case 'rowgroup': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowgroup_role']);
         break;
       }
       case 'rowheader': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowheader_role']);
         break;
       }
-      case 'seperator': {
-        roleSupportLines.push(el);
+      case 'separator': {
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role']);
         break;
       }
       case 'table': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role']);
         break;
       }
       case 'term': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/term_role']);
         break;
       }
       case 'button': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role']);
         break;
       }
       case 'checkbox': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role']);
         break;
       }
       case 'gridcell': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/gridcell_role']);
         break;
       }
       case 'link': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role']);
         break;
       }
       case 'menuitem': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role']);
         break;
       }
       case 'menuitemcheckbox': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemcheckbox_role']);
         break;
       }
       case 'menuitemradio': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemradio_role']);
         break;
       }
       case 'option': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/option_role']);
         break;
       }
       case 'progressbar': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role']);
         break;
       }
       case 'radio': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role']);
         break;
       }
       case 'textbox': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textbox_role']);
         break;
       }
       case 'grid': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/grid_role']);
         break;
       }
       case 'listbox': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role']);
         break;
       }
       case 'radiogroup': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role']);
         break;
       }
       case 'command': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/command_role']);
         break;
       }
       case 'composite': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/composite_role']);
         break;
       }
       case 'input': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role']);
         break;
       }
       case 'landmark': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role']);
         break;
       }
       case 'range': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/range_role']);
         break;
       }
       case 'roletype': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/roletype_role']);
         break;
       }
       case 'section': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/section_role']);
         break;
       }
       case 'sectionhead': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/sectionhead_role']);
         break;
       }
       case 'select': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/select_role']);
         break;
       }
       case 'structure': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structure_role']);
         break;
       }
       case 'widget': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/widget_role']);
         break;
       }
       case 'window': {
-        roleSupportLines.push(el);
+        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/window_role']);
         break;
       }
     
