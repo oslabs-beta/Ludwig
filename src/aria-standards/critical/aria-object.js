@@ -26,12 +26,12 @@ const ariaObject = {
 
     childRoles: {
         link: 'https://www.w3.org/TR/wai-aria-1.1/#roles',
-        desc: 'elements with ARIA role that require child roles contain them'
+        desc: 'Elements with ARIA role that require child roles contain them'
     },
 
     requiredParent: {
         link: 'https://www.w3.org/TR/wai-aria-1.1/#roles',
-        desc: 'elements with an ARIA role that require parent roles are contained by them'
+        desc: 'Elements with an ARIA role that require parent roles are contained by them.'
     },
 
     validValueForRole: {
@@ -106,7 +106,7 @@ const ariaObject = {
 
     selectHasAccessName: {
         link: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select',
-        desc: 'Select elements should have accessbile name.'
+        desc: 'Select elements should have accessible name.'
     },
 
     videoCaptions: {
