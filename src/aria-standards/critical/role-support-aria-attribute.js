@@ -16,7 +16,7 @@ function checkAriaRoles() {
     const allElement = ludwig.querySelectorAll('*');
 
     // array to hold output of the line numbers of failed html tests  
-    const roleSupportLines = [];
+    const incorrectRoleSupport = [];
 
     // extract roles from every element
     const elementRoles = [];
@@ -40,7 +40,7 @@ function checkAriaRoles() {
   // toolbar role must group 3 or more elements (must have 3 or more child nodes)
     case 'toolbar': {
       if (children.length < 3) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/toolbar_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/toolbar_role']);
       }
       break;
     }
@@ -48,7 +48,7 @@ function checkAriaRoles() {
   // tooltip role cannot contain interactive elements such as buttons, links or inputs
     case 'tooltip': {
       if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || el.nodeName === 'INPUT') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tooltip_role']);
       }
       break;
     }
@@ -56,7 +56,7 @@ function checkAriaRoles() {
   // feed role must contain scrollable list of articles
     case 'feed': {
       if (!children.namedItem('article')) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role']);
       }
       break;
     }
@@ -65,7 +65,7 @@ function checkAriaRoles() {
     case 'math': {
       const label = el.getAttribute('aria-label');
       if (el.nodeName !== 'IMG' && !label) {
-          roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/math_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/math_role']);
       }
       break;
     }
@@ -75,7 +75,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if (label || labelledby) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/presentation_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/presentation_role']);
       }
       break;
     }
@@ -83,7 +83,7 @@ function checkAriaRoles() {
   // note role has content which is parenthetic or ancillary to the main content
   case 'note': {
       if(el.nodeName !== 'DIV' && el.nodeName !== '') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/note_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/note_role']);
       }
     break;
   }
@@ -91,7 +91,7 @@ function checkAriaRoles() {
   // log case should be associated with divs or list items 
   case 'log': {
       if(el.nodeName !== 'UL' && el.nodeName !== 'OL' && el.nodeName !== 'DIV') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/log_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/log_role']);
     }
   }
 
@@ -101,7 +101,7 @@ function checkAriaRoles() {
       const controls = el.getAttribute('aria-controls');
       const valueNow = el.getAttribute('aria-valuenow');
       if (!controls || !valueNow) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/scrollbar_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/scrollbar_role']);
       }
       break;
     }
@@ -129,11 +129,11 @@ function checkAriaRoles() {
       // else if for the input type and see if second test is an OR
       if (el.nodeName === 'INPUT') {
         if (!forIDMatch && type !== 'search') {
-          roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role']);
+          incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role']);
         }
       } else {
         if (!label && !labelledby) {
-          roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role']);
+          incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/searchbox_role']);
         }
       }
       break;
@@ -143,7 +143,7 @@ function checkAriaRoles() {
     case 'slider': {
       const valueNow = el.getAttribute('aria-valuenow');
       if (!valueNow) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/slider_role']);
       }
       break;
     }
@@ -154,7 +154,7 @@ function checkAriaRoles() {
       const labelledby = el.getAttribute('aria-labelledby');
       const tabIndex = el.getAttribute('tabindex');
       if ((el !== 'INPUT' && !tabIndex) || (!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/spinbutton_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/spinbutton_role']);
       }
       break;
     }
@@ -165,7 +165,7 @@ function checkAriaRoles() {
         const checked = el.getAttribute('aria-checked');
         // console.log('SWITCH:', checked);
         if (!checked || (checked !== 'true' && checked !== 'false')) { //<--NEED TO FIX STILL!
-          roleSupportLines.push(el.nodeName);
+          incorrectRoleSupport.push(el.nodeName);
         }
         break;
       }
@@ -188,7 +188,7 @@ function checkAriaRoles() {
         }
       });
       if (parentRole !== 'tablist' && !ariaOwns) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role']);
       }
       break;
     }
@@ -204,7 +204,7 @@ function checkAriaRoles() {
         }
       });
       if (!tabsIdArr.includes(labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tabpanel_role']);
       }
       break;
     }
@@ -213,7 +213,7 @@ function checkAriaRoles() {
     case 'treeitem': {
       const parentRole = parent.getAttribute('role');
       if (parentRole !== 'tree') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
       }
       break;
     }
@@ -223,7 +223,7 @@ function checkAriaRoles() {
     case 'combobox': {
       const expanded = el.getAttribute('aria-expanded');
       if (!expanded) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/combobox_role']);
       }
       break;
     }
@@ -231,7 +231,7 @@ function checkAriaRoles() {
   // menu role must have a list of children nodes
     case 'menu': {
       if (children.length === 0) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role']);
       }
       break;
     }
@@ -239,7 +239,7 @@ function checkAriaRoles() {
   // menubar role is a menu that is visually persistant, required to have list of children nodes
     case 'menubar': {
       if (children.length === 0) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menubar_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menubar_role']);
       }
       break;
     }
@@ -254,7 +254,7 @@ function checkAriaRoles() {
       }
     });
     if (children.length === 0 || nonTabs) {
-      roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role']);
+      incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role']);
     }
     break;
   }
@@ -263,7 +263,7 @@ function checkAriaRoles() {
     case 'tree': {
       const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
       if (children.length === 0 || childRole !== 'treeitem') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tree_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tree_role']);
       }
       break;
     }
@@ -275,7 +275,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if (children.length === 0) { //<--NEED TO ADD MORE TEST CONDITIONALS
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treegrid_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treegrid_role']);
       }
       break;
     }
@@ -290,7 +290,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'HEADER' || count > 1) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/banner_role']);
       }
       break;
     }
@@ -304,7 +304,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'ASIDE' || count > 1) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/complementary_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/complementary_role']);
       }
       break;
     }
@@ -318,7 +318,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'FOOTER' || count > 1) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/contentinfo_role']);
       }
       break;
     }
@@ -326,7 +326,7 @@ function checkAriaRoles() {
   // form role must not be a form element
     case 'form': {
       if (el.nodeName === 'FORM') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/form_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/form_role']);
       }
       break;
     }
@@ -340,7 +340,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'MAIN' || count > 1) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/main_role']);
       }
       break;
     }
@@ -354,7 +354,7 @@ function checkAriaRoles() {
         }
       });
       if (el.nodeName === 'NAV' || count > 1) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/navigation_role']);
       }
       break;
     }
@@ -364,7 +364,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/region_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/region_role']);
       }
       break;
     }
@@ -381,7 +381,7 @@ function checkAriaRoles() {
       });
       // console.log('SEARCH', childAttr);
       if (el.nodeName !== 'FORM' || !childAttr.includes('search')) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role']);
       }
       break;
     }
@@ -391,7 +391,7 @@ function checkAriaRoles() {
   // alert role should only be used for text content (not links or buttons), should be used sparingly
   case 'alert': {
     if (el.nodeName === 'BUTTON' || el.nodeName === 'A' || (el.nodeName === 'INPUT' && type === 'button')) {
-      roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role']);
+      incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role']);
     }
     break;
   }
@@ -403,7 +403,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/marquee_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/marquee_role']);
       }
       break;
     }
@@ -411,7 +411,7 @@ function checkAriaRoles() {
   // status role (not important enough to be an alert) - no tests to cover?
   case 'status': {
       if (el.nodeName !== "DIV" && el.nodeName !== "SPAN" && el.nodeName !== "SECTION" && el.nodeName !== "P") {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/status_role']);
       }
   }
 
@@ -419,7 +419,7 @@ function checkAriaRoles() {
   // 
   case 'timer': {
       if (el.nodeName !== 'TIMER' && el.nodeName !== 'DIV') {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/timer_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/timer_role']);
       }
     break;
   }
@@ -431,7 +431,7 @@ function checkAriaRoles() {
       const labelledby = el.getAttribute('aria-labelledby');
       const describedby = el.getAttribute('aria-describedby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alertdialog_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alertdialog_role']);
       }
       break;
     }
@@ -441,7 +441,7 @@ function checkAriaRoles() {
       const label = el.getAttribute('aria-label');
       const labelledby = el.getAttribute('aria-labelledby');
       if ((!label && !labelledby) || (label && labelledby)) {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/dialog_role']);
       }
       break;
     }
@@ -450,198 +450,198 @@ function checkAriaRoles() {
 
     // avoid using the following roles: application, article, cell, columnheader, definition, directory, document, figure, group, heading, img, list, listitem, meter, row, rowgroup, rowheader, seperator, table, term, button, checkbox, gridcell, link, menuitem, menuitemcheckbox, menuitemradio, option, progressbar, radio, textbox, grid, listbox, radiogroup, command, composite, input, landmark, range, roletype, section, sectionhead, select, structure, widget, and window.
       case 'application': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/application_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/application_role']);
         break;
       }
       case 'article': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/article_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/article_role']);
         break;
       }
       case 'cell': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/cell_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/cell_role']);
         break;
       }
       case 'columnheader': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/columnheader_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/columnheader_role']);
         break;
       }
       case 'definition': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/definition_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/definition_role']);
         break;
       }
       case 'directory': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/directory_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/directory_role']);
         break;
       }
       case 'document': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/document_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/document_role']);
         break;
       }
       case 'figure': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/figure_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/figure_role']);
         break;
       }
       case 'group': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/group_role']);
         break;
       }
       case 'heading': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/heading_role']);
         break;
       }
       case 'img': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/img_role']);
         break;
       }
       case 'list': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/list_role']);
         break;
       }
       case 'listitem': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listitem_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listitem_role']);
         break;
       }
       case 'meter': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role']);
         break;
       }
       case 'row': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/row_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/row_role']);
         break;
       }
       case 'rowgroup': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowgroup_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowgroup_role']);
         break;
       }
       case 'rowheader': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowheader_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/rowheader_role']);
         break;
       }
       case 'separator': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/separator_role']);
         break;
       }
       case 'table': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/table_role']);
         break;
       }
       case 'term': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/term_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/term_role']);
         break;
       }
       case 'button': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role']);
         break;
       }
       case 'checkbox': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/checkbox_role']);
         break;
       }
       case 'gridcell': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/gridcell_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/gridcell_role']);
         break;
       }
       case 'link': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/link_role']);
         break;
       }
       case 'menuitem': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitem_role']);
         break;
       }
       case 'menuitemcheckbox': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemcheckbox_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemcheckbox_role']);
         break;
       }
       case 'menuitemradio': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemradio_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menuitemradio_role']);
         break;
       }
       case 'option': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/option_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/option_role']);
         break;
       }
       case 'progressbar': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/progressbar_role']);
         break;
       }
       case 'radio': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radio_role']);
         break;
       }
       case 'textbox': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textbox_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/textbox_role']);
         break;
       }
       case 'grid': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/grid_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/grid_role']);
         break;
       }
       case 'listbox': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role']);
         break;
       }
       case 'radiogroup': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/radiogroup_role']);
         break;
       }
       case 'command': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/command_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/command_role']);
         break;
       }
       case 'composite': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/composite_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/composite_role']);
         break;
       }
       case 'input': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/input_role']);
         break;
       }
       case 'landmark': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role']);
         break;
       }
       case 'range': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/range_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/range_role']);
         break;
       }
       case 'roletype': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/roletype_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/roletype_role']);
         break;
       }
       case 'section': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/section_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/section_role']);
         break;
       }
       case 'sectionhead': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/sectionhead_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/sectionhead_role']);
         break;
       }
       case 'select': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/select_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/select_role']);
         break;
       }
       case 'structure': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structure_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/structure_role']);
         break;
       }
       case 'widget': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/widget_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/widget_role']);
         break;
       }
       case 'window': {
-        roleSupportLines.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/window_role']);
+        incorrectRoleSupport.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/window_role']);
         break;
       }
     
       }
     });
 
-  console.log('roleSupportLines:', roleSupportLines);
+
   // returns a nested arr of arrays:
   // arr[0] --> element on node list
   // arr[1] --> link to specific role documentation on mdn
-  return roleSupportLines;
+  return incorrectRoleSupport;
   }
 }
 
