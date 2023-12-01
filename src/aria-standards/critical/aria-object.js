@@ -26,12 +26,12 @@ const ariaObject = {
 
   childRoles: {
       link: 'https://www.w3.org/TR/wai-aria-1.1/#roles',
-      desc: 'elements with ARIA role that require child roles contain them'
+      desc: 'Elements with ARIA role that require child roles contain them.'
   },
 
   requiredParent: {
       link: 'https://www.w3.org/TR/wai-aria-1.1/#roles',
-      desc: 'elements with an ARIA role that require parent roles are contained by them'
+      desc: 'Elements with an ARIA role that require parent roles are contained by them.'
   },
 
   validValueForRole: {
@@ -53,7 +53,7 @@ const ariaObject = {
 
   uniqueIDs: {
       link: 'https://www.w3.org/WAI/WCAG21/Techniques/failures/F77.html',
-      desc: 'IDs used in Aria and Labels must be unique.'
+      desc: 'IDs must be unique.'
   },
 
   imageAlts: {
@@ -88,7 +88,7 @@ const ariaObject = {
           'https://www.w3.org/WAI/WCAG21/Techniques/aria/ARIA14.html',
           'https://www.w3.org/WAI/WCAG21/Techniques/html/H65.html'
       ],
-      desc: 'All forms have apropriate labels.'
+      desc: 'All forms must have appropriate labels.'
   },
 
   metaEquivRefresh: {
@@ -102,11 +102,12 @@ const ariaObject = {
   metaViewport: {
       link: 'https://www.w3.org/WAI/WCAG21/Understanding/resize-text.html',
       desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
+      desc: '```<meta name=”viewport”>``` should not disable text scaling and zooming.'
   },
 
   selectHasAccessName: {
       link: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select',
-      desc: 'Select elements should have accessbile name.'
+      desc: 'Select elements should have accessibile name.'
   },
 
   videoCaptions: {
@@ -114,7 +115,7 @@ const ariaObject = {
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G87.html',
       'https://www.w3.org/WAI/WCAG21/Techniques/general/G93.html'
       ],
-      desc: '```<video>``` elements have captions.'
+      desc: '```<video>``` elements must have captions.'
   },
 
   anchorLabel: {
