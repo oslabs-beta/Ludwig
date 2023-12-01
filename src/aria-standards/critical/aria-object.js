@@ -6,14 +6,13 @@ const ariaObject = {
   },
 
   elementRole: {
-      link: ['https://www.w3.org/TR/wai-aria-1.1/#state_prop_taxonomy', 
-      'https://www.w3.org/TR/wai-aria-1.1/#roles '
+      link: ['https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles'
   ],
-      desc: 'Element role must support ARIA attributes.'
+      desc: 'Element role must support ARIA attributes.' 
   },
 
   ariaHidden: {
-      link: 'https://www.w3.org/TR/wai-aria-1.1/#aria-hidden ',
+      link: 'https://www.w3.org/TR/wai-aria-1.1/#aria-hidden',
       desc: '```aria-hidden=”true”``` should not be present on the document body.'
   },
 
