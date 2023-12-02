@@ -15,7 +15,7 @@ function checkTableHeaders() {
   const incorrectTableHeaders = [];
   
   
-  const th = document.querySelectorAll('th');
+  const th = ludwig.querySelectorAll('th');
   // Check that all th elements have a scope attribute.
   // Check that all scope attributes have the value row, col, rowgroup, or colgroup.
   th.forEach((el) => {

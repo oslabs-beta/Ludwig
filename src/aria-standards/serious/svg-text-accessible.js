@@ -14,7 +14,7 @@ function checkSVGForText() {
   // output array for fail cases
   const incorrectSVGText = [];
   
-  const allElements = document.querySelectorAll('8');
+  const allElements = ludwig.querySelectorAll('8');
 
 // Remove, hide, or mask the non-text content
 // Replace it with the text alternative
