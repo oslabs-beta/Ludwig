@@ -13,13 +13,15 @@ function checkSVGForText() {
 
   // output array for fail cases
   const incorrectSVGText = [];
-  
-  const allElements = ludwig.querySelectorAll('8');
 
 // Remove, hide, or mask the non-text content
 // Replace it with the text alternative
 // Check that nothing is lost (the purpose of the non-text content is met by the text alternative)
 // If the non-text content contains words that are important to understanding the content, the words are included in the text alternative
+    const svgEl = ludwig.querySelectorAll('svg');
+    const imgEl = ludwig.querySelectorAll('img');
+    const buttonEl = ludwig.querySelectorAll('button');
+    const linkEl = ludwig.querySelectorAll('a');
 
   return incorrectSVGText;
   }
