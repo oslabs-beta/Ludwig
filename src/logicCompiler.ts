@@ -111,8 +111,8 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     // role-support-aria-attribute
     const roleSupportHtml = await checkAriaRoles();
 
-    roleSupportHtml.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = { WHAT: 'DO WE PUT HERE'}; // REVISIT*******************
+    roleSupportHtml.forEach((element: string[], index: number) => {
+        ariaRecommendations[element[0]] = {link: element[1], desc: 'Please select "Read More" below to see documentation for this error.'};
     });
 
     // RETURN FINAL OBJECT
