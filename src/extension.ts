@@ -156,20 +156,29 @@ export function activate(context: vscode.ExtensionContext) {
         //Call when view first becomes visible:
         resolveWebviewView(webviewView: vscode.WebviewView) {
             webviewView.webview.options = {
-              enableScripts: true,  
+              enableScripts: true,  //enable JS
             };
+            //TO DO: Decide which content too allow in meta http-equiv Content security policy:
+            //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
             webviewView.webview.html = `
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
                 </head>
                 <body>
-                    <h1>Hello, Ludwig</h1>
+                    <h3>Improve the accessibility of your website!</h3>
+                    <p>Click the button below to scan the current HTML document and generate a report on how to improve your code for accessibility</p>
                     <div id="root"></div>
+                    <button>Scan Document</button>
                     <script>
-                    window.vscodeApi = acquireVsCodeApi();
+                        window.vscodeApi = acquireVsCodeApi();
+                        const button = document.querySelector('button');
+                        button.addEventListener('click', () => {
+                            console.log('clicked')
+                        });
                     </script>
                 </body>
                 </html>
@@ -180,6 +189,12 @@ export function activate(context: vscode.ExtensionContext) {
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
     const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView",sidebarProvider);
+    const panel = vscode.window.createWebviewPanel(
+        'scanDocument',
+        'Ludwig Dashboard',
+        vscode.ViewColumn.One,
+        {}
+      );
 
 
     context.subscriptions.push(
