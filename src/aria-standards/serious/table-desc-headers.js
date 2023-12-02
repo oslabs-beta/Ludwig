@@ -1,64 +1,51 @@
-// const vscode = require('vscode');
+const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
-
-const htmlCode = `
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Sample Title</title>
-  </head>
-  <body>
-    <table>
-        <tr>
-          <th scope="col">State & First</th>
-          <th scope="col">State & Sixth</th>
-          <th scope="col">State & Fifteenth</th>
-          <th scope="col">Fifteenth & Morrison</th>
-        </tr>
-      <tr>
-        <td>4:00</td>
-        <td>4:05</td>
-        <td>4:11</td>
-        <td>4:19</td>
-      </tr>
-    </table> 
-  </body>
-  `;
-
-const { window } = new JSDOM(htmlCode);
-const document = window.document;
-const ludwig = document.body;
 
 // <th> elements and elements with role=columnheader OR role=rowheader have data cells they describes
 function checkTableHeaders() {
-  // const activeEditor = vscode.window.activeTextEditor;
+  const activeEditor = vscode.window.activeTextEditor;
 
-  // if (activeEditor && activeEditor.document.languageId === 'html') {
-  //   const htmlCode = activeEditor.document.getText();
-  //   const { window } = new JSDOM(htmlCode);
-  //   const document = window.document;
-  //   const ludwig = document.body;
+  if (activeEditor && activeEditor.document.languageId === 'html') {
+    const htmlCode = activeEditor.document.getText();
+    const { window } = new JSDOM(htmlCode);
+    const document = window.document;
+    const ludwig = document.body;
+
+  // output array for fail cases
+  const incorrectTableHeaders = [];
   
-  const allElement = ludwig.querySelectorAll('*');
-    // extract roles from every element
+  
+  const th = document.querySelectorAll('th');
+  // Check that all th elements have a scope attribute.
+  // Check that all scope attributes have the value row, col, rowgroup, or colgroup.
+  th.forEach((el) => {
+    const scope = el.getAttribute('scope');
+    if (!scope || (scope !== 'row' && scope !== 'col' && scope !== 'rowgroup' && scope !== 'colgroup')) {
+      incorrectTableHeaders.push(el);
+    }
+  });
+  
+  // Check that all td elements that act as headers for other elements have a scope attribute.
+  // check for any td elements with role=columnheader OR role=rowheader
+  const td = ludwig.querySelectorAll('td');
   const tableHeaderRoles = [];
-  allElement.forEach((el) => {
+  td.forEach((el) => {
     const role = el.getAttribute('role');
     if (role === 'columnheader' || role === 'rowheader') {
       tableHeaderRoles.push(el);
     }
   });
-  console.log('TH ROLES ARR', tableHeaderRoles);
+  tableHeaderRoles.forEach((el) => {
+    const scope = el.getAttribute('scope');
+    if (!scope || (scope !== 'row' && scope !== 'col' && scope !== 'rowgroup' && scope !== 'colgroup')) {
+      incorrectTableHeaders.push(el);
+    }
+  });
 
-  const th = document.querySelectorAll('th');
-  console.log('TH:', th);
-
-
-  // }
+  return incorrectTableHeaders;
+  }
 }
 
-console.log(checkTableHeaders());
 
 // export to extension.ts
 module.exports = {
