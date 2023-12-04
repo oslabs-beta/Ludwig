@@ -276,275 +276,60 @@ const langFile = {
 'adi': 'Adi', 
 'adj': 'Adioukrou', 
 'adl': 'Galo', 
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adn, 
-Description: Adang
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ado, 
-Description: Abu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adp, 
-Description: Adap
-Added: 2009-07-29
-Deprecated: 2015-02-12
-Preferred-Value: dz
-},{
-Type: language
-Subtag: adq, 
-Description: Adangbe
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adr, 
-Description: Adonara
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ads, 
-Description: Adamorobe Sign Language
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adt, 
-Description: Adnyamathanha
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adu, 
-Description: Aduge
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adw, 
-Description: Amundava
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adx, 
-Description: Amdo Tibetan
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ady, 
-Description: Adyghe
-Description: Adygei
-Added: 2005-10-16
-},{
-Type: language
-Subtag: adz, 
-Description: Adzera
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aea, 
-Description: Areba
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aeb, 
-Description: Tunisian Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: aec, 
-Description: Saidi Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: aed, 
-Description: Argentine Sign Language
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aee, 
-Description: Northeast Pashai
-Description: Northeast Pashayi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aek, 
-Description: Haeke
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ael, 
-Description: Ambele
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aem, 
-Description: Arem
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aen, 
-Description: Armenian Sign Language
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aeq, 
-Description: Aer
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aer, 
-Description: Eastern Arrernte
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aes, 
-Description: Alsea
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aeu, 
-Description: Akeu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aew, 
-Description: Ambakich
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aey, 
-Description: Amele
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aez, 
-Description: Aeka
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afa, 
-Description: Afro-Asiatic languages
-Added: 2005-10-16
-Scope: collection
-},{
-Type: language
-Subtag: afb, 
-Description: Gulf Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: afd, 
-Description: Andai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afe, 
-Description: Putukwam
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afg, 
-Description: Afghan Sign Language
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afh, 
-Description: Afrihili
-Added: 2005-10-16
-},{
-Type: language
-Subtag: afi, 
-Description: Akrukay
-Description: Chini
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afk, 
-Description: Nanubae
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afn, 
-Description: Defaka
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afo, 
-Description: Eloyi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afp, 
-Description: Tapei
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afs, 
-Description: Afro-Seminole Creole
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aft, 
-Description: Afitti
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afu, 
-Description: Awutu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: afz, 
-Description: Obokuitai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aga, 
-Description: Aguano
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agb, 
-Description: Legbo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agc, 
-Description: Agatu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agd, 
-Description: Agarabi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: age, 
-Description: Angal
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agf, 
-Description: Arguni
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agg, 
-Description: Angor
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agh, 
-Description: Ngelima
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agi, 
-Description: Agariya
+'adn': 'Adang', 
+'ado': 'Abu', 
+'adp': 'Adap', 
+// Deprecated: 2015-02-12
+// Preferred-Value: dz
+'adq': 'Adangbe', 
+'adr': 'Adonara', 
+'ads': 'Adamorobe Sign Language', 
+'adt': 'Adnyamathanha', 
+'adu': 'Aduge', 
+'adw': 'Amundava', 
+'adx': 'Amdo Tibetan', 
+'ady': 'Adyghe, Adygei', 
+'adz': 'Adzera', 
+'aea': 'Areba', 
+'aeb': 'Tunisian Arabic', 
+'aec': 'Saidi Arabic', 
+'aed': 'Argentine Sign Language', 
+'aee': 'Northeast Pashai, Northeast Pashayi', 
+'aek': 'Haeke', 
+'ael': 'Ambele', 
+'aem': 'Arem', 
+'aen': 'Armenian Sign Language', 
+'aeq': 'Aer', 
+'aer': 'Eastern Arrernte', 
+'aes': 'Alsea', 
+'aeu': 'Akeu', 
+'aew': 'Ambakich', 
+'aey': 'Amele', 
+'aez': 'Aeka', 
+'afa': 'Afro-Asiatic languages', 
+'afb': 'Gulf Arabic', 
+'afd': 'Andai', 
+'afe': 'Putukwam', 
+'afg': 'Afghan Sign Language', 
+'afh': 'Afrihili', 
+'afi': 'Akrukay, Chini', 
+'afk': 'Nanubae', 
+'afn': 'Defaka', 
+'afo': 'Eloyi', 
+'afp': 'Tapei', 
+'afs': 'Afro-Seminole Creole', 
+'aft': 'Afitti', 
+'afu': 'Awutu', 
+'afz': 'Obokuitai', 
+'aga': 'Aguano', 
+'agb': 'Legbo', 
+'agc': 'Agatu', 
+'agd': 'Agarabi', 
+'age': 'Angal', 
+'agf': 'Arguni', 
+'agg': 'Angor', 
+'agh': 'Ngelima', 
+'agi': 'Agariya', 
 Added: 2009-07-29
 },{
 Type: language
