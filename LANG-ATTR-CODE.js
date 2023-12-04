@@ -118,324 +118,59 @@ const langFile = {
 'mr': 'Marathi',
 'ms': 'Malay (macrolanguage)', 
 'mt': 'Maltese', 
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: my, 
-Description: Burmese
-Added: 2005-10-16
-Suppress-Script: Mymr
-},{
-Type: language
-Subtag: na, 
-Description: Nauru
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: nb, 
-Description: Norwegian Bokmål
-Added: 2005-10-16
-Suppress-Script: Latn
-Macrolanguage: no
-},{
-Type: language
-Subtag: nd, 
-Description: North Ndebele
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ne, 
-Description: Nepali (macrolanguage)
-Added: 2005-10-16
-Suppress-Script: Deva
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ng, 
-Description: Ndonga
-Added: 2005-10-16
-},{
-Type: language
-Subtag: nl, 
-Description: Dutch
-Description: Flemish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: nn, 
-Description: Norwegian Nynorsk
-Added: 2005-10-16
-Suppress-Script: Latn
-Macrolanguage: no
-},{
-Type: language
-Subtag: no, 
-Description: Norwegian
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: nr, 
-Description: South Ndebele
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: nv, 
-Description: Navajo
-Description: Navaho
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ny, 
-Description: Nyanja
-Description: Chewa
-Description: Chichewa
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: oc, 
-Description: Occitan (post 1500)
-Added: 2005-10-16
-},{
-Type: language
-Subtag: oj, 
-Description: Ojibwa
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: om, 
-Description: Oromo
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: or, 
-Description: Oriya (macrolanguage)
-Description: Odia (macrolanguage)
-Added: 2005-10-16
-Suppress-Script: Orya
-Scope: macrolanguage
-},{
-Type: language
-Subtag: os, 
-Description: Ossetian
-Description: Ossetic
-Added: 2005-10-16
-},{
-Type: language
-Subtag: pa, 
-Description: Panjabi
-Description: Punjabi
-Added: 2005-10-16
-Suppress-Script: Guru
-},{
-Type: language
-Subtag: pi, 
-Description: Pali
-Added: 2005-10-16
-},{
-Type: language
-Subtag: pl, 
-Description: Polish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ps, 
-Description: Pushto
-Description: Pashto
-Added: 2005-10-16
-Suppress-Script: Arab
-Scope: macrolanguage
-},{
-Type: language
-Subtag: pt, 
-Description: Portuguese
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: qu, 
-Description: Quechua
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: rm, 
-Description: Romansh
-Suppress-Script: Latn
-Added: 2005-10-16
-},{
-Type: language
-Subtag: rn, 
-Description: Rundi
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ro, 
-Description: Romanian
-Description: Moldavian
-Description: Moldovan
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ru, 
-Description: Russian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: rw, 
-Description: Kinyarwanda
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sa, 
-Description: Sanskrit
-Added: 2005-10-16
-},{
-Type: language
-Subtag: sc, 
-Description: Sardinian
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: sd, 
-Description: Sindhi
-Added: 2005-10-16
-},{
-Type: language
-Subtag: se, 
-Description: Northern Sami
-Added: 2005-10-16
-},{
-Type: language
-Subtag: sg, 
-Description: Sango
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sh, 
-Description: Serbo-Croatian
-Added: 2005-10-16
-Scope: macrolanguage
-Comments: sr, hr, bs are preferred for most modern uses
-},{
-Type: language
-Subtag: si, 
-Description: Sinhala
-Description: Sinhalese
-Added: 2005-10-16
-Suppress-Script: Sinh
-},{
-Type: language
-Subtag: sk, 
-Description: Slovak
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sl, 
-Description: Slovenian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sm, 
-Description: Samoan
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sn, 
-Description: Shona
-Added: 2005-10-16
-},{
-Type: language
-Subtag: so, 
-Description: Somali
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sq, 
-Description: Albanian
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: sr, 
-Description: Serbian
-Added: 2005-10-16
-Macrolanguage: sh
-Comments: see cnr for Montenegrin
-},{
-Type: language
-Subtag: ss, 
-Description: Swati
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: st, 
-Description: Southern Sotho
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: su, 
-Description: Sundanese
-Added: 2005-10-16
-},{
-Type: language
-Subtag: sv, 
-Description: Swedish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: sw, 
-Description: Swahili (macrolanguage)
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ta, 
-Description: Tamil
-Added: 2005-10-16
-Suppress-Script: Taml
-},{
-Type: language
-Subtag: te, 
-Description: Telugu
-Added: 2005-10-16
-Suppress-Script: Telu
-},{
-Type: language
-Subtag: tg, 
-Description: Tajik
-Added: 2005-10-16
-},{
-Type: language
-Subtag: th, 
-Description: Thai
+'my': 'Burmese', 
+'na': 'Nauru', 
+'nb': 'Norwegian Bokmål', 
+'nd': 'North Ndebele', 
+'ne': 'Nepali (macrolanguage)', 
+'ng': 'Ndonga', 
+'nl': 'Dutch, Flemish', 
+'nn': 'Norwegian Nynorsk', 
+'no': 'Norwegian', 
+'nr': 'South Ndebele', 
+'nv': 'Navajo, Navaho', 
+'ny': 'Nyanja, Chewa, Chichewa', 
+'oc': 'Occitan (post 1500)', 
+'oj': 'Ojibwa', 
+'om': 'Oromo', 
+'or': 'Oriya (macrolanguage), Odia (macrolanguage)', 
+'os': 'Ossetian, Ossetic',
+'pa': 'Panjabi, Punjabi', 
+'pi': 'Pali', 
+'pl': 'Polish', 
+'ps': 'Pushto, Pashto', 
+'pt': 'Portuguese', 
+'qu': 'Quechua', 
+'rm': 'Romansh', 
+'rn': 'Rundi', 
+'ro': 'Romanian, Moldavian, Moldovan', 
+'ru': 'Russian', 
+'rw': 'Kinyarwanda', 
+'sa': 'Sanskrit', 
+'sc': 'Sardinian', 
+'sd': 'Sindhi', 
+'se': 'Northern Sami', 
+'sg': 'Sango', 
+'sh': 'Serbo-Croatian', 
+// Comments: sr, hr, bs are preferred for most modern uses
+'si': 'Sinhala, Sinhalese', 
+'sk': 'Slovak', 
+'sl': 'Slovenian', 
+'sm': 'Samoan', 
+'sn': 'Shona', 
+'so': 'Somali', 
+'sq': 'Albanian', 
+'sr': 'Serbian', 
+// Comments: see cnr for Montenegrin
+'ss': 'Swati', 
+'st': 'Southern Sotho', 
+'su': 'Sundanese', 
+'sv': 'Swedish', 
+'sw': 'Swahili (macrolanguage)', 
+'ta': 'Tamil', 
+'te': 'Telugu', 
+'tg': 'Tajik', 
+'th': 'Thai', 
 Added: 2005-10-16
 Suppress-Script: Thai
 },{
