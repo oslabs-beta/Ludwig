@@ -211,11 +211,11 @@ export function activate(context: vscode.ExtensionContext) {
             }
         );
         //Load bundled dashboard React file into the panel webview
-        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'dist', 'bundle.js')); //TO DO: Verify path
+        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'src','react-dashboard','dist', 'bundle.js')); //TO DO: Verify path
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
         
-        //TO DO : Create Path and Src for CSS files -> tailwind?
-        const cssPath = path.join(context.extensionPath,'src', 'react-dashboard', 'style.css');
+        //TO DO : Create Path and Src for CSS files
+        const cssPath = path.join(context.extensionPath,'src', 'react-dashboard', 'src', 'style.css');
         const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
         
         // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
@@ -230,7 +230,7 @@ export function activate(context: vscode.ExtensionContext) {
                 <body>
                     <h3>Ludwig Dashboard</h3>
                     <div id="root"></div>
-                    
+                    <script src="${dashboardSrc}"></script>
                 </body>
             </html>
         `;

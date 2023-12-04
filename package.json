@@ -53,7 +53,8 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "build-dashboard": "webpack --config ./src/react-dashboard/webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
