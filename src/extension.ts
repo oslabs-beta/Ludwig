@@ -206,7 +206,8 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.ViewColumn.One, // Editor column to show the new webview panel in.
             {
                 enableScripts: true,
-                retainContextWhenHidden: true //keep state when webview is not in foreground
+                retainContextWhenHidden: true, //keep state when webview is not in foreground
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from a react-dashboard directory 
             }
         );
         //Load bundled dashboard React file into the panel webview
