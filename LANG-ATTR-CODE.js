@@ -1,11 +1,11 @@
 // https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 // File-Date: 2023-10-16
 const langFile = {
-  'aa': 'Afar', 
-  'ab': 'Abkhazian', 
-  'ae': 'Avestan', 
-  'af': 'Afrikaans', 
-  'ak': 'Akan', 
+'aa': 'Afar', 
+'ab': 'Abkhazian', 
+'ae': 'Avestan', 
+'af': 'Afrikaans', 
+'ak': 'Akan', 
 'am': 'Amharic', 
 'an': 'Aragonese', 
 'ar': 'Arabic', 
@@ -50,143 +50,29 @@ const langFile = {
 'fo': 'Faroese', 
 'fr': 'French', 
 'fy': 'Western Frisian', 
-'ga': 'Irish',
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: gd, 
-Description: Scottish Gaelic
-Description: Gaelic
-Added: 2005-10-16
-},{
-Type: language
-Subtag: gl, 
-Description: Galician
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: gn, 
-Description: Guarani
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: gu, 
-Description: Gujarati
-Added: 2005-10-16
-Suppress-Script: Gujr
-},{
-Type: language
-Subtag: gv, 
-Description: Manx
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ha, 
-Description: Hausa
-Added: 2005-10-16
-},{
-Type: language
-Subtag: he, 
-Description: Hebrew
-Added: 2005-10-16
-Suppress-Script: Hebr
-},{
-Type: language
-Subtag: hi, 
-Description: Hindi
-Added: 2005-10-16
-Suppress-Script: Deva
-},{
-Type: language
-Subtag: ho, 
-Description: Hiri Motu
-Added: 2005-10-16
-},{
-Type: language
-Subtag: hr, 
-Description: Croatian
-Added: 2005-10-16
-Suppress-Script: Latn
-Macrolanguage: sh
-},{
-Type: language
-Subtag: ht, 
-Description: Haitian
-Description: Haitian Creole
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: hu, 
-Description: Hungarian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: hy, 
-Description: Armenian
-Added: 2005-10-16
-Suppress-Script: Armn
-Comments: see also hyw
-},{
-Type: language
-Subtag: hz, 
-Description: Herero
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ia, 
-Description: Interlingua (International Auxiliary Language
-  Association)
-Added: 2005-10-16
-},{
-Type: language
-Subtag: id, 
-Description: Indonesian
-Added: 2005-10-16
-Suppress-Script: Latn
-Macrolanguage: ms
-},{
-Type: language
-Subtag: ie, 
-Description: Interlingue
-Description: Occidental
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ig, 
-Description: Igbo
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ii, 
-Description: Sichuan Yi
-Description: Nuosu
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ik, 
-Description: Inupiaq
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: in, 
-Description: Indonesian
-Added: 2005-10-16
-Deprecated: 1989-01-01
-Preferred-Value: id
-Suppress-Script: Latn
-Macrolanguage: ms
-},{
-Type: language
-Subtag: io, 
-Description: Ido
+'ga': 'Irish', 
+'gd': 'Scottish Gaelic', 
+'gl': 'Galician', 
+'gn': 'Guarani', 
+'gu': 'Gujarati', 
+'gv': 'Manx', 
+'ha': 'Hausa', 
+'he': 'Hebrew', 
+'hi': 'Hindi', 
+'ho': 'Hiri Motu', 
+'hr': 'Croatian', 
+'ht': 'Haitian', 
+'hu': 'Hungarian', 
+'hy': 'Armenian', 
+'hz': 'Herero', 
+'ia': 'Interlingua (International Auxiliary Language Association)', 
+'id': 'Indonesian', 
+'ie': 'Interlingue', 
+'ig': 'Igbo', 
+'ii': 'Sichuan Yi', 
+'ik': 'Inupiaq', 
+'in': 'Indonesian', 
+'io': 'Ido', 
 Added: 2005-10-16
 },{
 Type: language
