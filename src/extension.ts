@@ -207,18 +207,17 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from a react-dashboard directory 
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src'))], //restrict Ludwig Dashboard webview to only load resources from src
             }
         );
         //Load bundled dashboard React file into the panel webview
-        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard' ,'dist', 'bundle.js')); //TO DO: Verify path
+        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'dist', 'bundle.js')); //TO DO: Verify path
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
         
         //TO DO : Create Path and Src for CSS files -> tailwind?
-        const cssPath = path.join(context.extensionPath, 'react-app', 'src', 'style.css');
+        const cssPath = path.join(context.extensionPath,'src', 'style.css');
         const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
-        //Add to head of HTML : <link rel="stylesheet" type="text/css" href="${cssSrc}">
-
+            console.log(cssPath);
         // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
         dashboard.webview.html = `
             <!DOCTYPE html>
@@ -226,6 +225,7 @@ export function activate(context: vscode.ExtensionContext) {
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" type="text/css" href="${cssSrc}">
                 </head>
                 <body>
                     <h3>Ludwig Dashboard</h3>
