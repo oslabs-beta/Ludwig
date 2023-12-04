@@ -73,267 +73,51 @@ const langFile = {
 'ik': 'Inupiaq', 
 'in': 'Indonesian', 
 'io': 'Ido', 
-Added: 2005-10-16
-},{
-Type: language
-Subtag: is, 
-Description: Icelandic
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: it, 
-Description: Italian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: iu, 
-Description: Inuktitut
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: iw, 
-Description: Hebrew
-Added: 2005-10-16
-Deprecated: 1989-01-01
-Preferred-Value: he
-Suppress-Script: Hebr
-},{
-Type: language
-Subtag: ja, 
-Description: Japanese
-Added: 2005-10-16
-Suppress-Script: Jpan
-},{
-Type: language
-Subtag: ji, 
-Description: Yiddish
-Added: 2005-10-16
-Deprecated: 1989-01-01
-Preferred-Value: yi
-},{
-Type: language
-Subtag: jv, 
-Description: Javanese
-Added: 2005-10-16
-},{
-Type: language
-Subtag: jw, 
-Description: Javanese
-Added: 2005-10-16
-Deprecated: 2001-08-13
-Preferred-Value: jv
-Comments: published by error in Table 1 of ISO 639:1988
-},{
-Type: language
-Subtag: ka, 
-Description: Georgian
-Added: 2005-10-16
-Suppress-Script: Geor
-},{
-Type: language
-Subtag: kg, 
-Description: Kongo
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ki, 
-Description: Kikuyu
-Description: Gikuyu
-Added: 2005-10-16
-},{
-Type: language
-Subtag: kj, 
-Description: Kuanyama
-Description: Kwanyama
-Added: 2005-10-16
-},{
-Type: language
-Subtag: kk, 
-Description: Kazakh
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: kl, 
-Description: Kalaallisut
-Description: Greenlandic
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: km, 
-Description: Khmer
-Description: Central Khmer
-Added: 2005-10-16
-Suppress-Script: Khmr
-},{
-Type: language
-Subtag: kn, 
-Description: Kannada
-Added: 2005-10-16
-Suppress-Script: Knda
-},{
-Type: language
-Subtag: ko, 
-Description: Korean
-Added: 2005-10-16
-Suppress-Script: Kore
-},{
-Type: language
-Subtag: kr, 
-Description: Kanuri
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ks, 
-Description: Kashmiri
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ku, 
-Description: Kurdish
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: kv, 
-Description: Komi
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: kw, 
-Description: Cornish
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ky, 
-Description: Kirghiz
-Description: Kyrgyz
-Added: 2005-10-16
-},{
-Type: language
-Subtag: la, 
-Description: Latin
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: lb, 
-Description: Luxembourgish
-Description: Letzeburgesch
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: lg, 
-Description: Ganda
-Description: Luganda
-Added: 2005-10-16
-},{
-Type: language
-Subtag: li, 
-Description: Limburgan
-Description: Limburger
-Description: Limburgish
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ln, 
-Description: Lingala
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: lo, 
-Description: Lao
-Added: 2005-10-16
-Suppress-Script: Laoo
-},{
-Type: language
-Subtag: lt, 
-Description: Lithuanian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: lu, 
-Description: Luba-Katanga
-Added: 2005-10-16
-},{
-Type: language
-Subtag: lv, 
-Description: Latvian
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: mg, 
-Description: Malagasy
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: mh, 
-Description: Marshallese
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: mi, 
-Description: Maori
-Added: 2005-10-16
-},{
-Type: language
-Subtag: mk, 
-Description: Macedonian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: ml, 
-Description: Malayalam
-Added: 2005-10-16
-Suppress-Script: Mlym
-},{
-Type: language
-Subtag: mn, 
-Description: Mongolian
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: mo, 
-Description: Moldavian
-Description: Moldovan
-Added: 2005-10-16
-Deprecated: 2008-11-22
-Preferred-Value: ro
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: mr, 
-Description: Marathi
-Added: 2005-10-16
-Suppress-Script: Deva
-},{
-Type: language
-Subtag: ms, 
-Description: Malay (macrolanguage)
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: mt, 
-Description: Maltese
+'is': 'Icelandic', 
+'it': 'Italian', 
+'iu': 'Inuktitut', 
+'iw': 'Hebrew', 
+'ja': 'Japanese', 
+'ji': 'Yiddish', 
+'jv': 'Javanese', 
+'jw': 'Javanese', 
+// Preferred-Value: jv
+// Comments: published by error in Table 1 of ISO 639:1988
+'ka': 'Georgian', 
+'kg': 'Kongo', 
+'ki': 'Kikuyu, Gikuyu', 
+'kj': 'Kuanyama, Kwanyama', 
+'kk': 'Kazakh', 
+'kl': 'Kalaallisut, Greenlandic', 
+'km': 'Khmer, Central Khmer', 
+'kn': 'Kannada', 
+'ko': 'Korean', 
+'kr': 'Kanuri', 
+'ks': 'Kashmiri', 
+'ku': 'Kurdish', 
+'kv': 'Komi', 
+'kw': 'Cornish', 
+'ky': 'Kirghiz', 
+'la': 'Latin', 
+'lb': 'Luxembourgish, Letzeburgesch', 
+'lg': 'Ganda, Luganda', 
+'li': 'Limburgan, Limburger, Limburgish', 
+'ln': 'Lingala', 
+'lo': 'Lao', 
+'lt': 'Lithuanian', 
+'lu': 'Luba-Katanga', 
+'lv': 'Latvian', 
+'mg': 'Malagasy', 
+'mh': 'Marshallese', 
+'mi': 'Maori', 
+'mk': 'Macedonian', 
+'ml': 'Malayalam', 
+'mn': 'Mongolian', 
+'mo': 'Moldavian, Moldovan', 
+// Preferred-Value: ro
+'mr': 'Marathi',
+'ms': 'Malay (macrolanguage)', 
+'mt': 'Maltese', 
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
