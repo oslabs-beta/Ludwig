@@ -388,403 +388,87 @@ const langFile = {
 'aiw': 'Aari', 
 'aix': 'Aighon', 
 'aiy': 'Ali', 
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aja, 
-Description: Aja (South Sudan)
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ajg, 
-Description: Aja (Benin)
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aji, 
-Description: Ajië
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ajn, 
-Description: Andajin
-Added: 2012-08-12
-},{
-Type: language
-Subtag: ajp, 
-Description: South Levantine Arabic
-Added: 2009-07-29
-Deprecated: 2023-03-17
-Preferred-Value: apc
-Macrolanguage: ar
-},{
-Type: language
-Subtag: ajs, 
-Description: Algerian Jewish Sign Language
-Added: 2022-02-25
-},{
-Type: language
-Subtag: ajt, 
-Description: Judeo-Tunisian Arabic
-Added: 2009-07-29
-Deprecated: 2022-02-25
-Preferred-Value: aeb
-Macrolanguage: jrb
-},{
-Type: language
-Subtag: aju, 
-Description: Judeo-Moroccan Arabic
-Added: 2009-07-29
-Macrolanguage: jrb
-},{
-Type: language
-Subtag: ajw, 
-Description: Ajawa
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ajz, 
-Description: Amri Karbi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akb, 
-Description: Batak Angkola
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akc, 
-Description: Mpur
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akd, 
-Description: Ukpet-Ehom
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ake, 
-Description: Akawaio
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akf, 
-Description: Akpa
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akg, 
-Description: Anakalangu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akh, 
-Description: Angal Heneng
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aki, 
-Description: Aiome
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akj, 
-Description: Aka-Jeru
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akk, 
-Description: Akkadian
-Added: 2005-10-16
-},{
-Type: language
-Subtag: akl, 
-Description: Aklanon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akm, 
-Description: Aka-Bo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ako, 
-Description: Akurio
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akp, 
-Description: Siwu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akq, 
-Description: Ak
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akr, 
-Description: Araki
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aks, 
-Description: Akaselem
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akt, 
-Description: Akolet
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aku, 
-Description: Akum
-Added: 2009-07-29
-},{
-Type: language, 
-Subtag: akv, 
-Description: Akhvakh
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akw, 
-Description: Akwa
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akx, 
-Description: Aka-Kede
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aky, 
-Description: Aka-Kol
-Added: 2009-07-29
-},{
-Type: language
-Subtag: akz, 
-Description: Alabama
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ala, 
-Description: Alago
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alc, 
-Description: Qawasqar
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ald, 
-Description: Alladian
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ale, 
-Description: Aleut
-Added: 2005-10-16
-},{
-Type: language
-Subtag: alf, 
-Description: Alege
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alg, 
-Description: Algonquian languages
-Added: 2005-10-16
-Scope: collection
-},{
-Type: language
-Subtag: alh, 
-Description: Alawa
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ali, 
-Description: Amaimon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alj, 
-Description: Alangan
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alk, 
-Description: Alak
-Added: 2009-07-29
-},{
-Type: language
-Subtag: all, 
-Description: Allar
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alm, 
-Description: Amblong
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aln, 
-Description: Gheg Albanian
-Added: 2009-07-29
-Macrolanguage: sq
-},{
-Type: language
-Subtag: alo, 
-Description: Larike-Wakasihu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alp, 
-Description: Alune
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alq, 
-Description: Algonquin
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alr, 
-Description: Alutor
-Added: 2009-07-29
-},{
-Type: language
-Subtag: als, 
-Description: Tosk Albanian
-Added: 2009-07-29
-Macrolanguage: sq
-},{
-Type: language
-Subtag: alt, 
-Description: Southern Altai
-Added: 2005-10-16
-},{
-Type: language
-Subtag: alu, 
-Description: 'Are'are
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alv, 
-Description: Atlantic-Congo languages
-Added: 2009-07-29
-Scope: collection
-},{
-Type: language
-Subtag: alw, 
-Description: Alaba-K’abeena
-Description: Wanbasana
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alx, 
-Description: Amol
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aly, 
-Description: Alyawarr
-Added: 2009-07-29
-},{
-Type: language
-Subtag: alz, 
-Description: Alur
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ama, 
-Description: Amanayé
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amb, 
-Description: Ambo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amc, 
-Description: Amahuaca
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ame, 
-Description: Yanesha'
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amf, 
-Description: Hamer-Banna
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amg, 
-Description: Amurdak
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ami, 
-Description: Amis
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amj, 
-Description: Amdang
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amk, 
-Description: Ambai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aml, 
-Description: War-Jaintia
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amm, 
-Description: Ama (Papua New Guinea)
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amn, 
-Description: Amanab
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amo, 
-Description: Amo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amp, 
-Description: Alamblak
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amq, 
-Description: Amahai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amr, 
-Description: Amarakaeri
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ams, 
-Description: Southern Amami-Oshima
-Added: 2009-07-29
-},{
-Type: language
-Subtag: amt, 
-Description: Amto
+'aja': 'Aja (South Sudan)', 
+'ajg': 'Aja (Benin)', 
+'aji': 'Ajië', 
+'ajn': 'Andajin', 
+'ajp': 'South Levantine Arabic', 
+// Deprecated: 2023-03-17
+// Preferred-Value: apc
+'ajs': 'Algerian Jewish Sign Language', 
+'ajt': 'Judeo-Tunisian Arabic', 
+// Deprecated: 2022-02-25
+// Preferred-Value: aeb
+'aju': 'Judeo-Moroccan Arabic', 
+'ajw': 'Ajawa', 
+'ajz': 'Amri Karbi', 
+'akb': 'Batak Angkola', 
+'akc': 'Mpur', 
+'akd': 'Ukpet-Ehom', 
+'ake': 'Akawaio', 
+'akf': 'Akpa', 
+'akg': 'Anakalangu', 
+'akh': 'Angal Heneng', 
+'aki': 'Aiome', 
+'akj': 'Aka-Jeru', 
+'akk': 'Akkadian', 
+'akl': 'Aklanon', 
+'akm': 'Aka-Bo', 
+'ako': 'Akurio', 
+'akp': 'Siwu', 
+'akq': 'Ak', 
+'akr': 'Araki', 
+'aks': 'Akaselem', 
+'akt': 'Akolet', 
+'aku': 'Akum', 
+'akv': 'Akhvakh', 
+'akw': 'Akwa', 
+'akx': 'Aka-Kede', 
+'aky': 'Aka-Kol', 
+'akz': 'Alabama', 
+'ala': 'Alago', 
+'alc': 'Qawasqar', 
+'ald': 'Alladian', 
+'ale': 'Aleut', 
+'alf': 'Alege', 
+'alg': 'Algonquian languages', 
+'alh': 'Alawa', 
+'ali': 'Amaimon', 
+'alj': 'Alangan', 
+'alk': 'Alak', 
+'all': 'Allar', 
+'alm': 'Amblong', 
+'aln': 'Gheg Albanian', 
+'alo': 'Larike-Wakasihu', 
+'alp': 'Alune', 
+'alq': 'Algonquin', 
+'alr': 'Alutor', 
+'als': 'Tosk Albanian', 
+'alt': 'Southern Altai', 
+'alu': '\'Are\'are', 
+'alv': 'Atlantic-Congo languages', 
+'alw': 'Alaba-K’abeena', 
+'alx': 'Amol', 
+'aly': 'Alyawarr', 
+'alz': 'Alur', 
+'ama': 'Amanayé', 
+'amb': 'Ambo', 
+'amc': 'Amahuaca', 
+'ame': 'Yanesha\'', 
+'amf': 'Hamer-Banna', 
+'amg': 'Amurdak', 
+'ami': 'Amis', 
+'amj': 'Amdang', 
+'amk': 'Ambai', 
+'aml': 'War-Jaintia', 
+'amm': 'Ama (Papua New Guinea)', 
+'amn': 'Amanab', 
+'amo': 'Amo', 
+'amp': 'Alamblak', 
+'amq': 'Amahai', 
+'amr': 'Amarakaeri', 
+'ams': 'Southern Amami-Oshima', 
+'amt': 'Amto', 
 Added: 2009-07-29
 },{
 Type: language
