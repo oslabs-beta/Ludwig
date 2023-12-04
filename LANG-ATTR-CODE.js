@@ -171,299 +171,60 @@ const langFile = {
 'te': 'Telugu', 
 'tg': 'Tajik', 
 'th': 'Thai', 
-Added: 2005-10-16
-Suppress-Script: Thai
-},{
-Type: language
-Subtag: ti, 
-Description: Tigrinya
-Added: 2005-10-16
-Suppress-Script: Ethi
-},{
-Type: language
-Subtag: tk, 
-Description: Turkmen
-Added: 2005-10-16
-},{
-Type: language
-Subtag: tl, 
-Description: Tagalog
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: tn, 
-Description: Tswana
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: to, 
-Description: Tonga (Tonga Islands)
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: tr, 
-Description: Turkish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ts, 
-Description: Tsonga
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: tt, 
-Description: Tatar
-Added: 2005-10-16
-},{
-Type: language
-Subtag: tw, 
-Description: Twi
-Added: 2005-10-16
-Macrolanguage: ak
-},{
-Type: language, 
-Subtag: ty, 
-Description: Tahitian
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ug, 
-Description: Uighur
-Description: Uyghur
-Added: 2005-10-16
-},{
-Type: language
-Subtag: uk, 
-Description: Ukrainian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: ur, 
-Description: Urdu
-Added: 2005-10-16
-Suppress-Script: Arab
-},{
-Type: language
-Subtag: uz, 
-Description: Uzbek
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ve, 
-Description: Venda
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: vi, 
-Description: Vietnamese
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: vo, 
-Description: Volapük
-Added: 2005-10-16
-},{
-Type: language
-Subtag: wa, 
-Description: Walloon
-Added: 2005-10-16
-},{
-Type: language
-Subtag: wo, 
-Description: Wolof
-Added: 2005-10-16
-},{
-Type: language
-Subtag: xh, 
-Description: Xhosa
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: yi, 
-Description: Yiddish
-Added: 2005-10-16
-Suppress-Script: Hebr
-Scope: macrolanguage
-},{
-Type: language
-Subtag: yo, 
-Description: Yoruba
-Added: 2005-10-16
-},{
-Type: language
-Subtag: za, 
-Description: Zhuang
-Description: Chuang
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: zh, 
-Description: Chinese
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: zu, 
-Description: Zulu
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: aaa, 
-Description: Ghotuo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aab, 
-Description: Alumu-Tesu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aac, 
-Description: Ari
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aad, 
-Description: Amal
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aae, 
-Description: Arbëreshë Albanian
-Added: 2009-07-29
-Macrolanguage: sq
-},{
-Type: language
-Subtag: aaf, 
-Description: Aranadan
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aag, 
-Description: Ambrak
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aah, 
-Description: Abu' Arapesh
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aai, 
-Description: Arifama-Miniafia
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aak, 
-Description: Ankave
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aal, 
-Description: Afade
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aam, 
-Description: Aramanik
-Added: 2009-07-29
-Deprecated: 2015-02-12
-Preferred-Value: aas
-},{
-Type: language
-Subtag: aan, 
-Description: Anambé
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aao, 
-Description: Algerian Saharan Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: aap, 
-Description: Pará Arára
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aaq, 
-Description: Eastern Abnaki
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aas, 
-Description: Aasáx
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aat, 
-Description: Arvanitika Albanian
-Added: 2009-07-29
-Macrolanguage: sq
-},{
-Type: language
-Subtag: aau, 
-Description: Abau, 
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aav, 
-Description: Austro-Asiatic languages
-Added: 2009-07-29
-Scope: collection
-},{
-Type: language
-Subtag: aaw, 
-Description: Solong
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aax, 
-Description: Mandobo Atas
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aaz, 
-Description: Amarasi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aba, 
-Description: Abé
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abb, 
-Description: Bankon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abc, 
-Description: Ambala Ayta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abd, 
-Description: Manide
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abe, 
-Description: Western Abnaki
-Added: 2009-07-29
+'ti': 'Tigrinya', 
+'tk': 'Turkmen', 
+'tl': 'Tagalog', 
+'tn': 'Tswana', 
+'to': 'Tonga (Tonga Islands)', 
+'tr': 'Turkish', 
+'ts': 'Tsonga', 
+'tt': 'Tatar', 
+'tw': 'Twi', 
+'ty': 'Tahitian', 
+'ug': 'Uighur, Uyghur', 
+'uk': 'Ukrainian', 
+'ur': 'Urdu', 
+'uz': 'Uzbek', 
+'ve': 'Venda', 
+'vi': 'Vietnamese', 
+'vo': 'Volapük', 
+'wa': 'Walloon', 
+'wo': 'Wolof', 
+'xh': 'Xhosa', 
+'yi': 'Yiddish', 
+'yo': 'Yoruba', 
+'za': 'Zhuang, Chuang', 
+'zh': 'Chinese', 
+'zu': 'Zulu', 
+'aaa': 'Ghotuo', 
+'aab': 'Alumu-Tesu', 
+'aac': 'Ari', 
+'aad': 'Amal'
+'aae': 'Arbëreshë Albanian', 
+'aaf': 'Aranadan', 
+'aag': 'Ambrak', 
+'aah': 'Abu\' Arapesh', 
+'aai': 'Arifama-Miniafia', 
+'aak': 'Ankave', 
+'aal': 'Afade', 
+'aam': 'Aramanik', 
+'aan': 'Anambé', 
+'aao': 'Algerian Saharan Arabic', 
+'aap': 'Pará Arára', 
+'aaq': 'Eastern Abnaki', 
+'aas': 'Aasáx', 
+'aat': 'Arvanitika Albanian', 
+'aau': 'Abau', 
+'aav': 'Austro-Asiatic languages', 
+'aaw': 'Solong', 
+'aax': 'Mandobo Atas', 
+'aaz': 'Amarasi', 
+'aba': 'Abé', 
+'abb': 'Bankon', 
+'abc': 'Ambala Ayta', 
+'abd': 'Manide', 
+'abe': 'Western Abnaki', 
+Added: 2009-07-29'
 },{
 Type: language
 Subtag: abf, 
