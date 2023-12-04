@@ -196,16 +196,17 @@ export function activate(context: vscode.ExtensionContext) {
 
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
-    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView",sidebarProvider);
+    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
     
     //Create dashboard panel
     const createDashboard = () => {
         const dashboard = vscode.window.createWebviewPanel(
             'ludwig-dashboard', // Identifies the type of the webview (Used internally)
             'Ludwig Dashboard', //Title of the webview panel
-            vscode.ViewColumn.One,// Editor column to show the new webview panel in.
+            vscode.ViewColumn.One, // Editor column to show the new webview panel in.
             {
                 enableScripts: true,
+                retainContextWhenHidden: true //keep state when webview is not in foreground
             }
         );
         //Load bundled dashboard React file into the panel webview
