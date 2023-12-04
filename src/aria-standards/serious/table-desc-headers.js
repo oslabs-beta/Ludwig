@@ -14,7 +14,6 @@ function checkTableHeaders() {
   // output array for fail cases
   const incorrectTableHeaders = [];
   
-  
   const th = ludwig.querySelectorAll('th');
   // Check that all th elements have a scope attribute.
   // Check that all scope attributes have the value row, col, rowgroup, or colgroup.
@@ -45,7 +44,6 @@ function checkTableHeaders() {
   return incorrectTableHeaders;
   }
 }
-
 
 // export to extension.ts
 module.exports = {
