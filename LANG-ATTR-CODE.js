@@ -1,428 +1,182 @@
-File-Date: 2023-10-16
-{
-Type: language
-Subtag: aa
-Description: Afar
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ab
-Description: Abkhazian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: ae
-Description: Avestan
-Added: 2005-10-16
-},{
-Type: language
-Subtag: af
-Description: Afrikaans
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ak
-Description: Akan
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: am
-Description: Amharic
-Added: 2005-10-16
-Suppress-Script: Ethi
-},{
-Type: language
-Subtag: an
-Description: Aragonese
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ar
-Description: Arabic
-Added: 2005-10-16
-Suppress-Script: Arab
-Scope: macrolanguage
-},{
-Type: language
-Subtag: as
-Description: Assamese
-Added: 2005-10-16
-Suppress-Script: Beng
-},{
-Type: language
-Subtag: av
-Description: Avaric
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ay
-Description: Aymara
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: az
-Description: Azerbaijani
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ba
-Description: Bashkir
-Added: 2005-10-16
-},{
-Type: language
-Subtag: be
-Description: Belarusian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: bg
-Description: Bulgarian
-Added: 2005-10-16
-Suppress-Script: Cyrl
-},{
-Type: language
-Subtag: bh
-Description: Bihari languages
-Added: 2005-10-16
-Scope: collection
-},{
-Type: language
-Subtag: bi
-Description: Bislama
-Added: 2005-10-16
-},{
-Type: language
-Subtag: bm
-Description: Bambara
-Added: 2005-10-16
-},{
-Type: language
-Subtag: bn
-Description: Bengali
-Description: Bangla
-Added: 2005-10-16
-Suppress-Script: Beng
-},{
-Type: language
-Subtag: bo
-Description: Tibetan
-Added: 2005-10-16
-},{
-Type: language
-Subtag: br
-Description: Breton
-Added: 2005-10-16
-},{
-Type: language
-Subtag: bs
-Description: Bosnian
-Added: 2005-10-16
-Suppress-Script: Latn
-Macrolanguage: sh
-},{
-Type: language
-Subtag: ca
-Description: Catalan
-Description: Valencian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ce
-Description: Chechen
-Added: 2005-10-16
-},{
-Type: language
-Subtag: ch
-Description: Chamorro
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: co
-Description: Corsican
-Added: 2005-10-16
-},{
-Type: language
-Subtag: cr
-Description: Cree
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: cs
-Description: Czech
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: cu
-Description: Church Slavic
-Description: Church Slavonic
-Description: Old Bulgarian
-Description: Old Church Slavonic
-Description: Old Slavonic
-Added: 2005-10-16
-},{
-Type: language
-Subtag: cv
-Description: Chuvash
-Added: 2005-10-16
-},{
-Type: language
-Subtag: cy
-Description: Welsh
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: da
-Description: Danish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: de
-Description: German
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: dv
-Description: Dhivehi
-Description: Divehi
-Description: Maldivian
-Added: 2005-10-16
-Suppress-Script: Thaa
-},{
-Type: language
-Subtag: dz
-Description: Dzongkha
-Added: 2005-10-16
-Suppress-Script: Tibt
-},{
-Type: language
-Subtag: ee
-Description: Ewe
-Added: 2005-10-16
-},{
-Type: language
-Subtag: el
-Description: Modern Greek (1453-)
-Added: 2005-10-16
-Suppress-Script: Grek
-},{
-Type: language
-Subtag: en
-Description: English
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: eo
-Description: Esperanto
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: es
-Description: Spanish
-Description: Castilian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: et
-Description: Estonian
-Added: 2005-10-16
-Suppress-Script: Latn
-Scope: macrolanguage
-},{
-Type: language
-Subtag: eu
-Description: Basque
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: fa
-Description: Persian
-Added: 2005-10-16
-Suppress-Script: Arab
-Scope: macrolanguage
-},{
-Type: language
-Subtag: ff
-Description: Fulah
-Added: 2005-10-16
-Scope: macrolanguage
-},{
-Type: language
-Subtag: fi
-Description: Finnish
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: fj
-Description: Fijian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: fo
-Description: Faroese
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: fr
-Description: French
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: fy
-Description: Western Frisian
-Added: 2005-10-16
-Suppress-Script: Latn
-},{
-Type: language
-Subtag: ga
+// https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
+// File-Date: 2023-10-16
+[aa, 
+ab, 
+ae, 
+af, 
+ak, 
+am, 
+an, 
+ar, 
+as, 
+av, 
+ay, 
+az, 
+ba, 
+be, 
+bg, 
+bh, 
+bi, 
+bm, 
+bn, 
+bo, 
+br, 
+bs, 
+ca, 
+ce, 
+ch, 
+co, 
+cr, 
+cs, 
+cu, 
+cv, 
+cy, 
+da, 
+de, 
+dv, 
+dz, 
+ee, 
+el, 
+en, 
+eo, 
+es, 
+et, 
+eu, 
+fa, 
+ff, 
+fi, 
+fj, 
+fo, 
+fr, 
+fy, 
+ga, 
 Description: Irish
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: gd
+Subtag: gd, 
 Description: Scottish Gaelic
 Description: Gaelic
 Added: 2005-10-16
 },{
 Type: language
-Subtag: gl
+Subtag: gl, 
 Description: Galician
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: gn
+Subtag: gn, 
 Description: Guarani
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: gu
+Subtag: gu, 
 Description: Gujarati
 Added: 2005-10-16
 Suppress-Script: Gujr
 },{
 Type: language
-Subtag: gv
+Subtag: gv, 
 Description: Manx
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ha
+Subtag: ha, 
 Description: Hausa
 Added: 2005-10-16
 },{
 Type: language
-Subtag: he
+Subtag: he, 
 Description: Hebrew
 Added: 2005-10-16
 Suppress-Script: Hebr
 },{
 Type: language
-Subtag: hi
+Subtag: hi, 
 Description: Hindi
 Added: 2005-10-16
 Suppress-Script: Deva
 },{
 Type: language
-Subtag: ho
+Subtag: ho, 
 Description: Hiri Motu
 Added: 2005-10-16
 },{
 Type: language
-Subtag: hr
+Subtag: hr, 
 Description: Croatian
 Added: 2005-10-16
 Suppress-Script: Latn
 Macrolanguage: sh
 },{
 Type: language
-Subtag: ht
+Subtag: ht, 
 Description: Haitian
 Description: Haitian Creole
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: hu
+Subtag: hu, 
 Description: Hungarian
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: hy
+Subtag: hy, 
 Description: Armenian
 Added: 2005-10-16
 Suppress-Script: Armn
 Comments: see also hyw
 },{
 Type: language
-Subtag: hz
+Subtag: hz, 
 Description: Herero
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ia
+Subtag: ia, 
 Description: Interlingua (International Auxiliary Language
   Association)
 Added: 2005-10-16
 },{
 Type: language
-Subtag: id
+Subtag: id, 
 Description: Indonesian
 Added: 2005-10-16
 Suppress-Script: Latn
 Macrolanguage: ms
 },{
 Type: language
-Subtag: ie
+Subtag: ie, 
 Description: Interlingue
 Description: Occidental
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ig
+Subtag: ig, 
 Description: Igbo
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ii
+Subtag: ii, 
 Description: Sichuan Yi
 Description: Nuosu
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ik
+Subtag: ik, 
 Description: Inupiaq
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: in
+Subtag: in, 
 Description: Indonesian
 Added: 2005-10-16
 Deprecated: 1989-01-01
@@ -431,30 +185,30 @@ Suppress-Script: Latn
 Macrolanguage: ms
 },{
 Type: language
-Subtag: io
+Subtag: io, 
 Description: Ido
 Added: 2005-10-16
 },{
 Type: language
-Subtag: is
+Subtag: is, 
 Description: Icelandic
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: it
+Subtag: it, 
 Description: Italian
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: iu
+Subtag: iu, 
 Description: Inuktitut
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: iw
+Subtag: iw, 
 Description: Hebrew
 Added: 2005-10-16
 Deprecated: 1989-01-01
@@ -462,25 +216,25 @@ Preferred-Value: he
 Suppress-Script: Hebr
 },{
 Type: language
-Subtag: ja
+Subtag: ja, 
 Description: Japanese
 Added: 2005-10-16
 Suppress-Script: Jpan
 },{
 Type: language
-Subtag: ji
+Subtag: ji, 
 Description: Yiddish
 Added: 2005-10-16
 Deprecated: 1989-01-01
 Preferred-Value: yi
 },{
 Type: language
-Subtag: jv
+Subtag: jv, 
 Description: Javanese
 Added: 2005-10-16
 },{
 Type: language
-Subtag: jw
+Subtag: jw, 
 Description: Javanese
 Added: 2005-10-16
 Deprecated: 2001-08-13
@@ -488,189 +242,189 @@ Preferred-Value: jv
 Comments: published by error in Table 1 of ISO 639:1988
 },{
 Type: language
-Subtag: ka
+Subtag: ka, 
 Description: Georgian
 Added: 2005-10-16
 Suppress-Script: Geor
 },{
 Type: language
-Subtag: kg
+Subtag: kg, 
 Description: Kongo
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: ki
+Subtag: ki, 
 Description: Kikuyu
 Description: Gikuyu
 Added: 2005-10-16
 },{
 Type: language
-Subtag: kj
+Subtag: kj, 
 Description: Kuanyama
 Description: Kwanyama
 Added: 2005-10-16
 },{
 Type: language
-Subtag: kk
+Subtag: kk, 
 Description: Kazakh
 Added: 2005-10-16
 Suppress-Script: Cyrl
 },{
 Type: language
-Subtag: kl
+Subtag: kl, 
 Description: Kalaallisut
 Description: Greenlandic
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: km
+Subtag: km, 
 Description: Khmer
 Description: Central Khmer
 Added: 2005-10-16
 Suppress-Script: Khmr
 },{
 Type: language
-Subtag: kn
+Subtag: kn, 
 Description: Kannada
 Added: 2005-10-16
 Suppress-Script: Knda
 },{
 Type: language
-Subtag: ko
+Subtag: ko, 
 Description: Korean
 Added: 2005-10-16
 Suppress-Script: Kore
 },{
 Type: language
-Subtag: kr
+Subtag: kr, 
 Description: Kanuri
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: ks
+Subtag: ks, 
 Description: Kashmiri
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ku
+Subtag: ku, 
 Description: Kurdish
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: kv
+Subtag: kv, 
 Description: Komi
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: kw
+Subtag: kw, 
 Description: Cornish
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ky
+Subtag: ky, 
 Description: Kirghiz
 Description: Kyrgyz
 Added: 2005-10-16
 },{
 Type: language
-Subtag: la
+Subtag: la, 
 Description: Latin
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: lb
+Subtag: lb, 
 Description: Luxembourgish
 Description: Letzeburgesch
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: lg
+Subtag: lg, 
 Description: Ganda
 Description: Luganda
 Added: 2005-10-16
 },{
 Type: language
-Subtag: li
+Subtag: li, 
 Description: Limburgan
 Description: Limburger
 Description: Limburgish
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ln
+Subtag: ln, 
 Description: Lingala
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: lo
+Subtag: lo, 
 Description: Lao
 Added: 2005-10-16
 Suppress-Script: Laoo
 },{
 Type: language
-Subtag: lt
+Subtag: lt, 
 Description: Lithuanian
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: lu
+Subtag: lu, 
 Description: Luba-Katanga
 Added: 2005-10-16
 },{
 Type: language
-Subtag: lv
+Subtag: lv, 
 Description: Latvian
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: mg
+Subtag: mg, 
 Description: Malagasy
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: mh
+Subtag: mh, 
 Description: Marshallese
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: mi
+Subtag: mi, 
 Description: Maori
 Added: 2005-10-16
 },{
 Type: language
-Subtag: mk
+Subtag: mk, 
 Description: Macedonian
 Added: 2005-10-16
 Suppress-Script: Cyrl
 },{
 Type: language
-Subtag: ml
+Subtag: ml, 
 Description: Malayalam
 Added: 2005-10-16
 Suppress-Script: Mlym
 },{
 Type: language
-Subtag: mn
+Subtag: mn, 
 Description: Mongolian
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: mo
+Subtag: mo, 
 Description: Moldavian
 Description: Moldovan
 Added: 2005-10-16
@@ -679,96 +433,96 @@ Preferred-Value: ro
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: mr
+Subtag: mr, 
 Description: Marathi
 Added: 2005-10-16
 Suppress-Script: Deva
 },{
 Type: language
-Subtag: ms
+Subtag: ms, 
 Description: Malay (macrolanguage)
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: mt
+Subtag: mt, 
 Description: Maltese
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: my
+Subtag: my, 
 Description: Burmese
 Added: 2005-10-16
 Suppress-Script: Mymr
 },{
 Type: language
-Subtag: na
+Subtag: na, 
 Description: Nauru
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: nb
+Subtag: nb, 
 Description: Norwegian Bokmål
 Added: 2005-10-16
 Suppress-Script: Latn
 Macrolanguage: no
 },{
 Type: language
-Subtag: nd
+Subtag: nd, 
 Description: North Ndebele
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ne
+Subtag: ne, 
 Description: Nepali (macrolanguage)
 Added: 2005-10-16
 Suppress-Script: Deva
 Scope: macrolanguage
 },{
 Type: language
-Subtag: ng
+Subtag: ng, 
 Description: Ndonga
 Added: 2005-10-16
 },{
 Type: language
-Subtag: nl
+Subtag: nl, 
 Description: Dutch
 Description: Flemish
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: nn
+Subtag: nn, 
 Description: Norwegian Nynorsk
 Added: 2005-10-16
 Suppress-Script: Latn
 Macrolanguage: no
 },{
 Type: language
-Subtag: no
+Subtag: no, 
 Description: Norwegian
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: nr
+Subtag: nr, 
 Description: South Ndebele
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: nv
+Subtag: nv, 
 Description: Navajo
 Description: Navaho
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ny
+Subtag: ny, 
 Description: Nyanja
 Description: Chewa
 Description: Chichewa
@@ -776,25 +530,25 @@ Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: oc
+Subtag: oc, 
 Description: Occitan (post 1500)
 Added: 2005-10-16
 },{
 Type: language
-Subtag: oj
+Subtag: oj, 
 Description: Ojibwa
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: om
+Subtag: om, 
 Description: Oromo
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: or
+Subtag: or, 
 Description: Oriya (macrolanguage)
 Description: Odia (macrolanguage)
 Added: 2005-10-16
@@ -802,31 +556,31 @@ Suppress-Script: Orya
 Scope: macrolanguage
 },{
 Type: language
-Subtag: os
+Subtag: os, 
 Description: Ossetian
 Description: Ossetic
 Added: 2005-10-16
 },{
 Type: language
-Subtag: pa
+Subtag: pa, 
 Description: Panjabi
 Description: Punjabi
 Added: 2005-10-16
 Suppress-Script: Guru
 },{
 Type: language
-Subtag: pi
+Subtag: pi, 
 Description: Pali
 Added: 2005-10-16
 },{
 Type: language
-Subtag: pl
+Subtag: pl, 
 Description: Polish
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ps
+Subtag: ps, 
 Description: Pushto
 Description: Pashto
 Added: 2005-10-16
@@ -834,32 +588,32 @@ Suppress-Script: Arab
 Scope: macrolanguage
 },{
 Type: language
-Subtag: pt
+Subtag: pt, 
 Description: Portuguese
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: qu
+Subtag: qu, 
 Description: Quechua
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: rm
+Subtag: rm, 
 Description: Romansh
 Suppress-Script: Latn
 Added: 2005-10-16
 },{
 Type: language
-Subtag: rn
+Subtag: rn, 
 Description: Rundi
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ro
+Subtag: ro, 
 Description: Romanian
 Description: Moldavian
 Description: Moldovan
@@ -867,1062 +621,1062 @@ Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ru
+Subtag: ru, 
 Description: Russian
 Added: 2005-10-16
 Suppress-Script: Cyrl
 },{
 Type: language
-Subtag: rw
+Subtag: rw, 
 Description: Kinyarwanda
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sa
+Subtag: sa, 
 Description: Sanskrit
 Added: 2005-10-16
 },{
 Type: language
-Subtag: sc
+Subtag: sc, 
 Description: Sardinian
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: sd
+Subtag: sd, 
 Description: Sindhi
 Added: 2005-10-16
 },{
 Type: language
-Subtag: se
+Subtag: se, 
 Description: Northern Sami
 Added: 2005-10-16
 },{
 Type: language
-Subtag: sg
+Subtag: sg, 
 Description: Sango
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sh
+Subtag: sh, 
 Description: Serbo-Croatian
 Added: 2005-10-16
 Scope: macrolanguage
 Comments: sr, hr, bs are preferred for most modern uses
 },{
 Type: language
-Subtag: si
+Subtag: si, 
 Description: Sinhala
 Description: Sinhalese
 Added: 2005-10-16
 Suppress-Script: Sinh
 },{
 Type: language
-Subtag: sk
+Subtag: sk, 
 Description: Slovak
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sl
+Subtag: sl, 
 Description: Slovenian
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sm
+Subtag: sm, 
 Description: Samoan
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sn
+Subtag: sn, 
 Description: Shona
 Added: 2005-10-16
 },{
 Type: language
-Subtag: so
+Subtag: so, 
 Description: Somali
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sq
+Subtag: sq, 
 Description: Albanian
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: sr
+Subtag: sr, 
 Description: Serbian
 Added: 2005-10-16
 Macrolanguage: sh
 Comments: see cnr for Montenegrin
 },{
 Type: language
-Subtag: ss
+Subtag: ss, 
 Description: Swati
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: st
+Subtag: st, 
 Description: Southern Sotho
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: su
+Subtag: su, 
 Description: Sundanese
 Added: 2005-10-16
 },{
 Type: language
-Subtag: sv
+Subtag: sv, 
 Description: Swedish
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: sw
+Subtag: sw, 
 Description: Swahili (macrolanguage)
 Added: 2005-10-16
 Suppress-Script: Latn
 Scope: macrolanguage
 },{
 Type: language
-Subtag: ta
+Subtag: ta, 
 Description: Tamil
 Added: 2005-10-16
 Suppress-Script: Taml
 },{
 Type: language
-Subtag: te
+Subtag: te, 
 Description: Telugu
 Added: 2005-10-16
 Suppress-Script: Telu
 },{
 Type: language
-Subtag: tg
+Subtag: tg, 
 Description: Tajik
 Added: 2005-10-16
 },{
 Type: language
-Subtag: th
+Subtag: th, 
 Description: Thai
 Added: 2005-10-16
 Suppress-Script: Thai
 },{
 Type: language
-Subtag: ti
+Subtag: ti, 
 Description: Tigrinya
 Added: 2005-10-16
 Suppress-Script: Ethi
 },{
 Type: language
-Subtag: tk
+Subtag: tk, 
 Description: Turkmen
 Added: 2005-10-16
 },{
 Type: language
-Subtag: tl
+Subtag: tl, 
 Description: Tagalog
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: tn
+Subtag: tn, 
 Description: Tswana
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: to
+Subtag: to, 
 Description: Tonga (Tonga Islands)
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: tr
+Subtag: tr, 
 Description: Turkish
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: ts
+Subtag: ts, 
 Description: Tsonga
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: tt
+Subtag: tt, 
 Description: Tatar
 Added: 2005-10-16
 },{
 Type: language
-Subtag: tw
+Subtag: tw, 
 Description: Twi
 Added: 2005-10-16
 Macrolanguage: ak
 },{
-Type: language
-Subtag: ty
+Type: language, 
+Subtag: ty, 
 Description: Tahitian
 Added: 2005-10-16
 },{
 Type: language
-Subtag: ug
+Subtag: ug, 
 Description: Uighur
 Description: Uyghur
 Added: 2005-10-16
 },{
 Type: language
-Subtag: uk
+Subtag: uk, 
 Description: Ukrainian
 Added: 2005-10-16
 Suppress-Script: Cyrl
 },{
 Type: language
-Subtag: ur
+Subtag: ur, 
 Description: Urdu
 Added: 2005-10-16
 Suppress-Script: Arab
 },{
 Type: language
-Subtag: uz
+Subtag: uz, 
 Description: Uzbek
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: ve
+Subtag: ve, 
 Description: Venda
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: vi
+Subtag: vi, 
 Description: Vietnamese
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: vo
+Subtag: vo, 
 Description: Volapük
 Added: 2005-10-16
 },{
 Type: language
-Subtag: wa
+Subtag: wa, 
 Description: Walloon
 Added: 2005-10-16
 },{
 Type: language
-Subtag: wo
+Subtag: wo, 
 Description: Wolof
 Added: 2005-10-16
 },{
 Type: language
-Subtag: xh
+Subtag: xh, 
 Description: Xhosa
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: yi
+Subtag: yi, 
 Description: Yiddish
 Added: 2005-10-16
 Suppress-Script: Hebr
 Scope: macrolanguage
 },{
 Type: language
-Subtag: yo
+Subtag: yo, 
 Description: Yoruba
 Added: 2005-10-16
 },{
 Type: language
-Subtag: za
+Subtag: za, 
 Description: Zhuang
 Description: Chuang
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: zh
+Subtag: zh, 
 Description: Chinese
 Added: 2005-10-16
 Scope: macrolanguage
 },{
 Type: language
-Subtag: zu
+Subtag: zu, 
 Description: Zulu
 Added: 2005-10-16
 Suppress-Script: Latn
 },{
 Type: language
-Subtag: aaa
+Subtag: aaa, 
 Description: Ghotuo
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aab
+Subtag: aab, 
 Description: Alumu-Tesu
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aac
+Subtag: aac, 
 Description: Ari
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aad
+Subtag: aad, 
 Description: Amal
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aae
+Subtag: aae, 
 Description: Arbëreshë Albanian
 Added: 2009-07-29
 Macrolanguage: sq
 },{
 Type: language
-Subtag: aaf
+Subtag: aaf, 
 Description: Aranadan
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aag
+Subtag: aag, 
 Description: Ambrak
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aah
+Subtag: aah, 
 Description: Abu' Arapesh
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aai
+Subtag: aai, 
 Description: Arifama-Miniafia
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aak
+Subtag: aak, 
 Description: Ankave
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aal
+Subtag: aal, 
 Description: Afade
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aam
+Subtag: aam, 
 Description: Aramanik
 Added: 2009-07-29
 Deprecated: 2015-02-12
 Preferred-Value: aas
 },{
 Type: language
-Subtag: aan
+Subtag: aan, 
 Description: Anambé
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aao
+Subtag: aao, 
 Description: Algerian Saharan Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: aap
+Subtag: aap, 
 Description: Pará Arára
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aaq
+Subtag: aaq, 
 Description: Eastern Abnaki
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aas
+Subtag: aas, 
 Description: Aasáx
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aat
+Subtag: aat, 
 Description: Arvanitika Albanian
 Added: 2009-07-29
 Macrolanguage: sq
 },{
 Type: language
-Subtag: aau
-Description: Abau
+Subtag: aau, 
+Description: Abau, 
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aav
+Subtag: aav, 
 Description: Austro-Asiatic languages
 Added: 2009-07-29
 Scope: collection
 },{
 Type: language
-Subtag: aaw
+Subtag: aaw, 
 Description: Solong
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aax
+Subtag: aax, 
 Description: Mandobo Atas
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aaz
+Subtag: aaz, 
 Description: Amarasi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aba
+Subtag: aba, 
 Description: Abé
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abb
+Subtag: abb, 
 Description: Bankon
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abc
+Subtag: abc, 
 Description: Ambala Ayta
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abd
+Subtag: abd, 
 Description: Manide
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abe
+Subtag: abe, 
 Description: Western Abnaki
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abf
+Subtag: abf, 
 Description: Abai Sungai
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abg
+Subtag: abg, 
 Description: Abaga
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abh
+Subtag: abh, 
 Description: Tajiki Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: abi
+Subtag: abi, 
 Description: Abidji
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abj
+Subtag: abj, 
 Description: Aka-Bea
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abl
+Subtag: abl, 
 Description: Lampung Nyo
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abm
+Subtag: abm, 
 Description: Abanyom
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abn
+Subtag: abn, 
 Description: Abua
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abo
+Subtag: abo, 
 Description: Abon
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abp
+Subtag: abp, 
 Description: Abellen Ayta
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abq
+Subtag: abq, 
 Description: Abaza
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abr
+Subtag: abr, 
 Description: Abron
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abs
+Subtag: abs, 
 Description: Ambonese Malay
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abt
+Subtag: abt, 
 Description: Ambulas
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abu
+Subtag: abu, 
 Description: Abure
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abv
+Subtag: abv, 
 Description: Baharna Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: abw
+Subtag: abw, 
 Description: Pal
 Added: 2009-07-29
 },{
-Type: language
-Subtag: abx
+Type: language, 
+Subtag: abx, 
 Description: Inabaknon
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aby
+Subtag: aby, 
 Description: Aneme Wake
 Added: 2009-07-29
 },{
 Type: language
-Subtag: abz
+Subtag: abz, 
 Description: Abui
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aca
+Subtag: aca, 
 Description: Achagua
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acb
+Subtag: acb, 
 Description: Áncá
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acd
+Subtag: acd, 
 Description: Gikyode
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ace
+Subtag: ace, 
 Description: Achinese
 Added: 2005-10-16
 },{
 Type: language
-Subtag: acf
+Subtag: acf, 
 Description: Saint Lucian Creole French
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ach
+Subtag: ach, 
 Description: Acoli
 Added: 2005-10-16
 },{
 Type: language
-Subtag: aci
+Subtag: aci, 
 Description: Aka-Cari
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ack
+Subtag: ack, 
 Description: Aka-Kora
 Added: 2009-07-29
 },{
-Type: language
-Subtag: acl
+Type: language, 
+Subtag: acl, 
 Description: Akar-Bale
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acm
+Subtag: acm, 
 Description: Mesopotamian Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: acn
+Subtag: acn, 
 Description: Achang
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acp
+Subtag: acp, 
 Description: Eastern Acipa
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acq
+Subtag: acq, 
 Description: Ta'izzi-Adeni Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: acr
+Subtag: acr, 
 Description: Achi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acs
+Subtag: acs, 
 Description: Acroá
 Added: 2009-07-29
 },{
 Type: language
-Subtag: act
+Subtag: act, 
 Description: Achterhoeks
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acu
+Subtag: acu, 
 Description: Achuar-Shiwiar
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acv
+Subtag: acv, 
 Description: Achumawi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: acw
+Subtag: acw, 
 Description: Hijazi Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
-Type: language
-Subtag: acx
+Type: language, 
+Subtag: acx, 
 Description: Omani Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: acy
+Subtag: acy, 
 Description: Cypriot Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: acz
+Subtag: acz, 
 Description: Acheron
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ada
+Subtag: ada, 
 Description: Adangme
 Added: 2005-10-16
 },{
 Type: language
-Subtag: adb
+Subtag: adb, 
 Description: Atauran
 Added: 2009-07-29
 },{
 Type: language
-Subtag: add
+Subtag: add, 
 Description: Lidzonka
 Description: Dzodinka
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ade
+Subtag: ade, 
 Description: Adele
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adf
-Description: Dhofari Arabic
+Subtag: adf, 
+Description: Dhofari Arabi, c
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: adg
+Subtag: adg, 
 Description: Andegerebinha
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adh
+Subtag: adh, 
 Description: Adhola
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adi
+Subtag: adi, 
 Description: Adi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adj
+Subtag: adj, 
 Description: Adioukrou
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adl
+Subtag: adl, 
 Description: Galo
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adn
+Subtag: adn, 
 Description: Adang
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ado
+Subtag: ado, 
 Description: Abu
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adp
+Subtag: adp, 
 Description: Adap
 Added: 2009-07-29
 Deprecated: 2015-02-12
 Preferred-Value: dz
 },{
 Type: language
-Subtag: adq
+Subtag: adq, 
 Description: Adangbe
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adr
+Subtag: adr, 
 Description: Adonara
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ads
+Subtag: ads, 
 Description: Adamorobe Sign Language
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adt
+Subtag: adt, 
 Description: Adnyamathanha
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adu
+Subtag: adu, 
 Description: Aduge
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adw
+Subtag: adw, 
 Description: Amundava
 Added: 2009-07-29
 },{
 Type: language
-Subtag: adx
+Subtag: adx, 
 Description: Amdo Tibetan
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ady
+Subtag: ady, 
 Description: Adyghe
 Description: Adygei
 Added: 2005-10-16
 },{
 Type: language
-Subtag: adz
+Subtag: adz, 
 Description: Adzera
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aea
+Subtag: aea, 
 Description: Areba
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aeb
+Subtag: aeb, 
 Description: Tunisian Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: aec
+Subtag: aec, 
 Description: Saidi Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: aed
+Subtag: aed, 
 Description: Argentine Sign Language
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aee
+Subtag: aee, 
 Description: Northeast Pashai
 Description: Northeast Pashayi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aek
+Subtag: aek, 
 Description: Haeke
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ael
+Subtag: ael, 
 Description: Ambele
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aem
+Subtag: aem, 
 Description: Arem
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aen
+Subtag: aen, 
 Description: Armenian Sign Language
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aeq
+Subtag: aeq, 
 Description: Aer
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aer
+Subtag: aer, 
 Description: Eastern Arrernte
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aes
+Subtag: aes, 
 Description: Alsea
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aeu
+Subtag: aeu, 
 Description: Akeu
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aew
+Subtag: aew, 
 Description: Ambakich
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aey
+Subtag: aey, 
 Description: Amele
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aez
+Subtag: aez, 
 Description: Aeka
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afa
+Subtag: afa, 
 Description: Afro-Asiatic languages
 Added: 2005-10-16
 Scope: collection
 },{
 Type: language
-Subtag: afb
+Subtag: afb, 
 Description: Gulf Arabic
 Added: 2009-07-29
 Macrolanguage: ar
 },{
 Type: language
-Subtag: afd
+Subtag: afd, 
 Description: Andai
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afe
+Subtag: afe, 
 Description: Putukwam
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afg
+Subtag: afg, 
 Description: Afghan Sign Language
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afh
+Subtag: afh, 
 Description: Afrihili
 Added: 2005-10-16
 },{
 Type: language
-Subtag: afi
+Subtag: afi, 
 Description: Akrukay
 Description: Chini
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afk
+Subtag: afk, 
 Description: Nanubae
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afn
+Subtag: afn, 
 Description: Defaka
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afo
+Subtag: afo, 
 Description: Eloyi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afp
+Subtag: afp, 
 Description: Tapei
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afs
+Subtag: afs, 
 Description: Afro-Seminole Creole
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aft
+Subtag: aft, 
 Description: Afitti
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afu
+Subtag: afu, 
 Description: Awutu
 Added: 2009-07-29
 },{
 Type: language
-Subtag: afz
+Subtag: afz, 
 Description: Obokuitai
 Added: 2009-07-29
 },{
 Type: language
-Subtag: aga
+Subtag: aga, 
 Description: Aguano
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agb
+Subtag: agb, 
 Description: Legbo
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agc
+Subtag: agc, 
 Description: Agatu
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agd
+Subtag: agd, 
 Description: Agarabi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: age
+Subtag: age, 
 Description: Angal
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agf
+Subtag: agf, 
 Description: Arguni
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agg
+Subtag: agg, 
 Description: Angor
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agh
+Subtag: agh, 
 Description: Ngelima
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agi
+Subtag: agi, 
 Description: Agariya
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agj
+Subtag: agj, 
 Description: Argobba
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agk
+Subtag: agk, 
 Description: Isarog Agta
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agl
+Subtag: agl, 
 Description: Fembe
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agm
+Subtag: agm, 
 Description: Angaataha
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agn
+Subtag: agn, 
 Description: Agutaynen
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ago
+Subtag: ago, 
 Description: Tainae
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agp
+Subtag: agp, 
 Description: Paranan
 Added: 2009-07-29
 Deprecated: 2010-03-11
 Comments: see apf, prf
 },{
 Type: language
-Subtag: agq
+Subtag: agq, 
 Description: Aghem
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agr
+Subtag: agr, 
 Description: Aguaruna
 Added: 2009-07-29
 },{
 Type: language
-Subtag: ags
+Subtag: ags, 
 Description: Esimbi
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agt
+Subtag: agt, 
 Description: Central Cagayan Agta
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agu
+Subtag: agu, 
 Description: Aguacateco
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agv
+Subtag: agv, 
 Description: Remontado Dumagat
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agw
+Subtag: agw, 
 Description: Kahua
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agx
+Subtag: agx, 
 Description: Aghul
 Added: 2009-07-29
 },{
 Type: language
-Subtag: agy
+Subtag: agy, 
 Description: Southern Alta
 Added: 2009-07-29
 },{
@@ -42733,127 +42487,127 @@ Macrolanguage: zap
 Type: language
 Subtag: ztp
 Description: Loxicha Zapotec
-Added: 2009-07-29
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: ztq
-Description: Quioquitani-Quierí Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: ztq,
+Description: Quioquitani-Quierí Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: zts
-Description: Tilquiapan Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: zts,
+Description: Tilquiapan Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: ztt
-Description: Tejalapan Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: ztt,
+Description: Tejalapan Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: ztu
-Description: Güilá Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: ztu,
+Description: Güilá Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: ztx
-Description: Zaachila Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: ztx,
+Description: Zaachila Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: zty
-Description: Yatee Zapotec
-Added: 2009-07-29
+Type: language,
+Subtag: zty,
+Description: Yatee Zapotec,
+Added: 2009-07-29,
 Macrolanguage: zap
 },{
-Type: language
-Subtag: zua
-Description: Zeem
-Added: 2009-07-29
-Deprecated: 2023-03-17
+Type: language,
+Subtag: zua,
+Description: Zeem,
+Added: 2009-07-29,
+Deprecated: 2023-03-17,
 Comments: see cxh, dsk, dyr, tvi, zem
 },{
-Type: language
-Subtag: zuh
-Description: Tokano
+Type: language,
+Subtag: zuh,
+Description: Tokano,
 Added: 2009-07-29
 },{
-Type: language
-Subtag: zum
-Description: Kumzari
+Type: language,
+Subtag: zum,
+Description: Kumzari,
 Added: 2009-07-29
 },{
-Type: language
-Subtag: zun
-Description: Zuni
+Type: language,
+Subtag: zun,
+Description: Zuni,
 Added: 2005-10-16
 },{
-Type: language
-Subtag: zuy
-Description: Zumaya
+Type: language,
+Subtag: zuy,
+Description: Zumaya,
 Added: 2009-07-29
 },{
-Type: language
-Subtag: zwa
-Description: Zay
-Added: 2009-07-29
+Type: language,
+Subtag: zwa,
+Description: Zay,
+Added: 2009-07-29,
 },{
-Type: language
-Subtag: zxx
-Description: No linguistic content
-Description: Not applicable
-Added: 2006-03-08
+Type: language,
+Subtag: zxx,
+Description: No linguistic content,
+Description: Not applicable,
+Added: 2006-03-08,
 Scope: special
 },{
-Type: language
-Subtag: zyb
-Description: Yongbei Zhuang
-Added: 2009-07-29
+Type: language,
+Subtag: zyb,
+Description: Yongbei Zhuang,
+Added: 2009-07-29,
 Macrolanguage: za
 },{
-Type: language
-Subtag: zyg
-Description: Yang Zhuang
-Added: 2009-07-29
+Type: language,
+Subtag: zyg,
+Description: Yang Zhuang,
+Added: 2009-07-29,
 Macrolanguage: za
 },{
-Type: language
-Subtag: zyj
-Description: Youjiang Zhuang
-Added: 2009-07-29
+Type: language,
+Subtag: zyj,
+Description: Youjiang Zhuang,
+Added: 2009-07-29,
+Macrolanguage: za,
+},{
+Type: language,
+Subtag: zyn,
+Description: Yongnan Zhuang,
+Added: 2009-07-29,
 Macrolanguage: za
 },{
-Type: language
-Subtag: zyn
-Description: Yongnan Zhuang
-Added: 2009-07-29
-Macrolanguage: za
+Type: language,
+Subtag: zyp,
+Description: Zyphe Chin,
+Added: 2009-07-29,
 },{
-Type: language
-Subtag: zyp
-Description: Zyphe Chin
-Added: 2009-07-29
-},{
-Type: language
-Subtag: zza
-Description: Zaza
-Description: Dimili
-Description: Dimli (macrolanguage)
-Description: Kirdki
-Description: Kirmanjki (macrolanguage)
-Description: Zazaki
-Added: 2006-08-24
+Type: language,
+Subtag: zza,
+Description: Zaza,
+Description: Dimili,
+Description: Dimli (macrolanguage),
+Description: Kirdki,
+Description: Kirmanjki (macrolanguage),
+Description: Zazaki,
+Added: 2006-08-24,
 Scope: macrolanguage
 },{
-Type: language
-Subtag: zzj
-Description: Zuojiang Zhuang
-Added: 2009-07-29
+Type: language,
+Subtag: zzj,
+Description: Zuojiang Zhuang,
+Added: 2009-07-29,
 Macrolanguage: za
-}
+}]
