@@ -224,275 +224,58 @@ const langFile = {
 'abc': 'Ambala Ayta', 
 'abd': 'Manide', 
 'abe': 'Western Abnaki', 
-Added: 2009-07-29'
-},{
-Type: language
-Subtag: abf, 
-Description: Abai Sungai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abg, 
-Description: Abaga
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abh, 
-Description: Tajiki Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: abi, 
-Description: Abidji
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abj, 
-Description: Aka-Bea
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abl, 
-Description: Lampung Nyo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abm, 
-Description: Abanyom
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abn, 
-Description: Abua
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abo, 
-Description: Abon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abp, 
-Description: Abellen Ayta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abq, 
-Description: Abaza
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abr, 
-Description: Abron
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abs, 
-Description: Ambonese Malay
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abt, 
-Description: Ambulas
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abu, 
-Description: Abure
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abv, 
-Description: Baharna Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: abw, 
-Description: Pal
-Added: 2009-07-29
-},{
-Type: language, 
-Subtag: abx, 
-Description: Inabaknon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aby, 
-Description: Aneme Wake
-Added: 2009-07-29
-},{
-Type: language
-Subtag: abz, 
-Description: Abui
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aca, 
-Description: Achagua
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acb, 
-Description: Áncá
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acd, 
-Description: Gikyode
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ace, 
-Description: Achinese
-Added: 2005-10-16
-},{
-Type: language
-Subtag: acf, 
-Description: Saint Lucian Creole French
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ach, 
-Description: Acoli
-Added: 2005-10-16
-},{
-Type: language
-Subtag: aci, 
-Description: Aka-Cari
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ack, 
-Description: Aka-Kora
-Added: 2009-07-29
-},{
-Type: language, 
-Subtag: acl, 
-Description: Akar-Bale
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acm, 
-Description: Mesopotamian Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: acn, 
-Description: Achang
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acp, 
-Description: Eastern Acipa
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acq, 
-Description: Ta'izzi-Adeni Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: acr, 
-Description: Achi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acs, 
-Description: Acroá
-Added: 2009-07-29
-},{
-Type: language
-Subtag: act, 
-Description: Achterhoeks
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acu, 
-Description: Achuar-Shiwiar
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acv, 
-Description: Achumawi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: acw, 
-Description: Hijazi Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language, 
-Subtag: acx, 
-Description: Omani Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: acy, 
-Description: Cypriot Arabic
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: acz, 
-Description: Acheron
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ada, 
-Description: Adangme
-Added: 2005-10-16
-},{
-Type: language
-Subtag: adb, 
-Description: Atauran
-Added: 2009-07-29
-},{
-Type: language
-Subtag: add, 
-Description: Lidzonka
-Description: Dzodinka
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ade, 
-Description: Adele
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adf, 
-Description: Dhofari Arabi, c
-Added: 2009-07-29
-Macrolanguage: ar
-},{
-Type: language
-Subtag: adg, 
-Description: Andegerebinha
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adh, 
-Description: Adhola
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adi, 
-Description: Adi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adj, 
-Description: Adioukrou
-Added: 2009-07-29
-},{
-Type: language
-Subtag: adl, 
-Description: Galo
+'abf': 'Abai Sungai', 
+'abg': 'Abaga', 
+'abh': 'Tajiki Arabic', 
+'abi': 'Abidji', 
+'abj': 'Aka-Bea', 
+'abl': 'Lampung Nyo', 
+'abm': 'Abanyom', 
+'abn': 'Abua', 
+'abo': 'Abon', 
+'abp': 'Abellen Ayta', 
+'abq': 'Abaza', 
+'abr': 'Abron', 
+'abs': 'Ambonese Malay', 
+'abt': 'Ambulas',
+'abu': 'Abure', 
+'abv': 'Baharna Arabic', 
+'abw': 'Pal', 
+'abx': 'Inabaknon', 
+'aby': 'Aneme Wake', 
+'abz': 'Abui', 
+'aca': 'Achagua', 
+'acb': 'Áncá', 
+'acd': 'Gikyode', 
+'ace': 'Achinese', 
+'acf': 'Saint Lucian Creole French', 
+'ach': 'Acoli', 
+'aci': 'Aka-Cari', 
+'ack': 'Aka-Kora', 
+'acl': 'Akar-Bale', 
+'acm': 'Mesopotamian Arabic', 
+'acn': 'Achang', 
+'acp': 'Eastern Acipa', 
+'acq': 'Ta\'izzi-Adeni Arabic', 
+'acr': 'Achi', 
+'acs': 'Acroá', 
+'act': 'Achterhoeks', 
+'acu': 'Achuar-Shiwiar', 
+'acv': 'Achumawi', 
+'acw': 'Hijazi Arabic', 
+'acx': 'Omani Arabic', 
+'acy': 'Cypriot Arabic', 
+'acz': 'Acheron', 
+'ada': 'Adangme', 
+'adb': 'Atauran', 
+'add': 'Lidzonka, Dzodinka', 
+'ade': 'Adele', 
+'adf': 'Dhofari Arabi, c', 
+'adg': 'Andegerebinha', 
+'adh': 'Adhola', 
+'adi': 'Adi', 
+'adj': 'Adioukrou', 
+'adl': 'Galo', 
 Added: 2009-07-29
 },{
 Type: language
