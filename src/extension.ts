@@ -213,6 +213,12 @@ export function activate(context: vscode.ExtensionContext) {
         //Load bundled dashboard React file into the panel webview
         const dashboardPath = vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard' ,'dist', 'bundle.js')); //TO DO: Verify path
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
+        
+        //TO DO : Create Path and Src for CSS files -> tailwind?
+        const cssPath = path.join(context.extensionPath, 'react-app', 'src', 'style.css');
+        const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
+        //Add to head of HTML : <link rel="stylesheet" type="text/css" href="${cssSrc}">
+
         // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
         dashboard.webview.html = `
             <!DOCTYPE html>
