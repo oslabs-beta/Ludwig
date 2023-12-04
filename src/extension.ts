@@ -215,9 +215,9 @@ export function activate(context: vscode.ExtensionContext) {
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
         
         //TO DO : Create Path and Src for CSS files -> tailwind?
-        const cssPath = path.join(context.extensionPath,'src', 'style.css');
+        const cssPath = path.join(context.extensionPath,'src', 'react-dashboard', 'style.css');
         const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
-            console.log(cssPath);
+        
         // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
         dashboard.webview.html = `
             <!DOCTYPE html>
