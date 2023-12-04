@@ -330,281 +330,64 @@ const langFile = {
 'agg': 'Angor', 
 'agh': 'Ngelima', 
 'agi': 'Agariya', 
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agj, 
-Description: Argobba
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agk, 
-Description: Isarog Agta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agl, 
-Description: Fembe
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agm, 
-Description: Angaataha
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agn, 
-Description: Agutaynen
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ago, 
-Description: Tainae
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agp, 
-Description: Paranan
-Added: 2009-07-29
-Deprecated: 2010-03-11
-Comments: see apf, prf
-},{
-Type: language
-Subtag: agq, 
-Description: Aghem
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agr, 
-Description: Aguaruna
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ags, 
-Description: Esimbi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agt, 
-Description: Central Cagayan Agta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agu, 
-Description: Aguacateco
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agv, 
-Description: Remontado Dumagat
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agw, 
-Description: Kahua
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agx, 
-Description: Aghul
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agy, 
-Description: Southern Alta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: agz, 
-Description: Mt. Iriga Agta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aha, 
-Description: Ahanta
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahb, 
-Description: Axamb
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahg, 
-Description: Qimant
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahh, 
-Description: Aghu
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahi, 
-Description: Tiagbamrin Aizi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahk, 
-Description: Akha
-Added: 2009-07-29
-},{
-Type: language, 
-Subtag: ahl, 
-Description: Igo
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahm, 
-Description: Mobumrin Aizi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahn, 
-Description: Àhàn
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aho, 
-Description: Ahom
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahp, 
-Description: Aproumu Aizi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahr, 
-Description: Ahirani
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ahs, 
-Description: Ashe
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aht, 
-Description: Ahtena
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aia, 
-Description: Arosi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aib, 
-Description: Ainu (China)
-Added: 2009-07-29
-},{
-Type: language, 
-Subtag: aic, 
-Description: Ainbai
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aid, 
-Description: Alngith
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aie, 
-Description: Amara
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aif, 
-Description: Agi
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aig, 
-Description: Antigua and Barbuda Creole English
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aih, 
-Description: Ai-Cham
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aii, 
-Description: Assyrian Neo-Aramaic
-Added: 2009-07-29
-Macrolanguage: syr
-},{
-Type: language
-Subtag: aij, 
-Description: Lishanid Noshan
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aik, 
-Description: Ake
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ail, 
-Description: Aimele
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aim, 
-Description: Aimol
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ain, 
-Description: Ainu (Japan)
-Added: 2005-10-16
-},{
-Type: language
-Subtag: aio, 
-Description: Aiton
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aip, 
-Description: Burumakok
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aiq, 
-Description: Aimaq
-Added: 2009-07-29
-},{
-Type: language
-Subtag: air, 
-Description: Airoran
-Added: 2009-07-29
-},{
-Type: language
-Subtag: ais, 
-Description: Nataoran Amis
-Added: 2009-07-29
-Deprecated: 2019-04-16
-Comments: see ami, szy
-},{
-Type: language
-Subtag: ait, 
-Description: Arikem
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aiw, 
-Description: Aari
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aix, 
-Description: Aighon
-Added: 2009-07-29
-},{
-Type: language
-Subtag: aiy, 
-Description: Ali
+'agj': 'Argobba', 
+'agk': 'Isarog Agta', 
+'agl': 'Fembe', 
+'agm': 'Angaataha', 
+'agn': 'Agutaynen', 
+'ago': 'Tainae', 
+'agp': 'Paranan', 
+// Deprecated: 2010-03-11
+// Comments: see apf, prf
+'agq': 'Aghem', 
+'agr': 'Aguaruna', 
+'ags': 'Esimbi', 
+'agt': 'Central Cagayan Agta', 
+'agu': 'Aguacateco', 
+'agv': 'Remontado Dumagat', 
+'agw': 'Kahua', 
+'agx': 'Aghul', 
+'agy': 'Southern Alta', 
+'agz': 'Mt. Iriga Agta', 
+'aha': 'Ahanta', 
+'ahb': 'Axamb', 
+'ahg': 'Qimant', 
+'ahh': 'Aghu', 
+'ahi': 'Tiagbamrin Aizi', 
+'ahk': 'Akha', 
+'ahl': 'Igo', 
+'ahm': 'Mobumrin Aizi', 
+'ahn': 'Àhàn', 
+'aho': 'Ahom', 
+'ahp': 'Aproumu Aizi', 
+'ahr': 'Ahirani', 
+'ahs': 'Ashe', 
+'aht': 'Ahtena', 
+'aia': 'Arosi', 
+'aib': 'Ainu (China)', 
+'aic': 'Ainbai', 
+'aid': 'Alngith', 
+'aie': 'Amara', 
+'aif': 'Agi', 
+'aig': 'Antigua and Barbuda Creole English', 
+'aih': 'Ai-Cham', 
+'aii': 'Assyrian Neo-Aramaic', 
+'aij': 'Lishanid Noshan', 
+'aik': 'Ake', 
+'ail': 'Aimele', 
+'aim': 'Aimol', 
+'ain': 'Ainu (Japan)', 
+'aio': 'Aiton', 
+'aip': 'Burumakok', 
+'aiq': 'Aimaq', 
+'air': 'Airoran', 
+'ais': 'Nataoran Amis', 
+// Deprecated: 2019-04-16
+// Comments: see ami, szy
+'ait': 'Arikem', 
+'aiw': 'Aari', 
+'aix': 'Aighon', 
+'aiy': 'Ali', 
 Added: 2009-07-29
 },{
 Type: language
