@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
             const highlightedLines = new Set<number>();
 
             // invoke compileLogic to get object with ARIA recommendations
-            const ariaRecommendations = await compileLogic();
+            const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
 
             // Loop through each line in the document
@@ -58,7 +58,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
     let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
-        if (event.document.languageId === 'html') {
+        if (event.document.languageId === 'html' || event.document.languageId === 'javascriptreact') {
             if(isExtensionActive){
                 highlightElements(event.document);
             }
@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register onDidChangeActiveTextEditor event to trigger highlighting when the active editor changes
     let activeEditorChangeDisposable = vscode.window.onDidChangeActiveTextEditor((editor) => {
-        if (editor && editor.document.languageId === 'html') {
+        if (editor && (editor.document.languageId === 'html' || editor.document.languageId === 'javascriptreact')) {
             if(isExtensionActive){
                 highlightElements(editor.document);
             }
@@ -80,7 +80,7 @@ export function activate(context: vscode.ExtensionContext) {
             isExtensionActive = true;
         }
         const activeEditor = vscode.window.activeTextEditor;
-        if (activeEditor && activeEditor.document.languageId === 'html') {
+        if (activeEditor && (activeEditor.document.languageId === 'html' || activeEditor.document.languageId === 'javascriptreact')) {
             const document = activeEditor.document;
             if(isExtensionActive){
                 highlightElements(document);
@@ -98,7 +98,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Register onDidOpenTextDocument event to immediately highlight elements when an HTML file is opened
     let documentOpenDisposable = vscode.workspace.onDidOpenTextDocument((document: vscode.TextDocument) => {
-        if (document.languageId === 'html') {
+        if (document.languageId === 'html' || document.languageId === 'javascriptreact') {
             if(isExtensionActive){
                 highlightElements(document);
             }
@@ -174,6 +174,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         highlightCommandDisposable,
+        toggleOffCommandDisposable,
         documentOpenDisposable,
         hoverProviderDisposable,
         documentChangeDisposable,
