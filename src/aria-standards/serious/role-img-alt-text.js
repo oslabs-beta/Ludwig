@@ -1,8 +1,8 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 
-// check that <object> elements have alternate text
-function checkObjAltText() {
+// check that elements with role=”img” have alternate text
+function checkRoleImgAltText() {
   const activeEditor = vscode.window.activeTextEditor;
 
   if (activeEditor && activeEditor.document.languageId === 'html') {
@@ -12,22 +12,23 @@ function checkObjAltText() {
     const ludwig = document.body;
 
     // output array for fail cases
-    const objsWithoutAltTxt = [];
+    const roleImgNoAltTxt = [];
 
-    const objects = ludwig.querySelectorAll('object');
+    const imgs = ludwig.querySelectorAll('*[role="img"]');
 
-    // iterate through object; if alt text doesn't exists then push into failed arr
-    objects.forEach(el => {
+    // iterate through elements with role="img"
+    // if alt text does not exist then push into failed arr
+    imgs.forEach(el => {
       const altText = el.getAttribute('alt');
       if (!altText) {
-        objsWithoutAltTxt.push(el);
+        roleImgNoAltTxt.push(el);
       }
     });
 
-    return objsWithoutAltTxt;
+    return roleImgNoAltTxt;
   }
 }
 
 module.exports = {
-  checkObjAltText
+  checkRoleImgAltText
 };
