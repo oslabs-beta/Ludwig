@@ -6,7 +6,7 @@ export default function App() {
 
   return (
     <div className='bg-orange-200'>
-      <h3>Ludwig Dashboard</h3>
+      <h2>Welcome to the Ludwig Dashboard!</h2>
       <Score />
     </div>
   );
