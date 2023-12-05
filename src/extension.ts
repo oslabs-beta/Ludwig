@@ -207,7 +207,7 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                //localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src'))], //restrict Ludwig Dashboard webview to only load resources from src
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
             }
         );
         //Load bundled dashboard React file into the panel webview
