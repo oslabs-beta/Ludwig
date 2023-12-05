@@ -24,25 +24,25 @@
         "title": "Ludwig: Caesura"
       }
     ],
-  "viewsContainers": {
-    "activitybar": [
-      {
-        "id": "ludwigActivityBar",
-        "title": "Ludwig",
-        "icon": "assets/Ludwig-Logo-Icon.png"
-      }
-    ]
-  },
-  "views": {
-    "ludwigActivityBar": [               
-      {
-        "id": "ludwigSidebarView",    
-        "name": "Compose",
-        "contextualTitle": "Ludwig",
-        "type": "webview"
-      }
-    ]
-  }
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ludwigActivityBar",
+          "title": "Ludwig",
+          "icon": "assets/Ludwig-Logo-Icon.png"
+        }
+      ]
+    },
+    "views": {
+      "ludwigActivityBar": [
+        {
+          "id": "ludwigSidebarView",
+          "name": "Compose",
+          "contextualTitle": "Ludwig",
+          "type": "webview"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
