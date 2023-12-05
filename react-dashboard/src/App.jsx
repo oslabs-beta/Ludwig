@@ -5,7 +5,7 @@ export default function App() {
   const vscode = window.vscodeApi;
 
   return (
-    <div>
+    <div className='bg-orange-200'>
       <h3>Ludwig Dashboard</h3>
       <Score />
     </div>
