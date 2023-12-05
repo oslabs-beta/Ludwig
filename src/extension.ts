@@ -211,11 +211,11 @@ export function activate(context: vscode.ExtensionContext) {
             }
         );
         //Load bundled dashboard React file into the panel webview
-        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'src','react-dashboard','dist', 'bundle.js')); //TO DO: Verify path
+        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath, 'src','react-dashboard','dist', 'bundle.js')); //TO DO: Verify path
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
         
         //TO DO : Create Path and Src for CSS files
-        const cssPath = path.join(context.extensionPath,'src', 'react-dashboard', 'src', 'style.css');
+        const cssPath = path.join(context.extensionPath,'src','react-dashboard', 'src', 'style.css');
         const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
         
         // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
