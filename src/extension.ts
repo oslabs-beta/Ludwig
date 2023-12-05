@@ -207,18 +207,17 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src'))], //restrict Ludwig Dashboard webview to only load resources from src
+                //localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'src'))], //restrict Ludwig Dashboard webview to only load resources from src
             }
         );
         //Load bundled dashboard React file into the panel webview
-        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath, 'src','react-dashboard','dist', 'bundle.js')); //TO DO: Verify path
+        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'react-dashboard','dist', 'bundle.js'));
         const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
         
-        //TO DO : Create Path and Src for CSS files
-        const cssPath = path.join(context.extensionPath,'src','react-dashboard', 'src', 'style.css');
+        //Create Path and Src for CSS files
+        const cssPath = path.join(context.extensionPath,'react-dashboard', 'src', 'style.css');
         const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
         
-        // TO DO: Add to bottom of HTML body : <script src="${dashboardSrc}"></script>
         dashboard.webview.html = `
             <!DOCTYPE html>
             <html lang="en">
@@ -228,7 +227,6 @@ export function activate(context: vscode.ExtensionContext) {
                     <link rel="stylesheet" type="text/css" href="${cssSrc}">
                 </head>
                 <body>
-                    <h3>Ludwig Dashboard</h3>
                     <div id="root"></div>
                     <script src="${dashboardSrc}"></script>
                 </body>
