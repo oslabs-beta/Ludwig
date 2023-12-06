@@ -5,7 +5,7 @@ export default function App() {
   const vscode = window.vscodeApi;
 
   return (
-    <div className='bg-orange-200'>
+    <div>
       <h2>Welcome to the Ludwig Dashboard!</h2>
       <Score />
     </div>
