@@ -156,20 +156,84 @@ export function activate(context: vscode.ExtensionContext) {
         //Call when view first becomes visible:
         resolveWebviewView(webviewView: vscode.WebviewView) {
             webviewView.webview.options = {
-              enableScripts: true,  
+              enableScripts: true,  //enable JS
             };
-
+            //TO DO: Decide which content to allow in meta http-equiv Content security policy:
+            //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
             webviewView.webview.html = `
-                <h1>HELLO LUDWIG!</h1>
+                <!DOCTYPE html>
+                <html lang="en">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    
+                    </head>
+                    <body>
+                        <h3>Improve the accessibility of your website!</h3>
+                        <p>Click the button below to scan the current HTML document and generate a report on how to improve your code for accessibility</p>
+                        <div id="root"></div>
+                        <button>Scan Document</button>
+                        <script>
+                            window.vscodeApi = acquireVsCodeApi();
+                            const button = document.querySelector('button');
+                            button.addEventListener('click', () => {
+                                window.vscodeApi.postMessage({ message: 'scanDoc' });
+                            });
+                        </script>
+                    </body>
+                </html>
             `;
-
+            //Handle messages or events from Sidebar webview view here            
+            webviewView.webview.onDidReceiveMessage((message) => {
+                if (message.message === 'scanDoc') {
+                    // console.log('Received a message from webview:', message);
+                    const panel = createDashboard(); //create dashboard panel webview when user clicks button
+                }
+            }); 
+            
         }
-
     }
 
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
-    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView",sidebarProvider);
+    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
+    
+    //Create dashboard panel
+    const createDashboard = () => {
+        const dashboard = vscode.window.createWebviewPanel(
+            'ludwig-dashboard', // Identifies the type of the webview (Used internally)
+            'Ludwig Dashboard', //Title of the webview panel
+            vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true, //keep state when webview is not in foreground
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+            }
+        );
+        //Load bundled dashboard React file into the panel webview
+        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'react-dashboard','dist', 'bundle.js'));
+        const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
+        
+        //Create Path and Src for CSS files
+        const cssPath = path.join(context.extensionPath,'react-dashboard', 'src', 'style.css');
+        const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
+        
+        dashboard.webview.html = `
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" type="text/css" href="${cssSrc}">
+                </head>
+                <body>
+                    <div id="root"></div>
+                    <script src="${dashboardSrc}"></script>
+                </body>
+            </html>
+        `;
+      return dashboard;
+    };
 
 
     context.subscriptions.push(
