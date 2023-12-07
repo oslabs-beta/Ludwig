@@ -645,7 +645,7 @@ function checkAriaRoles() {
   return roleSupportHtml;
   }
 }
-}
+
 module.exports = {
   checkAriaRoles
 };
