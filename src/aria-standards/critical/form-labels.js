@@ -39,19 +39,20 @@ function checkLabels() {
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
           if (inputId !== labelFor) {
-            const outerHTMLContent = form.outerHTML;
-            console.log('outerHTMLContent: ', outerHTMLContent);
+            formArray.push(form.outerHTML);
+            // const outerHTMLContent = form.outerHTML;
+            // // console.log('outerHTMLContent: ', outerHTMLContent);
 
-            // snag the index of the first newline character
-            const indexOfNewline = outerHTMLContent.indexOf('\n');
+            // // snag the index of the first newline character
+            // const indexOfNewline = outerHTMLContent.indexOf('\n');
 
-            // snag the first line using substring
-            const firstLine = indexOfNewline !== -1 ? outerHTMLContent.substring(0, indexOfNewline) : outerHTMLContent;
-            formArray.push(firstLine); // this handles the inputs and labels being put on separate lines!!!
+            // // snag the first line using substring
+            // const firstLine = indexOfNewline !== -1 ? outerHTMLContent.substring(0, indexOfNewline) : outerHTMLContent;
+            // formArray.push(firstLine); // this handles the inputs and labels being put on separate lines!!!
           }
       }
     });
-    console.log('formArray: ',formArray);
+    // console.log('formArray: ',formArray);
     return formArray;
   }
 }

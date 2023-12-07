@@ -36,8 +36,25 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-                if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
-                    // Create a range for the entire line
+                console.log('key: ', key);
+                console.log('elementsToHighlight: ', elementsToHighlight);
+                // console.log(elementsToHighlight[0].indexOf(key)); // boolean
+
+                // boolean to determine whether we push into highlightedRanges
+                let keyFound = false;
+
+                // check if elementsToHighlight contains a line - this now accounts for every line of the incorrect HTML
+                    // ****it also doesn't differentiate duplicate lines****
+                for(const el of elementsToHighlight){
+                    if(el.includes(key) && key.trim() !== ''){
+                        keyFound = true;
+                        break;
+                    }
+                }
+
+                // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
+                if (keyFound && !highlightedLines.has(lineNumber)) {
+                    // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
                     highlightedLines.add(lineNumber);
