@@ -29,11 +29,10 @@ export function activate(context: vscode.ExtensionContext) {
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
             const elementsToHighlight = Object.keys(ariaRecommendations);
-
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
-
+                
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
                 if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
@@ -43,15 +42,17 @@ export function activate(context: vscode.ExtensionContext) {
                     highlightedLines.add(lineNumber);
                 }
             }
-
+            
             // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
             activeEditor.setDecorations(decorationType, []);
-
+            
             // Apply red background thing to highlight the lines
             activeEditor.setDecorations(decorationType, highlightedRanges);
-
+            
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
+            // console.log({ariaRecommendations, elementsToHighlight});
+            
         }
     }
 
@@ -188,6 +189,10 @@ export function activate(context: vscode.ExtensionContext) {
                 if (message.message === 'scanDoc') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
+                    compileLogic()
+                    .then((ariaRecommendations : {[key: string]: any}) => {
+                        panel.webview.postMessage({ ariaRecommendations: ariaRecommendations });
+                    });
                 }
             }); 
             
@@ -207,7 +212,7 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+                // localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
             }
         );
         //Load bundled dashboard React file into the panel webview

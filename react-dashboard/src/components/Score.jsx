@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 
-export default function Score () {
+export default function Score ({recommendations}) {
   return (
     <div>
       <div>
@@ -9,7 +9,7 @@ export default function Score () {
       </div>
       <div>
         <h3>Total Critical Issues</h3>
-        <p>*total issues here</p>
+        <h1>{Object.keys(recommendations).length}</h1>
       </div>
     </div>
   );
