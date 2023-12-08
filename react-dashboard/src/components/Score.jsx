@@ -8,7 +8,7 @@ export default function Score ({recommendations}) {
         <p>*score here*</p>
       </div>
       <div>
-        <h3>Total Critical Issues</h3>
+        <h3>Total Issues Found:</h3>
         <h1>{Object.keys(recommendations).length}</h1>
       </div>
     </div>

@@ -1,3 +1,20 @@
-button {
-  
+
+table {
+  border-collapse: collapse;
+  width: 75%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f24d;
+  font-size: .85rem;
+}
+
+tr:hover {
+  background-color: #f2f2f20f;
 }

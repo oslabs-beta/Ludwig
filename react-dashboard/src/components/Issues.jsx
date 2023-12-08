@@ -25,7 +25,7 @@ export default function Issues ({recommendations}) {
   const elements = Object.keys(recommendations).map((el) => {
     return(
       <tr key={crypto.randomUUID()} >
-          <td>Line Number</td>
+          <td>Line #</td>
           <td><code>{el}</code></td>
           <td>{recommendations[el]['desc']}</td>
           <td><a href={recommendations[el]['link']}>Link</a></td>
@@ -34,10 +34,11 @@ export default function Issues ({recommendations}) {
   });
   return(
     <>
+    <h3>Summary of Issues:</h3>
       <table>
         <thead>
           <tr>
-            <th>Line #</th>
+            <th>Line Number</th>
             <th>Element</th>
             <th>Recommendation</th>
             <th>Further Reading</th>
