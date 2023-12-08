@@ -39,7 +39,10 @@ function checkLabels() {
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
           if (inputId !== labelFor) {
-            formArray.push(form.outerHTML);
+            const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
+            // console.log(lineNumber);
+            formArray.push([labelsArray[i].outerHTML, lineNumber]);
+            // formArray.push(inputsArray[i].outerHTML);
             // const outerHTMLContent = form.outerHTML;
             // // console.log('outerHTMLContent: ', outerHTMLContent);
 

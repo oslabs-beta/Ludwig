@@ -17,7 +17,7 @@ const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
 
 export interface AriaRecommendations {
-    [key: string]: object;
+    [key: string]: any;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
@@ -104,8 +104,8 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     // ARIAlogic - forms have labels
     const formArray = await checkLabels();
 
-    formArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.formsHaveLabels;
+    formArray.forEach((element: any[], index: number) => {
+        ariaRecommendations[element[0]] = [ariaObject.formsHaveLabels, element[1]];
     });
 
     // role-support-aria-attribute
