@@ -11,7 +11,7 @@ export default function App() {
       const message = event.data;
       if(message) {
         setRecommendations(message.ariaRecommendations);
-        console.log('Received message in App component:', message.ariaRecommendations);
+        console.log('Received message in Dashboard App:', message.ariaRecommendations);
       }
     });
   }, []);

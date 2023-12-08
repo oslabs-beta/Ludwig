@@ -160,31 +160,37 @@ export function activate(context: vscode.ExtensionContext) {
             webviewView.webview.options = {
               enableScripts: true,  //enable JS
             };
+                  //Load bundled dashboard React file into the panel webview
+            const sidebarPath = vscode.Uri.file(path.join(context.extensionPath,'react-sidebar','dist', 'bundle.js'));
+            const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
+            
+            //Create Path and Src for CSS files
+            const cssPath = path.join(context.extensionPath,'react-sidebar', 'src', 'style.css');
+            const cssSrc = webviewView.webview.asWebviewUri(vscode.Uri.file(cssPath));
             //TO DO: Decide which content to allow in meta http-equiv Content security policy:
             //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
             webviewView.webview.html = `
                 <!DOCTYPE html>
                 <html lang="en">
                     <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" type="text/css" href="${cssSrc}">
                     </head>
                     <body>
-                        <h3>Improve the accessibility of your website!</h3>
-                        <p>Click the button below to scan the current HTML document and generate a report to enhance your code</p>
                         <div id="root"></div>
-                        <button>Scan Document</button>
                         <script>
                             window.vscodeApi = acquireVsCodeApi();
-                            const button = document.querySelector('button');
-                            button.addEventListener('click', () => {
-                                window.vscodeApi.postMessage({ message: 'scanDoc' });
-                            });
                         </script>
+                        <script src="${sidebarSrc}"></script>
                     </body>
                 </html>
             `;
+            // const button = document.querySelector('button');
+            // button.addEventListener('click', () => {
+            //     window.vscodeApi.postMessage({ message: 'scanDoc' });
+            // });
+
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
                 if (message.message === 'scanDoc') {
