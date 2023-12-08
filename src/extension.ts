@@ -45,9 +45,9 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
                 for(const el of elementsToHighlight){
-                    // console.log('line.lineNumber: ', line.lineNumber + 1);
-                    // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
-                    // console.log(key);
+                    console.log('line.lineNumber: ', line.lineNumber + 1);
+                    console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
+                    console.log('key: ', key);
                     if(line.lineNumber + 1 === ariaRecommendations[el][1] && el.includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;

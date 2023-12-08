@@ -12,19 +12,14 @@ function checkLabels() {
 
     const formArray = [];
     const forms = ludwig.querySelectorAll('form');
-    // console.log(forms);
     const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
-    // console.log(labels);
     const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
-    // console.log(inputs);
 
     forms.forEach((form) => {
       const formChildren = form.children;
-      // console.log(formChildren);
       const labelsArray = [];
       const inputsArray = [];
       for (const child of formChildren) {
-        // console.log(child.tagName);
         if (child.tagName === 'LABEL') {
           labelsArray.push(child);
         }
@@ -32,14 +27,14 @@ function checkLabels() {
           inputsArray.push(child);
         }
       }
-      // console.log(labelsArray);
-      // console.log(inputsArray);
+
       for (let i = 0; i < labelsArray.length; i++) {
         // console.log(labelsArray[i]);
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
           if (inputId !== labelFor) {
             const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
+            // const lineNumber = activeEditor.document.lineAt(labelsArray[i].start.line);
             // console.log(lineNumber);
             formArray.push([labelsArray[i].outerHTML, lineNumber]);
             // formArray.push(inputsArray[i].outerHTML);
