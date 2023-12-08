@@ -2,11 +2,23 @@ import React, { useState, useRef } from 'react';
 
 export default function Issues ({recommendations}) {
   
+  const elements = Object.keys(recommendations).map((el) => {
+    return (
+    <>
+      <li key={crypto.randomUUID()}><b>Element: </b> <code>{el}</code></li>
+      <ul>
+        <li>Recommendation: {recommendations[el]['desc']} (<a href={recommendations[el]['link']}>Read More</a>)</li>
+      </ul>
+      {"\b"}
+    </>
+    );
+  });
+
   return (
     <div>
-      <h4>Issue Descriptions:</h4>
+      <h4>Found Issues:</h4>
       <ol>
-        <li>Issue description. (<a href="#">highlight code</a>) (<a href="#">read more</a>)</li>
+        {elements}
       </ol>
     </div>
   );

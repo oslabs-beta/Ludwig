@@ -29,6 +29,7 @@ export function activate(context: vscode.ExtensionContext) {
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic();
             const elementsToHighlight = Object.keys(ariaRecommendations);
+            
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
