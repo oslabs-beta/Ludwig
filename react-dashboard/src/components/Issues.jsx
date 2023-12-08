@@ -2,24 +2,51 @@ import React, { useState, useRef } from 'react';
 
 export default function Issues ({recommendations}) {
   
+  // const elements = Object.keys(recommendations).map((el) => {
+  //   return (
+  //   <>
+  //     <li key={crypto.randomUUID()}><b>Element: </b> <code>{el}</code></li>
+  //     <ul>
+  //       <li>Recommendation: {recommendations[el]['desc']} (<a href={recommendations[el]['link']}>Read More</a>)</li>
+  //     </ul>
+  //     {"\b"}
+  //   </>
+  //   );
+  // });
+
+  // return (
+  //   <div>
+  //     <h4>Found Issues:</h4>
+  //     <ol>
+  //       {elements}
+  //     </ol>
+  //   </div>
+  // );
   const elements = Object.keys(recommendations).map((el) => {
-    return (
-    <>
-      <li key={crypto.randomUUID()}><b>Element: </b> <code>{el}</code></li>
-      <ul>
-        <li>Recommendation: {recommendations[el]['desc']} (<a href={recommendations[el]['link']}>Read More</a>)</li>
-      </ul>
-      {"\b"}
-    </>
+    return(
+      <tr key={crypto.randomUUID()} >
+          <td>Line Number</td>
+          <td><code>{el}</code></td>
+          <td>{recommendations[el]['desc']}</td>
+          <td><a href={recommendations[el]['link']}>Link</a></td>
+      </tr>
     );
   });
-
-  return (
-    <div>
-      <h4>Found Issues:</h4>
-      <ol>
-        {elements}
-      </ol>
-    </div>
+  return(
+    <>
+      <table>
+        <thead>
+          <tr>
+            <th>Line #</th>
+            <th>Element</th>
+            <th>Recommendation</th>
+            <th>Further Reading</th>
+          </tr>
+        </thead>
+        <tbody>
+          {elements}
+        </tbody>
+      </table>
+    </>
   );
 }
