@@ -172,7 +172,7 @@ export function activate(context: vscode.ExtensionContext) {
                     </head>
                     <body>
                         <h3>Improve the accessibility of your website!</h3>
-                        <p>Click the button below to scan the current HTML document and generate a report on how to improve your code for accessibility</p>
+                        <p>Click the button below to scan the current HTML document and generate a report to enhance your code</p>
                         <div id="root"></div>
                         <button>Scan Document</button>
                         <script>
