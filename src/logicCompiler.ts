@@ -27,70 +27,70 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.anchorLabel;
+        ariaRecommendations[element] = [ariaObject.anchorLabel, element[1]];
     });
 
     // area-maps-alt-text
     const areaMapsWithoutAltText = await checkAreaMapAltText();
 
     areaMapsWithoutAltText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.areaAltText;
+        ariaRecommendations[element] = [ariaObject.areaAltText, element[1]];
       });
 
     // aria-hidden
     const hiddenAria = await checkAriaHidden();
 
     hiddenAria.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.ariaHidden;
+        ariaRecommendations[element] = [ariaObject.ariaHidden, element[1]];
       });
 
     // button-text
     const buttonText = await checkButtonText();
 
     buttonText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.discernibleButtonText;
+        ariaRecommendations[element] = [ariaObject.discernibleButtonText, element[1]];
     });
 
     // unique-ids
     const duplicateElements = await checkUniqueIds();
 
     duplicateElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.uniqueIDs;
+        ariaRecommendations[element] = [ariaObject.uniqueIDs, element[1]];
       });
 
     // img alt text
     const imgAlts = await checkImgAltText();
     
     imgAlts.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.imageAlts;
+        ariaRecommendations[element] = [ariaObject.imageAlts, element[1]];
     });
 
     // input-button
     const inputButtonsWithoutText = await inputButtonText();
 
     inputButtonsWithoutText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.inputButton;
+        ariaRecommendations[element] = [ariaObject.inputButton, element[1]];
     });
 
     // meta-http-equiv-refresh
     const metaWrongContent = await checkMetaHttpRefresh();
 
     metaWrongContent.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
+        ariaRecommendations[element] = [ariaObject.metaEquivRefresh, element[1]];
     });
 
     // meta-viewport-text-zoom
     const metaViewportElements = await checkMetaViewportTextResize();
 
     metaViewportElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.metaViewport;
+        ariaRecommendations[element] = [ariaObject.metaViewport, element[1]];
       });
 
     // select-name
     const selectArray = await selectName();
 
     selectArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.selectHasAccessName;
+        ariaRecommendations[element] = [ariaObject.selectHasAccessName, element[1]];
     });
 
 
@@ -98,7 +98,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const videosArray = await videoCaptions();
 
     videosArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.videoCaptions;
+        ariaRecommendations[element] = [ariaObject.videoCaptions, element[1]];
     });
 
     // ARIAlogic - forms have labels
