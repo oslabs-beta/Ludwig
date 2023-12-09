@@ -18,7 +18,6 @@ export default function App() {
 
   return (
     <div>
-      <h2>Welcome to the Ludwig Dashboard!</h2>
       <Score recommendations={recommendations}/>
       <Issues recommendations={recommendations}/>
     </div>

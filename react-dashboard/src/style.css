@@ -43,7 +43,11 @@ tr:hover {
 }
 .circle span {
   text-align: center;
-  font-size: 3em;
-  font-weight: bolder;
+  font-size: 2em;
   color: #be3144;
+}
+
+.panelContainer {
+  width: 300px;
+  height: 300px;
 }
