@@ -66,8 +66,8 @@ const ariaObject = {
   },
 
   inputButton: {
-      link: 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role',
-      desc: 'Input buttons require discernible text.'
+      link: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types',
+      desc: 'Input buttons require discernible text value.'
   }, 
 
   inputImageAltText: {
