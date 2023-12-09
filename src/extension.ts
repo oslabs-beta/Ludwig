@@ -36,26 +36,26 @@ export function activate(context: vscode.ExtensionContext) {
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount - 1; lineNumber++) {
                 const line = document.lineAt(lineNumber);
-                const nextLine = document.lineAt(lineNumber + 1);
+                // const nextLine = document.lineAt(lineNumber + 1);
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-                const nextKey = nextLine.text.trim();
-                console.log('key: ', key);
-                console.log('nextKey: ', nextKey);
+                // const nextKey = nextLine.text.trim();
+                // console.log('key: ', key);
+                // console.log('nextKey: ', nextKey);
 
                 // boolean to determine whether we push into highlightedRanges
                 let keyFound = false;
 
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
                 for(const el of elementsToHighlight){    
-                    console.log('el: ', el);
-                    console.log(el.includes(key));
-                    console.log(el.includes(nextKey));                
+                    // console.log('el: ', el);
+                    // console.log(el.includes(key));
+                    // console.log(el.includes(nextKey));                
                     // console.log('line.lineNumber: ', line.lineNumber + 1);
                     // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
                         // line.lineNumber + 1 === ariaRecommendations[el][1] && 
-                    if(el.includes(key) && el.includes(nextKey) && key.trim() !== ''){
+                    if(el.includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;
                     }

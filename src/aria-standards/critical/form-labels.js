@@ -43,8 +43,8 @@ function checkLabels() {
             // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
             // console.log(lineNumber);
             // formArray.push(labelsArray[i].outerHTML);
-            const newInputStr = inputsArray[i].outerHTML.replace('>', ' />');
-            formArray.push(labelsArray[i].outerHTML + newInputStr);
+            // const newInputStr = inputsArray[i].outerHTML.replace('>', ' />');
+            formArray.push(labelsArray[i].outerHTML);
             // formArray.push(inputsArray[i].outerHTML);
             // const outerHTMLContent = form.outerHTML;
             // // console.log('outerHTMLContent: ', outerHTMLContent);
