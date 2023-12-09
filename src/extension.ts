@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
-        isWholeLine: true,
+        isWholeLine: false,
         overviewRulerLane: vscode.OverviewRulerLane.Right,
         overviewRulerColor: 'red',
         backgroundColor: 'rgba(255, 0, 0, 0.2)',
@@ -45,10 +45,29 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
                 for(const el of elementsToHighlight){
-                    console.log('line.lineNumber: ', line.lineNumber + 1);
-                    console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
-                    console.log('key: ', key);
-                    if(line.lineNumber + 1 === ariaRecommendations[el][1] && el.includes(key) && key.trim() !== ''){
+                    // TEST 
+                    // const htmlChunkToMatch = el;
+                    // console.log('el', el);
+                    // const regex = new RegExp(htmlChunkToMatch, 'g');
+                    // let match;
+                    // while ((match = regex.exec(document.getText())) !== null) {
+                    // const startPosition = document.positionAt(match.index);
+                    // const endPosition = document.positionAt(match.index + match[0].length);
+                    // console.log('match ', match, 'startPosition ', startPosition, 'endPosition ', endPosition);
+                    // const decorationType = vscode.window.createTextEditorDecorationType({
+                    //     backgroundColor: 'rgba(255, 255, 204, 0.5)', // You can customize the background color
+                    //     isWholeLine: false,
+                    // });
+                    // activeEditor.setDecorations(decorationType, [new vscode.Range(startPosition, endPosition)]);
+                    // }
+                    // END TEST
+                    
+                    
+                    // console.log('line.lineNumber: ', line.lineNumber + 1);
+                    // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
+                    // console.log('key: ', key);
+                    // line.lineNumber + 1 === ariaRecommendations[el][1] && 
+                    if(el.includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;
                     }

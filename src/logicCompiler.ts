@@ -104,8 +104,8 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     // ARIAlogic - forms have labels
     const formArray = await checkLabels();
 
-    formArray.forEach((element: any[], index: number) => {
-        ariaRecommendations[element[0]] = [ariaObject.formsHaveLabels, element[1]];
+    formArray.forEach((element: string, index: number) => {
+        ariaRecommendations[element] = ariaObject.formsHaveLabels;
     });
 
     // role-support-aria-attribute

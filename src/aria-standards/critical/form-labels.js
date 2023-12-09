@@ -33,14 +33,15 @@ function checkLabels() {
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
           if (inputId !== labelFor) {
-            const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
-            // const lineNumber = activeEditor.document.lineAt(labelsArray[i].start.line);
+            // console.log('Offset: ', labelsArray[i].startOffset);
+            // console.log('position obj: ', activeEditor.document.positionAt(labelsArray[i].startOffset));
+            // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
             // console.log(lineNumber);
-            formArray.push([labelsArray[i].outerHTML, lineNumber]);
+            formArray.push(labelsArray[i].outerHTML);
             // formArray.push(inputsArray[i].outerHTML);
             // const outerHTMLContent = form.outerHTML;
             // // console.log('outerHTMLContent: ', outerHTMLContent);
-
+            
             // // snag the index of the first newline character
             // const indexOfNewline = outerHTMLContent.indexOf('\n');
 
