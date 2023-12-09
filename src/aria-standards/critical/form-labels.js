@@ -42,7 +42,9 @@ function checkLabels() {
             // console.log('position obj: ', activeEditor.document.positionAt(labelsArray[i].startOffset));
             // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
             // console.log(lineNumber);
-            formArray.push(labelsArray[i].outerHTML);
+            // formArray.push(labelsArray[i].outerHTML);
+            const newInputStr = inputsArray[i].outerHTML.replace('>', ' />');
+            formArray.push(labelsArray[i].outerHTML + newInputStr);
             // formArray.push(inputsArray[i].outerHTML);
             // const outerHTMLContent = form.outerHTML;
             // // console.log('outerHTMLContent: ', outerHTMLContent);
@@ -56,7 +58,7 @@ function checkLabels() {
           }
       }
     });
-    // console.log('formArray: ',formArray);
+    console.log('formArray: ',formArray);
     return formArray;
   }
 }
