@@ -25,6 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
             const highlightedLines = new Set<number>();
+            const processedLines = new Set<string>();
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
@@ -44,25 +45,7 @@ export function activate(context: vscode.ExtensionContext) {
                 let keyFound = false;
 
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
-                for(const el of elementsToHighlight){
-                    // TEST 
-                    // const htmlChunkToMatch = el;
-                    // console.log('el', el);
-                    // const regex = new RegExp(htmlChunkToMatch, 'g');
-                    // let match;
-                    // while ((match = regex.exec(document.getText())) !== null) {
-                    // const startPosition = document.positionAt(match.index);
-                    // const endPosition = document.positionAt(match.index + match[0].length);
-                    // console.log('match ', match, 'startPosition ', startPosition, 'endPosition ', endPosition);
-                    // const decorationType = vscode.window.createTextEditorDecorationType({
-                    //     backgroundColor: 'rgba(255, 255, 204, 0.5)', // You can customize the background color
-                    //     isWholeLine: false,
-                    // });
-                    // activeEditor.setDecorations(decorationType, [new vscode.Range(startPosition, endPosition)]);
-                    // }
-                    // END TEST
-                    
-                    
+                for(const el of elementsToHighlight){                    
                     // console.log('line.lineNumber: ', line.lineNumber + 1);
                     // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
                     // console.log('key: ', key);
@@ -74,11 +57,12 @@ export function activate(context: vscode.ExtensionContext) {
                 }
 
                 // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
-                if (keyFound && !highlightedLines.has(lineNumber)) {
+                if (keyFound && !highlightedLines.has(lineNumber) && !processedLines.has(key)) {
                     // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
                     highlightedLines.add(lineNumber);
+                    processedLines.add(key);
                 }
             }
 
@@ -170,7 +154,7 @@ export function activate(context: vscode.ExtensionContext) {
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : {[key: string]: any}) => {
                                     // console.log('ARIA RECS :',ariaRecommendations);
-                                    const recommendation = ariaRecommendations[lineText][0];
+                                    const recommendation = ariaRecommendations[lineText];
                                     const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                     // console.log('DISPLAYED REC:',recommendation.desc);
                                     const firstLink = recommendation.link instanceof Array ? recommendation.link[0] : recommendation.link;

@@ -17,7 +17,7 @@ const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
 
 export interface AriaRecommendations {
-    [key: string]: any;
+    [key: string]: object;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
@@ -27,70 +27,70 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.anchorLabel, element[1]];
+        ariaRecommendations[element] = ariaObject.anchorLabel;
     });
 
     // area-maps-alt-text
     const areaMapsWithoutAltText = await checkAreaMapAltText();
 
     areaMapsWithoutAltText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.areaAltText, element[1]];
+        ariaRecommendations[element] = ariaObject.areaAltText;
       });
 
     // aria-hidden
     const hiddenAria = await checkAriaHidden();
 
     hiddenAria.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.ariaHidden, element[1]];
+        ariaRecommendations[element] = ariaObject.ariaHidden;
       });
 
     // button-text
     const buttonText = await checkButtonText();
 
     buttonText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.discernibleButtonText, element[1]];
+        ariaRecommendations[element] = ariaObject.discernibleButtonText;
     });
 
     // unique-ids
     const duplicateElements = await checkUniqueIds();
 
     duplicateElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.uniqueIDs, element[1]];
+        ariaRecommendations[element] = ariaObject.uniqueIDs;
       });
 
     // img alt text
     const imgAlts = await checkImgAltText();
     
     imgAlts.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.imageAlts, element[1]];
+        ariaRecommendations[element] = ariaObject.imageAlts;
     });
 
     // input-button
     const inputButtonsWithoutText = await inputButtonText();
 
     inputButtonsWithoutText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.inputButton, element[1]];
+        ariaRecommendations[element] = ariaObject.inputButton;
     });
 
     // meta-http-equiv-refresh
     const metaWrongContent = await checkMetaHttpRefresh();
 
     metaWrongContent.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.metaEquivRefresh, element[1]];
+        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
     });
 
     // meta-viewport-text-zoom
     const metaViewportElements = await checkMetaViewportTextResize();
 
     metaViewportElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.metaViewport, element[1]];
+        ariaRecommendations[element] = ariaObject.metaViewport;
       });
 
     // select-name
     const selectArray = await selectName();
 
     selectArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.selectHasAccessName, element[1]];
+        ariaRecommendations[element] = ariaObject.selectHasAccessName;
     });
 
 
@@ -98,7 +98,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const videosArray = await videoCaptions();
 
     videosArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = [ariaObject.videoCaptions, element[1]];
+        ariaRecommendations[element] = ariaObject.videoCaptions;
     });
 
     // ARIAlogic - forms have labels
@@ -112,7 +112,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const roleSupportHtml = await checkAriaRoles();
 
     roleSupportHtml.forEach((element: string[], index: number) => {
-        ariaRecommendations[element[0]] = [{link: element[1], desc: 'Please select "Read More" below to see documentation for this error.'}, element[2]];
+        ariaRecommendations[element[0]] = {link: element[1], desc: 'Please select "Read More" below to see documentation for this error.'};
     });
 
     // RETURN FINAL OBJECT
