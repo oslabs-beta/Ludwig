@@ -14,7 +14,7 @@ export default function Issues ({recommendations}) {
   });
   return(
     <>
-    <h3>Summary of Issues:</h3>
+    <h2>Summary of Issues:</h2>
       <table>
         <thead>
           <tr>
