@@ -1,5 +1,9 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import { VictoryPie, VictoryLabel } from 'victory';
+
+// // Lazy load the VictoryPie and VictoryLabel components
+// const LazyVictoryPie = React.lazy(() => import('victory').then(({ VictoryPie }) => ({ default: VictoryPie })));
+// const LazyVictoryLabel = React.lazy(() => import('victory').then(({ VictoryLabel }) => ({ default: VictoryLabel })));
 
 export default function Panel() {
   const data = [
