@@ -10,6 +10,10 @@ function checkLabels() {
     const document = window.document;
     const ludwig = document.body;
 
+    // const htmlLines = document.documentElement.outerHTML.split('\n');
+    // const lineCount = htmlLines.length + 2;
+    // console.log(lineCount);
+
     const formArray = [];
     const forms = ludwig.querySelectorAll('form');
     const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
@@ -33,6 +37,7 @@ function checkLabels() {
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
           if (inputId !== labelFor) {
+
             // console.log('Offset: ', labelsArray[i].startOffset);
             // console.log('position obj: ', activeEditor.document.positionAt(labelsArray[i].startOffset));
             // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;

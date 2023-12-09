@@ -24,8 +24,8 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>();
-            const processedLines = new Set<string>();
+            const highlightedLines = new Set<number>(); // ensures the same line doesn't highlight more than once
+            // const processedLines = new Set<string>(); // prevents duplicate lines without issues from highlighting below issue - above is still an issue
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
@@ -49,7 +49,7 @@ export function activate(context: vscode.ExtensionContext) {
                     // console.log('line.lineNumber: ', line.lineNumber + 1);
                     // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
                     // console.log('key: ', key);
-                    // line.lineNumber + 1 === ariaRecommendations[el][1] && 
+                        // line.lineNumber + 1 === ariaRecommendations[el][1] && 
                     if(el.includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;
@@ -57,12 +57,13 @@ export function activate(context: vscode.ExtensionContext) {
                 }
 
                 // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
-                if (keyFound && !highlightedLines.has(lineNumber) && !processedLines.has(key)) {
+                    // && !processedLines.has(key)
+                if (keyFound && !highlightedLines.has(lineNumber)) {
                     // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
                     highlightedLines.add(lineNumber);
-                    processedLines.add(key);
+                    // processedLines.add(key);
                 }
             }
 
