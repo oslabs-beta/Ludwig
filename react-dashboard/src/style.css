@@ -14,7 +14,7 @@ th, td {
 }
 
 th {
-  background-color: #f2f2f24d;
+  background-color: #3a475099;
   font-size: .85rem;
 }
 
@@ -24,4 +24,26 @@ tr:hover {
 
 .centered {
   text-align: center;
+}
+
+.critical {
+  font-size: 3em;
+  font-weight: bolder;
+  color: #be3144;
+}
+
+.circle {
+  width: 100px; 
+  height: 100px;
+  border-radius: 50%; 
+  background-color: #d3d6db27;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.circle span {
+  text-align: center;
+  font-size: 3em;
+  font-weight: bolder;
+  color: #be3144;
 }

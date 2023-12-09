@@ -10,7 +10,7 @@ export default function Score ({recommendations}) {
       </div>
       <div>
         <h3>Total Issues Found:</h3>
-        <h1>{Object.keys(recommendations).length}</h1>
+        <h1 className='circle'><span>{Object.keys(recommendations).length}</span></h1>
       </div>
     </div>
   );

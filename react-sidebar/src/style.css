@@ -5,16 +5,16 @@ body {
 button {
   padding: 10px 20px;
   font-size: 16px;
-  border: 2px solid #34d0db;
+  border: 2px solid #be3144;
   border-radius: 5px;
-  background-color: #34d0db;
+  background-color: #be3144;
   color: #fff;
   cursor: pointer;
 }
 
 button:hover {
   background-color: #fff;
-  color: #3498db;
+  color: #771f2b;
 }
 
 button:focus {
