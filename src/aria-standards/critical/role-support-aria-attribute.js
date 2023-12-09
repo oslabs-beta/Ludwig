@@ -774,4 +774,4 @@ function checkAriaRoles() {
 
 module.exports = {
   checkAriaRoles
-};
+}};

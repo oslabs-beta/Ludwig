@@ -114,6 +114,7 @@ function checkParentRole() {
   // console.log(elementRoles);
 
   elementRoles.forEach((arr) => {
+    
     const el = arr[0];
     const parent = arr[1];
     const children = arr[2];
@@ -128,18 +129,20 @@ function checkParentRole() {
         // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
         const aoArr = [];
         elementRoles.forEach((el) => {
+          
           if (el[3] === 'tablist') {
             aoArr.push(el[0].getAttribute('aria-owns'));
           }
         });
         let ariaOwns = false;
         aoArr.forEach(el => {
+          const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
           if (el === id) {
             ariaOwns = true;
           }
         });
         if (parentRole !== 'tablist' && !ariaOwns) {
-          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role']);
+          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role', lineNumber]);
         }
         break;
       }
@@ -148,7 +151,7 @@ function checkParentRole() {
       case 'treeitem': {
         const parentRole = parent.getAttribute('role');
         if (parentRole !== 'tree') {
-          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
+          incorrectParentRoles.push([el, lineNumber, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role', lineNumber]);
         }
         break;
       }
