@@ -10,7 +10,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
-        isWholeLine: false,
+        isWholeLine: true,
         overviewRulerLane: vscode.OverviewRulerLane.Right,
         overviewRulerColor: 'red',
         backgroundColor: 'rgba(255, 0, 0, 0.2)',
