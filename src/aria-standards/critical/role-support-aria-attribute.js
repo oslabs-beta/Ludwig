@@ -637,7 +637,6 @@ function checkAriaRoles() {
       }
     });
 
-
   // incorrectRoleSupport is nested arr of arrays:
   // arr[0] --> element on node list
   // arr[1] --> link to specific role documentation on mdn

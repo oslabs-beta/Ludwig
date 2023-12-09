@@ -25,10 +25,13 @@ export function activate(context: vscode.ExtensionContext) {
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
             const highlightedLines = new Set<number>();
+            const processedLines = new Set<string>();
 
             // invoke compileLogic to get object with ARIA recommendations
-            const ariaRecommendations = await compileLogic();
+            const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
+            // console.log('ariaRecommendations: ', ariaRecommendations);
+            // console.log('elementsToHighlight: ', elementsToHighlight);
 
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
@@ -36,11 +39,30 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-                if (elementsToHighlight.includes(key) && !highlightedLines.has(lineNumber)) {
-                    // Create a range for the entire line
+                // console.log('key: ', key);
+
+                // boolean to determine whether we push into highlightedRanges
+                let keyFound = false;
+
+                // check if elementsToHighlight contains a line - checks line number to avoid dupes later
+                for(const el of elementsToHighlight){                    
+                    // console.log('line.lineNumber: ', line.lineNumber + 1);
+                    // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
+                    // console.log('key: ', key);
+                    // line.lineNumber + 1 === ariaRecommendations[el][1] && 
+                    if(el.includes(key) && key.trim() !== ''){
+                        keyFound = true;
+                        break;
+                    }
+                }
+
+                // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
+                if (keyFound && !highlightedLines.has(lineNumber) && !processedLines.has(key)) {
+                    // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
                     highlightedLines.add(lineNumber);
+                    processedLines.add(key);
                 }
             }
 
@@ -238,6 +260,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         highlightCommandDisposable,
+        toggleOffCommandDisposable,
         documentOpenDisposable,
         hoverProviderDisposable,
         documentChangeDisposable,
