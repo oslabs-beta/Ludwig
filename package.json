@@ -24,25 +24,25 @@
         "title": "Ludwig: Caesura"
       }
     ],
-  "viewsContainers": {
-    "activitybar": [
-      {
-        "id": "ludwigActivityBar",
-        "title": "Ludwig",
-        "icon": "assets/Ludwig-Logo-Icon.png"
-      }
-    ]
-  },
-  "views": {
-    "ludwigActivityBar": [               
-      {
-        "id": "ludwigSidebarView",    
-        "name": "Compose",
-        "contextualTitle": "Ludwig",
-        "type": "webview"
-      }
-    ]
-  }
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ludwigActivityBar",
+          "title": "Ludwig",
+          "icon": "assets/Ludwig-Logo-Icon.png"
+        }
+      ]
+    },
+    "views": {
+      "ludwigActivityBar": [
+        {
+          "id": "ludwigSidebarView",
+          "name": "Compose",
+          "contextualTitle": "Ludwig",
+          "type": "webview"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -53,9 +53,14 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "build-dashboard": "webpack --config ./react-dashboard/webpack.config.js",
+    "build-sidebar": "webpack --config ./react-sidebar/webpack.config.js"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
+    "@babel/preset-react": "^7.23.3",
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
     "@types/play-sound": "^1.1.2",
@@ -63,9 +68,14 @@
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
     "@vscode/test-electron": "^2.3.6",
+    "autoprefixer": "^10.4.16",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
     "eslint": "^8.52.0",
     "glob": "^10.3.10",
+    "html-webpack-plugin": "^5.5.3",
     "mocha": "^10.2.0",
+    "style-loader": "^3.3.3",
     "ts-loader": "^9.5.0",
     "typescript": "^5.2.2",
     "webpack": "^5.89.0",
@@ -78,7 +88,10 @@
     "jsdom": "^22.1.0",
     "node": "^21.1.0",
     "play-sound": "^1.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "utf-8-validate": "^6.0.3",
+    "victory": "^36.7.0",
     "ws": "^8.14.2"
   }
 }
