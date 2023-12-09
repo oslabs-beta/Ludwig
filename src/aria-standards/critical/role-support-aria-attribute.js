@@ -640,7 +640,7 @@ function checkAriaRoles() {
   // incorrectRoleSupport is nested arr of arrays:
   // arr[0] --> element on node list
   // arr[1] --> link to specific role documentation on mdn
-  const roleSupportHtml = incorrectRoleSupport.map((arr) => [arr[0].outerHTML, arr[1], activeEditor.document.positionAt(arr[0].startOffset).line]);
+  const roleSupportHtml = incorrectRoleSupport.map((arr) => [arr[0].outerHTML, arr[1]]);
   return roleSupportHtml;
   }
 }
