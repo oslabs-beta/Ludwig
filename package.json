@@ -18,8 +18,31 @@
       {
         "command": "ludwig.highlightElements",
         "title": "Ludwig: Compose"
+      },
+      {
+        "command": "ludwig.toggleOff",
+        "title": "Ludwig: Caesura"
+      }
+    ],
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "ludwigActivityBar",
+        "title": "Ludwig",
+        "icon": "assets/Ludwig-Logo-Icon.png"
       }
     ]
+  },
+  "views": {
+    "ludwigActivityBar": [               
+      {
+        "id": "ludwigSidebarView",    
+        "name": "Compose",
+        "contextualTitle": "Ludwig",
+        "type": "webview"
+      }
+    ]
+  }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -35,6 +58,7 @@
   "devDependencies": {
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
+    "@types/play-sound": "^1.1.2",
     "@types/vscode": "^1.84.2",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "@typescript-eslint/parser": "^6.9.0",
@@ -48,8 +72,13 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "bufferutil": "^4.0.8",
+    "canvas": "^2.11.2",
     "express": "^4.18.2",
     "jsdom": "^22.1.0",
-    "node": "^21.1.0"
+    "node": "^21.1.0",
+    "play-sound": "^1.1.6",
+    "utf-8-validate": "^6.0.3",
+    "ws": "^8.14.2"
   }
 }

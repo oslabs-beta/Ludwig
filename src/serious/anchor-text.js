@@ -1,0 +1,33 @@
+const vscode = require('vscode');
+const { JSDOM } = require('jsdom');
+
+function testAnchorLabels() {
+    const activeEditor = vscode.window.activeTextEditor;
+
+    if (activeEditor && activeEditor.document.languageId === 'html') {
+        const htmlCode = activeEditor.document.getText();
+        const { window } = new JSDOM(htmlCode);
+        const document = window.document;
+
+        const anchorsWithNoText = [];
+        const anchorElements = document.querySelectorAll('a');
+
+        anchorElements.forEach((anchorElement) => {
+            const lineNumber = activeEditor.document.positionAt(anchorElement.startOffset).line;
+            const textContent = anchorElement.textContent.trim();
+
+            if (!textContent) {
+                anchorsWithNoText.push(
+                    anchorElement.outerHTML,
+                    activeEditor.document.positionAt(anchorElement.startOffset).line,
+                );
+            }
+        });
+
+        return anchorsWithNoText;
+    }
+}
+
+module.exports = {
+    testAnchorLabels
+};
