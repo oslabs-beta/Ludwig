@@ -49,7 +49,7 @@ export default function Panel() {
           text={`${data[0].y}%`}
           textAnchor="middle"
           verticalAnchor="middle"
-          style={{ fontSize: 50, fill: '#d3d6db', position: 'absolute', top: centerY - 30, left: centerX - 75 }}
+          style={{ fontSize: 50, fill: '#d3d6db', position: 'absolute', top: centerY - 25, left: centerX - 55}}
         />
       </Suspense>
     </div>
