@@ -54,7 +54,8 @@
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
-    "build-dashboard": "webpack --config ./react-dashboard/webpack.config.js"
+    "build-dashboard": "webpack --config ./react-dashboard/webpack.config.js",
+    "build-sidebar": "webpack --config ./react-sidebar/webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
@@ -90,6 +91,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "utf-8-validate": "^6.0.3",
+    "victory": "^36.7.0",
     "ws": "^8.14.2"
   }
 }

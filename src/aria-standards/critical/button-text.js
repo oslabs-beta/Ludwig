@@ -17,8 +17,9 @@ function checkButtonText() {
 
   // check innerHTMl or innerText to make sure it is not missing or an empty string
     buttons.forEach((el, i) => {
+      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       if (el.innerHTML === '') {
-        buttonsArray.push(el.outerHTML);
+        buttonsArray.push([el.outerHTML, lineNumber]);
       } 
     });
     return buttonsArray;

@@ -15,9 +15,10 @@ function selectName() {
     const selectElements = ludwig.querySelectorAll('select');
 
     selectElements.forEach((ele, index) => {
-        let nameAttribute = ele.getAttribute('name');
+      const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;  
+      let nameAttribute = ele.getAttribute('name');
         if (!nameAttribute) {
-          selectArray.push(ele.outerHTML);
+          selectArray.push([ele.outerHTML, lineNumber]);
         }
     });
     return selectArray; 

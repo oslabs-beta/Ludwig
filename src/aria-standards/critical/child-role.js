@@ -124,7 +124,8 @@ function checkChildRoles() {
     // toolbar role must group 3 or more elements (must have 3 or more child nodes)
     case 'toolbar': {
       if (children.length < 3) {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/toolbar_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/toolbar_role', lineNumber]);
       }
       break;
     }
@@ -134,7 +135,8 @@ function checkChildRoles() {
       for (const child of children) {
         console.log(child.tagName);
         if (child.tageName !== 'ARTICLE') {
-          incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role']);
+          const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+          incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/feed_role', lineNumber]);
         }
       }
       break;
@@ -143,7 +145,8 @@ function checkChildRoles() {
     // menu role must have a list of children nodes
     case 'menu': {
       if (children.length === 0) {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menu_role', lineNumber]);
       }
       break;
     }
@@ -151,7 +154,8 @@ function checkChildRoles() {
     // menubar role is a menu that is visually persistant, required to have list of children nodes
     case 'menubar': {
       if (children.length === 0) {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menubar_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/menubar_role', lineNumber]);
       }
       break;
     }
@@ -166,7 +170,8 @@ function checkChildRoles() {
         }
       });
       if (children.length === 0 || nonTabs) {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tablist_role', lineNumber]);
       }
       break;
     }
@@ -175,7 +180,8 @@ function checkChildRoles() {
     case 'tree': {
       const childRole = children[0].getAttribute('role'); //<--add more checks to iterate through html child nodes for roles
       if (children.length === 0 || childRole !== 'treeitem') {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tree_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tree_role', lineNumber]);
       }
       break;
     }
@@ -191,7 +197,8 @@ function checkChildRoles() {
         childAttr.push(id, type, label, name);
       });
       if (!childAttr.includes('search')) {
-        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role']);
+        const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+        incorrectChildRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/search_role', lineNumber]);
       }
       break;
     }

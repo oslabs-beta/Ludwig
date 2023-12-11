@@ -71,15 +71,17 @@ export function activate(context: vscode.ExtensionContext) {
                     // processedLines.add(key);
                 }
             }
-
+            
             // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
             activeEditor.setDecorations(decorationType, []);
-
+            
             // Apply red background thing to highlight the lines
             activeEditor.setDecorations(decorationType, highlightedRanges);
-
+            
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
+            // console.log({ariaRecommendations, elementsToHighlight});
+            
         }
     }
 
@@ -186,36 +188,46 @@ export function activate(context: vscode.ExtensionContext) {
             webviewView.webview.options = {
               enableScripts: true,  //enable JS
             };
+                  //Load bundled dashboard React file into the panel webview
+            const sidebarPath = vscode.Uri.file(path.join(context.extensionPath,'react-sidebar','dist', 'bundle.js'));
+            const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
+            
+            //Create Path and Src for CSS files
+            const cssPath = path.join(context.extensionPath,'react-sidebar', 'src', 'style.css');
+            const cssSrc = webviewView.webview.asWebviewUri(vscode.Uri.file(cssPath));
             //TO DO: Decide which content to allow in meta http-equiv Content security policy:
             //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
             webviewView.webview.html = `
                 <!DOCTYPE html>
                 <html lang="en">
                     <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" type="text/css" href="${cssSrc}">
                     </head>
                     <body>
-                        <h3>Improve the accessibility of your website!</h3>
-                        <p>Click the button below to scan the current HTML document and generate a report on how to improve your code for accessibility</p>
                         <div id="root"></div>
-                        <button>Scan Document</button>
                         <script>
                             window.vscodeApi = acquireVsCodeApi();
-                            const button = document.querySelector('button');
-                            button.addEventListener('click', () => {
-                                window.vscodeApi.postMessage({ message: 'scanDoc' });
-                            });
                         </script>
+                        <script src="${sidebarSrc}"></script>
                     </body>
                 </html>
             `;
+            // const button = document.querySelector('button');
+            // button.addEventListener('click', () => {
+            //     window.vscodeApi.postMessage({ message: 'scanDoc' });
+            // });
+
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
                 if (message.message === 'scanDoc') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
+                    compileLogic()
+                    .then((ariaRecommendations : {[key: string]: any}) => {
+                        panel.webview.postMessage({ ariaRecommendations: ariaRecommendations });
+                    });
                 }
             }); 
             
@@ -235,7 +247,7 @@ export function activate(context: vscode.ExtensionContext) {
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+                // localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
             }
         );
         //Load bundled dashboard React file into the panel webview
