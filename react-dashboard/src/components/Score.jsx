@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo } from 'react';
 import Panel from './Panel';
 
-export default function Score ({recommendations}) {
+function Score ({recommendations}) {
   return (
     // <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
     <div>
@@ -12,3 +12,6 @@ export default function Score ({recommendations}) {
     </div>
   );
 }
+
+
+export default memo(Score);
