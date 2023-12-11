@@ -17,7 +17,7 @@ const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
 
 export interface AriaRecommendations {
-    [key: string]: object;
+    [key: string]: any;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
@@ -27,7 +27,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.anchorLabel;
+        ariaRecommendations[element[1]] = [ariaObject.anchorLabel, element[0]];
     });
 
     // area-maps-alt-text
@@ -105,7 +105,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const formArray = await checkLabels();
 
     formArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.formsHaveLabels;
+        ariaRecommendations[element[1]] = [ariaObject.formsHaveLabels, element[0]];
     });
 
     // role-support-aria-attribute

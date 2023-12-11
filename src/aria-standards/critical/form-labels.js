@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 
-async function checkLabels() {
+function checkLabels() {
   const activeEditor = vscode.window.activeTextEditor;
 
   if (activeEditor && activeEditor.document.languageId === 'html') {
@@ -10,14 +10,11 @@ async function checkLabels() {
     const document = window.document;
     const ludwig = document.body;
 
-    // const htmlLines = document.documentElement.outerHTML.split('\n');
-    // const lineCount = htmlLines.length + 2;
-    // console.log(lineCount);
-
+    const set = new Set(); // so getLineNumber function doesn't just get the first line it finds each time
     const formArray = [];
     const forms = ludwig.querySelectorAll('form');
-    const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
-    const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
+    // const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
+    // const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
 
     forms.forEach((form) => {
       const formChildren = form.children;
@@ -36,20 +33,39 @@ async function checkLabels() {
         // console.log(labelsArray[i]);
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
+          const lineNumber = getLineNumber(activeEditor.document, labelsArray[i], set);
+          set.add(lineNumber);
           if (inputId !== labelFor) {
-            // console.log('Offset: ', labelsArray[i].startOffset);
-            // console.log('position obj: ', activeEditor.document.positionAt(labelsArray[i].startOffset));
-            // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
-            // console.log(lineNumber);
-            formArray.push(labelsArray[i].outerHTML);
-            // formArray.push(inputsArray[i].outerHTML);
+            console.log('lineNumber: ', lineNumber);
+            console.log('set: ', set);
+            formArray.push([labelsArray[i].outerHTML, lineNumber]);
           }
       }
     });
-    // console.log('formArray: ',formArray);
+    console.log('formArray: ',formArray);
     return formArray;
   }
 }
+
+function getLineNumber(document, node, set) {
+  const htmlCode = document.getText();
+  const lines = htmlCode.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    if(!set.has(i + 1)){
+      const line = lines[i];
+      const indexInLine = line.indexOf(node.outerHTML);
+      if (set.has(indexInLine)) {
+        line.indexOf(node.outerHTML, indexInLine+1);
+      }
+  
+      if (indexInLine !== -1) {
+        return i + 1;
+      }
+    }
+  }
+}
+
 
 module.exports = {
   checkLabels
