@@ -46,7 +46,7 @@ async function checkLabels() {
           }
       }
     });
-    console.log('formArray: ',formArray);
+    // console.log('formArray: ',formArray);
     return formArray;
   }
 }
