@@ -20,11 +20,12 @@ function checkImgAltText() {
   // console.log('images', img);
 
     img.forEach((img, index) => {
+      const lineNumber = activeEditor.document.positionAt(img.startOffset).line;
       const altText = img.getAttribute('alt');
       // console.log('alt text', altText);
 
       if (!altText) {
-          imgAlt.push(img.outerHTML);
+          imgAlt.push([img.outerHTML, lineNumber]);
       }
   });
   return imgAlt;
