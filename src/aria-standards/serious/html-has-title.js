@@ -15,10 +15,10 @@ function htmlHasTitle(htmlTest) {
         const headEle = document.querySelector('head');
         const title = headEle.querySelector('title');
         const hasTitle = (title && title.textContent);
-        const lineNumber = activeEditor.document.positionAt(title.startOffset).line;
+        // const lineNumber = activeEditor.document.positionAt(title.startOffset).line;
         
         if(!hasTitle) {
-            tagForRevision.push([headEle.outerHTML, lineNumber]);
+            tagForRevision.push(headEle.outerHTML);
         }
         
         // look through and check each aria tag for missing text 

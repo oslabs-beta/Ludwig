@@ -16,16 +16,16 @@ function hasDLParent(htmlTest) {
         const ddTags = document.querySelectorAll('dd');
         
         dtTags.forEach((tag) => {
-            const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {
-                tagForRevision.push([tag.outerHTML, lineNumber]);
+                tagForRevision.push(tag.outerHTML);
             }
         });
 
         ddTags.forEach((tag) => {
-            const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {
-                tagForRevision.push([tag.outerHTML, lineNumber]);
+                tagForRevision.push(tag.outerHTML);
             }
         });
         

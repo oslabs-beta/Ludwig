@@ -13,14 +13,11 @@ function testAnchorLabels() {
         const anchorElements = document.querySelectorAll('a');
 
         anchorElements.forEach((anchorElement) => {
-            const lineNumber = activeEditor.document.positionAt(anchorElement.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(anchorElement.startOffset).line;
             const textContent = anchorElement.textContent.trim();
 
             if (!textContent) {
-                anchorsWithNoText.push(
-                    anchorElement.outerHTML,
-                    activeEditor.document.positionAt(anchorElement.startOffset).line,
-                );
+                anchorsWithNoText.push(anchorElement.outerHTML);
             }
         });
 

@@ -14,8 +14,8 @@ function findBlinkElements() {
         if (blinkElements.length > 0) {
             // Blink elements found
             const blinkOccurrences = Array.from(blinkElements).map((blinkElement) => {
-                const lineNumber = activeEditor.document.positionAt(blinkElements.startOffset).line;
-                return [blinkElement.outerHTML, lineNumber];
+                // const lineNumber = activeEditor.document.positionAt(blinkElements.startOffset).line;
+                return blinkElement.outerHTML;
             });
             return blinkOccurrences;
         } 

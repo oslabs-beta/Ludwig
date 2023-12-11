@@ -17,9 +17,9 @@ function menuRoleChildrenLabeled(htmlTest) {
         const children = menuParent.children;
         // html collection spread into array
         children.forEach((ele) => {
-          const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
+          // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
           if (!ele.getAttribute('role')) {
-                childrenForRevision.push([ele.outerHTML, lineNumber]);
+                childrenForRevision.push(ele.outerHTML);
             }
         });
       }

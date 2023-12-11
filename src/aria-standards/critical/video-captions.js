@@ -15,14 +15,14 @@ function videoCaptions() {
   const videos = ludwig.querySelectorAll('video');
 
   videos.forEach((video, index) => {
-    const lineNumber = activeEditor.document.positionAt(video.startOffset).line;
+    // const lineNumber = activeEditor.document.positionAt(video.startOffset).line;
     // Check if the video has a captions track
     let captions = video.querySelector('track[kind="captions"]');
     let label = captions.getAttribute('label');
     let source = captions.getAttribute('src');
 
     if (!captions || !label || !source) {
-      videosArray.push([video.outerHTML, lineNumber]);
+      videosArray.push(video.outerHTML);
     }
 
   });

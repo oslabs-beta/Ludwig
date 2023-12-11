@@ -18,13 +18,13 @@ function allLabelsHaveText(htmlTest) {
         
         // look through and check each aria tag for missing text 
         elementsWithAriaAttributes.forEach((tag) => {
-            const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             const attributes = tag.attributes;
 
             for (let i = 0; i < attributes.length; i++) {
                 const currAttr = attributes[i].name; 
                 if (currAttr.indexOf('aria') === 0) {
-                labelsForRevision.push([tag.outerHTML, lineNumber]);
+                labelsForRevision.push(tag.outerHTML);
                 }
             }
         });

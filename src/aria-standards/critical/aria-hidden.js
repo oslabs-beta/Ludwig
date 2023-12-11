@@ -22,8 +22,8 @@ function checkAriaHidden() {
 
   if (hiddenElements.length > 0) {
       hiddenElements.forEach((element, index) => {
-        const lineNumber = activeEditor.document.positionAt(element.startOffset).line;
-        hiddenAria.push([element.outerHTML, lineNumber]);
+        // const lineNumber = activeEditor.document.positionAt(element.startOffset).line;
+        hiddenAria.push(element.outerHTML);
       // console.log(`Element ${index + 1}, ${element.outerHTML}`);
     });
     }

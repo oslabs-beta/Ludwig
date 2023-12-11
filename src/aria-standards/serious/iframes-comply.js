@@ -19,10 +19,10 @@ function iFrameComply(htmlTest) {
             const tableIndex = parseInt(tag.getAttribute('tabindex') || 0, 10);
             const name = tag.getAttribute('name');
             console.log('name', name);
-            const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
           
             if (name === null || !title || tableIndex === -1) {
-              tagForRevision.push([tag.outerHTML, lineNumber]);
+              tagForRevision.push(tag.outerHTML);
             }
         });
         return tagForRevision;

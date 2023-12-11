@@ -14,7 +14,7 @@ function checkProgressBars() {
   
     // Iterate through each progress bar
     progressBars.forEach(progressBar => {
-      const lineNumber = activeEditor.document.positionAt(progressBar.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(progressBar.startOffset).line;
         // Check if the progress bar has children
       const children = progressBar.children;
   
@@ -24,10 +24,10 @@ function checkProgressBars() {
           return child.textContent.trim().length > 0;
         });
         if (!hasTextContent) {
-            progressBarsToHighlight.push(progressBar.outerHTML, lineNumber);
+            progressBarsToHighlight.push(progressBar.outerHTML);
         }
       } else {
-      progressBarsToHighlight.push(progressBar.outerHTML, lineNumber);
+      progressBarsToHighlight.push(progressBar.outerHTML);
       }
     });
     return progressBarsToHighlight;

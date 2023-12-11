@@ -17,11 +17,11 @@ function checkAreaMapAltText() {
     
     // check if each el has alt text
     areas.forEach((el, i) => {
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const altText = el.getAttribute('alt');
 
       if (!altText | altText === '') {
-        areaMapsWithoutAltText.push([el.outerHTML, lineNumber]);
+        areaMapsWithoutAltText.push(el.outerHTML);
       }
     });
     return areaMapsWithoutAltText;

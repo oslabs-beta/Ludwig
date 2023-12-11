@@ -15,7 +15,7 @@ function findSwitchElementsWithNoChildText() {
 
         // Iterate through each switch element
         switches.forEach((switchElement) => {
-            const lineNumber = activeEditor.document.positionAt(switchElement.startOffset).line;
+            // const lineNumber = activeEditor.document.positionAt(switchElement.startOffset).line;
             const parentText = switchElement.textContent;
             // Check if there is at least one child element with text content
             const hasChildWithText = Array.from(switchElement.children).some((child) => {
@@ -23,7 +23,7 @@ function findSwitchElementsWithNoChildText() {
             });
 
             if (!hasChildWithText && !parentText) {
-                switchesWithNoChildText.push(switchElement.outerHTML, lineNumber);
+                switchesWithNoChildText.push(switchElement.outerHTML);
             }
         });
         return switchesWithNoChildText;

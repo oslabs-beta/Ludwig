@@ -33,14 +33,14 @@ function ariaBrailleLabel(htmlTest) {
     const brailleEleForRevision = [];
 
     brailleElements.forEach((ele, index) => {
-      const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
       const ariaBrailleLabel = ele.getAttribute('aria-braillelabel');
 
       // could push missing anchors into an object for more intentional use 
       // could inlcude logic to make sure the aria-label matches content 
       if (!ariaBrailleLabel || ariaBrailleLabel === ele.tagName) {
         // console.log(`Link ${index + 1} is missing aria-label`);
-        brailleEleForRevision.push([ele.outerHTML, lineNumber]); // push here
+        brailleEleForRevision.push(ele.outerHTML); // push here
       }
     });
     return anchorsWithoutAriaLabel; // return that array

@@ -20,7 +20,7 @@ function checkMetaHttpRefresh() {
     meta.forEach((el, i) => {
       const httpEquiv = el.getAttribute('http-equiv');
       // console.log('http-equiv', httpEquiv);
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       // each content attr must have a value that has a number that is 0
       const content = el.getAttribute('content');
       // console.log('content', content);
@@ -28,7 +28,7 @@ function checkMetaHttpRefresh() {
       if (httpEquiv === 'refresh') {
         // if content does not exist, does not begin with the number 0 or is not followed by "URL="
         if (!content || content[0] !== '0' || !content.includes('URL=')) {
-          metaWrongContent.push([el.outerHTML, lineNumber]);
+          metaWrongContent.push(el.outerHTML);
           // console.log(`Http-equiv ${i + 1} does not have the correct content`);
         }
       };

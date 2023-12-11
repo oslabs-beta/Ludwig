@@ -16,9 +16,9 @@ function inputButtonText() {
     const inputButtonsWithoutText = [];
     // check that value is not an empty string or missing
     input.forEach((el, index) => {
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       if (el.value === '' || !el.value) {
-        inputButtonsWithoutText.push([el.outerHTML, lineNumber]);
+        inputButtonsWithoutText.push(el.outerHTML);
         // console.log(`Input Button ${index + 1} does not have a value.`);
       }
     });

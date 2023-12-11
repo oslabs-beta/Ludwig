@@ -17,13 +17,13 @@ function checkUniqueIds() {
     const elementsWithId = ludwig.querySelectorAll('[id]');
     
     elementsWithId.forEach(element => {
-      const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
       const id = element.id;
 
       if (idSet.has(id)) {
         // console.error(`Duplicate id found: ${id}`);
         // Store the element with duplicate id in the array
-        duplicateElements.push([element.outerHTML, lineNumber]);
+        duplicateElements.push(element.outerHTML);
       } else {
         idSet.add(id);
       }

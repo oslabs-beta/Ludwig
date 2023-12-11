@@ -17,7 +17,7 @@ function checkMetaViewportTextResize() {
     
     // check if each el has the attribute name with the value "viewport"
     meta.forEach((el, i) => {
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const name = el.getAttribute('name');
       // console.log('name', name);
       // extract content string using get attribute
@@ -40,7 +40,7 @@ function checkMetaViewportTextResize() {
       if (name === 'viewport') {
         // make sure that text zooming/scaling has not been disabled
         if (maxScale < 3 || userScale === 'no' || userScale === '0') {
-          metaViewportElements.push([el.outerHTML, lineNumber]);
+          metaViewportElements.push(el.outerHTML);
           // console.log(`Meta with attribute name="viewport" ${i + 1} should not disable text resizing`);
         }
       };
