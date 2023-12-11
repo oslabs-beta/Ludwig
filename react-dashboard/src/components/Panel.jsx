@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo } from 'react';
+import React, { Suspense, useMemo, memo } from 'react';
 
 // Lazy load the VictoryPie and VictoryLabel components
 const LazyVictoryPie = React.lazy(() => import('victory').then(({ VictoryPie }) => ({ default: VictoryPie })));
@@ -14,7 +14,7 @@ const CustomLabel = ({ x, y, index, datum }) => {
   );
 };
 
-export default function Panel() {
+function Panel() {
   const data = [
     { x: 'Accessible', y: 73 },
     { x: 'Inaccessible', y: 27 },
@@ -55,3 +55,5 @@ export default function Panel() {
     </div>
   );
 }
+
+export default memo(Panel);
