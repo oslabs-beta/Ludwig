@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, memo } from 'react';
 
-export default function Issues ({recommendations}) {
+function Issues ({recommendations}) {
   
   const elements = Object.keys(recommendations).map((el) => {
     return(
@@ -14,7 +14,7 @@ export default function Issues ({recommendations}) {
   });
   return(
     <>
-    <h3>Summary of Issues:</h3>
+    <h2>Summary of Issues:</h2>
       <table>
         <thead>
           <tr>
@@ -31,3 +31,5 @@ export default function Issues ({recommendations}) {
     </>
   );
 }
+
+export default memo(Issues);
