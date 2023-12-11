@@ -36,10 +36,11 @@ tr:hover {
   width: 100px; 
   height: 100px;
   border-radius: 50%; 
-  background-color: #d3d6db27;
+  background-color: #3a4750bd;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 90px;
 }
 .circle span {
   text-align: center;

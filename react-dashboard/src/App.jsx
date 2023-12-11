@@ -17,7 +17,7 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div style={{margin:15}}>
       <Score recommendations={recommendations}/>
       <Issues recommendations={recommendations}/>
     </div>
