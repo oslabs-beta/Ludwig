@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 function menuRoleChildrenLabeled(htmlTest) {
     const activeEditor = vscode.window.activeTextEditor;
@@ -11,15 +13,18 @@ function menuRoleChildrenLabeled(htmlTest) {
       const ludwig = document.body;
 
       const childrenForRevision = [];
+      const set = new Set();
       const menuParent = ludwig.querySelector('[role="menu"]');
 
       if (menuParent) {
         const children = menuParent.children;
         // html collection spread into array
         children.forEach((ele) => {
+          const lineNumber = getLineNumber(activeEditor.document, ele, set);
+          set.add(lineNumber);
           // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
           if (!ele.getAttribute('role')) {
-                childrenForRevision.push(ele.outerHTML);
+                childrenForRevision.push([ele.outerHTML, lineNumber]);
             }
         });
       }

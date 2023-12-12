@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
-// const parser = require('@babel/parser');
-// const traverse = require('@babel/traverse').default;
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // logic for if anchors have a label
 function evalAnchors() {
@@ -40,24 +40,6 @@ function evalAnchors() {
   }
 }
 
-function getLineNumber(document, node, set) {
-  const htmlCode = document.getText();
-  const lines = htmlCode.split('\n');
-
-  for (let i = 0; i < lines.length; i++) {
-    if(!set.has(i + 1)){
-      const line = lines[i];
-      const indexInLine = line.indexOf(node.outerHTML);
-  
-      if (indexInLine !== -1) {
-        return i + 1;
-      }
-    }
-  }
-}
-
-
-// export to extension.ts
 
 module.exports = {
   evalAnchors

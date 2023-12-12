@@ -1,6 +1,7 @@
 // needs testing. If it works, move to critical
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 function iFrameComply(htmlTest) {
     const activeEditor = vscode.window.activeTextEditor;
@@ -12,9 +13,12 @@ function iFrameComply(htmlTest) {
         const ludwig = document.body;
 
         const tagForRevision = [];
+        const set = new Set();
         const frames = ludwig.querySelectorAll('frame, iframe');
           
         frames.forEach((tag) => {
+            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            set.add(lineNumber);
             const title = tag.getAttribute('title');
             const tableIndex = parseInt(tag.getAttribute('tabindex') || 0, 10);
             const name = tag.getAttribute('name');
@@ -22,7 +26,7 @@ function iFrameComply(htmlTest) {
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
           
             if (name === null || !title || tableIndex === -1) {
-              tagForRevision.push(tag.outerHTML);
+              tagForRevision.push([tag.outerHTML, lineNumber]);
             }
         });
         return tagForRevision;

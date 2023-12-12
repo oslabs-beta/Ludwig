@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 function findSwitchElementsWithNoChildText() {
     const activeEditor = vscode.window.activeTextEditor;
@@ -11,10 +13,13 @@ function findSwitchElementsWithNoChildText() {
         
 
         const switchesWithNoChildText = [];
+        const set = new Set();
         const switches = document.querySelectorAll('[role="switch"]');
 
         // Iterate through each switch element
         switches.forEach((switchElement) => {
+            const lineNumber = getLineNumber(activeEditor.document, switchElement, set);
+            set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(switchElement.startOffset).line;
             const parentText = switchElement.textContent;
             // Check if there is at least one child element with text content
@@ -23,7 +28,7 @@ function findSwitchElementsWithNoChildText() {
             });
 
             if (!hasChildWithText && !parentText) {
-                switchesWithNoChildText.push(switchElement.outerHTML);
+                switchesWithNoChildText.push([switchElement.outerHTML, lineNumber]);
             }
         });
         return switchesWithNoChildText;

@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
-
+const { getLineNumber } = require('../../getLineNumber');
 
 
 // <input type=”image”> elements have alternative text
@@ -14,18 +14,20 @@ function checkImgAltText() {
     const ludwig = document.body;
     
     const imgAlt = [];
+    const set = new Set();
   // const images = ludwig.images; <-- returns html collection
   // const images = ludwig.getElementsByTagName("img"); <-- returns html collection
     const img = ludwig.querySelectorAll('img');
   // console.log('images', img);
 
     img.forEach((img, index) => {
-      // const lineNumber = activeEditor.document.positionAt(img.startOffset).line;
       const altText = img.getAttribute('alt');
       // console.log('alt text', altText);
+      const lineNumber = getLineNumber(activeEditor.document, img, set);
+      set.add(lineNumber);
 
       if (!altText) {
-          imgAlt.push(img.outerHTML);
+          imgAlt.push([img.outerHTML, lineNumber]);
       }
   });
   return imgAlt;

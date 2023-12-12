@@ -1,5 +1,8 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
+
 
 // check that lists are structured correctly (dl, ul, and ol elements)
 function checkListStructure() {
@@ -14,22 +17,27 @@ function checkListStructure() {
     // output array for fail cases
     const incorrectListElements = [];
 
+
     const ul = ludwig.querySelectorAll('ul');
     const ol = ludwig.querySelectorAll('ol');
 
     // iterate through <ul> elements
     // check child nodes exist AND that they are <li>
     let index = 0;
+    const set = new Set();
+    
     while (index < ul.length) {
       const listItems = [];
       for (const child of ul[index].children) {
+        const lineNumber = getLineNumber(activeEditor.document, tag, set);
+        set.add(lineNumber);
         if (child.tagName === 'LI' && child.innerHTML === '') {
-          incorrectListElements.push(ul[index]);
+          incorrectListElements.push([ul[index], lineNumber]);
           break;
         } else if (child.tagName === 'LI') {
           listItems.push(child.tagName);
         } else {
-          incorrectListElements.push(ul[index]);
+          incorrectListElements.push([ul[index], lineNumber]);
           break;
         }
       }
@@ -45,17 +53,21 @@ function checkListStructure() {
     while (count < ol.length) {
       const listItems = [];
       for (const child of ol[count].children) {
-        console.log(child.innerHTML);
+        const lineNumber = getLineNumber(activeEditor.document, child, set);
+        set.add(lineNumber);
+        // console.log(child.innerHTML);
         if (child.tagName === 'LI' && child.innerHTML === '') {
-          incorrectListElements.push(ol[count]);
+          incorrectListElements.push([ol[count], lineNumber]);
           break;
         } else if (child.tagName === 'LI') {
           listItems.push(child.tagName);
         } else {
-          incorrectListElements.push(ol[count]);
+          incorrectListElements.push([ol[count],  lineNumber]);
           break;
         }
       }
+      const lineNumber = getLineNumber(activeEditor.document, ol[count], set);
+      set.add(lineNumber);
       if (listItems.length === 0 && !incorrectListElements.includes(ol[count])) {
         incorrectListElements.push(ol[count]);
       }

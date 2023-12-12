@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // check that <object> elements have alternate text
 function checkObjAltText() {
@@ -13,14 +15,17 @@ function checkObjAltText() {
 
     // output array for fail cases
     const objsWithoutAltTxt = [];
+    const set = new Set();
 
     const objects = ludwig.querySelectorAll('object');
 
     // iterate through object; if alt text doesn't exists then push into failed arr
     objects.forEach(el => {
+      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      set.add(lineNumber);
       const altText = el.getAttribute('alt');
       if (!altText) {
-        objsWithoutAltTxt.push(el);
+        objsWithoutAltTxt.push([el, lineNumber]);
       }
     });
 

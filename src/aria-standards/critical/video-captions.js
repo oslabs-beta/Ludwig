@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 function videoCaptions() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -11,18 +13,20 @@ function videoCaptions() {
     const ludwig = document.body;
   
   const videosArray = [];
+  const set = new Set();
   
   const videos = ludwig.querySelectorAll('video');
 
   videos.forEach((video, index) => {
-    // const lineNumber = activeEditor.document.positionAt(video.startOffset).line;
+    const lineNumber = getLineNumber(activeEditor.document, video, set);
+    set.add(lineNumber);
     // Check if the video has a captions track
     let captions = video.querySelector('track[kind="captions"]');
     let label = captions.getAttribute('label');
     let source = captions.getAttribute('src');
 
     if (!captions || !label || !source) {
-      videosArray.push(video.outerHTML);
+      videosArray.push([video.outerHTML, lineNumber]);
     }
 
   });

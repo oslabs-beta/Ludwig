@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 function hasDLParent(htmlTest) {
     const activeEditor = vscode.window.activeTextEditor;
@@ -11,21 +13,26 @@ function hasDLParent(htmlTest) {
         const ludwig = document.body;
 
         const tagForRevision = [];
+        const set = new Set();
         
         const dtTags = document.querySelectorAll('dt');
         const ddTags = document.querySelectorAll('dd');
         
         dtTags.forEach((tag) => {
+            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {
-                tagForRevision.push(tag.outerHTML);
+                tagForRevision.push([tag.outerHTML, lineNumber]);
             }
         });
 
         ddTags.forEach((tag) => {
+            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {
-                tagForRevision.push(tag.outerHTML);
+                tagForRevision.push([tag.outerHTML, lineNumber]);
             }
         });
         

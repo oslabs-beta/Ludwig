@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // check that <marquee> elements are not used
 function checkMarquee() {
@@ -12,8 +14,11 @@ function checkMarquee() {
     const ludwig = document.body;
 
     const marquee = ludwig.querySelectorAll('marquee');
+    if (marquee.length === 1) {
+      getLineNumber(activeEditor.document, marquee[0], set);
+    } 
 
-    return marquee.length > 0 ? marquee : undefined;
+    return marquee.length > 0 ? [marquee, lineNumber] : undefined;
   }
 }
 

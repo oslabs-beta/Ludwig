@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 // input button has discernible text
 function inputButtonText() {
@@ -14,11 +15,13 @@ function inputButtonText() {
     const input = ludwig.querySelectorAll('input');
     
     const inputButtonsWithoutText = [];
+    const set = new Set();
     // check that value is not an empty string or missing
     input.forEach((el, index) => {
-      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      set.add(lineNumber);
       if (el.value === '' || !el.value) {
-        inputButtonsWithoutText.push(el.outerHTML);
+        inputButtonsWithoutText.push([el.outerHTML, lineNumber]);
         // console.log(`Input Button ${index + 1} does not have a value.`);
       }
     });

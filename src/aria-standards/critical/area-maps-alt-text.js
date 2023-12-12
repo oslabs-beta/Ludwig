@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 // <area> elements of image maps have alternate text
 function checkAreaMapAltText() {
@@ -14,14 +15,18 @@ function checkAreaMapAltText() {
     const areas = ludwig.querySelectorAll('area');
 
     const areaMapsWithoutAltText = [];
+    const set = new Set();
     
     // check if each el has alt text
     areas.forEach((el, i) => {
       // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const altText = el.getAttribute('alt');
 
+      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      set.add(lineNumber);
+
       if (!altText | altText === '') {
-        areaMapsWithoutAltText.push(el.outerHTML);
+        areaMapsWithoutAltText.push([el.outerHTML, lineNumber]);
       }
     });
     return areaMapsWithoutAltText;
@@ -30,4 +35,4 @@ function checkAreaMapAltText() {
 
 module.exports = {
   checkAreaMapAltText
-}
+};

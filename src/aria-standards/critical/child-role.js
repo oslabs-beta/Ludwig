@@ -1,4 +1,6 @@
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 const htmlCode = `
 <!DOCTYPE html>

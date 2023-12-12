@@ -1,6 +1,7 @@
 // needs testing. If it works, move to critical
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 function htmlHasTitle(htmlTest) {
     const activeEditor = vscode.window.activeTextEditor;
@@ -12,13 +13,16 @@ function htmlHasTitle(htmlTest) {
         const ludwig = document.body;
 
         const tagForRevision = [];
+        const set = new Set();
         const headEle = document.querySelector('head');
         const title = headEle.querySelector('title');
         const hasTitle = (title && title.textContent);
         // const lineNumber = activeEditor.document.positionAt(title.startOffset).line;
         
         if(!hasTitle) {
-            tagForRevision.push(headEle.outerHTML);
+            const lineNumber = getLineNumber(activeEditor.document, headEle, set);
+            set.add(lineNumber);
+            tagForRevision.push([headEle.outerHTML, lineNumber]);
         }
         
         // look through and check each aria tag for missing text 

@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // check that all ids in doc are unique
 function checkUniqueIds() {
@@ -13,17 +15,19 @@ function checkUniqueIds() {
 
     const idSet = new Set();
     const duplicateElements = [];
+    const set = new Set();
 
     const elementsWithId = ludwig.querySelectorAll('[id]');
     
     elementsWithId.forEach(element => {
-      // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
       const id = element.id;
+      const lineNumber = getLineNumber(activeEditor.document, element, set);
+      set.add(lineNumber);
 
       if (idSet.has(id)) {
         // console.error(`Duplicate id found: ${id}`);
         // Store the element with duplicate id in the array
-        duplicateElements.push(element.outerHTML);
+        duplicateElements.push([element.outerHTML, lineNumber]);
       } else {
         idSet.add(id);
       }

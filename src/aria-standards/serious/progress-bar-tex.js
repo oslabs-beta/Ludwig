@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 function checkProgressBars() {
     const activeEditor = vscode.window.activeTextEditor;
@@ -9,11 +10,14 @@ function checkProgressBars() {
         const document = window.document;
         const ludwig = document.body;
     const progressBarsToHighlight = [];
+    const set = new Set();
     // Get all elements with role="progressbar"
     const progressBars = document.querySelectorAll('[role="progressbar"]');
   
     // Iterate through each progress bar
     progressBars.forEach(progressBar => {
+      const lineNumber = getLineNumber(activeEditor.document, progressBar, set);
+      set.add(lineNumber);
       // const lineNumber = activeEditor.document.positionAt(progressBar.startOffset).line;
         // Check if the progress bar has children
       const children = progressBar.children;
@@ -24,10 +28,10 @@ function checkProgressBars() {
           return child.textContent.trim().length > 0;
         });
         if (!hasTextContent) {
-            progressBarsToHighlight.push(progressBar.outerHTML);
+            progressBarsToHighlight.push([progressBar.outerHTML, lineNumber]);
         }
       } else {
-      progressBarsToHighlight.push(progressBar.outerHTML);
+      progressBarsToHighlight.push([progressBar.outerHTML, lineNumber]);
       }
     });
     return progressBarsToHighlight;
