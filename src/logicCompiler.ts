@@ -17,7 +17,7 @@ const { ariaObject } = require('./aria-standards/critical/aria-object.js');
 
 
 export interface AriaRecommendations {
-    [key: string]: object;
+    [key: string]: any;
 }
 
 export async function compileLogic(document: vscode.TextDocument): Promise<AriaRecommendations> {
@@ -27,70 +27,70 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const anchorsWithoutAriaLabel = await evalAnchors();
 
     anchorsWithoutAriaLabel.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.anchorLabel;
+        ariaRecommendations[element[1]] = [ariaObject.anchorLabel, element[0]];
     });
 
     // area-maps-alt-text
     const areaMapsWithoutAltText = await checkAreaMapAltText();
 
     areaMapsWithoutAltText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.areaAltText;
+        ariaRecommendations[element[1]] = [ariaObject.areaAltText, element[0]];
       });
 
     // aria-hidden
     const hiddenAria = await checkAriaHidden();
 
     hiddenAria.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.ariaHidden;
+        ariaRecommendations[element[1]] = [ariaObject.ariaHidden, element[0]];
       });
 
     // button-text
     const buttonText = await checkButtonText();
 
     buttonText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.discernibleButtonText;
+        ariaRecommendations[element[1]] = [ariaObject.discernibleButtonText, element[0]];
     });
 
     // unique-ids
     const duplicateElements = await checkUniqueIds();
 
     duplicateElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.uniqueIDs;
+        ariaRecommendations[element[1]] = [ariaObject.uniqueIDs, element[0]];
       });
 
     // img alt text
     const imgAlts = await checkImgAltText();
     
     imgAlts.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.imageAlts;
+        ariaRecommendations[element[1]] = [ariaObject.imageAlts, element[0]];
     });
 
     // input-button
     const inputButtonsWithoutText = await inputButtonText();
 
     inputButtonsWithoutText.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.inputButton;
+        ariaRecommendations[element[1]] = [ariaObject.inputButton, element[0]];
     });
 
     // meta-http-equiv-refresh
     const metaWrongContent = await checkMetaHttpRefresh();
 
     metaWrongContent.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
+        ariaRecommendations[element[1]] = [ariaObject.metaEquivRefresh, element[0]];
     });
 
     // meta-viewport-text-zoom
     const metaViewportElements = await checkMetaViewportTextResize();
 
     metaViewportElements.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.metaViewport;
+        ariaRecommendations[element[1]] = [ariaObject.metaViewport, element[0]];
       });
 
     // select-name
     const selectArray = await selectName();
 
     selectArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.selectHasAccessName;
+        ariaRecommendations[element[1]] = [ariaObject.selectHasAccessName, element[0]];
     });
 
 
@@ -98,14 +98,14 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const videosArray = await videoCaptions();
 
     videosArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.videoCaptions;
+        ariaRecommendations[element[1]] = [ariaObject.videoCaptions, element[0]];
     });
 
     // ARIAlogic - forms have labels
     const formArray = await checkLabels();
 
     formArray.forEach((element: string, index: number) => {
-        ariaRecommendations[element] = ariaObject.formsHaveLabels;
+        ariaRecommendations[element[1]] = [ariaObject.formsHaveLabels, element[0]];
     });
 
     // role-support-aria-attribute

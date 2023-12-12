@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 // buttons have discernible text
 function checkButtonText() {
@@ -14,10 +15,12 @@ function checkButtonText() {
     const buttons = ludwig.querySelectorAll('button');
   // console.log(buttons);
     const buttonsArray = [];
+    const set = new Set();
 
   // check innerHTMl or innerText to make sure it is not missing or an empty string
     buttons.forEach((el, i) => {
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+      const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
+      set.add(lineNumber);
       if (el.innerHTML === '') {
         buttonsArray.push([el.outerHTML, lineNumber]);
       } 

@@ -1,6 +1,8 @@
 const e = require('express');
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // check to see if an element’s role supports its ARIA attributes
 function checkAriaRoles() {
@@ -647,4 +649,4 @@ function checkAriaRoles() {
 
 module.exports = {
   checkAriaRoles
-}};
+};

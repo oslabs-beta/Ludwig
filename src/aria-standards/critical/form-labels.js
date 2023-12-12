@@ -1,5 +1,6 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
 
 function checkLabels() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -10,10 +11,11 @@ function checkLabels() {
     const document = window.document;
     const ludwig = document.body;
 
+    const set = new Set(); // so getLineNumber function doesn't just get the first line it finds each time
     const formArray = [];
     const forms = ludwig.querySelectorAll('form');
-    const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
-    const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
+    // const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
+    // const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
 
     forms.forEach((form) => {
       const formChildren = form.children;
@@ -32,22 +34,12 @@ function checkLabels() {
         // console.log(labelsArray[i]);
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
+          const lineNumber = getLineNumber(activeEditor.document, labelsArray[i].outerHTML, set);
+          set.add(lineNumber);
           if (inputId !== labelFor) {
-            // console.log('Offset: ', labelsArray[i].startOffset);
-            // console.log('position obj: ', activeEditor.document.positionAt(labelsArray[i].startOffset));
-            // const lineNumber = activeEditor.document.positionAt(labelsArray[i].startOffset).line;
-            // console.log(lineNumber);
-            formArray.push(labelsArray[i].outerHTML);
-            // formArray.push(inputsArray[i].outerHTML);
-            // const outerHTMLContent = form.outerHTML;
-            // // console.log('outerHTMLContent: ', outerHTMLContent);
-            
-            // // snag the index of the first newline character
-            // const indexOfNewline = outerHTMLContent.indexOf('\n');
-
-            // // snag the first line using substring
-            // const firstLine = indexOfNewline !== -1 ? outerHTMLContent.substring(0, indexOfNewline) : outerHTMLContent;
-            // formArray.push(firstLine); // this handles the inputs and labels being put on separate lines!!!
+            // console.log('lineNumber: ', lineNumber);
+            // console.log('set: ', set);
+            formArray.push([labelsArray[i].outerHTML, lineNumber]);
           }
       }
     });

@@ -24,43 +24,47 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (activeEditor) {
             const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>();
-            const processedLines = new Set<string>();
+            const highlightedLines = new Set<number>(); // ensures the same line doesn't highlight more than once
 
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
-            
+            console.log('ariaRecommendations: ', ariaRecommendations);
+            // console.log('elementsToHighlight: ', elementsToHighlight);
+
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
-                
+
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
+                // const nextKey = nextLine.text.trim();
                 // console.log('key: ', key);
 
                 // boolean to determine whether we push into highlightedRanges
                 let keyFound = false;
 
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
-                for(const el of elementsToHighlight){                    
+                for(const el of elementsToHighlight){    
+                    // console.log('el: ', el);
+                    // console.log(el.includes(key));
+                    // console.log(el.includes(nextKey));                
                     // console.log('line.lineNumber: ', line.lineNumber + 1);
                     // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
-                    // console.log('key: ', key);
-                    // line.lineNumber + 1 === ariaRecommendations[el][1] && 
-                    if(el.includes(key) && key.trim() !== ''){
+                    if(line.lineNumber + 1 === Number(el) && ariaRecommendations[el][1].includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;
                     }
                 }
 
                 // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
-                if (keyFound && !highlightedLines.has(lineNumber) && !processedLines.has(key)) {
+                if (keyFound && !highlightedLines.has(lineNumber)) {
                     // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
+                    // console.log('highlightedRanges: ', highlightedRanges);
                     highlightedLines.add(lineNumber);
-                    processedLines.add(key);
+                    // console.log('highlightedLines: ', highlightedLines);
                 }
             }
             
@@ -71,9 +75,7 @@ export function activate(context: vscode.ExtensionContext) {
             activeEditor.setDecorations(decorationType, highlightedRanges);
             
             // Store the highlighted ranges in the map for hover stuff later
-            highlightedElements.set('ariaRecommendations', highlightedRanges);
-            // console.log({ariaRecommendations, elementsToHighlight});
-            
+            highlightedElements.set('ariaRecommendations', highlightedRanges);            
         }
     }
 
@@ -135,10 +137,10 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (wordRange) { //checks if the cursor is currently on a word or letter
                 const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
-                // console.log('HOVERED WORD :', hoveredWord);
+                console.log('HOVERED WORD :', hoveredWord);
                 const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
                 const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
-                // console.log('HOVERED LINE :',hoveredLineText);
+                console.log('HOVERED LINE :',hoveredLineText);
 
                 //is an array where each element is a vscode.Range Object representing the range of the highlighted line
                 const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
@@ -147,14 +149,18 @@ export function activate(context: vscode.ExtensionContext) {
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     for (const range of highlightedRanges){ 
                         const lineText = document.getText(range).trim(); //get the current highlighted line text
+                        // console.log('LINETEXT: ', lineText);
                         
                         if(lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
-                            // console.log('highlighted line:', lineText);
+                            console.log('highlighted line:', lineText);
 
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : {[key: string]: any}) => {
-                                    // console.log('ARIA RECS :',ariaRecommendations);
-                                    const recommendation = ariaRecommendations[lineText];
+                                    console.log('ARIA RECS :',ariaRecommendations);
+                                    console.log('RANGE: ', range.start);
+                                    const lineNumber = range.start.line + 1;
+                                    console.log('LINENUMBER ', lineNumber);
+                                    const recommendation = ariaRecommendations[String(lineNumber)][0];
                                     const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                     // console.log('DISPLAYED REC:',recommendation.desc);
                                     const firstLink = recommendation.link instanceof Array ? recommendation.link[0] : recommendation.link;

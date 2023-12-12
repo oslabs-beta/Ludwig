@@ -1,4 +1,6 @@
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 const htmlCode = `
 <!DOCTYPE html>
@@ -136,13 +138,13 @@ function checkParentRole() {
         });
         let ariaOwns = false;
         aoArr.forEach(el => {
-          const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
+          // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
           if (el === id) {
             ariaOwns = true;
           }
         });
         if (parentRole !== 'tablist' && !ariaOwns) {
-          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role', lineNumber]);
+          incorrectParentRoles.push(el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role');
         }
         break;
       }
@@ -151,7 +153,7 @@ function checkParentRole() {
       case 'treeitem': {
         const parentRole = parent.getAttribute('role');
         if (parentRole !== 'tree') {
-          incorrectParentRoles.push([el, lineNumber, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role', lineNumber]);
+          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
         }
         break;
       }

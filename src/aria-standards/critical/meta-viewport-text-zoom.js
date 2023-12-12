@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
+const { getLineNumber } = require('../../getLineNumber');
+
 
 // <meta name=”viewport”> does not disable text scaling and zooming
 function checkMetaViewportTextResize() {
@@ -14,10 +16,10 @@ function checkMetaViewportTextResize() {
     const meta = document.querySelectorAll('meta[name="viewport"]');
     // console.log('meta tag' , meta);
     const metaViewportElements = [];
+    const set = new Set();
     
     // check if each el has the attribute name with the value "viewport"
     meta.forEach((el, i) => {
-      const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const name = el.getAttribute('name');
       // console.log('name', name);
       // extract content string using get attribute
@@ -38,6 +40,8 @@ function checkMetaViewportTextResize() {
         userScale = userScale.split('=')[1].trim();
       }
       if (name === 'viewport') {
+        const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
+        set.add(lineNumber);
         // make sure that text zooming/scaling has not been disabled
         if (maxScale < 3 || userScale === 'no' || userScale === '0') {
           metaViewportElements.push([el.outerHTML, lineNumber]);
