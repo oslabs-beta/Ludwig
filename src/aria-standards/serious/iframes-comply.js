@@ -17,7 +17,7 @@ function iFrameComply(htmlTest) {
         const frames = ludwig.querySelectorAll('frame, iframe');
           
         frames.forEach((tag) => {
-            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            const lineNumber = getLineNumber(activeEditor.document, tag.outerHTML, set);
             set.add(lineNumber);
             const title = tag.getAttribute('title');
             const tableIndex = parseInt(tag.getAttribute('tabindex') || 0, 10);

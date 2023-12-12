@@ -22,7 +22,7 @@ function checkRoleImgAltText() {
     // iterate through elements with role="img"
     // if alt text does not exist then push into failed arr
     imgs.forEach(el => {
-      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
       set.add(lineNumber);
       const altText = el.getAttribute('alt');
       if (!altText) {

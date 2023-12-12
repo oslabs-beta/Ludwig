@@ -5,9 +5,9 @@ export function getLineNumber(document, node, set) {
     for (let i = 0; i < lines.length; i++) {
       if(!set.has(i + 1)){
         const line = lines[i];
-        const indexInLine = line.indexOf(node.outerHTML);
+        const indexInLine = line.indexOf(node);
         if (set.has(indexInLine)) {
-          line.indexOf(node.outerHTML, indexInLine+1);
+          line.indexOf(node, indexInLine);
         }
     
         if (indexInLine !== -1) {

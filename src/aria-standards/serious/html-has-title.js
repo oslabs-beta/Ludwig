@@ -20,7 +20,7 @@ function htmlHasTitle(htmlTest) {
         // const lineNumber = activeEditor.document.positionAt(title.startOffset).line;
         
         if(!hasTitle) {
-            const lineNumber = getLineNumber(activeEditor.document, headEle, set);
+            const lineNumber = getLineNumber(activeEditor.document, headEle.outerHTML, set);
             set.add(lineNumber);
             tagForRevision.push([headEle.outerHTML, lineNumber]);
         }

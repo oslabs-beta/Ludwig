@@ -67,9 +67,9 @@ export function activate(context: vscode.ExtensionContext) {
                     // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
-                    console.log('highlightedRanges: ', highlightedRanges);
+                    // console.log('highlightedRanges: ', highlightedRanges);
                     highlightedLines.add(lineNumber);
-                    console.log('highlightedLines: ', highlightedLines);
+                    // console.log('highlightedLines: ', highlightedLines);
                     // processedLines.add(key);
                 }
             }

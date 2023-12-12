@@ -19,7 +19,7 @@ function langIsValid() {
 
     console.log('HERE:', langCodes[lang]);
     if (!langCodes[lang]) {
-      const lineNumber = getLineNumber(activeEditor.document, html, set);
+      const lineNumber = getLineNumber(activeEditor.document, html.outerHTML, set);
       set.add(lineNumber);
       return [html, lineNumber];
     }

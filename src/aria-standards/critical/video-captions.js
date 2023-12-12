@@ -18,18 +18,26 @@ function videoCaptions() {
   const videos = ludwig.querySelectorAll('video');
 
   videos.forEach((video, index) => {
-    const lineNumber = getLineNumber(activeEditor.document, video, set);
-    set.add(lineNumber);
-    // Check if the video has a captions track
-    let captions = video.querySelector('track[kind="captions"]');
-    let label = captions.getAttribute('label');
-    let source = captions.getAttribute('src');
 
-    if (!captions || !label || !source) {
-      videosArray.push([video.outerHTML, lineNumber]);
+    // Check if the video has a captions track
+    let track = video.querySelector('track');
+    let label;
+    let source;
+    console.log(track.getAttribute('kind'));
+    if (track.getAttribute('kind') === 'subtitles' || track.getAttribute('kind') === 'captions') {
+      console.log('track ', track)
+      label = track.getAttribute('label');
+      source = track.getAttribute('src');
+      console.log('label ', label, 'source ', source);
+    }
+    const lineNumber = getLineNumber(activeEditor.document, track.outerHTML, set);
+    set.add(lineNumber);
+    if (!track || !label || !source) {
+      videosArray.push([track.outerHTML, lineNumber]);
     }
 
   });
+  console.log('videosArray: ', videosArray);
   return videosArray;
 }
 }

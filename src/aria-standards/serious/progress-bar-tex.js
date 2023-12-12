@@ -16,7 +16,7 @@ function checkProgressBars() {
   
     // Iterate through each progress bar
     progressBars.forEach(progressBar => {
-      const lineNumber = getLineNumber(activeEditor.document, progressBar, set);
+      const lineNumber = getLineNumber(activeEditor.document, progressBar.outerHTML, set);
       set.add(lineNumber);
       // const lineNumber = activeEditor.document.positionAt(progressBar.startOffset).line;
         // Check if the progress bar has children

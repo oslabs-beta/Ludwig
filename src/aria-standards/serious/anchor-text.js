@@ -15,7 +15,7 @@ function testAnchorLabels() {
         const anchorElements = document.querySelectorAll('a');
 
         anchorElements.forEach((anchorElement) => {
-            const lineNumber = getLineNumber(activeEditor.document, anchorElement, set);
+            const lineNumber = getLineNumber(activeEditor.document, anchorElement.outerHTML, set);
             set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(anchorElement.startOffset).line;
             const textContent = anchorElement.textContent.trim();

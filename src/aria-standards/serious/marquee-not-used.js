@@ -15,7 +15,7 @@ function checkMarquee() {
 
     const marquee = ludwig.querySelectorAll('marquee');
     if (marquee.length === 1) {
-      getLineNumber(activeEditor.document, marquee[0], set);
+      getLineNumber(activeEditor.document, marquee[0].outerHTML, set);
     } 
 
     return marquee.length > 0 ? [marquee, lineNumber] : undefined;

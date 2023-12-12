@@ -20,7 +20,7 @@ function menuRoleChildrenLabeled(htmlTest) {
         const children = menuParent.children;
         // html collection spread into array
         children.forEach((ele) => {
-          const lineNumber = getLineNumber(activeEditor.document, ele, set);
+          const lineNumber = getLineNumber(activeEditor.document, ele.outerHTML, set);
           set.add(lineNumber);
           // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
           if (!ele.getAttribute('role')) {

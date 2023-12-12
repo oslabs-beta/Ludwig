@@ -24,7 +24,7 @@ function checkAriaHidden() {
 
   if (hiddenElements.length > 0) {
       hiddenElements.forEach((element, index) => {
-        const lineNumber = getLineNumber(activeEditor.document, element, set);
+        const lineNumber = getLineNumber(activeEditor.document, element.outerHTML, set);
         set.add(lineNumber);
         hiddenAria.push([element.outerHTML, lineNumber]);
     });

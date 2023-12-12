@@ -22,7 +22,7 @@ function checkTableHeaders() {
   // Check that all th elements have a scope attribute.
   // Check that all scope attributes have the value row, col, rowgroup, or colgroup.
   th.forEach((el) => {
-    const lineNumber = getLineNumber(activeEditor.document, switchElement, set);
+    const lineNumber = getLineNumber(activeEditor.document, switchElement.outerHTML, set);
     set.add(lineNumber);
     const scope = el.getAttribute('scope');
     if (!scope || (scope !== 'row' && scope !== 'col' && scope !== 'rowgroup' && scope !== 'colgroup')) {
@@ -41,7 +41,7 @@ function checkTableHeaders() {
     }
   });
   tableHeaderRoles.forEach((el) => {
-    const lineNumber = getLineNumber(activeEditor.document, el, set);
+    const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
     set.add(lineNumber);
     const scope = el.getAttribute('scope');
     if (!scope || (scope !== 'row' && scope !== 'col' && scope !== 'rowgroup' && scope !== 'colgroup')) {

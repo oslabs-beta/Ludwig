@@ -41,7 +41,7 @@ function ariaBrailleLabel(htmlTest) {
 
       // could push missing anchors into an object for more intentional use 
       // could inlcude logic to make sure the aria-label matches content 
-      const lineNumber = getLineNumber(activeEditor.document, ele, set);
+      const lineNumber = getLineNumber(activeEditor.document, ele.outerHTML, set);
       set.add(lineNumber);
       if (!ariaBrailleLabel || ariaBrailleLabel === ele.tagName) {
         // console.log(`Link ${index + 1} is missing aria-label`);

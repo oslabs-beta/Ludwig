@@ -26,7 +26,7 @@ function evalAnchors() {
 
       // could push missing anchors into an object for more intentional use 
       // could inlcude logic to make sure the aria-label matches content 
-      const lineNumber = getLineNumber(activeEditor.document, link, set);
+      const lineNumber = getLineNumber(activeEditor.document, link.outerHTML, set);
       set.add(lineNumber);
       if (!ariaLabel) {
 

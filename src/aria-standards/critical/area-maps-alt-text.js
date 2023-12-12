@@ -21,14 +21,17 @@ function checkAreaMapAltText() {
     areas.forEach((el, i) => {
       // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const altText = el.getAttribute('alt');
+      const newElement = el.outerHTML.replace('>', ' />');
 
-      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      const lineNumber = getLineNumber(activeEditor.document, newElement, set);
       set.add(lineNumber);
 
       if (!altText | altText === '') {
-        areaMapsWithoutAltText.push([el.outerHTML, lineNumber]);
+        // console.log('newElement: ', newElement);
+        areaMapsWithoutAltText.push([newElement, lineNumber]);
       }
     });
+    // console.log('areaMapsWithoutAltText: ', areaMapsWithoutAltText);
     return areaMapsWithoutAltText;
   }
 }

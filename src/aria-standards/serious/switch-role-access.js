@@ -18,7 +18,7 @@ function findSwitchElementsWithNoChildText() {
 
         // Iterate through each switch element
         switches.forEach((switchElement) => {
-            const lineNumber = getLineNumber(activeEditor.document, switchElement, set);
+            const lineNumber = getLineNumber(activeEditor.document, switchElement.outerHTML, set);
             set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(switchElement.startOffset).line;
             const parentText = switchElement.textContent;

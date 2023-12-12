@@ -40,11 +40,11 @@ function checkMetaViewportTextResize() {
         userScale = userScale.split('=')[1].trim();
       }
       if (name === 'viewport') {
-        const lineNumber = getLineNumber(activeEditor.document, el, set);
+        const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
         set.add(lineNumber);
         // make sure that text zooming/scaling has not been disabled
         if (maxScale < 3 || userScale === 'no' || userScale === '0') {
-          metaViewportElements.push(el.outerHTML);
+          metaViewportElements.push([el.outerHTML, lineNumber]);
           // console.log(`Meta with attribute name="viewport" ${i + 1} should not disable text resizing`);
         }
       };

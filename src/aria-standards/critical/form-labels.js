@@ -34,16 +34,16 @@ function checkLabels() {
         // console.log(labelsArray[i]);
           const inputId = inputsArray[i].getAttribute('id');
           const labelFor = labelsArray[i].getAttribute('for');
-          const lineNumber = getLineNumber(activeEditor.document, labelsArray[i], set);
+          const lineNumber = getLineNumber(activeEditor.document, labelsArray[i].outerHTML, set);
           set.add(lineNumber);
           if (inputId !== labelFor) {
-            console.log('lineNumber: ', lineNumber);
-            console.log('set: ', set);
+            // console.log('lineNumber: ', lineNumber);
+            // console.log('set: ', set);
             formArray.push([labelsArray[i].outerHTML, lineNumber]);
           }
       }
     });
-    console.log('formArray: ',formArray);
+    // console.log('formArray: ',formArray);
     return formArray;
   }
 }

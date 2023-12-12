@@ -21,7 +21,7 @@ function checkObjAltText() {
 
     // iterate through object; if alt text doesn't exists then push into failed arr
     objects.forEach(el => {
-      const lineNumber = getLineNumber(activeEditor.document, el, set);
+      const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
       set.add(lineNumber);
       const altText = el.getAttribute('alt');
       if (!altText) {

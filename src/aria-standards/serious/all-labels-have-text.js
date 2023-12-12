@@ -22,7 +22,7 @@ function allLabelsHaveText(htmlTest) {
         elementsWithAriaAttributes.forEach((tag) => {
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             const attributes = tag.attributes;
-            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            const lineNumber = getLineNumber(activeEditor.document, tag.outerHTML, set);
             set.add(lineNumber);
 
             for (let i = 0; i < attributes.length; i++) {

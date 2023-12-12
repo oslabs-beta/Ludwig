@@ -29,7 +29,7 @@ function checkListStructure() {
     while (index < ul.length) {
       const listItems = [];
       for (const child of ul[index].children) {
-        const lineNumber = getLineNumber(activeEditor.document, tag, set);
+        const lineNumber = getLineNumber(activeEditor.document, tag.outerHTML, set);
         set.add(lineNumber);
         if (child.tagName === 'LI' && child.innerHTML === '') {
           incorrectListElements.push([ul[index], lineNumber]);
@@ -53,7 +53,7 @@ function checkListStructure() {
     while (count < ol.length) {
       const listItems = [];
       for (const child of ol[count].children) {
-        const lineNumber = getLineNumber(activeEditor.document, child, set);
+        const lineNumber = getLineNumber(activeEditor.document, child.outerHTML, set);
         set.add(lineNumber);
         // console.log(child.innerHTML);
         if (child.tagName === 'LI' && child.innerHTML === '') {
@@ -66,7 +66,7 @@ function checkListStructure() {
           break;
         }
       }
-      const lineNumber = getLineNumber(activeEditor.document, ol[count], set);
+      const lineNumber = getLineNumber(activeEditor.document, ol[count].outerHTML, set);
       set.add(lineNumber);
       if (listItems.length === 0 && !incorrectListElements.includes(ol[count])) {
         incorrectListElements.push(ol[count]);

@@ -19,7 +19,7 @@ function selectName() {
 
     selectElements.forEach((ele, index) => {
       let nameAttribute = ele.getAttribute('name');
-      const lineNumber = getLineNumber(activeEditor.document, ele, set);
+      const lineNumber = getLineNumber(activeEditor.document, ele.outerHTML, set);
       set.add(lineNumber);
         if (!nameAttribute) {
           selectArray.push([ele.outerHTML, lineNumber]);

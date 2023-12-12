@@ -21,7 +21,7 @@ function checkUniqueIds() {
     
     elementsWithId.forEach(element => {
       const id = element.id;
-      const lineNumber = getLineNumber(activeEditor.document, element, set);
+      const lineNumber = getLineNumber(activeEditor.document, element.outerHTML, set);
       set.add(lineNumber);
 
       if (idSet.has(id)) {

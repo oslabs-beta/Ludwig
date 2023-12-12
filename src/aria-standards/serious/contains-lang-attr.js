@@ -17,7 +17,7 @@ function containsLangAttr() {
     const html = ludwig.querySelector('html');
     const lang = ludwig.querySelector('html[lang]');
 
-    const lineNumber = getLineNumber(activeEditor.document, html, set);
+    const lineNumber = getLineNumber(activeEditor.document, html.outerHTML, set);
     set.add(lineNumber);
     
     if (!lang) {

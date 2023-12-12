@@ -18,7 +18,7 @@ function findBlinkElements() {
             
             // Blink elements found
             const blinkOccurrences = Array.from(blinkElements).map((blinkElement) => {
-                const lineNumber = getLineNumber(activeEditor.document, blinkElement, set);
+                const lineNumber = getLineNumber(activeEditor.document, blinkElement.outerHTML, set);
                 set.add(lineNumber);
                 // const lineNumber = activeEditor.document.positionAt(blinkElements.startOffset).line;
                 return [blinkElement.outerHTML, lineNumber];

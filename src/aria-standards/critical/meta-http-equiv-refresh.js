@@ -28,11 +28,12 @@ function checkMetaHttpRefresh() {
       // console.log('content', content);
 
       if (httpEquiv === 'refresh') {
-        const lineNumber = getLineNumber(activeEditor.document, el, set);
+        const newEl = el.outerHTML.replace('>', ' />');
+        const lineNumber = getLineNumber(activeEditor.document, newEl, set);
         set.add(lineNumber);
         // if content does not exist, does not begin with the number 0 or is not followed by "URL="
         if (!content || content[0] !== '0' || !content.includes('URL=')) {
-          metaWrongContent.push([el.outerHTML, lineNumber]);
+          metaWrongContent.push([newEl, lineNumber]);
           // console.log(`Http-equiv ${i + 1} does not have the correct content`);
         }
       };

@@ -23,11 +23,12 @@ function checkImgAltText() {
     img.forEach((img, index) => {
       const altText = img.getAttribute('alt');
       // console.log('alt text', altText);
-      const lineNumber = getLineNumber(activeEditor.document, img, set);
+      const newImg = img.outerHTML.replace('>', ' />'); // JSDOM seems to grab self-closing tags without closing slash
+      const lineNumber = getLineNumber(activeEditor.document, newImg, set);
       set.add(lineNumber);
 
       if (!altText) {
-          imgAlt.push([img.outerHTML, lineNumber]);
+          imgAlt.push([newImg, lineNumber]);
       }
   });
   return imgAlt;

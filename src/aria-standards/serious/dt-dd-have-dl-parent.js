@@ -19,7 +19,7 @@ function hasDLParent(htmlTest) {
         const ddTags = document.querySelectorAll('dd');
         
         dtTags.forEach((tag) => {
-            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            const lineNumber = getLineNumber(activeEditor.document, tag.outerHTML, set);
             set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {
@@ -28,7 +28,7 @@ function hasDLParent(htmlTest) {
         });
 
         ddTags.forEach((tag) => {
-            const lineNumber = getLineNumber(activeEditor.document, tag, set);
+            const lineNumber = getLineNumber(activeEditor.document, tag.outerHTML, set);
             set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(tag.startOffset).line;
             if(tag.parentNode.tagName.toLowerCase() !== 'dl') {

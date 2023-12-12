@@ -16,7 +16,7 @@ function checkNestedInteractiveControls() {
         const interactiveControlElements = document.querySelectorAll('button, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [contenteditable="true"]');
 
         interactiveControlElements.forEach((interactiveControlElement) => {
-            const lineNumber = getLineNumber(activeEditor.document, interactiveControlElement, set);
+            const lineNumber = getLineNumber(activeEditor.document, interactiveControlElement.outerHTML, set);
             set.add(lineNumber);
             // const lineNumber = activeEditor.document.positionAt(interactiveControlElement.startOffset).line
             const isNested = Array.from(interactiveControlElement.querySelectorAll('button, [role="button"], [role="link"], [role="checkbox"], [role="radio"], [role="switch"], [role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"], [contenteditable="true"]')).length > 1;
