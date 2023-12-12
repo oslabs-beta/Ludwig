@@ -30,7 +30,7 @@ function evalAnchors() {
       set.add(lineNumber);
       if (!ariaLabel) {
 
-        console.log(lineNumber);
+        // console.log(lineNumber);
         // console.log(`Link ${index + 1} is missing aria-label`);
         anchorsWithoutAriaLabel.push([link.outerHTML, lineNumber]); // push here
       }

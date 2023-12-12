@@ -23,12 +23,12 @@ function videoCaptions() {
     let track = video.querySelector('track');
     let label;
     let source;
-    console.log(track.getAttribute('kind'));
+    // console.log(track.getAttribute('kind'));
     if (track.getAttribute('kind') === 'subtitles' || track.getAttribute('kind') === 'captions') {
-      console.log('track ', track)
+      // console.log('track ', track)
       label = track.getAttribute('label');
       source = track.getAttribute('src');
-      console.log('label ', label, 'source ', source);
+      // console.log('label ', label, 'source ', source);
     }
     const lineNumber = getLineNumber(activeEditor.document, track.outerHTML, set);
     set.add(lineNumber);
@@ -37,7 +37,7 @@ function videoCaptions() {
     }
 
   });
-  console.log('videosArray: ', videosArray);
+  // console.log('videosArray: ', videosArray);
   return videosArray;
 }
 }

@@ -5,10 +5,10 @@ function Issues ({recommendations}) {
   const elements = Object.keys(recommendations).map((el) => {
     return(
       <tr key={crypto.randomUUID()} >
-          <td>Line #</td>
-          <td><code>{el}</code></td>
-          <td>{recommendations[el]['desc']}</td>
-          <td><a href={recommendations[el]['link']}>Link</a></td>
+          <td>Line #{el}</td>
+          <td><code>{recommendations[el][1]}</code></td>
+          <td>{recommendations[el][0]['desc']}</td>
+          <td><a href={recommendations[el][0]['link']}>Link</a></td>
       </tr>
     );
   });
