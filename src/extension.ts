@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 const { compileLogic } = require('./logicCompiler.ts');
+import getAccessScore from './access-score';
+
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ludwig" is now active!');
@@ -29,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
-            console.log('ariaRecommendations: ', ariaRecommendations);
+            // console.log('ariaRecommendations: ', ariaRecommendations);
             // console.log('elementsToHighlight: ', elementsToHighlight);
 
             // Loop through each line in the document
@@ -137,10 +139,10 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (wordRange) { //checks if the cursor is currently on a word or letter
                 const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
-                console.log('HOVERED WORD :', hoveredWord);
+                // console.log('HOVERED WORD :', hoveredWord);
                 const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
                 const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
-                console.log('HOVERED LINE :',hoveredLineText);
+                // console.log('HOVERED LINE :',hoveredLineText);
 
                 //is an array where each element is a vscode.Range Object representing the range of the highlighted line
                 const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
@@ -148,18 +150,14 @@ export function activate(context: vscode.ExtensionContext) {
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     for (const range of highlightedRanges){ 
-                        const lineText = document.getText(range).trim(); //get the current highlighted line text
-                        // console.log('LINETEXT: ', lineText);
-                        
+                        const lineText = document.getText(range).trim(); //get the current highlighted line text       
                         if(lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
-                            console.log('highlighted line:', lineText);
-
+                            // console.log('highlighted line:', lineText);
                             return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations : {[key: string]: any}) => {
-                                    console.log('ARIA RECS :',ariaRecommendations);
-                                    console.log('RANGE: ', range.start);
+                                    // console.log('ARIA RECS :',ariaRecommendations);
                                     const lineNumber = range.start.line + 1;
-                                    console.log('LINENUMBER ', lineNumber);
+                                    // console.log('LINENUMBER ', lineNumber);
                                     const recommendation = ariaRecommendations[String(lineNumber)][0];
                                     const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                     // console.log('DISPLAYED REC:',recommendation.desc);
@@ -168,12 +166,14 @@ export function activate(context: vscode.ExtensionContext) {
                                     const hoverMessage = new vscode.MarkdownString();
                                     hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                     return new vscode.Hover(hoverMessage, wordRange);
+                                })
+                                .catch((error : any) => {
+                                    console.error('An Error Occurred Retrieving Data for Hover', error);
                                 });
                         }
                     }
                 }
             }
-
             return null;
         }
     });
@@ -186,7 +186,7 @@ export function activate(context: vscode.ExtensionContext) {
             webviewView.webview.options = {
               enableScripts: true,  //enable JS
             };
-                  //Load bundled dashboard React file into the panel webview
+            //Load bundled dashboard React file into the panel webview
             const sidebarPath = vscode.Uri.file(path.join(context.extensionPath,'react-sidebar','dist', 'bundle.js'));
             const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
             
@@ -212,23 +212,23 @@ export function activate(context: vscode.ExtensionContext) {
                     </body>
                 </html>
             `;
-            // const button = document.querySelector('button');
-            // button.addEventListener('click', () => {
-            //     window.vscodeApi.postMessage({ message: 'scanDoc' });
-            // });
 
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
+                let scoreData: { x: string; y: number }[]; 
                 if (message.message === 'scanDoc') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
                     compileLogic()
-                    .then((ariaRecommendations : {[key: string]: any}) => {
-                        panel.webview.postMessage({ ariaRecommendations: ariaRecommendations });
+                    .then((ariaRecs: {[key: string]: any}) => {
+                        scoreData = getAccessScore(ariaRecs); //get data on accessibility score
+                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData }); //send aria rec and score data to Dashboard App
+                    })
+                    .catch((error : any) => {
+                        console.error('An Error Occurred Retrieving Data for Dashboard', error);
                     });
                 }
             }); 
-            
         }
     }
 
@@ -241,11 +241,11 @@ export function activate(context: vscode.ExtensionContext) {
         const dashboard = vscode.window.createWebviewPanel(
             'ludwig-dashboard', // Identifies the type of the webview (Used internally)
             'Ludwig Dashboard', //Title of the webview panel
-            vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+            vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
             {
                 enableScripts: true,
                 retainContextWhenHidden: true, //keep state when webview is not in foreground
-                // localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
             }
         );
         //Load bundled dashboard React file into the panel webview

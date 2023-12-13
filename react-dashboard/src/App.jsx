@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import Score from './components/Score';
-import Issues from './components/Issues';
+import IssueTable from './components/IssueTable';
 
 
 export default function App() {
-  const vscode = window.vscodeApi;
-  const [recommendations, setRecommendations] = useState({});
+
+  const [recommendations, setRecommendations] = useState({data:{}, recData:[]});
+
   useEffect(() =>{
     window.addEventListener('message', (event) => {
+ 
       const message = event.data;
       if(message) {
-        setRecommendations(message.ariaRecommendations);
-        console.log('Received message in Dashboard App:', message.ariaRecommendations);
+        setRecommendations(message);
+        // console.log('Received message in Dashboard App:', message);
       }
     });
   }, []);
-
+ 
   return (
     <div style={{margin:15}}>
       <Score recommendations={recommendations}/>
-      <Issues recommendations={recommendations}/>
+      <IssueTable recommendations={recommendations}/>
     </div>
   );
 }
