@@ -3,6 +3,7 @@
   "displayName": "Ludwig",
   "description": "ARIA Accessibility Dev Tool",
   "version": "1.0.0",
+  "publisher": "Ludwig VS",
   "engines": {
     "vscode": "^1.84.2"
   },
