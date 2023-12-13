@@ -93,7 +93,6 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
         ariaRecommendations[element[1]] = [ariaObject.selectHasAccessName, element[0]];
     });
 
-
     // video-captions
     const videosArray = await videoCaptions();
 
