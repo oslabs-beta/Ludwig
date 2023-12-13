@@ -100,7 +100,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
         ariaRecommendations[element[1]] = [ariaObject.videoCaptions, element[0]];
     });
 
-    // ARIAlogic - forms have labels
+    // form-labels
     const formArray = await checkLabels();
 
     formArray.forEach((element: string, index: number) => {

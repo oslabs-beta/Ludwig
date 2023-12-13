@@ -7,10 +7,10 @@ import getAccessScore from './access-score';
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "ludwig" is now active!');
 
-    // Map to track highlighted HTML elements and their positions
+    // Track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
 
-    // Create decoration type outside of the function
+    // Red highlight decoration
     const decorationType = vscode.window.createTextEditorDecorationType({
         isWholeLine: true,
         overviewRulerLane: vscode.OverviewRulerLane.Right,
@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     let isExtensionActive = true;
 
-    // Function to highlight lines based on anchors without aria-label
+    // Highlight lines with accessibility issues
     async function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
 
@@ -28,11 +28,9 @@ export function activate(context: vscode.ExtensionContext) {
             const highlightedRanges: vscode.Range[] = [];
             const highlightedLines = new Set<number>(); // ensures the same line doesn't highlight more than once
 
-            // invoke compileLogic to get object with ARIA recommendations
+            // Invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
-            // console.log('ariaRecommendations: ', ariaRecommendations);
-            // console.log('elementsToHighlight: ', elementsToHighlight);
 
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
@@ -40,43 +38,35 @@ export function activate(context: vscode.ExtensionContext) {
 
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
-                // const nextKey = nextLine.text.trim();
-                // console.log('key: ', key);
 
-                // boolean to determine whether we push into highlightedRanges
+                // Boolean to determine whether we push into highlightedRanges
                 let keyFound = false;
 
-                // check if elementsToHighlight contains a line - checks line number to avoid dupes later
+                // Check if elementsToHighlight contains a line
                 for(const el of elementsToHighlight){    
-                    // console.log('el: ', el);
-                    // console.log(el.includes(key));
-                    // console.log(el.includes(nextKey));                
-                    // console.log('line.lineNumber: ', line.lineNumber + 1);
-                    // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
+                    // Check line number to avoid dupes, makes sure line is in recs obj, excludes white space lines
                     if(line.lineNumber + 1 === Number(el) && ariaRecommendations[el][1].includes(key) && key.trim() !== ''){
                         keyFound = true;
                         break;
                     }
                 }
 
-                // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
+                // Only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
                 if (keyFound && !highlightedLines.has(lineNumber)) {
-                    // creates a range for the entire line
+                    // Creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
-                    // console.log('highlightedRanges: ', highlightedRanges);
                     highlightedLines.add(lineNumber);
-                    // console.log('highlightedLines: ', highlightedLines);
                 }
             }
             
             // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
             activeEditor.setDecorations(decorationType, []);
             
-            // Apply red background thing to highlight the lines
+            // Apply red background to highlight the lines
             activeEditor.setDecorations(decorationType, highlightedRanges);
             
-            // Store the highlighted ranges in the map for hover stuff later
+            // Store the highlighted ranges in the map for hover stuff
             highlightedElements.set('ariaRecommendations', highlightedRanges);            
         }
     }
@@ -100,7 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
-    // Command to trigger the highlighting functionality
+    // Command to trigger the highlighting functionality - toggle on
     let highlightCommandDisposable = vscode.commands.registerCommand('ludwig.highlightElements', () => {
         if(!isExtensionActive) {
             isExtensionActive = true;
@@ -114,6 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
+    // Command to stop highlighting functionality - toggle off
     let toggleOffCommandDisposable = vscode.commands.registerCommand('ludwig.toggleOff', () => {
         if(isExtensionActive) {
             isExtensionActive = false;
