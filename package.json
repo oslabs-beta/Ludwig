@@ -45,6 +45,10 @@
       ]
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oslabs-beta/Ludwig"
+  },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
