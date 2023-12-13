@@ -25,25 +25,12 @@ function checkUniqueIds() {
       set.add(lineNumber);
 
       if (idSet.has(id)) {
-        // console.error(`Duplicate id found: ${id}`);
-        // Store the element with duplicate id in the array
         duplicateElements.push([element.outerHTML, lineNumber]);
       } else {
         idSet.add(id);
       }
     });
-
     return duplicateElements;
-
-  // if (duplicateElements.length > 0) {
-  //   console.log('Elements that duplicate ids:');
-  //   duplicateElements.forEach((element, index) => {
-  //     console.log(`Element ${index + 1}:`);
-  //     console.log(element);
-  //   });
-  // } else {
-  //   console.log('No duplicate ids found.');
-  // }
   }
 }
 

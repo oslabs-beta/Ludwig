@@ -19,7 +19,6 @@ function checkAreaMapAltText() {
     
     // check if each el has alt text
     areas.forEach((el, i) => {
-      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
       const altText = el.getAttribute('alt');
       const newElement = el.outerHTML.replace('>', ' />');
 
@@ -27,11 +26,9 @@ function checkAreaMapAltText() {
       set.add(lineNumber);
 
       if (!altText | altText === '') {
-        // console.log('newElement: ', newElement);
         areaMapsWithoutAltText.push([newElement, lineNumber]);
       }
     });
-    // console.log('areaMapsWithoutAltText: ', areaMapsWithoutAltText);
     return areaMapsWithoutAltText;
   }
 }

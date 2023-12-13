@@ -16,13 +16,11 @@ function inputButtonText() {
     
     const inputButtonsWithoutText = [];
     const set = new Set();
-    // check that value is not an empty string or missing
     input.forEach((el, index) => {
       const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
       set.add(lineNumber);
       if (el.value === '' || !el.value) {
         inputButtonsWithoutText.push([el.outerHTML, lineNumber]);
-        // console.log(`Input Button ${index + 1} does not have a value.`);
       }
     });
     return inputButtonsWithoutText;

@@ -15,14 +15,11 @@ function checkImgAltText() {
     
     const imgAlt = [];
     const set = new Set();
-  // const images = ludwig.images; <-- returns html collection
-  // const images = ludwig.getElementsByTagName("img"); <-- returns html collection
+
     const img = ludwig.querySelectorAll('img');
-  // console.log('images', img);
 
     img.forEach((img, index) => {
       const altText = img.getAttribute('alt');
-      // console.log('alt text', altText);
       const newImg = img.outerHTML.replace('>', ' />'); // JSDOM seems to grab self-closing tags without closing slash
       const lineNumber = getLineNumber(activeEditor.document, newImg, set);
       set.add(lineNumber);

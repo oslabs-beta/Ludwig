@@ -14,17 +14,13 @@ function checkMetaViewportTextResize() {
     const ludwig = document.body;
 
     const meta = document.querySelectorAll('meta[name="viewport"]');
-    // console.log('meta tag' , meta);
     const metaViewportElements = [];
     const set = new Set();
     
     // check if each el has the attribute name with the value "viewport"
     meta.forEach((el, i) => {
       const name = el.getAttribute('name');
-      // console.log('name', name);
-      // extract content string using get attribute
       const content = el.getAttribute('content');
-      // console.log('content', content, typeof content);
       // get attr of maximum-scale, any value less than 3 fails accessibility
       let maxScale;
       if (content.includes('maximum-scale')) {
@@ -45,7 +41,6 @@ function checkMetaViewportTextResize() {
         // make sure that text zooming/scaling has not been disabled
         if (maxScale < 3 || userScale === 'no' || userScale === '0') {
           metaViewportElements.push([el.outerHTML, lineNumber]);
-          // console.log(`Meta with attribute name="viewport" ${i + 1} should not disable text resizing`);
         }
       };
     });

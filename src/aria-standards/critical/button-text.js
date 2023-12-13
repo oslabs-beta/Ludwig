@@ -13,7 +13,6 @@ function checkButtonText() {
     const ludwig = document.body;
 
     const buttons = ludwig.querySelectorAll('button');
-  // console.log(buttons);
     const buttonsArray = [];
     const set = new Set();
 
