@@ -112,7 +112,7 @@ export async function compileLogic(document: vscode.TextDocument): Promise<AriaR
     const roleSupportHtml = await checkAriaRoles();
 
     roleSupportHtml.forEach((element: string[], index: number) => {
-        ariaRecommendations[element[0]] = {link: element[1], desc: 'Please select "Read More" below to see documentation for this error.'};
+        ariaRecommendations[element[2]] = [{link: element[1], desc: 'Please select "Read More" below to see documentation for this error.'}, element[0]];
     });
 
     // RETURN FINAL OBJECT
