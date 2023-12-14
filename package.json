@@ -2,7 +2,7 @@
   "name": "ludwigvs",
   "displayName": "Ludwig VS",
   "description": "ARIA Accessibility Checker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "./assets/Ludwig-VSMarket.jpg",
   "publisher": "LudwigVS",
   "engines": {
