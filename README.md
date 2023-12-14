@@ -1,4 +1,6 @@
-![Ludwig-VS Logo](./assets/Ludwig-VSMarket.jpg)
+
+<p align="center"><img src="./assets/Ludwig-VSMarket.jpg" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
+
 
 # Ludwig README
 
@@ -14,19 +16,21 @@ Visit the [Ludwig](www.ludwigvs.com) website to learn more.
 
 Ludwig is easily downloadable from the VS Code extensions marketplace. Simply search Ludwig and look for the logo above.
 
-To start a Ludwig session, open the command palette and type [> Ludwig: Compose]. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write. 
+To start a Ludwig session, open the command palette and type <b>> Ludwig: Compose</b>. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write. 
 
-To take a break and deactivate the extension, type [> Ludwig: Caesura] into the command line. This will terminate the current session and deactivate highlighting and recommendations. 
+To take a break and deactivate the extension, type <b>> Ludwig: Caesura</b> into the command line. This will terminate the current session and deactivate highlighting and recommendations. 
 
-![Compose Gif](./assets/ludwig-compose-caesura.gif)
+<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+
 
 To scan your document and generate your accessibility score, press the Ludwig logo on the activity bar (sidebar to the left), then press "Scan Document."
 
-![Compose Gif](./assets/ludwig-scan-interface.gif)
+<p align="center"><img src="./assets/ludwig-scan-interface.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+
 
 # User Best Practices
 
-Please note that Ludwig is currently in Beta and functions best when used with proper HTML formatting. Therefore, to ensure proper formatting, we recommend using a well-established linting tool such as Prettier.
+Please note that Ludwig is currently in Beta and functions best when used with proper HTML formatting. Therefore, to ensure proper formatting, we recommend using a well-established linting tool such as [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 # Open Source Work
 
@@ -37,6 +41,13 @@ Please note that Ludwig is currently in Beta and functions best when used with p
 | Expand coverage to non-serious/critical guidelines          | To-Do       |
 | Replace an opened webview dashboard panel when clicking the "Scan Document" button in the sidebar | To-Do       |
 
+# Contributors
+
+Connie Johnson | [LinkedIn](www.linkedin.com/in/connie-johnson-7a33152a4) <br>
+Jake Johnson | [LinkedIn](https://www.linkedin.com/in/jake527/) <br>
+Prashay Mehta | [LinkedIn](https://www.linkedin.com/in/prashaymehta/) <br>
+Harold Reeves | [LinkedIn](https://www.linkedin.com/in/haroldreeves/) <br>
+Tyler Spicer | [LinkedIn](https://www.linkedin.com/in/tyler-e-spicer/) <br>
 
 # Licensing Info
 
