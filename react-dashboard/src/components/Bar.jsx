@@ -29,7 +29,7 @@ function Bar({recommendations}) {
   }, [pieSize]);
 
   if (data.length === 0) {
-      return;
+      return <h4>Score Unavailable...</h4>;
   }
   return (  
     <div className='panelContainer' style={{width:350}}>

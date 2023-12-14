@@ -5,6 +5,7 @@
   "version": "1.0.1",
   "icon": "./assets/Ludwig-VSMarket.jpg",
   "publisher": "LudwigVS",
+  "homepage": "https://www.ludwigvs.com",
   "engines": {
     "vscode": "^1.84.2"
   },
