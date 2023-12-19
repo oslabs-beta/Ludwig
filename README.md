@@ -10,7 +10,7 @@ One sixth of the world’s population will experience a disability at some point
 
 Ludwig tests HTML for over 85 of the most critical and common accessibility guidelines outlined by WAI-ARIA. We still plan on expanding Ludwig’s capabilities to provide coverage for all guidelines as well as by providing testing for JSX. If you or someone you know would like to contribute to Ludwig, please contact us! 
 
-Visit the [Ludwig](www.ludwigvs.com) website to learn more.
+Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
 # Set-Up
 
