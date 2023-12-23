@@ -43,7 +43,7 @@ Please note that Ludwig is currently in Beta and functions best when used with p
 
 # Contributors
 
-Connie Johnson | [LinkedIn](www.linkedin.com/in/connie-johnson-7a33152a4) <br>
+Connie Johnson | [LinkedIn](https://www.linkedin.com/in/connie-johnson-7a33152a4) <br>
 Jake Johnson | [LinkedIn](https://www.linkedin.com/in/jake527/) <br>
 Prashay Mehta | [LinkedIn](https://www.linkedin.com/in/prashaymehta/) <br>
 Harold Reeves | [LinkedIn](https://www.linkedin.com/in/haroldreeves/) <br>
