@@ -62,7 +62,8 @@
     "lint": "eslint src --ext ts",
     "test": "node ./out/test/runTest.js",
     "build-dashboard": "webpack --config ./react-dashboard/webpack.config.js",
-    "build-sidebar": "webpack --config ./react-sidebar/webpack.config.js"
+    "build-sidebar": "webpack --config ./react-sidebar/webpack.config.js",
+    "start": "nodemon ./react-dashboard/src/server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.23.5",
@@ -95,6 +96,7 @@
     "express": "^4.18.2",
     "jsdom": "^22.1.0",
     "node": "^21.1.0",
+    "nodemon": "^3.0.2",
     "play-sound": "^1.1.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

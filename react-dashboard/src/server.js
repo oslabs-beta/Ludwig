@@ -1,15 +1,28 @@
 const express = require('express');
 const cors = require('cors');
 
-
 const app = express();
-const port = 3695;
+const PORT = 3695;
 
 app.use(express.json());
 app.use(cors());
 
-//get request to database 
-//app.get()
+//request all database items 
+/*
+app.get('/db', (req,res,next) => {
+
+})
+*/
+
+//request specific database item
+/* 
+
+*/
+
+//post to database
+/* 
+
+*/
 
 //catch unknown routes
 app.use((req,res) => res.status(404).send('Page not found'));
@@ -26,3 +39,9 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port: ${PORT}`);
+});
+
+module.exports = { app };
