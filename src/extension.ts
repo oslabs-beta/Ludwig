@@ -222,7 +222,14 @@ export function activate(context: vscode.ExtensionContext) {
                     compileLogic()
                     .then((ariaRecs: {[key: string]: any}) => {
                         scoreData = getAccessScore(ariaRecs); //get data on accessibility score
-                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData }); //send aria rec and score data to Dashboard App
+                        //send aria rec and score data to Dashboard App 
+                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData });
+                        /* ariaRecs =
+                            {
+                                Line # w/Violation: [{desc: 'recommendation text', link: ['url',...]}, 'HTML code w/violation'],
+                                
+                            } 
+                        */
                     })
                     .catch((error : any) => {
                         console.error('An Error Occurred Retrieving Data for Dashboard', error);
@@ -236,7 +243,7 @@ export function activate(context: vscode.ExtensionContext) {
     const sidebarProvider = new SidebarProvider();
     const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
     let dashboard : any = null;
-    
+
     //Create dashboard panel
     const createDashboard = () => {
         if(dashboard) {
