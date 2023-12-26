@@ -235,10 +235,14 @@ export function activate(context: vscode.ExtensionContext) {
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
     const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
+    let dashboard : any = null;
     
     //Create dashboard panel
     const createDashboard = () => {
-        const dashboard = vscode.window.createWebviewPanel(
+        if(dashboard) {
+            dashboard.dispose();
+        }
+        dashboard = vscode.window.createWebviewPanel(
             'ludwig-dashboard', // Identifies the type of the webview (Used internally)
             'Ludwig Dashboard', //Title of the webview panel
             vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
@@ -270,6 +274,9 @@ export function activate(context: vscode.ExtensionContext) {
                 </body>
             </html>
         `;
+        dashboard.onDidDispose(() => {
+            dashboard = null;
+        });
       return dashboard;
     };
 

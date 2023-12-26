@@ -8,11 +8,11 @@ app.use(express.json());
 app.use(cors());
 
 //request all database items 
-/*
-app.get('/db', (req,res,next) => {
 
-})
-*/
+app.get('/', (req,res,next) => {
+  return res.status(200).send('Hello!');
+});
+
 
 //request specific database item
 /* 
