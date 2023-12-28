@@ -1,7 +1,7 @@
 {
   "name": "ludwigvs",
   "displayName": "Ludwig VS",
-  "description": "ARIA Accessibility Checker",
+  "description": "WAI-ARIA Accessibility Linter",
   "version": "1.0.2",
   "icon": "./assets/Ludwig-VSMarket.jpg",
   "publisher": "LudwigVS",
