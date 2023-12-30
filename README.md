@@ -1,10 +1,10 @@
 
-<p align="center"><img src="./assets/Ludwig-VSMarket.jpg" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
+<p align="center"><img src="./assets/Ludwing-Logo-Detailed.png" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
 
 
-# Ludwig README
+# Ludwig VS
 
-Ludwig VS is a VS Code extension that makes writing accessible HTML easier for developers. Ludwig offers in-line highlighting of HTML that is not in compliance with WCAG and WAI-ARIA standards and provides recommendations to enhance the accessibility of your HTML code. 
+Ludwig VS is a VS Code linter that makes writing accessible HTML easier for developers. Ludwig offers in-line highlighting of HTML that is not in compliance with WCAG and WAI-ARIA standards and provides recommendations to enhance the accessibility of your HTML code. 
 
 One sixth of the world’s population will experience a disability at some point in their lifetime, but 98% of websites contain inaccessibility issues, making them challenging for individuals with disabilities to use. Ludwig tackles this problem directly by providing a reliable tool that developers can leverage during the development process, rather than relying solely on post-development accessibility testing. Ludwig highlights HTML accessibility errors in real-time, such as missing ARIA-attributes or empty tags. When a developer hovers over the highlighted code, a hover message will display the root issue and provide further documentation for reference. Additionally, the Ludwig dashboard panel offers a comprehensive overview of the errors in a developer’s HTML and provides a custom accessibility score for the developer to gauge and improve their web content’s accessibility. 
 
@@ -14,23 +14,23 @@ Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
 # Set-Up
 
-Ludwig is easily downloadable from the VS Code extensions marketplace. Simply search Ludwig and look for the logo above.
+Download Ludwig VS from the VS Code extensions marketplace.
 
 To start a Ludwig session, open the command palette and type <b>> Ludwig: Compose</b>. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write. 
 
 To take a break and deactivate the extension, type <b>> Ludwig: Caesura</b> into the command line. This will terminate the current session and deactivate highlighting and recommendations. 
 
-<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p> 
 
 
 To scan your document and generate your accessibility score, press the Ludwig logo on the activity bar (sidebar to the left), then press "Scan Document."
 
-<p align="center"><img src="./assets/ludwig-scan-interface.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;"></p> 
+<p align="center"><img src="./assets/ludwig-scan-interface.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p> 
 
 
 # User Best Practices
 
-Please note that Ludwig is currently in Beta and functions best when used with proper HTML formatting. Therefore, to ensure proper formatting, we recommend using a well-established linting tool such as [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+Please note that Ludwig is currently in Beta and functions best when used with proper HTML formatting. Therefore, to ensure proper formatting, please use a well-established linting tool such as [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 # Open Source Work
 
@@ -39,11 +39,10 @@ Please note that Ludwig is currently in Beta and functions best when used with p
 | Fix inconsistent highlights on parent elements              | In Progress |
 | Expand coverage to JSX                                       | To-Do       |
 | Expand coverage to non-serious/critical guidelines          | To-Do       |
-| Replace an opened webview dashboard panel when clicking the "Scan Document" button in the sidebar | To-Do       |
 
 # Contributors
 
-Connie Johnson | [LinkedIn](www.linkedin.com/in/connie-johnson-7a33152a4) <br>
+Connie Johnson | [LinkedIn](https://www.linkedin.com/in/connie-johnson-7a33152a4) <br>
 Jake Johnson | [LinkedIn](https://www.linkedin.com/in/jake527/) <br>
 Prashay Mehta | [LinkedIn](https://www.linkedin.com/in/prashaymehta/) <br>
 Harold Reeves | [LinkedIn](https://www.linkedin.com/in/haroldreeves/) <br>
