@@ -216,7 +216,8 @@ export function activate(context: vscode.ExtensionContext) {
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
                 let scoreData: { x: string; y: number }[]; 
-                if (message.message === 'scanDoc') {
+                const activeEditor = vscode.window.activeTextEditor;
+                if (message.message === 'scanDoc' && activeEditor && activeEditor.document.languageId === 'html') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
                     compileLogic()
