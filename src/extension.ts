@@ -180,7 +180,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     //Primary Sidebar Webview View Provider
     class SidebarProvider {
-        constructor(){}
         //Call when view first becomes visible:
         resolveWebviewView(webviewView: vscode.WebviewView) {
             webviewView.webview.options = {
@@ -217,6 +216,7 @@ export function activate(context: vscode.ExtensionContext) {
             webviewView.webview.onDidReceiveMessage((message) => {
                 let scoreData: { x: string; y: number }[]; 
                 const activeEditor = vscode.window.activeTextEditor;
+                //if message is sent from  sidepanel & and if the active document is html, then create a dashboard
                 if (message.message === 'scanDoc' && activeEditor && activeEditor.document.languageId === 'html') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
