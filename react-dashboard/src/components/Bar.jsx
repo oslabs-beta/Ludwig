@@ -29,7 +29,7 @@ function Bar({recommendations}) {
   }, [pieSize]);
 
   if (data.length === 0) {
-      return <h4>Score Unavailable...</h4>;
+      return <h3 className='critical-small'>Score unavailable, please activate an HTML document before scanning</h3>;
   }
   return (  
     <div className='panelContainer' style={{width:350}}>

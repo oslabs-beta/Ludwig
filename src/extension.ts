@@ -180,7 +180,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     //Primary Sidebar Webview View Provider
     class SidebarProvider {
-        constructor(){}
         //Call when view first becomes visible:
         resolveWebviewView(webviewView: vscode.WebviewView) {
             webviewView.webview.options = {
@@ -216,13 +215,22 @@ export function activate(context: vscode.ExtensionContext) {
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
                 let scoreData: { x: string; y: number }[]; 
-                if (message.message === 'scanDoc') {
+                const activeEditor = vscode.window.activeTextEditor;
+                //if message is sent from  sidepanel & and if the active document is html, then create a dashboard
+                if (message.message === 'scanDoc' && activeEditor && activeEditor.document.languageId === 'html') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
                     compileLogic()
                     .then((ariaRecs: {[key: string]: any}) => {
                         scoreData = getAccessScore(ariaRecs); //get data on accessibility score
-                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData }); //send aria rec and score data to Dashboard App
+                        //send aria rec and score data to Dashboard App 
+                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData });
+                        /* ariaRecs =
+                            {
+                                Line # w/Violation: [{desc: 'recommendation text', link: ['url',...]}, 'HTML code w/violation'],
+                                
+                            } 
+                        */
                     })
                     .catch((error : any) => {
                         console.error('An Error Occurred Retrieving Data for Dashboard', error);
@@ -235,10 +243,14 @@ export function activate(context: vscode.ExtensionContext) {
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
     const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
-    
+    let dashboard : any = null;
+
     //Create dashboard panel
     const createDashboard = () => {
-        const dashboard = vscode.window.createWebviewPanel(
+        if(dashboard) {
+            dashboard.dispose();
+        }
+        dashboard = vscode.window.createWebviewPanel(
             'ludwig-dashboard', // Identifies the type of the webview (Used internally)
             'Ludwig Dashboard', //Title of the webview panel
             vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
@@ -270,6 +282,9 @@ export function activate(context: vscode.ExtensionContext) {
                 </body>
             </html>
         `;
+        dashboard.onDidDispose(() => {
+            dashboard = null;
+        });
       return dashboard;
     };
 
