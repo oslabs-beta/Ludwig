@@ -6,10 +6,11 @@ import IssueTable from './components/IssueTable';
 export default function App() {
 
   const [recommendations, setRecommendations] = useState({data:{}, recData:[]});
-
+  
+  //Get message when sent from extension.ts (triggered when 'scan document' pressed)
   useEffect(() =>{
     window.addEventListener('message', (event) => {
- 
+      
       const message = event.data;
       if(message) {
         setRecommendations(message);
