@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
-const PORT = 3000;
 const app = express();
+const PORT = 3000;
+
+const MONGO_URI = 'mongodb+srv://shay:afirocks@cluster0.avuh6yo.mongodb.net/ludwig?retryWrites=true&w=majority';
 
 app.use(express.json());
 app.use(cors());
