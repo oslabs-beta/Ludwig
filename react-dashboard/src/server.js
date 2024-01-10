@@ -8,15 +8,23 @@ const PORT = 3000;
 
 const MONGO_URI = 'mongodb+srv://shay:afirocks@cluster0.avuh6yo.mongodb.net/ludwig?retryWrites=true&w=majority';
 
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log('Connected to Mongo DB.');
+  })
+  .catch((err) => console.log(err));
+
+
 app.use(express.json());
 app.use(cors());
 
 app.get('/', (req,res) => {
-  res.send('send GET request');
+  res.send('Ludwig sends GET request');
 });
 
 app.post('/', (req, res) => {
-  res.send('send POST request');
+  res.send('Ludwig sends POST request');
 });
 
 app.use('*', (req, res) => {
