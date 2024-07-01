@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.run = void 0;
+exports.run = run;
 const path = __importStar(require("path"));
 const mocha_1 = __importDefault(require("mocha"));
 const glob_1 = require("glob");
@@ -57,5 +57,4 @@ async function run() {
         console.error(err);
     }
 }
-exports.run = run;
 //# sourceMappingURL=index.js.map
