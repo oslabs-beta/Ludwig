@@ -1,4 +1,3 @@
-const e = require('express');
 const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');

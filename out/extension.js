@@ -22,11 +22,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deactivate = exports.activate = void 0;
+exports.activate = activate;
+exports.deactivate = deactivate;
 const vscode = __importStar(require("vscode"));
 const path = __importStar(require("path"));
 const { compileLogic } = require('./logicCompiler.ts');
+const access_score_1 = __importDefault(require("./access-score"));
 function activate(context) {
     console.log('Congratulations, your extension "ludwig" is now active!');
     // Map to track highlighted HTML elements and their positions
@@ -44,37 +49,41 @@ function activate(context) {
         const activeEditor = vscode.window.activeTextEditor;
         if (activeEditor) {
             const highlightedRanges = [];
-            const highlightedLines = new Set();
-            const processedLines = new Set();
+            const highlightedLines = new Set(); // ensures the same line doesn't highlight more than once
             // invoke compileLogic to get object with ARIA recommendations
             const ariaRecommendations = await compileLogic(document);
             const elementsToHighlight = Object.keys(ariaRecommendations);
+            // console.log('ariaRecommendations: ', ariaRecommendations);
+            // console.log('elementsToHighlight: ', elementsToHighlight);
             // Loop through each line in the document
             for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
                 const line = document.lineAt(lineNumber);
                 // Check if the line's content matches any element to highlight
                 const key = line.text.trim();
+                // const nextKey = nextLine.text.trim();
                 // console.log('key: ', key);
                 // boolean to determine whether we push into highlightedRanges
                 let keyFound = false;
                 // check if elementsToHighlight contains a line - checks line number to avoid dupes later
                 for (const el of elementsToHighlight) {
+                    // console.log('el: ', el);
+                    // console.log(el.includes(key));
+                    // console.log(el.includes(nextKey));                
                     // console.log('line.lineNumber: ', line.lineNumber + 1);
                     // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
-                    // console.log('key: ', key);
-                    // line.lineNumber + 1 === ariaRecommendations[el][1] && 
-                    if (el.includes(key) && key.trim() !== '') {
+                    if (line.lineNumber + 1 === Number(el) && ariaRecommendations[el][1].includes(key) && key.trim() !== '') {
                         keyFound = true;
                         break;
                     }
                 }
                 // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
-                if (keyFound && !highlightedLines.has(lineNumber) && !processedLines.has(key)) {
+                if (keyFound && !highlightedLines.has(lineNumber)) {
                     // creates a range for the entire line
                     const lineRange = new vscode.Range(line.range.start, line.range.end);
                     highlightedRanges.push(lineRange);
+                    // console.log('highlightedRanges: ', highlightedRanges);
                     highlightedLines.add(lineNumber);
-                    processedLines.add(key);
+                    // console.log('highlightedLines: ', highlightedLines);
                 }
             }
             // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
@@ -83,7 +92,6 @@ function activate(context) {
             activeEditor.setDecorations(decorationType, highlightedRanges);
             // Store the highlighted ranges in the map for hover stuff later
             highlightedElements.set('ariaRecommendations', highlightedRanges);
-            // console.log({ariaRecommendations, elementsToHighlight});
         }
     }
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
@@ -146,13 +154,15 @@ function activate(context) {
                 //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
                 if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
                     for (const range of highlightedRanges) {
-                        const lineText = document.getText(range).trim(); //get the current highlighted line text
+                        const lineText = document.getText(range).trim(); //get the current highlighted line text       
                         if (lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
                             // console.log('highlighted line:', lineText);
                             return compileLogic() //gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
                                 .then((ariaRecommendations) => {
                                 // console.log('ARIA RECS :',ariaRecommendations);
-                                const recommendation = ariaRecommendations[lineText];
+                                const lineNumber = range.start.line + 1;
+                                // console.log('LINENUMBER ', lineNumber);
+                                const recommendation = ariaRecommendations[String(lineNumber)][0];
                                 const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
                                 // console.log('DISPLAYED REC:',recommendation.desc);
                                 const firstLink = recommendation.link instanceof Array ? recommendation.link[0] : recommendation.link;
@@ -160,6 +170,9 @@ function activate(context) {
                                 const hoverMessage = new vscode.MarkdownString();
                                 hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
                                 return new vscode.Hover(hoverMessage, wordRange);
+                            })
+                                .catch((error) => {
+                                console.error('An Error Occurred Retrieving Data for Hover', error);
                             });
                         }
                     }
@@ -170,7 +183,6 @@ function activate(context) {
     });
     //Primary Sidebar Webview View Provider
     class SidebarProvider {
-        constructor() { }
         //Call when view first becomes visible:
         resolveWebviewView(webviewView) {
             webviewView.webview.options = {
@@ -201,18 +213,28 @@ function activate(context) {
                     </body>
                 </html>
             `;
-            // const button = document.querySelector('button');
-            // button.addEventListener('click', () => {
-            //     window.vscodeApi.postMessage({ message: 'scanDoc' });
-            // });
             //Handle messages or events from Sidebar webview view here            
             webviewView.webview.onDidReceiveMessage((message) => {
-                if (message.message === 'scanDoc') {
+                let scoreData;
+                const activeEditor = vscode.window.activeTextEditor;
+                //if message is sent from  sidepanel & and if the active document is html, then create a dashboard
+                if (message.message === 'scanDoc' && activeEditor && activeEditor.document.languageId === 'html') {
                     // console.log('Received a message from webview:', message);
                     const panel = createDashboard(); //create dashboard panel webview when user clicks button
                     compileLogic()
-                        .then((ariaRecommendations) => {
-                        panel.webview.postMessage({ ariaRecommendations: ariaRecommendations });
+                        .then((ariaRecs) => {
+                        scoreData = (0, access_score_1.default)(ariaRecs); //get data on accessibility score
+                        //send aria rec and score data to Dashboard App 
+                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData });
+                        /* ariaRecs =
+                            {
+                                Line # w/Violation: [{desc: 'recommendation text', link: ['url',...]}, 'HTML code w/violation'],
+                                
+                            }
+                        */
+                    })
+                        .catch((error) => {
+                        console.error('An Error Occurred Retrieving Data for Dashboard', error);
                     });
                 }
             });
@@ -221,15 +243,19 @@ function activate(context) {
     //Register Primary Sidebar Provider
     const sidebarProvider = new SidebarProvider();
     const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
+    let dashboard = null;
     //Create dashboard panel
     const createDashboard = () => {
-        const dashboard = vscode.window.createWebviewPanel('ludwig-dashboard', // Identifies the type of the webview (Used internally)
+        if (dashboard) {
+            dashboard.dispose();
+        }
+        dashboard = vscode.window.createWebviewPanel('ludwig-dashboard', // Identifies the type of the webview (Used internally)
         'Ludwig Dashboard', //Title of the webview panel
-        vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+        vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
         {
             enableScripts: true,
             retainContextWhenHidden: true, //keep state when webview is not in foreground
-            // localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+            localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
         });
         //Load bundled dashboard React file into the panel webview
         const dashboardPath = vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard', 'dist', 'bundle.js'));
@@ -251,11 +277,12 @@ function activate(context) {
                 </body>
             </html>
         `;
+        dashboard.onDidDispose(() => {
+            dashboard = null;
+        });
         return dashboard;
     };
     context.subscriptions.push(highlightCommandDisposable, toggleOffCommandDisposable, documentOpenDisposable, hoverProviderDisposable, documentChangeDisposable, activeEditorChangeDisposable, sidebarDisposable);
 }
-exports.activate = activate;
 function deactivate() { }
-exports.deactivate = deactivate;
 //# sourceMappingURL=extension.js.map

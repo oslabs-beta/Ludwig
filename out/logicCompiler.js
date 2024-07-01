@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compileLogic = void 0;
+exports.compileLogic = compileLogic;
 const { evalAnchors } = require('./aria-standards/critical/anchor-labels.js');
 const { checkAreaMapAltText } = require('./aria-standards/critical/area-maps-alt-text.js');
 const { checkAriaHidden } = require('./aria-standards/critical/aria-hidden.js');
@@ -20,70 +20,69 @@ async function compileLogic(document) {
     // anchor-label
     const anchorsWithoutAriaLabel = await evalAnchors();
     anchorsWithoutAriaLabel.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.anchorLabel;
+        ariaRecommendations[element[1]] = [ariaObject.anchorLabel, element[0]];
     });
     // area-maps-alt-text
     const areaMapsWithoutAltText = await checkAreaMapAltText();
     areaMapsWithoutAltText.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.areaAltText;
+        ariaRecommendations[element[1]] = [ariaObject.areaAltText, element[0]];
     });
     // aria-hidden
     const hiddenAria = await checkAriaHidden();
     hiddenAria.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.ariaHidden;
+        ariaRecommendations[element[1]] = [ariaObject.ariaHidden, element[0]];
     });
     // button-text
     const buttonText = await checkButtonText();
     buttonText.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.discernibleButtonText;
+        ariaRecommendations[element[1]] = [ariaObject.discernibleButtonText, element[0]];
     });
     // unique-ids
     const duplicateElements = await checkUniqueIds();
     duplicateElements.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.uniqueIDs;
+        ariaRecommendations[element[1]] = [ariaObject.uniqueIDs, element[0]];
     });
     // img alt text
     const imgAlts = await checkImgAltText();
     imgAlts.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.imageAlts;
+        ariaRecommendations[element[1]] = [ariaObject.imageAlts, element[0]];
     });
     // input-button
     const inputButtonsWithoutText = await inputButtonText();
     inputButtonsWithoutText.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.inputButton;
+        ariaRecommendations[element[1]] = [ariaObject.inputButton, element[0]];
     });
     // meta-http-equiv-refresh
     const metaWrongContent = await checkMetaHttpRefresh();
     metaWrongContent.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.metaEquivRefresh;
+        ariaRecommendations[element[1]] = [ariaObject.metaEquivRefresh, element[0]];
     });
     // meta-viewport-text-zoom
     const metaViewportElements = await checkMetaViewportTextResize();
     metaViewportElements.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.metaViewport;
+        ariaRecommendations[element[1]] = [ariaObject.metaViewport, element[0]];
     });
     // select-name
     const selectArray = await selectName();
     selectArray.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.selectHasAccessName;
+        ariaRecommendations[element[1]] = [ariaObject.selectHasAccessName, element[0]];
     });
     // video-captions
     const videosArray = await videoCaptions();
     videosArray.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.videoCaptions;
+        ariaRecommendations[element[1]] = [ariaObject.videoCaptions, element[0]];
     });
     // ARIAlogic - forms have labels
     const formArray = await checkLabels();
     formArray.forEach((element, index) => {
-        ariaRecommendations[element] = ariaObject.formsHaveLabels;
+        ariaRecommendations[element[1]] = [ariaObject.formsHaveLabels, element[0]];
     });
     // role-support-aria-attribute
     const roleSupportHtml = await checkAriaRoles();
     roleSupportHtml.forEach((element, index) => {
-        ariaRecommendations[element[0]] = { link: element[1], desc: 'Please select "Read More" below to see documentation for this error.' };
+        ariaRecommendations[element[2]] = [{ link: element[1], desc: 'Please select "Read More" below to see documentation for this error.' }, element[0]];
     });
     // RETURN FINAL OBJECT
     return ariaRecommendations;
 }
-exports.compileLogic = compileLogic;
 //# sourceMappingURL=logicCompiler.js.map
