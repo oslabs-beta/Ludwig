@@ -1,8 +1,10 @@
-import { AriaRecommendations } from "./logicCompiler";
+import { AriaRecommendations } from './logicCompiler';
 import * as vscode from 'vscode';
 import { JSDOM } from 'jsdom';
 
-export default function getAccessScore(recs: AriaRecommendations): { x: string; y: number }[] {
+export default function getAccessScore(
+  recs: AriaRecommendations
+): { x: string; y: number }[] {
   // Get the active text editor from VS Code
   const activeEditor = vscode.window.activeTextEditor;
 
@@ -16,7 +18,9 @@ export default function getAccessScore(recs: AriaRecommendations): { x: string; 
     const document = window.document;
 
     // Calculate the total number of elements in the HTML document
-    const totalElements: number = Array.from(document.querySelectorAll('*')).length;
+    const totalElements: number = Array.from(
+      document.querySelectorAll('*')
+    ).length;
 
     // Calculate the total number of Aria recommendations
     const totalRecs: number = Object.keys(recs).length;
@@ -26,8 +30,8 @@ export default function getAccessScore(recs: AriaRecommendations): { x: string; 
     const inaccessibleCount: number = totalRecs;
 
     return [
-      {x: 'Accessible', y : accessibleCount},
-      {x: 'Inaccessible', y:  inaccessibleCount}
+      { x: 'Accessible', y: accessibleCount },
+      { x: 'Inaccessible', y: inaccessibleCount },
     ];
   } else {
     // Handle the case when there is no active editor or document
