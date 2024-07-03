@@ -3,10 +3,9 @@ import * as path from 'path';
 const { compileLogic } = require('./logicCompiler.ts');
 import getAccessScore from './access-score';
 
-
 export function activate(context: vscode.ExtensionContext) {
-    console.log('Congratulations, your extension "ludwig" is now active!');
-
+  console.log('Congratulations, your extension "ludwig" is now active!');
+  /* 
     // Map to track highlighted HTML elements and their positions
     const highlightedElements = new Map<string, vscode.Range[]>();
 
@@ -176,25 +175,32 @@ export function activate(context: vscode.ExtensionContext) {
             }
             return null;
         }
-    });
+    }); */
 
-    //Primary Sidebar Webview View Provider
-    class SidebarProvider {
-        //Call when view first becomes visible:
-        resolveWebviewView(webviewView: vscode.WebviewView) {
-            webviewView.webview.options = {
-              enableScripts: true,  //enable JS
-            };
-            //Load bundled dashboard React file into the panel webview
-            const sidebarPath = vscode.Uri.file(path.join(context.extensionPath,'react-sidebar','dist', 'bundle.js'));
-            const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
-            
-            //Create Path and Src for CSS files
-            const cssPath = path.join(context.extensionPath,'react-sidebar', 'src', 'style.css');
-            const cssSrc = webviewView.webview.asWebviewUri(vscode.Uri.file(cssPath));
-            //TO DO: Decide which content to allow in meta http-equiv Content security policy:
-            //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
-            webviewView.webview.html = `
+  //Primary Sidebar Webview View Provider
+  class SidebarProvider {
+    //Call when view first becomes visible:
+    resolveWebviewView(webviewView: vscode.WebviewView) {
+      webviewView.webview.options = {
+        enableScripts: true, //enable JS
+      };
+      //Load bundled dashboard React file into the panel webview
+      const sidebarPath = vscode.Uri.file(
+        path.join(context.extensionPath, 'react-sidebar', 'dist', 'bundle.js')
+      );
+      const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
+
+      //Create Path and Src for CSS files
+      const cssPath = path.join(
+        context.extensionPath,
+        'react-sidebar',
+        'src',
+        'style.css'
+      );
+      const cssSrc = webviewView.webview.asWebviewUri(vscode.Uri.file(cssPath));
+      //TO DO: Decide which content to allow in meta http-equiv Content security policy:
+      //<meta http-equiv="Content-Security-Policy" content="default-src 'none';">
+      webviewView.webview.html = `
                 <!DOCTYPE html>
                 <html lang="en">
                     <head>
@@ -212,63 +218,63 @@ export function activate(context: vscode.ExtensionContext) {
                 </html>
             `;
 
-            //Handle messages or events from Sidebar webview view here            
-            webviewView.webview.onDidReceiveMessage((message) => {
-                let scoreData: { x: string; y: number }[]; 
-                const activeEditor = vscode.window.activeTextEditor;
-                //if message is sent from  sidepanel & and if the active document is html, then create a dashboard
-                if (message.message === 'scanDoc' && activeEditor && activeEditor.document.languageId === 'html') {
-                    // console.log('Received a message from webview:', message);
-                    const panel = createDashboard(); //create dashboard panel webview when user clicks button
-                    compileLogic()
-                    .then((ariaRecs: {[key: string]: any}) => {
-                        scoreData = getAccessScore(ariaRecs); //get data on accessibility score
-                        //send aria rec and score data to Dashboard App 
-                        panel.webview.postMessage({ data: ariaRecs, recData: scoreData });
-                        /* ariaRecs =
-                            {
-                                Line # w/Violation: [{desc: 'recommendation text', link: ['url',...]}, 'HTML code w/violation'],
-                                
-                            } 
-                        */
-                    })
-                    .catch((error : any) => {
-                        console.error('An Error Occurred Retrieving Data for Dashboard', error);
-                    });
-                }
-            }); 
+      //Handle messages or events from Sidebar webview view here
+      webviewView.webview.onDidReceiveMessage((message) => {
+        //if message is sent from  sidepanel & and if the active document is html, then create a dashboard
+        if (message.message === 'scanDoc') {
+          //   &&  activeEditor && activeEditor.document.languageId === 'html'
+          const panel = createDashboard(); //create dashboard panel webview when user clicks button
+          let results = compileLogic();
+          console.log(results);
+
+          let scoreData = getAccessScore(results);
+          panel.webview.postMessage({ data: results, recData: scoreData });
         }
+      });
     }
+  }
 
-    //Register Primary Sidebar Provider
-    const sidebarProvider = new SidebarProvider();
-    const sidebarDisposable = vscode.window.registerWebviewViewProvider("ludwigSidebarView", sidebarProvider);
-    let dashboard : any = null;
+  //Register Primary Sidebar Provider
+  const sidebarProvider = new SidebarProvider();
+  const sidebarDisposable = vscode.window.registerWebviewViewProvider(
+    'ludwigSidebarView',
+    sidebarProvider
+  );
+  let dashboard: any = null;
 
-    //Create dashboard panel
-    const createDashboard = () => {
-        if(dashboard) {
-            dashboard.dispose();
-        }
-        dashboard = vscode.window.createWebviewPanel(
-            'ludwig-dashboard', // Identifies the type of the webview (Used internally)
-            'Ludwig Dashboard', //Title of the webview panel
-            vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
-            {
-                enableScripts: true,
-                retainContextWhenHidden: true, //keep state when webview is not in foreground
-                localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard'))], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
-            }
-        );
-        //Load bundled dashboard React file into the panel webview
-        const dashboardPath = vscode.Uri.file(path.join(context.extensionPath,'react-dashboard','dist', 'bundle.js'));
-        const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
-        
-        //Create Path and Src for CSS files
-        const cssPath = path.join(context.extensionPath,'react-dashboard', 'src', 'style.css');
-        const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
-        
-        dashboard.webview.html = `
+  //Create dashboard panel
+  const createDashboard = () => {
+    if (dashboard) {
+      dashboard.dispose();
+    }
+    dashboard = vscode.window.createWebviewPanel(
+      'ludwig-dashboard', // Identifies the type of the webview (Used internally)
+      'Ludwig Dashboard', //Title of the webview panel
+      vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
+      {
+        enableScripts: true,
+        retainContextWhenHidden: true, //keep state when webview is not in foreground
+        localResourceRoots: [
+          vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard')),
+        ], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+      }
+    );
+    //Load bundled dashboard React file into the panel webview
+    const dashboardPath = vscode.Uri.file(
+      path.join(context.extensionPath, 'react-dashboard', 'dist', 'bundle.js')
+    );
+    const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
+
+    //Create Path and Src for CSS files
+    const cssPath = path.join(
+      context.extensionPath,
+      'react-dashboard',
+      'src',
+      'style.css'
+    );
+    const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
+
+    dashboard.webview.html = `
             <!DOCTYPE html>
             <html lang="en">
                 <head>
@@ -282,22 +288,21 @@ export function activate(context: vscode.ExtensionContext) {
                 </body>
             </html>
         `;
-        dashboard.onDidDispose(() => {
-            dashboard = null;
-        });
-      return dashboard;
-    };
+    dashboard.onDidDispose(() => {
+      dashboard = null;
+    });
+    return dashboard;
+  };
 
-
-    context.subscriptions.push(
-        highlightCommandDisposable,
-        toggleOffCommandDisposable,
-        documentOpenDisposable,
-        hoverProviderDisposable,
-        documentChangeDisposable,
-        activeEditorChangeDisposable,
-        sidebarDisposable
-    );
+  context.subscriptions.push(
+    // highlightCommandDisposable,
+    // toggleOffCommandDisposable,
+    // documentOpenDisposable,
+    // hoverProviderDisposable,
+    // documentChangeDisposable,
+    // activeEditorChangeDisposable,
+    sidebarDisposable
+  );
 }
 
 export function deactivate() {}

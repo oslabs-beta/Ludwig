@@ -16,3 +16,16 @@ export function getLineNumber(document, node, set) {
       }
     }
   }
+
+
+
+
+
+  // function getLineNumber(document: any, htmlElement: any) {
+  //   const text = document.getText();
+  //   const index = text.indexOf(htmlElement);
+  //   // if (index === -1) {
+  //   //   return null;
+  //   // }
+  //   return document.positionAt(index).line;
+  // }

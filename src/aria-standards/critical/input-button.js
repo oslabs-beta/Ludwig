@@ -1,6 +1,6 @@
 const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
-const { getLineNumber } = require('../../getLineNumber');
+// const { JSDOM } = require('jsdom');
+// const { getLineNumber } = require('../../getLineNumber');
 
 // input button has discernible text
 function inputButtonText() {
