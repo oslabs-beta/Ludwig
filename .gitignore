@@ -1,6 +1,5 @@
-/node_modules
-/build
-/dist
-# /HTMLsamples
-/react-sidebar/dist/
-/react-dashboard/dist/
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
