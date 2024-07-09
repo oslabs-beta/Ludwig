@@ -7,22 +7,7 @@
       "request": "launch",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": {
-        "type": "npm",
-        "script": "build-react-and-extension"
-      }
-    },
-    {
-      "name": "Run - Build TS only",
-      "type": "extensionHost",
-      "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
-      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": {
-        "type": "npm",
-        "script": "build-extension"
-      }
+      "preLaunchTask": "${defaultBuildTask}"
     }
   ]
 }
-

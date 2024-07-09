@@ -2,23 +2,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build-react",
-      "type": "npm",
-      "script": "compile-react",
-      "group": "build",
-      "isBackground": false,
-      "problemMatcher": []
-    },
-    {
-      "label": "build-extension",
-      "type": "npm",
-      "script": "compile",
-      "group": "build",
-      "isBackground": false,
-      "problemMatcher": []
-    },
-    {
-      "label": "watch-extension",
       "type": "npm",
       "script": "watch",
       "problemMatcher": "$ts-webpack-watch",
@@ -33,7 +16,6 @@
       }
     },
     {
-      "label": "watch-tests",
       "type": "npm",
       "script": "watch-tests",
       "problemMatcher": "$tsc-watch",
@@ -45,28 +27,8 @@
       "group": "build"
     },
     {
-      "label": "watch-react",
-      "type": "npm",
-      "script": "watch-react",
-      "problemMatcher": "$ts-webpack-watch",
-      "isBackground": true,
-      "presentation": {
-        "reveal": "never",
-        "group": "watchers"
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "watch-all",
-      "dependsOn": ["watch-extension", "watch-tests", "watch-react"],
-      "problemMatcher": []
-    },
-    {
-      "label": "build-react-and-extension",
-      "dependsOn": ["build-react", "build-extension"],
+      "label": "tasks: watch-tests",
+      "dependsOn": ["npm: watch", "npm: watch-tests"],
       "problemMatcher": []
     }
   ]
