@@ -39,7 +39,7 @@ const config = {
       },
     ],
   },
-  // devtool: 'nosources-source-map',
+  devtool: 'nosources-source-map',
   infrastructureLogging: {
     level: 'log',
   },
@@ -78,7 +78,7 @@ const reactConfig = {
     new CleanWebpackPlugin(), // Add the plugin here
     // Your existing plugins
   ],
-  // devtool: 'source-map',
+  devtool: 'source-map',
 };
 
 module.exports = [config, reactConfig];
