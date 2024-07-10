@@ -1,45 +1,25 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
+function videoCaptions(nodes) {
 
-function videoCaptions() {
-  const activeEditor = vscode.window.activeTextEditor;
+  const recs = [];
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
-  
-  const videosArray = [];
-  const set = new Set();
-  
-  const videos = ludwig.querySelectorAll('video');
-
-  videos.forEach((video, index) => {
-
-    // Check if the video has a captions track
-    let track = video.querySelector('track');
-    let label;
-    let source;
-    // console.log(track.getAttribute('kind'));
-    if (track.getAttribute('kind') === 'subtitles' || track.getAttribute('kind') === 'captions') {
-      // console.log('track ', track)
-      label = track.getAttribute('label');
-      source = track.getAttribute('src');
-      // console.log('label ', label, 'source ', source);
+  nodes.forEach((node) => {
+    
+    const track = node.querySelector('track');
+    
+    if (!track ||
+      !track.getAttribute('kind') ||
+      !track.getAttribute('kind') === 'captions' ||
+      !track.getAttribute('kind') === 'subtitles') {
+      
+      const lineNumber = getLineNumber(node);
+      
+      recs.push([lineNumber, node.outerHTML]);
     }
-    const lineNumber = getLineNumber(activeEditor.document, track.outerHTML, set);
-    set.add(lineNumber);
-    if (!track || !label || !source) {
-      videosArray.push([track.outerHTML, lineNumber]);
-    }
-
   });
-  // console.log('videosArray: ', videosArray);
-  return videosArray;
-}
+
+  return recs;
 }
 
 module.exports = {

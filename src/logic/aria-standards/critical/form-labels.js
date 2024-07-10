@@ -1,51 +1,32 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-function checkLabels() {
-  const activeEditor = vscode.window.activeTextEditor;
+function checkLabels(nodes) {
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+  const recs = [];
 
-    const set = new Set(); // so getLineNumber function doesn't just get the first line it finds each time
-    const formArray = [];
-    const forms = ludwig.querySelectorAll('form');
-    // const labels = ludwig.querySelectorAll('label'); //collection of all elements in the body with a label tag.
-    // const inputs = ludwig.querySelectorAll('input'); //collection of all elements in the body with a input tag
+  nodes.forEach((node) => {
 
-    forms.forEach((form) => {
-      const formChildren = form.children;
-      const labelsArray = [];
-      const inputsArray = [];
-      for (const child of formChildren) {
-        if (child.tagName === 'LABEL') {
-          labelsArray.push(child);
-        }
-        if (child.tagName === 'INPUT') {
-          inputsArray.push(child);
-        }
-      }
+    const labels = node.querySelectorAll('label');
+    const labelFors = labels.map(label => label.getAttribute('for'));
 
-      for (let i = 0; i < labelsArray.length; i++) {
-        // console.log(labelsArray[i]);
-          const inputId = inputsArray[i].getAttribute('id');
-          const labelFor = labelsArray[i].getAttribute('for');
-          const lineNumber = getLineNumber(activeEditor.document, labelsArray[i].outerHTML, set);
-          set.add(lineNumber);
-          if (inputId !== labelFor) {
-            // console.log('lineNumber: ', lineNumber);
-            // console.log('set: ', set);
-            formArray.push([labelsArray[i].outerHTML, lineNumber]);
-          }
+    const inputs = node.querySelectorAll('input');
+    inputs.forEach((input) => {
+
+      const inputId = input.getAttribute('id');
+      const ariaLabel = input.getAttribute('aria-label');
+      const ariaLabelledBy = input.getAttribute('aria-labelledby');
+
+      if (!ariaLabel &&
+        !ariaLabelledBy &&
+        !labelFors.includes(inputId)) {
+
+          const lineNumber = getLineNumber(input);
+          recs.push([lineNumber, input.outerHTML]);
       }
     });
-    // console.log('formArray: ',formArray);
-    return formArray;
-  }
+  });
+
+  return recs;
 }
 
 module.exports = {

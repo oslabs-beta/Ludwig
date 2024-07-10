@@ -1,50 +1,27 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
 // check that all ids in doc are unique
-function checkUniqueIds() {
-  const activeEditor = vscode.window.activeTextEditor;
-
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+function checkUniqueIds(nodes) {
 
     const idSet = new Set();
-    const duplicateElements = [];
-    const set = new Set();
-
-    const elementsWithId = ludwig.querySelectorAll('[id]');
+    const recs = [];
     
-    elementsWithId.forEach(element => {
-      const id = element.id;
-      const lineNumber = getLineNumber(activeEditor.document, element.outerHTML, set);
-      set.add(lineNumber);
+    nodes.forEach(node => {
+
+      const id = node.id;
 
       if (idSet.has(id)) {
-        // console.error(`Duplicate id found: ${id}`);
-        // Store the element with duplicate id in the array
-        duplicateElements.push([element.outerHTML, lineNumber]);
+
+        const lineNumber = getLineNumber(node);
+        recs.push([node.outerHTML, lineNumber]);
+
       } else {
+        
         idSet.add(id);
       }
     });
 
-    return duplicateElements;
-
-  // if (duplicateElements.length > 0) {
-  //   console.log('Elements that duplicate ids:');
-  //   duplicateElements.forEach((element, index) => {
-  //     console.log(`Element ${index + 1}:`);
-  //     console.log(element);
-  //   });
-  // } else {
-  //   console.log('No duplicate ids found.');
-  // }
-  }
+    return recs;
 }
 
 module.exports = {

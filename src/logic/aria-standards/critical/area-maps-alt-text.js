@@ -1,41 +1,27 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
 // <area> elements of image maps have alternate text
-function checkAreaMapAltText() {
-  const activeEditor = vscode.window.activeTextEditor;
+function areaAltTextCheck(nodes) {
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+  const recs = [];
 
-    const areas = ludwig.querySelectorAll('area');
+  nodes.forEach((node) => {
 
-    const areaMapsWithoutAltText = [];
-    const set = new Set();
-    
-    // check if each el has alt text
-    areas.forEach((el, i) => {
-      // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
-      const altText = el.getAttribute('alt');
-      const newElement = el.outerHTML.replace('>', ' />');
+    const altText = node.getAttribute('alt');
+    const ariaLabel = node.getAttribute('aria-label');
+    const ariaLabelledby = node.getAttribute('aria-labelledby');
 
-      const lineNumber = getLineNumber(activeEditor.document, newElement, set);
-      set.add(lineNumber);
+    if (!altText && !ariaLabel && !ariaLabelledby) {
 
-      if (!altText | altText === '') {
-        // console.log('newElement: ', newElement);
-        areaMapsWithoutAltText.push([newElement, lineNumber]);
-      }
-    });
-    // console.log('areaMapsWithoutAltText: ', areaMapsWithoutAltText);
-    return areaMapsWithoutAltText;
-  }
+      const lineNumber = getLineNumber(node);
+
+      recs.push([lineNumber, node.outerHTML]);
+    }
+  });
+
+  return recs;
 }
 
 module.exports = {
-  checkAreaMapAltText
+  areaAltTextCheck
 };

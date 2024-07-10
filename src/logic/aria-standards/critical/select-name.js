@@ -1,32 +1,22 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
+function selectName(nodes) {
+  const recs = [];
 
-function selectName() {
-  const activeEditor = vscode.window.activeTextEditor;
+  nodes.forEach((node) => {
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+    const ariaLabel = node.getAttribute('aria-label');
+    const ariaLabelledBy = node.getAttribute('aria-labelledby');
 
-    const selectArray = [];
-    const set = new Set();
+    if (!ariaLabel && !ariaLabelledBy) {
 
-    const selectElements = ludwig.querySelectorAll('select');
+      const lineNumber = getLineNumber(node);
 
-    selectElements.forEach((ele, index) => {
-      let nameAttribute = ele.getAttribute('name');
-      const lineNumber = getLineNumber(activeEditor.document, ele.outerHTML, set);
-      set.add(lineNumber);
-        if (!nameAttribute) {
-          selectArray.push([ele.outerHTML, lineNumber]);
-        }
-    });
-    return selectArray; 
-  }
+      recs.push([lineNumber, node.outerHTML]);
+    }
+  });
+
+  return recs;
 }
 
 module.exports = {

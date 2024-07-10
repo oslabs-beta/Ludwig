@@ -1,32 +1,26 @@
-const vscode = require('vscode');
-// const { JSDOM } = require('jsdom');
-// const { getLineNumber } = require('../../getLineNumber');
+const { getLineNumber } = require('../../getLineNumber');
 
 // input button has discernible text
-function inputButtonText() {
-  const activeEditor = vscode.window.activeTextEditor;
+function inputButtonText(nodes) {
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+  const recs = [];
 
-    const input = ludwig.querySelectorAll('input');
-    
-    const inputButtonsWithoutText = [];
-    const set = new Set();
-    // check that value is not an empty string or missing
-    input.forEach((el, index) => {
-      const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
-      set.add(lineNumber);
-      if (el.value === '' || !el.value) {
-        inputButtonsWithoutText.push([el.outerHTML, lineNumber]);
-        // console.log(`Input Button ${index + 1} does not have a value.`);
-      }
-    });
-    return inputButtonsWithoutText;
-  }
+  nodes.forEach((node) => {
+
+    const value = node.getAttribute('value');
+    const title = node.getAttribute('title');
+    const ariaLabel = node.getAttribute('aria-label');
+    const ariaLabelledBy = node.getAttribute('aria-labelledby');
+
+    if (!value && !title && !ariaLabel && !ariaLabelledBy) {
+
+      const lineNumber = getLineNumber(node);
+
+      recs.push([lineNumber, node.outerHTML]);
+    }
+  });
+
+  return recs;
 }
 
 module.exports = {

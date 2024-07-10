@@ -1,36 +1,20 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-// Logic for aria-hidden="true"
-function checkAriaHidden() {
-  const activeEditor = vscode.window.activeTextEditor;
+function checkAriaHidden(nodes) {
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
+  const recs = [];
 
-  const allElement = ludwig.querySelectorAll('*');
+  nodes.forEach((node) => {
 
-  const hiddenAria = [];
-  const set = new Set();
+    if (node.getAttribute('aria-hidden') === 'true') {
 
-  const hiddenElements = Array.from(allElement).filter(element => {
-    const ariaHiddenAtt = element.getAttribute('aria-hidden');
-    return ariaHiddenAtt === 'true';
-  });
+      const lineNumber = getLineNumber(node);
 
-  if (hiddenElements.length > 0) {
-      hiddenElements.forEach((element, index) => {
-        const lineNumber = getLineNumber(activeEditor.document, element.outerHTML, set);
-        set.add(lineNumber);
-        hiddenAria.push([element.outerHTML, lineNumber]);
-    });
+      recs.push([lineNumber, node.outerHTML]);
     }
-    return hiddenAria;
-  }
+  });
+  
+  return recs;
 };
 
 module.exports = {

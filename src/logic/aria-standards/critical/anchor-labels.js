@@ -1,46 +1,27 @@
-const vscode = require('vscode');
-const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
+// logic for if anchors have an aria-label
+function anchorLabelCheck(nodes) {
 
-// logic for if anchors have a label
-function evalAnchors() {
-  const activeEditor = vscode.window.activeTextEditor;
+  const recs = [];
 
-  if (activeEditor && activeEditor.document.languageId === 'html') {
-    const htmlCode = activeEditor.document.getText();
-    const { window } = new JSDOM(htmlCode);
-    const document = window.document;
-    const ludwig = document.body;
-  
-    const anchors = ludwig.querySelectorAll('a');
-    // console.log('anchors ', anchors);
+  nodes.forEach((node) => {
 
-    // push missing anchors into array, like you mentioned below
-    const anchorsWithoutAriaLabel = [];
-    const set = new Set();
+    const ariaLabel = node.getAttribute('aria-label');
+    const ariaLabelledBy = node.getAttribute('aria-labelledby');
 
-    anchors.forEach((link, index) => {
-      // const lineNumber = activeEditor.document.positionAt(link.startOffset).line;
-      const ariaLabel = link.getAttribute('aria-label');
+    if (!ariaLabel && !ariaLabelledBy) {
 
-      // could push missing anchors into an object for more intentional use 
-      // could inlcude logic to make sure the aria-label matches content 
-      const lineNumber = getLineNumber(activeEditor.document, link.outerHTML, set);
-      set.add(lineNumber);
-      if (!ariaLabel) {
+      const lineNumber = getLineNumber(node);
 
-        // console.log(lineNumber);
-        // console.log(`Link ${index + 1} is missing aria-label`);
-        anchorsWithoutAriaLabel.push([link.outerHTML, lineNumber]); // push here
-      }
-    });
-    
-    return anchorsWithoutAriaLabel; // return that array
-  }
+      recs.push([lineNumber, node.outerHTML]);
+    }
+  });
+
+  return recs;
 }
 
 
 module.exports = {
-  evalAnchors
+  anchorLabelCheck
 };
