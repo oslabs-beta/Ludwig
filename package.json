@@ -73,6 +73,7 @@
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
     "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@types/node": "20.x",
     "@types/vscode": "^1.91.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",

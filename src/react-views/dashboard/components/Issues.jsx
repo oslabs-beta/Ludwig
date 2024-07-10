@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
-import { IssueTable } from './IssueTable';
-import { ariaObject } from '../../../src/aria-standards/critical/aria-object';
-
+import IssueTable from './IssueTable';
+import { ariaObject } from '../../../logic/aria-standards/aria-object';
 function Issues({ ariaRecommendations }) {
   const issues = [];
 
@@ -14,7 +13,10 @@ function Issues({ ariaRecommendations }) {
       <div key={ariaObjKey}>
         <h5>{description}</h5>
         <h6>{recsArrays.length} issues found</h6>
-        <IssueTable ariaObjKey={ariaObjKey} data={recsArrays} />
+        <IssueTable
+          ariaObjKey={ariaObjKey}
+          data={recsArrays}
+        />
       </div>
     );
   }

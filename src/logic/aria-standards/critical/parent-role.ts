@@ -1,7 +1,6 @@
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
 const htmlCode = `
 <!DOCTYPE html>
 <html lang="en">
@@ -103,11 +102,11 @@ function checkParentRole() {
   const allElement = ludwig.querySelectorAll('*');
 
   // array to hold output of the html elements that fail
-  const incorrectParentRoles = [];
+  const incorrectParentRoles: any[] = [];
 
   // extract roles from every element
-  const elementRoles = [];
-  allElement.forEach((el) => {
+  const elementRoles: any[] = [];
+  allElement.forEach((el: any) => {
     const item = [el, el.parentElement, el.children];
     const role = el.getAttribute('role');
     item.push(role);
@@ -116,35 +115,35 @@ function checkParentRole() {
   // console.log(elementRoles);
 
   elementRoles.forEach((arr) => {
-    
     const el = arr[0];
     const parent = arr[1];
     const children = arr[2];
     const role = arr[3];
 
     switch (role) {
-
       // tab role are elements that must either be a child of an element with the tablist role, or have their id as part of the aria-owns property of a tablist
       case 'tab': {
         const parentRole = parent.getAttribute('role');
         const id = el.getAttribute('id');
         // iterate through elementRoles, looking for any elements with role='tablist' that has an aria-owns attr
-        const aoArr = [];
+        const aoArr: any[] = [];
         elementRoles.forEach((el) => {
-          
           if (el[3] === 'tablist') {
             aoArr.push(el[0].getAttribute('aria-owns'));
           }
         });
         let ariaOwns = false;
-        aoArr.forEach(el => {
+        aoArr.forEach((el) => {
           // const lineNumber = activeEditor.document.positionAt(el.startOffset).line;
           if (el === id) {
             ariaOwns = true;
           }
         });
         if (parentRole !== 'tablist' && !ariaOwns) {
-          incorrectParentRoles.push(el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role');
+          incorrectParentRoles.push(
+            el,
+            'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role'
+          );
         }
         break;
       }
@@ -153,11 +152,13 @@ function checkParentRole() {
       case 'treeitem': {
         const parentRole = parent.getAttribute('role');
         if (parentRole !== 'tree') {
-          incorrectParentRoles.push([el, 'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role']);
+          incorrectParentRoles.push([
+            el,
+            'https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/treeitem_role',
+          ]);
         }
         break;
       }
-
     }
   });
 
@@ -165,7 +166,7 @@ function checkParentRole() {
   // arr[0] --> element on node list
   // arr[1] --> link to specific role documentation on mdn
   return incorrectParentRoles;
-};
+}
 
 const test = checkParentRole();
 console.log(test);

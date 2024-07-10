@@ -1,4 +1,4 @@
-export function getLineNumber(node) {
+export function getLineNumber(node: any) {
   // input: JSDOM node
   // output: line number of node in html file
 

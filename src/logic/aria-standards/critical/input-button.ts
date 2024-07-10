@@ -1,15 +1,16 @@
 const { getLineNumber } = require('../../getLineNumber');
 
-function selectName(nodes) {
-  const recs = [];
+// input button has discernible text
+export function inputButtonCheck(nodes: any[]) {
+  const recs: any[][] = [];
 
   nodes.forEach((node) => {
-
+    const value = node.getAttribute('value');
+    const title = node.getAttribute('title');
     const ariaLabel = node.getAttribute('aria-label');
     const ariaLabelledBy = node.getAttribute('aria-labelledby');
 
-    if (!ariaLabel && !ariaLabelledBy) {
-
+    if (!value && !title && !ariaLabel && !ariaLabelledBy) {
       const lineNumber = getLineNumber(node);
 
       recs.push([lineNumber, node.outerHTML]);
@@ -18,7 +19,3 @@ function selectName(nodes) {
 
   return recs;
 }
-
-module.exports = {
-  selectName
-};
