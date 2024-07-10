@@ -7,21 +7,19 @@ export default function App() {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      const recommendations = event.data;
+      const { ariaRecs } = event.data;
+      console.log('Received App.jsx - ariaRecs message:', ariaRecs);
 
-      if (recommendations) {
-        setAriaRecommendations(recommendations);
+      if (ariaRecs) {
+        setAriaRecommendations(ariaRecs);
       }
     };
-
-    useEffect(() => {
-      window.addEventListener('message', handleMessage);
+  window.addEventListener('message', handleMessage);
 
       return () => {
         window.removeEventListener('message', handleMessage);
       };
     }, []);
-  }, []);
 
   return (
     <div style={{ margin: 15 }}>

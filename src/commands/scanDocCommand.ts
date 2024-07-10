@@ -12,8 +12,10 @@ export function registerScanDocCommand(context: vscode.ExtensionContext) {
     }
 
     const ariaRecs = await compileLogic(activeEditor);
+    console.log('ariaRecs:', ariaRecs);
     const panel = createDashboard(context);
     panel.webview.postMessage({ ariaRecs: ariaRecs });
+    console.log('Message posted to webview');
     vscode.window.showInformationMessage('Scan complete!');
   });
   context.subscriptions.push(disposable);

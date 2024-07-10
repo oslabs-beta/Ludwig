@@ -20,6 +20,9 @@ function Pie({ recommendations }) {
       );
       return `${percentage}%`;
     }
+
+    console.log('Chart Data:', chartData);
+console.log('Center Text:', centerText);
     return '';
   }, [data]);
 

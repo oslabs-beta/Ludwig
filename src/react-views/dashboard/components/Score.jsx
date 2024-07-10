@@ -3,6 +3,8 @@ import Pie from './Pie';
 
 function Score ({ariaRecommendations}) {
   // count inaccessible elements
+  console.log('Score.jsxAria Recommendations:', ariaRecommendations);
+
   let inaccessibleCount = 0;
   for (const ariaObjKey of Object.keys(ariaRecommendations)) {
     // skip totalElements key
@@ -23,7 +25,7 @@ function Score ({ariaRecommendations}) {
   return (
     <div>
       <h2>Your Ludwig Accessibility Score:</h2>
-      <Pie scoreData = {scoreData}/>
+      <Pie recommendations={{ recData: scoreData }} />
       <h2>Total Accessibility Issues Found:</h2>
       <h1 className='circle'><span>{inaccessibleCount}</span></h1>
     </div>
