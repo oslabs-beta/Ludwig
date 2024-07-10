@@ -1,49 +1,14 @@
 import * as vscode from 'vscode';
-import { registerScanAllDocsCommand } from './commands/scanAllDocsCommand';
-import { registerScanDocCommand } from './commands/scanDocCommand';
-import { SidebarWebviewProvider } from './views/SidebarWebviewProvider';
+import * as path from 'path';
+const { compileLogic } = require('./logicCompiler.ts');
+import { ariaObject } from './aria-standards/critical/aria-object.js';
 
 export function activate(context: vscode.ExtensionContext) {
-  console.log('Congratulations, your extension "Ludwig" is now active!');
-
-  const primarySidebarWebview = new SidebarWebviewProvider(
-    context.extensionUri
-  );
-  const sidebarWebviewDisposable = vscode.window.registerWebviewViewProvider(
-    SidebarWebviewProvider.viewType,
-    primarySidebarWebview
-  );
-  registerScanDocCommand(context);
-  registerScanAllDocsCommand(context);
-
-  context.subscriptions.push(sidebarWebviewDisposable);
-}
-
-export function deactivate() {
-  vscode.window.showInformationMessage('Goodbye');
-}
-
-//
-//
-//
-//
-//
-//
-//
-//
-// __| |__________________________________________________| |__
-// __   __________________________________________________   __
-//   | |                                                  | |
-//   | |   ░█▀█░▀█▀░█▀▀░█░█░░░░░█▀█░░░░░█▀█░█░█░█░░░█░░   | |
-//   | |   ░█▀▀░░█░░█░░░█▀▄░░░░░█░█░░░░░█▀▀░█░█░█░░░█░░   | |
-//   | |   ░▀░░░▀▀▀░▀▀▀░▀░▀░░░░░▀░▀░░░░░▀░░░▀▀▀░▀▀▀░▀▀▀   | |
-// __| |__________________________________________________| |__
-// __   __________________________________________________   __
-//   | |                                                  | |
-
-/* 
-    // Map to track highlighted HTML elements and their positions
-    const highlightedElements = new Map<string, vscode.Range[]>();
+  console.log('Congratulations, your extension "ludwig" is now active!');
+  
+    // create empty object to store recommendations by line number for hover functionality
+    // {line number as string : array of aria-object keys}
+    const recsByLineNumber: {[key: string]: string[]} = {};
 
     // Create decoration type outside of the function
     const decorationType = vscode.window.createTextEditorDecorationType({
@@ -55,64 +20,44 @@ export function deactivate() {
 
     let isExtensionActive = true;
 
-    // Function to highlight lines based on anchors without aria-label
-    async function highlightElements(document: vscode.TextDocument) {
+    // Function to highlight lines
+    function highlightElements(document: vscode.TextDocument) {
         const activeEditor = vscode.window.activeTextEditor;
 
         if (activeEditor) {
-            const highlightedRanges: vscode.Range[] = [];
-            const highlightedLines = new Set<number>(); // ensures the same line doesn't highlight more than once
-
             // invoke compileLogic to get object with ARIA recommendations
-            const ariaRecommendations = await compileLogic(document);
-            const elementsToHighlight = Object.keys(ariaRecommendations);
-            // console.log('ariaRecommendations: ', ariaRecommendations);
-            // console.log('elementsToHighlight: ', elementsToHighlight);
+            const ariaRecommendations = compileLogic();
 
-            // Loop through each line in the document
-            for (let lineNumber = 0; lineNumber < document.lineCount; lineNumber++) {
-                const line = document.lineAt(lineNumber);
-
-                // Check if the line's content matches any element to highlight
-                const key = line.text.trim();
-                // const nextKey = nextLine.text.trim();
-                // console.log('key: ', key);
-
-                // boolean to determine whether we push into highlightedRanges
-                let keyFound = false;
-
-                // check if elementsToHighlight contains a line - checks line number to avoid dupes later
-                for(const el of elementsToHighlight){    
-                    // console.log('el: ', el);
-                    // console.log(el.includes(key));
-                    // console.log(el.includes(nextKey));                
-                    // console.log('line.lineNumber: ', line.lineNumber + 1);
-                    // console.log('ariaRecommendations[el][1]: ', ariaRecommendations[el][1]);
-                    if(line.lineNumber + 1 === Number(el) && ariaRecommendations[el][1].includes(key) && key.trim() !== ''){
-                        keyFound = true;
-                        break;
+            // populate recsByLineNumber
+            for (const [ariaObjKey, recsArrays] of Object.entries(ariaRecommendations)) {
+                // skip totalElements key
+                if (ariaObjKey === 'totalElements') {
+                    continue;
+                }
+                for (const [lineNumber, outerHTML] of recsArrays as [number, string][]) {
+                    if (!recsByLineNumber[lineNumber]) {
+                        recsByLineNumber[lineNumber] = [ariaObjKey];
+                    } else if (!recsByLineNumber[lineNumber].includes(ariaObjKey)) {
+                        // don't add duplicate ariaObjKeys to the same line
+                        recsByLineNumber[lineNumber].push(ariaObjKey);
                     }
                 }
-
-                // only adds line to highlightedRanges if key was found and that exact line isn't currently highlighted
-                if (keyFound && !highlightedLines.has(lineNumber)) {
-                    // creates a range for the entire line
-                    const lineRange = new vscode.Range(line.range.start, line.range.end);
-                    highlightedRanges.push(lineRange);
-                    // console.log('highlightedRanges: ', highlightedRanges);
-                    highlightedLines.add(lineNumber);
-                    // console.log('highlightedLines: ', highlightedLines);
-                }
             }
-            
+
+            // create array of ranges to highlight
+            const highlightedRanges: vscode.Range[] = [];
+            for (const lineNumber of Object.keys(recsByLineNumber)) {
+                const line = document.lineAt(Number(lineNumber) - 1);
+                const lineRange = line.range;
+                // const lineRange = new vscode.Range(line.range.start, line.range.end);
+                highlightedRanges.push(lineRange);
+            }
+
             // Clear existing decorations before applying new ones - prevents red from getting brighter and brighter
             activeEditor.setDecorations(decorationType, []);
             
             // Apply red background thing to highlight the lines
-            activeEditor.setDecorations(decorationType, highlightedRanges);
-            
-            // Store the highlighted ranges in the map for hover stuff later
-            highlightedElements.set('ariaRecommendations', highlightedRanges);            
+            activeEditor.setDecorations(decorationType, highlightedRanges);    
         }
     }
 
@@ -120,7 +65,7 @@ export function deactivate() {
     // Register onDidChangeTextDocument event to trigger highlighting when the document changes
     let documentChangeDisposable = vscode.workspace.onDidChangeTextDocument((event) => {
         if (event.document.languageId === 'html') {
-            if(isExtensionActive){
+            if(isExtensionActive) {
                 highlightElements(event.document);
             }
         }
@@ -169,46 +114,158 @@ export function deactivate() {
     // Hover provider to show a popup window with ARIA recommendations
     let hoverProviderDisposable = vscode.languages.registerHoverProvider({ scheme: 'file', language: 'html' }, {
         provideHover(document, position, token) {
-            //is a vscode.Range (which is an obj) of whatever word that the cursor is currently positioned over. Range auto separates by spaces.
-            const wordRange = document.getWordRangeAtPosition(position); 
 
-            if (wordRange) { //checks if the cursor is currently on a word or letter
-                const hoveredWord = document.getText(wordRange); //gets only the text of current word being hovered over
-                // console.log('HOVERED WORD :', hoveredWord);
-                const hoveredLine = document.lineAt(wordRange.start.line); //is an object that has the line of the hovered word
-                const hoveredLineText = hoveredLine.text.trim(); //extracts the full line of the hovered text from hoveredLine
-                // console.log('HOVERED LINE :',hoveredLineText);
+            // check if there are recommendations for the line
+            if (recsByLineNumber[position.line + 1]) {
+                const ariaObjKeys = recsByLineNumber[position.line + 1];
 
-                //is an array where each element is a vscode.Range Object representing the range of the highlighted line
-                const highlightedRanges = highlightedElements.get('ariaRecommendations'); 
+                // create range for line
+                const range = document.lineAt(position.line).range;
                 
-                //checks if at least 1 of the  highlighted ranges completely contains the range of the currently hovered word, if so display popup
-                if (highlightedRanges && highlightedRanges.some((range) => range.contains(wordRange))) {
-                    for (const range of highlightedRanges){ 
-                        const lineText = document.getText(range).trim(); //get the current highlighted line text       
-                        if(lineText === hoveredLineText) { //checks if the highlighted line matches hovered word line
-                            // console.log('highlighted line:', lineText);
-                            return compileLogic()//gets an recommendation object with {key= each element that failed, value =  associated recommendation object(?)}
-                                .then((ariaRecommendations : {[key: string]: any}) => {
-                                    // console.log('ARIA RECS :',ariaRecommendations);
-                                    const lineNumber = range.start.line + 1;
-                                    // console.log('LINENUMBER ', lineNumber);
-                                    const recommendation = ariaRecommendations[String(lineNumber)][0];
-                                    const displayedRec = `**Ludwig Recommendation:**\n\n- ${recommendation.desc}`;
-                                    // console.log('DISPLAYED REC:',recommendation.desc);
-                                    const firstLink = recommendation.link instanceof Array ? recommendation.link[0] : recommendation.link;
-                                    const displayedLink = `[Read More](${firstLink})`;
-                                    const hoverMessage = new vscode.MarkdownString();
-                                    hoverMessage.appendMarkdown(`${displayedRec}\n\n${displayedLink}`);
-                                    return new vscode.Hover(hoverMessage, wordRange);
-                                })
-                                .catch((error : any) => {
-                                    console.error('An Error Occurred Retrieving Data for Hover', error);
-                                });
-                        }
+                let messageText = '';
+                // loop through each recommendation for the line to create text for hover message
+                for (let i = 0; i < ariaObjKeys.length; i++) {
+                    // if there are multiple recommendations for the same line, add a line break between them
+                    if (i > 0) {
+                        messageText += '\n\n';
                     }
+
+                    const description = ariaObject[ariaObjKeys[i]].desc;
+                    messageText += `**Ludwig Recommendation:**\n\n- ${description}`;
+
+                    const link = ariaObject[ariaObjKeys[i]].link;
+                    messageText += `\n\n[Read More](${link})`;
                 }
+
+                const hoverMessage = new vscode.MarkdownString(messageText);
+
+                return new vscode.Hover(hoverMessage, range);
             }
+
             return null;
         }
-    }); */
+    });
+
+  //Primary Sidebar Webview View Provider
+  class SidebarProvider {
+    resolveWebviewView(webviewView: vscode.WebviewView) {
+      webviewView.webview.options = {
+        enableScripts: true,
+      };
+      const sidebarPath = vscode.Uri.file(
+        path.join(context.extensionPath, 'react-sidebar', 'dist', 'bundle.js')
+      );
+      const sidebarSrc = webviewView.webview.asWebviewUri(sidebarPath);
+
+      const cssPath = path.join(
+        context.extensionPath,
+        'react-sidebar',
+        'src',
+        'style.css'
+      );
+      const cssSrc = webviewView.webview.asWebviewUri(vscode.Uri.file(cssPath));
+      webviewView.webview.html = `
+                <!DOCTYPE html>
+                <html lang="en">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <link rel="stylesheet" type="text/css" href="${cssSrc}">
+                    </head>
+                    <body>
+                        <div id="root"></div>
+                        <script>
+                            window.vscodeApi = acquireVsCodeApi();
+                        </script>
+                        <script src="${sidebarSrc}"></script>
+                    </body>
+                </html>
+            `;
+
+      webviewView.webview.onDidReceiveMessage((message) => {
+        const activeEditor: any = vscode.window.activeTextEditor;
+        
+        if (
+          message.message === 'scanDoc' &&
+          activeEditor.document.languageId === 'html'
+        ) {
+          const panel = createDashboard(); //create dashboard panel webview when user clicks button
+          
+          const ariaRecommendations = compileLogic();
+
+          panel.webview.postMessage(ariaRecommendations);
+        }
+      });
+    }
+  }
+
+  const sidebarProvider = new SidebarProvider();
+  const sidebarDisposable = vscode.window.registerWebviewViewProvider(
+    'ludwigSidebarView',
+    sidebarProvider
+  );
+  let dashboard: any = null;
+
+  const createDashboard = () => {
+    if (dashboard) {
+      dashboard.dispose();
+    }
+    dashboard = vscode.window.createWebviewPanel(
+      'ludwig-dashboard', // Identifies the type of the webview (Used internally)
+      'Ludwig Dashboard', //Title of the webview panel
+      vscode.ViewColumn.Beside, // Editor column to show the new webview panel in.
+      {
+        enableScripts: true,
+        retainContextWhenHidden: true, //keep state when webview is not in foreground
+        localResourceRoots: [
+          vscode.Uri.file(path.join(context.extensionPath, 'react-dashboard')),
+        ], //restrict Ludwig Dashboard webview to only load resources from react-dashboard
+      }
+    );
+    //Load bundled dashboard React file into the panel webview
+    const dashboardPath = vscode.Uri.file(
+      path.join(context.extensionPath, 'react-dashboard', 'dist', 'bundle.js')
+    );
+    const dashboardSrc = dashboard.webview.asWebviewUri(dashboardPath);
+
+    //Create Path and Src for CSS files
+    const cssPath = path.join(
+      context.extensionPath,
+      'react-dashboard',
+      'src',
+      'style.css'
+    );
+    const cssSrc = dashboard.webview.asWebviewUri(vscode.Uri.file(cssPath));
+
+    dashboard.webview.html = `
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link rel="stylesheet" type="text/css" href="${cssSrc}">
+                </head>
+                <body>
+                    <div id="root"></div>
+                    <script src="${dashboardSrc}"></script>
+                </body>
+            </html>
+        `;
+    dashboard.onDidDispose(() => {
+      dashboard = null;
+    });
+    return dashboard;
+  };
+
+  context.subscriptions.push(
+    highlightCommandDisposable,
+    toggleOffCommandDisposable,
+    documentOpenDisposable,
+    hoverProviderDisposable,
+    documentChangeDisposable,
+    activeEditorChangeDisposable,
+    sidebarDisposable
+  );
+}
+
+export function deactivate() {}
