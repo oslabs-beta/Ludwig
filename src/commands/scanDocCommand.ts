@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 import { createDashboard } from '../utils/createDashboard';
-import { getAccessScore } from '../logic/access-score';
 import { compileLogic } from '../logic/logicCompiler';
-
 export function registerScanDocCommand(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand(
     'ludwig.scanDoc',
@@ -16,13 +14,10 @@ export function registerScanDocCommand(context: vscode.ExtensionContext) {
         vscode.window.showInformationMessage('Scan In Progress...');
       }
 
-      const [ariaRecs, scoreData] = await Promise.all([
-        compileLogic(activeEditor),
-        getAccessScore(await compileLogic(activeEditor)),
-      ]);
+      const [ariaRecs] = await Promise.all([compileLogic(activeEditor)]);
 
       const panel = createDashboard(context);
-      panel.webview.postMessage({ data: ariaRecs, recData: scoreData });
+      panel.webview.postMessage({ ariaRecs: ariaRecs });
       vscode.window.showInformationMessage('Scan complete!');
     }
   );
