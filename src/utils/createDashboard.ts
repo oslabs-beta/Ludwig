@@ -9,18 +9,11 @@ export function createDashboard(context: vscode.ExtensionContext) {
     return dashboard;
   }
 
-  dashboard = vscode.window.createWebviewPanel(
-    'ludwig-dashboard',
-    'Ludwig Dashboard',
-    vscode.ViewColumn.Beside,
-    {
-      enableScripts: true,
-      retainContextWhenHidden: true,
-      localResourceRoots: [
-        vscode.Uri.file(path.join(context.extensionPath, 'dist')),
-      ],
-    }
-  );
+  dashboard = vscode.window.createWebviewPanel('ludwig-dashboard', 'Ludwig Dashboard', vscode.ViewColumn.Beside, {
+    enableScripts: true,
+    retainContextWhenHidden: true,
+    localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'dist'))],
+  });
 
   const scriptUri = dashboard.webview.asWebviewUri(
     vscode.Uri.file(path.join(context.extensionPath, 'dist', 'dashboard.js'))
@@ -52,7 +45,7 @@ function getWebviewContent(scriptUri: vscode.Uri, cssUri: vscode.Uri): string {
       <title>Main Dashboard</title>
     </head>
     <body>
-      <div id="root"></div>
+      <div id="root">Loading...</div>
       <script src="${scriptUri}"></script>
     </body>
     </html>
