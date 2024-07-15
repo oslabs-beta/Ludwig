@@ -8,7 +8,7 @@ function LongTestSingleError({ title, onButtonClick }) {
       <button onClick="{onButtonClick}">Click me</button>
       <img
         src="valid-image.jpg"
-        alt="A valid image"
+        alt="A valid tag"
       />
       <a href="https://example.com">Valid link</a>
       <form>
@@ -39,7 +39,10 @@ function LongTestSingleError({ title, onButtonClick }) {
       <footer>
         <p>Footer content</p>
         {/* The only accessibility error in this component: */}
-        <img src="footer-image.jpg" />
+        <img
+          src="footer-image.jpg"
+          alt="footer"
+        />
       </footer>
     </div>
   );
