@@ -1,13 +1,29 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fs from 'fs';
 import { ESLint } from 'eslint';
+
+interface LintIssue {
+  ruleId: string;
+  severity: number;
+  message: string;
+  line: number;
+  column: number;
+  endLine?: number;
+  endColumn?: number;
+  nodeType?: string;
+}
 
 interface LintResult {
   summary: {
+    dateCreated: string;
+    timeCreated: string;
+    activeWorkspace: string;
+    filepath: string;
     errors: number;
     warnings: number;
   };
-  details: { [key: string]: any };
+  details: LintIssue[];
 }
 
 export async function eslintScanFiles(
@@ -28,36 +44,81 @@ export async function eslintScanFiles(
     if (Array.isArray(files)) {
       for (const file of files) {
         const document = await vscode.workspace.openTextDocument(file);
-        const fileResults = await eslint.lintText(document.getText(), { filePath: document.fileName });
-        lintResults.push(...fileResults);
+        if (document) {
+          const fileResults = await eslint.lintText(document.getText(), { filePath: document.fileName });
+          if (fileResults) {
+            lintResults.push(...fileResults);
+          }
+        }
       }
     } else {
       const results = await eslint.lintText(files.getText(), { filePath: files.fileName });
-      lintResults.push(...results);
+      if (results) {
+        lintResults.push(...results);
+      }
     }
 
-    const scanDetails: { [key: string]: any } = [];
-    for (const result of lintResults) {
-      // const filePath = path.basename(result.filePath);
-      const filePath = result.filePath;
+    const details: LintIssue[] = [];
+    let filepath = '';
 
-      for (const message of result.messages) {
-        const ruleId: any | null = message.ruleId;
-        if (!scanDetails[ruleId]) {
-          scanDetails[ruleId] = [];
+    for (const result of lintResults) {
+      filepath += (filepath ? ', ' : '') + result.filePath;
+      lintSummary.errors += result.errorCount || 0;
+      lintSummary.warnings += result.warningCount || 0;
+
+      if (result.messages) {
+        for (const message of result.messages) {
+          details.push({
+            ruleId: message.ruleId || 'unknown',
+            severity: message.severity || 0,
+            message: message.message || '',
+            line: message.line || 0,
+            column: message.column || 0,
+            endLine: message.endLine,
+            endColumn: message.endColumn,
+            nodeType: message.nodeType,
+          });
         }
-        scanDetails[ruleId].push({ ...message, filePath });
       }
-      // console.log(scanDetails);
-      lintSummary.errors += result.errorCount;
-      lintSummary.warnings += result.warningCount;
     }
 
     if (lintSummary.errors > 0 || lintSummary.warnings > 0) {
-      return { summary: lintSummary, details: scanDetails };
+      const lintResult: LintResult = {
+        summary: {
+          dateCreated: new Date().toISOString().split('T')[0],
+          timeCreated: new Date().toTimeString().split(' ')[0],
+          activeWorkspace: vscode.workspace.name || 'Unknown',
+          filepath,
+          errors: lintSummary.errors,
+          warnings: lintSummary.warnings,
+        },
+        details,
+      };
+
+      const jsonResult = JSON.stringify(lintResult, null, 2);
+
+      // save to file
+      const outputPath = path.join(
+        context.extensionPath,
+        'ludwigReports',
+        `${lintResult.summary.timeCreated} ludwig-report.json`
+      );
+      fs.writeFileSync(outputPath, jsonResult);
+      vscode.window.showInformationMessage(`ESLint results saved to: ${outputPath}`);
+
+      //show in output channel
+      const outputChannel = vscode.window.createOutputChannel('ESLint Results');
+      outputChannel.show();
+      outputChannel.appendLine(jsonResult);
+
+      return lintResult;
     }
     return null;
   } catch (error: any) {
-    throw new Error(`Linting failed: ${error.message}`);
+    if (error.message) {
+      throw new Error(`Linting failed: ${error.message}`);
+    } else {
+      throw new Error('Linting failed');
+    }
   }
 }
