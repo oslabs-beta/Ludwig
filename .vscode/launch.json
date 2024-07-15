@@ -5,9 +5,18 @@
       "name": "Run Extension",
       "type": "extensionHost",
       "request": "launch",
-      "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--new-window",
+        "--folder-uri=${workspaceFolder}/devTestFiles/",
+        "--disable-extensions",
+        "--disable-telemetry"
+      ],
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "${defaultBuildTask}"
+      "preLaunchTask": "${defaultBuildTask}",
+      "env": {
+        "VSCODE_DEBUGGING_EXTENSION": "true"
+      }
     }
   ]
 }

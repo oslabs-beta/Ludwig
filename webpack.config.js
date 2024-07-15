@@ -12,9 +12,18 @@ const config = {
   },
   externals: {
     vscode: 'commonjs vscode',
+    eslint: 'commonjs eslint',
+    canvas: {},
+    'utf-8-validate': {},
   },
   resolve: {
-    extensions: ['.ts', '.js', '.jsx', '.tsx'],
+    extensions: ['.ts', '.js'],
+    alias: {
+      'eslint-plugin-jsx-a11y': path.resolve(
+        __dirname,
+        'node_modules/eslint-plugin-jsx-a11y'
+      ),
+    },
   },
   module: {
     rules: [
@@ -64,7 +73,11 @@ const reactConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
           },
         },
       },
@@ -74,11 +87,11 @@ const reactConfig = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin(), // Add the plugin here
-    // Your existing plugins
-  ],
+  plugins: [new CleanWebpackPlugin()],
   devtool: 'source-map',
+  infrastructureLogging: {
+    level: 'log',
+  },
 };
 
 module.exports = [config, reactConfig];
