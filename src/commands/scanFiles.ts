@@ -69,7 +69,7 @@ async function scanFiles(
         `Scan complete. Errors: ${results.summary.errors}, Warnings: ${results.summary.warnings}`
       );
       // You can add more detailed processing here if needed
-      console.log('Detailed results:', results.details);
+      console.log('Detailed results:', results);
     } else {
       vscode.window.showInformationMessage('No issues found in scanned files.');
     }

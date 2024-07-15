@@ -36,21 +36,25 @@ export async function eslintScanFiles(
       lintResults.push(...results);
     }
 
-    const lintDetails: { [key: string]: any } = {};
+    const scanDetails: { [key: string]: any } = [];
     for (const result of lintResults) {
-      const filePath = path.basename(result.filePath);
+      // const filePath = path.basename(result.filePath);
+      const filePath = result.filePath;
+
       for (const message of result.messages) {
-        const key = `${filePath}--${message.line}:${message.column}`;
-        if (!lintDetails[key]) {
-          lintDetails[key] = message;
+        const ruleId: any | null = message.ruleId;
+        if (!scanDetails[ruleId]) {
+          scanDetails[ruleId] = [];
         }
+        scanDetails[ruleId].push({ ...message, filePath });
       }
+      // console.log(scanDetails);
       lintSummary.errors += result.errorCount;
       lintSummary.warnings += result.warningCount;
     }
 
     if (lintSummary.errors > 0 || lintSummary.warnings > 0) {
-      return { summary: lintSummary, details: lintDetails };
+      return { summary: lintSummary, details: scanDetails };
     }
     return null;
   } catch (error: any) {
