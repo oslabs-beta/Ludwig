@@ -3,7 +3,8 @@ import * as path from 'path';
 import { ESLint } from 'eslint';
 
 let extensionContext: vscode.ExtensionContext;
-const diagnosticCollection: vscode.DiagnosticCollection = vscode.languages.createDiagnosticCollection('jsx_eslint');
+const diagnosticCollection: vscode.DiagnosticCollection =
+  vscode.languages.createDiagnosticCollection('jsx_eslint');
 
 export function initializeEslintDiagnostics(context: vscode.ExtensionContext) {
   extensionContext = context;
@@ -11,7 +12,9 @@ export function initializeEslintDiagnostics(context: vscode.ExtensionContext) {
   registerClearFileDiagnostics(context);
 }
 
-export async function runESLint(document: vscode.TextDocument): Promise<ESLint.LintResult[]> {
+export async function runESLint(
+  document: vscode.TextDocument
+): Promise<ESLint.LintResult[]> {
   const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
   const userConfig = {};
   // // to be used later for user-defined 'exclude wokspace' paths
@@ -19,7 +22,10 @@ export async function runESLint(document: vscode.TextDocument): Promise<ESLint.L
 
   const eslint = new ESLint({
     useEslintrc: false,
-    overrideConfigFile: path.join(extensionContext.extensionPath, 'src/eslint/.eslintrc.accessibility.json'),
+    overrideConfigFile: path.join(
+      extensionContext.extensionPath,
+      '.eslintrc.accessibility.json'
+    ),
     // removed overrideConfig that contained same settings as .eslintrc.accessibility.json
     overrideConfig: userConfig,
     resolvePluginsRelativeTo: extensionContext.extensionPath,
@@ -48,14 +54,21 @@ export async function setESLintDiagnostics() {
   }
 }
 
-export async function registerClearFileDiagnostics(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('ludwig.clearDiagnostics', () => {
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      diagnosticCollection.delete(editor.document.uri);
-      vscode.window.showInformationMessage('Diagnostics cleared for the current file.');
+export async function registerClearFileDiagnostics(
+  context: vscode.ExtensionContext
+) {
+  let disposable = vscode.commands.registerCommand(
+    'ludwig.clearDiagnostics',
+    () => {
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        diagnosticCollection.delete(editor.document.uri);
+        vscode.window.showInformationMessage(
+          'Diagnostics cleared for the current file.'
+        );
+      }
     }
-  });
+  );
 
   context.subscriptions.push(disposable);
 }
@@ -74,7 +87,9 @@ function createDiagnosticsFromResults(
       const diagnostic = new vscode.Diagnostic(
         range,
         message.message,
-        message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
+        message.severity === 2
+          ? vscode.DiagnosticSeverity.Error
+          : vscode.DiagnosticSeverity.Warning
       );
       diagnostics.push(diagnostic);
     });
@@ -87,7 +102,10 @@ async function registerGetResultsCommand(context: vscode.ExtensionContext) {
   const registeredCommands = await vscode.commands.getCommands();
 
   if (!registeredCommands.includes(commandId)) {
-    const disposable = vscode.commands.registerCommand(commandId, setESLintDiagnostics);
+    const disposable = vscode.commands.registerCommand(
+      commandId,
+      setESLintDiagnostics
+    );
     context.subscriptions.push(disposable);
   }
 }
