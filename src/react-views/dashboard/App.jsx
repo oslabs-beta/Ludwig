@@ -14,12 +14,13 @@ export default function App() {
         setAriaRecommendations(ariaRecs);
       }
     };
+  
     window.addEventListener('message', handleMessage);
 
     return () => {
       window.removeEventListener('message', handleMessage);
     };
-  }, []);
+  },[]);
 
   return (
     <div style={{ margin: 15 }}>

@@ -14,20 +14,22 @@ const decorationType = vscode.window.createTextEditorDecorationType({
 // {line number as string : array of aria-object keys}
 const recsByLineNumber: { [key: string]: string[] } = {};
 
-export function highlightElements(document: vscode.TextDocument) {
+export async function highlightElements(document: vscode.TextDocument) {
   const activeEditor = vscode.window.activeTextEditor;
 
   if (activeEditor) {
     // invoke compileLogic to get object with ARIA recommendations
-    const ariaRecommendations = compileLogic(activeEditor);
+    const ariaRecommendations = await compileLogic(activeEditor);
+    console.log('ariaRecommendations: ', ariaRecommendations);
 
     // populate recsByLineNumber
     for (const [ariaObjKey, recsArrays] of Object.entries(ariaRecommendations)) {
-      // skip totalElements key
-      if (ariaObjKey === 'totalElements') {
+      // skip totalElements and criticalIssuesByType keys
+      if (ariaObjKey === 'totalElements' || ariaObjKey === 'criticalIssuesByType') {
         continue;
       }
-      for (const [lineNumber] of recsArrays as [number, string][]) {
+
+      for (const [lineNumber, outerHTML] of recsArrays as [number, string][]) {
         if (!recsByLineNumber[lineNumber]) {
           recsByLineNumber[lineNumber] = [ariaObjKey];
         } else if (!recsByLineNumber[lineNumber].includes(ariaObjKey)) {
@@ -36,6 +38,8 @@ export function highlightElements(document: vscode.TextDocument) {
         }
       }
     }
+    console.log('recsByLineNumber: ', recsByLineNumber);
+    console.log('criticalIssuesByType: ', ariaRecommendations.criticalIssuesByType);
 
     // create array of ranges to highlight
     const highlightedRanges: vscode.Range[] = [];
@@ -72,18 +76,24 @@ export function provideHover(document: any, position: any) {
     const range = document.lineAt(position.line).range;
 
     let messageText = '';
+
+    if (ariaObjKeys.length > 1) {
+      messageText += '**Ludwig Recommendations:**';
+    } else {
+      messageText += '**Ludwig Recommendation:**';
+    }
+
     // loop through each recommendation for the line to create text for hover message
     for (let i = 0; i < ariaObjKeys.length; i++) {
-      // if there are multiple recommendations for the same line, add a line break between them
       if (i > 0) {
-        messageText += '\n\n';
+        messageText += '\n\n---';
       }
-
+      
       const description: any = (ariaObject as any)[ariaObjKeys[i]].desc;
-      messageText += `**Ludwig Recommendation:**\n\n- ${description}`;
+      messageText += `\n\n- ${description}`;
 
       const link: any = (ariaObject as any)[ariaObjKeys[i]].link;
-      messageText += `\n\n[Read More](${link})`;
+      messageText += `\n\n  [Read More](${link})`;
     }
 
     const hoverMessage = new vscode.MarkdownString(messageText);

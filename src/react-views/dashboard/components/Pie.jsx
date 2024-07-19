@@ -1,8 +1,8 @@
 import React, { useMemo, memo } from 'react';
 import { PieChart } from 'react-minimal-pie-chart';
 
-function Pie({ recommendations }) {
-  const data = recommendations.recData;
+function Pie({ props }) {
+  const data = props.recData;
 
   const pieSize = 300;
   const colorScale = ['#14532d', '#7f1d1d'];
@@ -15,17 +15,23 @@ function Pie({ recommendations }) {
 
   const centerText = useMemo(() => {
     if (data.length > 0) {
-      const percentage = ((data[0].y / (data[0].y + data[1].y)) * 100).toFixed(0);
+      const percentage = ((data[0].y / (data[0].y + data[1].y)) * 100).toFixed(
+        0
+      );
       return `${percentage}%`;
     }
 
     console.log('Chart Data:', chartData);
-    console.log('Center Text:', centerText);
+console.log('Center Text:', centerText);
     return '';
   }, [data]);
 
   if (data.length === 0) {
-    return <h3 className="critical-small">Score unavailable, please activate an HTML document before scanning</h3>;
+    return (
+      <h3 className="critical-small">
+        Score unavailable, please activate an HTML document before scanning
+      </h3>
+    );
   }
 
   return (

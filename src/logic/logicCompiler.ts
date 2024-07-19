@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 import * as Critical from './aria-standards/critical';
 import * as vscode from 'vscode';
 const { JSDOM } = require('jsdom');
-let body: any, _document: any;
+let body: any, document: any;
 
 export interface AriaRecommendations {
   [key: string]: any;
@@ -17,7 +15,7 @@ export function cloneDomFromSource(source: any) {
     pretendToBeVisual: true,
     includeNodeLocations: true,
   });
-  _document = window.document;
+  document = window.document;
   body = window.document.body;
 }
 
@@ -31,7 +29,6 @@ export async function compileLogic(activeEditor: vscode.TextEditor) {
   }
 
   ariaRecommendations.anchorLabel = Critical.anchorLabelCheck(tag('a'));
-  // I changed functionality for this one and the next, but not the rest
 
   ariaRecommendations.areaAltText = Critical.areaAltTextCheck(tag('area'));
 
@@ -69,9 +66,19 @@ export async function compileLogic(activeEditor: vscode.TextEditor) {
     }
   }
 
+  // create property criticalIssuesByType
+  ariaRecommendations.criticalIssuesByType = {};
+  for (const key in ariaRecommendations) {
+    if (key !== 'totalElements' && key !== 'criticalIssuesByType') {
+      ariaRecommendations.criticalIssuesByType[key] = ariaRecommendations[key].length;
+    }
+  }
+  
+
   ariaRecommendations.totalElements = body.querySelectorAll('*').length;
   // the reason for saving the total number of elements in the document now is because this is the only place in the code where we create the JSDOM
   // totalElements will be used in the react dashboard to calculate the percentage of elements that are accessible
+
 
   return ariaRecommendations;
 }

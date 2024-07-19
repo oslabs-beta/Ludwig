@@ -5,7 +5,7 @@ function Issues({ ariaRecommendations }) {
   const issues = [];
 
   for (const [ariaObjKey, recsArrays] of Object.entries(ariaRecommendations)) {
-    if (ariaObjKey === 'totalElements') {
+    if (ariaObjKey === 'totalElements' || ariaObjKey === 'criticalIssuesByType') {
       continue;
     }
     const description = ariaObject[ariaObjKey]?.desc?.replaceAll('```', '') || 'Description not available';
@@ -13,7 +13,10 @@ function Issues({ ariaRecommendations }) {
       <div key={ariaObjKey}>
         <h5>{description}</h5>
         <h6>{recsArrays.length} issues found</h6>
-        <IssueTable ariaObjKey={ariaObjKey} data={recsArrays} />
+        <IssueTable
+          ariaObjKey={ariaObjKey}
+          data={recsArrays}
+        />
       </div>
     );
   }
