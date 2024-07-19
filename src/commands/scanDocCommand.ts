@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { createDashboard } from '../utils/createDashboard';
 import { compileLogic } from '../logic/logicCompiler';
 export function registerScanDocCommand(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('ludwig.scanDoc', async () => {
+  const disposable = vscode.commands.registerCommand('ludwig.scanDoc', async () => {
     const activeEditor = vscode.window.activeTextEditor;
     if (!activeEditor || activeEditor.document.languageId !== 'html') {
       return vscode.window.showInformationMessage('Activate an HTML document first');

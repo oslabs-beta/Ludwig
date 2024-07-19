@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import * as Critical from './aria-standards/critical';
 import * as vscode from 'vscode';
 const { JSDOM } = require('jsdom');
-let body: any, document: any;
+let body: any, _document: any;
 
 export interface AriaRecommendations {
   [key: string]: any;
@@ -15,7 +17,7 @@ export function cloneDomFromSource(source: any) {
     pretendToBeVisual: true,
     includeNodeLocations: true,
   });
-  document = window.document;
+  _document = window.document;
   body = window.document.body;
 }
 

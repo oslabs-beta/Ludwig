@@ -1,5 +1,6 @@
-const { ariaObject } = require('../aria-standards/critical/aria-object');
+/* eslint-disable @typescript-eslint/no-var-requires */
 
+const { ariaObject } = require('../aria-standards/critical/aria-object');
 function inputButtonText(input: any, ariaRecommendations: any) {
   const inputButtonsWithoutText: any[] = [];
   input.forEach((el: any) => {

@@ -5,7 +5,7 @@ export function registerHoverProvider(context: vscode.ExtensionContext) {
   const hoverProviderDisposable = vscode.languages.registerHoverProvider(
     { scheme: 'file', language: 'html' },
     {
-      provideHover(document, position, token) {
+      provideHover(document, position) {
         return provideHover(document, position);
       },
     }

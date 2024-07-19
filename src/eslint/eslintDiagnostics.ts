@@ -12,7 +12,7 @@ export function initializeEslintDiagnostics(context: vscode.ExtensionContext) {
 }
 
 export async function runESLint(document: vscode.TextDocument): Promise<ESLint.LintResult[]> {
-  const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+  // const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
   const userConfig = {};
   // // to be used later for user-defined 'exclude wokspace' paths
   // const workspacePath = workspaceFolder ? workspaceFolder.uri.fsPath : path.dirname(document.uri.fsPath);
@@ -49,7 +49,7 @@ export async function setESLintDiagnostics() {
 }
 
 export async function registerClearFileDiagnostics(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('ludwig.clearDiagnostics', () => {
+  const disposable = vscode.commands.registerCommand('ludwig.clearDiagnostics', () => {
     const editor = vscode.window.activeTextEditor;
     if (editor) {
       diagnosticCollection.delete(editor.document.uri);

@@ -27,7 +27,7 @@ export function highlightElements(document: vscode.TextDocument) {
       if (ariaObjKey === 'totalElements') {
         continue;
       }
-      for (const [lineNumber, outerHTML] of recsArrays as [number, string][]) {
+      for (const [lineNumber] of recsArrays as [number, string][]) {
         if (!recsByLineNumber[lineNumber]) {
           recsByLineNumber[lineNumber] = [ariaObjKey];
         } else if (!recsByLineNumber[lineNumber].includes(ariaObjKey)) {
