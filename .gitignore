@@ -5,4 +5,3 @@ node_modules
 *.vsix
 ludwigReports/*
 !ludwigReports/.gitkeep
-pnpm-lock.yaml
