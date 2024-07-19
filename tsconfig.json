@@ -4,7 +4,7 @@
     "target": "ES2022",
     "lib": [
       "ES2022",
-      "DOM"  // Include this if you're working with browser APIs
+      "DOM" // Include this if you're working with browser APIs
     ],
     "sourceMap": true,
     "rootDir": "src",
@@ -16,10 +16,10 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "outDir": "dist",
-    "moduleResolution": "Node16",  // Add this for better module resolution
-    "allowSyntheticDefaultImports": true,  // Allow default imports from modules with no default export
-    "forceConsistentCasingInFileNames": true,  // Ensure consistent casing in file names
-    "skipLibCheck": true  // Skip type checking of declaration files
+    "moduleResolution": "Node16", // Add this for better module resolution
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export
+    "forceConsistentCasingInFileNames": true, // Ensure consistent casing in file names
+    "skipLibCheck": true // Skip type checking of declaration files
   },
   "include": ["src/**/*", "declarations.d.ts"],
   "exclude": ["node_modules", "dist"]
