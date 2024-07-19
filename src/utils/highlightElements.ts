@@ -29,7 +29,7 @@ export async function highlightElements(document: vscode.TextDocument) {
         continue;
       }
 
-      for (const [lineNumber, outerHTML] of recsArrays as [number, string][]) {
+      for (const [lineNumber, _outerHTML] of recsArrays as [number, string][]) {
         if (!recsByLineNumber[lineNumber]) {
           recsByLineNumber[lineNumber] = [ariaObjKey];
         } else if (!recsByLineNumber[lineNumber].includes(ariaObjKey)) {
@@ -88,7 +88,7 @@ export function provideHover(document: any, position: any) {
       if (i > 0) {
         messageText += '\n\n---';
       }
-      
+
       const description: any = (ariaObject as any)[ariaObjKeys[i]].desc;
       messageText += `\n\n- ${description}`;
 

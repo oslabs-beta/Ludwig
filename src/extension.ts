@@ -32,7 +32,7 @@ export function deactivate() {}
 import * as vscode from 'vscode';
 import { registerScanFilesCommand } from './commands/scanFiles';
 import { registerScanFilesWithCustomConfigCommand } from './commands/scanFiles';
-import { initializeEslintDiagnostics } from './eslint/eslintDiagnostics';
+// import { initializeEslintDiagnostics } from './eslint/eslintDiagnostics';
 import { registerScanAllDocsCommand } from './commands/scanAllDocsCommand';
 import { registerScanDocCommand } from './commands/scanDocCommand';
 import { registerHighlightElementsCommand, registerToggleOffCommand } from './commands/highlightElementsCommand';
@@ -52,7 +52,7 @@ export function activate(context: vscode.ExtensionContext) {
   registerScanFilesWithCustomConfigCommand(context);
   registerScanDocCommand(context);
   registerScanAllDocsCommand(context);
-  initializeEslintDiagnostics(context);
+  //   initializeEslintDiagnostics(context);
   registerHighlightElementsCommand(context);
   registerToggleOffCommand(context);
   registerHoverProvider(context);
@@ -60,5 +60,4 @@ export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(sidebarWebviewDisposable);
 }
 
-
-export function deactivate();
+export function deactivate(): any {}

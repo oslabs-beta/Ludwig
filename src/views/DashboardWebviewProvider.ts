@@ -10,7 +10,7 @@ export class DashboardWebviewProvider {
     if (this._panel) {
       this._panel.reveal(vscode.ViewColumn.Two);
     } else {
-        //this creates a new panel if it doesnt exist
+      //this creates a new panel if it doesnt exist
       this._panel = vscode.window.createWebviewPanel(
         DashboardWebviewProvider.viewType,
         'Ludwig Dashboard',
@@ -23,9 +23,13 @@ export class DashboardWebviewProvider {
 
       this._panel.webview.html = this.getWebviewContent(this._panel.webview);
 
-      this._panel.onDidDispose(() => {
-        this._panel = undefined;
-      }, null, context.subscriptions);
+      this._panel.onDidDispose(
+        () => {
+          this._panel = undefined;
+        },
+        null,
+        context.subscriptions
+      );
     }
   }
   //send errors to chart
@@ -36,9 +40,7 @@ export class DashboardWebviewProvider {
   }
   //need this to make html for webview
   private getWebviewContent(webview: vscode.Webview): string {
-    const styleUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, 'assets', 'style.css')
-    );
+    const styleUri = webview.asWebviewUri(vscode.Uri.joinPath(this._extensionUri, 'assets', 'style.css'));
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(this._extensionUri, 'dist', 'dashboard', 'dashboard.js')
     );
@@ -61,10 +63,6 @@ export class DashboardWebviewProvider {
     `;
   }
 }
-
-
-
-
 
 // EXPERIMENTED WITH TYRING TO ADD MULTIPLE PANELS FOR DIFFERENT DASHBOARDS
 

@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import Pie from './Pie';
 import Doughnut from './Doughnut';
 
-function Score ({ariaRecommendations}) {
+function Score({ ariaRecommendations }) {
   // count inaccessible elements
   console.log('Score.jsxAria Recommendations:', ariaRecommendations);
 
@@ -32,10 +32,11 @@ function Score ({ariaRecommendations}) {
       <h2>Critical Issues:</h2>
       <Doughnut props={{ recData: criticalIssuesCount }} />
       <h2>Total Accessibility Issues Found:</h2>
-      <h1 className='circle'><span>{inaccessibleCount}</span></h1>
+      <h1 className="circle">
+        <span>{inaccessibleCount}</span>
+      </h1>
     </div>
   );
 }
-
 
 export default memo(Score);

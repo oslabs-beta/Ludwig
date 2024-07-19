@@ -15,23 +15,17 @@ function Pie({ props }) {
 
   const centerText = useMemo(() => {
     if (data.length > 0) {
-      const percentage = ((data[0].y / (data[0].y + data[1].y)) * 100).toFixed(
-        0
-      );
+      const percentage = ((data[0].y / (data[0].y + data[1].y)) * 100).toFixed(0);
       return `${percentage}%`;
     }
 
     console.log('Chart Data:', chartData);
-console.log('Center Text:', centerText);
+    console.log('Center Text:', centerText);
     return '';
   }, [data]);
 
   if (data.length === 0) {
-    return (
-      <h3 className="critical-small">
-        Score unavailable, please activate an HTML document before scanning
-      </h3>
-    );
+    return <h3 className="critical-small">Score unavailable, please activate an HTML document before scanning</h3>;
   }
 
   return (

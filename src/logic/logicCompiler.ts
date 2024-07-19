@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import * as Critical from './aria-standards/critical';
 import * as vscode from 'vscode';
 const { JSDOM } = require('jsdom');
-let body: any, document: any;
+let body: any, _document: any;
 
 export interface AriaRecommendations {
   [key: string]: any;
@@ -15,7 +17,7 @@ export function cloneDomFromSource(source: any) {
     pretendToBeVisual: true,
     includeNodeLocations: true,
   });
-  document = window.document;
+  _document = window.document;
   body = window.document.body;
 }
 
@@ -73,12 +75,10 @@ export async function compileLogic(activeEditor: vscode.TextEditor) {
       ariaRecommendations.criticalIssuesByType[key] = ariaRecommendations[key].length;
     }
   }
-  
 
   ariaRecommendations.totalElements = body.querySelectorAll('*').length;
   // the reason for saving the total number of elements in the document now is because this is the only place in the code where we create the JSDOM
   // totalElements will be used in the react dashboard to calculate the percentage of elements that are accessible
-
 
   return ariaRecommendations;
 }

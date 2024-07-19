@@ -19,24 +19,26 @@ function createChart() {
     type: 'line',
     data: {
       labels: [],
-      datasets: [{
-        label: 'Errors Over Time',
-        data: [],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-        fill: false
-      }]
+      datasets: [
+        {
+          label: 'Errors Over Time',
+          data: [],
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+          fill: false,
+        },
+      ],
     },
     options: {
       scales: {
         x: {
-          beginAtZero: true
+          beginAtZero: true,
         },
         y: {
-          beginAtZero: true
-        }
-      }
-    }
+          beginAtZero: true,
+        },
+      },
+    },
   });
   return progressionChart;
 }
@@ -45,19 +47,18 @@ let chart = createChart();
 
 const updateChart = debounce((message) => {
   const timestamp = new Date().toLocaleTimeString();
-  
-  
+
   if (chart.data.labels.length >= 100) {
     chart.data.labels.shift();
     chart.data.datasets[0].data.shift();
   }
-  
+
   chart.data.labels.push(timestamp);
   chart.data.datasets[0].data.push(message.errorCount);
   chart.update();
-}, 500);  
+}, 500);
 
-window.addEventListener('message', event => {
+window.addEventListener('message', (event) => {
   const message = event.data;
   switch (message.command) {
     case 'updateErrors':

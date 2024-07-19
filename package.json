@@ -49,6 +49,18 @@
         "title": "Clear ESLint Results",
         "category": "Ludwig",
         "when": "ludwigDiagnosticsPresent"
+      },
+      {
+        "command": "ludwig.highlightElements",
+        "title": "Highlight HTML",
+        "category": "Ludwig",
+        "when": "editorLangId == html"
+      },
+      {
+        "command": "ludwig.toggleOff",
+        "title": "Highlight HTML - **OFF**",
+        "category": "Ludwig",
+        "when": "editorLangId == html"
       }
     ],
     "viewsContainers": {
