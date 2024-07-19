@@ -3,14 +3,9 @@ import * as path from 'path';
 //import { ESLint } from 'eslint';
 //import { ruleSeverityMapping } from './ruleSeverityMapping';
 import { eslintScanFiles } from './eslintFileScanner';
-import { runESLint } from './runESLint';
-let extensionContext: vscode.ExtensionContext;
-const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
 
-let statusBarItem: vscode.StatusBarItem;
-let isActiveLintingEnabled = false;
-let isAllFilesLintingEnabled = false;
-// let currentLintedFile: vscode.Uri | undefined;
+let extensionContext: vscode.ExtensionContext;
+const diagnosticCollection: vscode.DiagnosticCollection = vscode.languages.createDiagnosticCollection('jsx_eslint');
 
 interface LintIssue {
   ruleId: string;
@@ -35,36 +30,8 @@ interface LintResult {
   details: LintIssue[];
 }
 
-export function initializeLinting(context: vscode.ExtensionContext) {
+export function initializeEslintDiagnostics(context: vscode.ExtensionContext) {
   extensionContext = context;
-  context.subscriptions.push(
-    vscode.commands.registerCommand('ludwig.toggleLintActiveFile', toggleLintActiveFile),
-    vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
-    vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics)
-  );
-
-  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBarItem.command = 'ludwig.toggleLintActiveFile';
-  context.subscriptions.push(statusBarItem);
-  updateStatusBarItem();
-
-  vscode.window.onDidChangeActiveTextEditor(async (editor) => {
-    updateStatusBarItem();
-    if (editor && isActiveLintingEnabled) {
-      await lintDocument(editor.document);
-    }
-  });
-
-  vscode.workspace.onDidChangeTextDocument(() => {
-    updateStatusBarItem();
-  });
-
-  vscode.workspace.onDidSaveTextDocument(async (document) => {
-    if (isAllFilesLintingEnabled) {
-      await lintDocument(document);
-    }
-  });
-}
   registerGetResultsCommand(context);
   registerClearFileDiagnostics(context);
 }
@@ -177,7 +144,6 @@ async function registerGetResultsCommand(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
   }
 }
-
 
 /*
 import * as vscode from 'vscode';
