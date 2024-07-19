@@ -35,6 +35,15 @@
       {
         "command": "ludwig.clearDiagnostics",
         "title": "Ludwig: Clear ESLint Results"
+      },
+      {
+        "command": "ludwig.scanFiles",
+        "title": "Ludwig: Scan File(s) with Default Config"
+      },
+      {
+        "command": "ludwig.scanFilesWithCustomConfig",
+        "title": "Scan File(s) with Custom Config"
+
       }
     ],
     "viewsContainers": {
