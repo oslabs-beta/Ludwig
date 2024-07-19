@@ -2,8 +2,6 @@ const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
-
 // check that lists are structured correctly (dl, ul, and ol elements)
 function checkListStructure() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -17,7 +15,6 @@ function checkListStructure() {
     // output array for fail cases
     const incorrectListElements = [];
 
-
     const ul = ludwig.querySelectorAll('ul');
     const ol = ludwig.querySelectorAll('ol');
 
@@ -25,7 +22,7 @@ function checkListStructure() {
     // check child nodes exist AND that they are <li>
     let index = 0;
     const set = new Set();
-    
+
     while (index < ul.length) {
       const listItems = [];
       for (const child of ul[index].children) {
@@ -62,7 +59,7 @@ function checkListStructure() {
         } else if (child.tagName === 'LI') {
           listItems.push(child.tagName);
         } else {
-          incorrectListElements.push([ol[count],  lineNumber]);
+          incorrectListElements.push([ol[count], lineNumber]);
           break;
         }
       }
@@ -79,5 +76,5 @@ function checkListStructure() {
 }
 
 module.exports = {
-  checkListStructure
+  checkListStructure,
 };

@@ -70,7 +70,7 @@ function createDiagnosticsFromResults(
       const range = new vscode.Range(
         new vscode.Position(message.line - 1, message.column - 1),
 
-        new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER),
+        new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER)
       );
       const diagnostic = new vscode.Diagnostic(
         range,

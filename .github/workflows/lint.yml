@@ -1,0 +1,70 @@
+name: Lint and Format
+
+on:
+  push:
+    branches:
+      - dev
+      - test/*
+      - actions/*
+  pull_request:
+    branches:
+      - dev
+      - test/*
+      - actions/*
+
+permissions:
+  contents: write
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.3
+        with:
+          node-version: '18.x'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 9.4.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Initial ESLint Check
+        id: lint_check
+        run: pnpm run lint
+        continue-on-error: true
+
+      - name: Initial Prettier Check
+        id: format_check
+        run: pnpm prettier --check "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+        continue-on-error: true
+
+      - name: Run ESLint with auto-fix
+        if: steps.lint_check.outcome == 'failure'
+        run: pnpm eslint --fix src/**/*.{js,jsx,ts,tsx}
+
+      - name: Run Prettier with auto-fix
+        if: steps.format_check.outcome == 'failure'
+        run: pnpm prettier --write "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
+
+      - name: Git Auto Commit
+        if: steps.lint_check.outcome == 'failure' || steps.format_check.outcome == 'failure'
+        uses: stefanzweifel/git-auto-commit-action@v5.0.1
+        with:
+          commit_message: 'style: auto-fix linting and formatting issues'
+          branch: ${{ github.head_ref }}
+
+      - name: Final ESLint Check
+        if: steps.lint_check.outcome == 'failure' || steps.format_check.outcome == 'failure'
+        run: pnpm run lint
+
+      - name: Final Prettier Check
+        if: steps.lint_check.outcome == 'failure' || steps.format_check.outcome == 'failure'
+        run: pnpm prettier --check "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"

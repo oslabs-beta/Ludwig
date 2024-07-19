@@ -2,7 +2,6 @@ const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
 // check that doc has a lang attribute
 function containsLangAttr() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -19,14 +18,13 @@ function containsLangAttr() {
 
     const lineNumber = getLineNumber(activeEditor.document, html.outerHTML, set);
     set.add(lineNumber);
-    
+
     if (!lang) {
       return [html, lineNumber];
     }
-    
   }
 }
 
 module.exports = {
-  containsLangAttr
+  containsLangAttr,
 };

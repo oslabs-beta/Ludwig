@@ -3,7 +3,6 @@ const { JSDOM } = require('jsdom');
 const { langCodes } = require('./langCodeLookUp.js');
 const { getLineNumber } = require('../../getLineNumber');
 
-
 // logic for if lang attributes have valid values
 function langIsValid() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -23,10 +22,9 @@ function langIsValid() {
       set.add(lineNumber);
       return [html, lineNumber];
     }
-
   }
 }
 
 module.exports = {
-  langIsValid
+  langIsValid,
 };

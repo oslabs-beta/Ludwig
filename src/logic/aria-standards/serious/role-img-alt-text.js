@@ -2,7 +2,6 @@ const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
 // check that elements with role=”img” have alternate text
 function checkRoleImgAltText() {
   const activeEditor = vscode.window.activeTextEditor;
@@ -21,7 +20,7 @@ function checkRoleImgAltText() {
 
     // iterate through elements with role="img"
     // if alt text does not exist then push into failed arr
-    imgs.forEach(el => {
+    imgs.forEach((el) => {
       const lineNumber = getLineNumber(activeEditor.document, el.outerHTML, set);
       set.add(lineNumber);
       const altText = el.getAttribute('alt');
@@ -34,5 +33,5 @@ function checkRoleImgAltText() {
 }
 
 module.exports = {
-  checkRoleImgAltText
+  checkRoleImgAltText,
 };

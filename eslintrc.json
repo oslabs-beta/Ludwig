@@ -2,11 +2,21 @@
     "root": true,
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
+        "ecmaVersion": 2022,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "node": true,
+        "es2022": true
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "prettier"
+    ],
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",        "plugin:prettier/recommended"
     ],
     "rules": {
         "@typescript-eslint/naming-convention": [
@@ -20,10 +30,10 @@
         "curly": "warn",
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
-        "semi": "off"
+        "semi": "off",
+        "prettier/prettier": "warn"
     },
     "ignorePatterns": [
-        "out",
         "dist",
         "**/*.d.ts"
     ]

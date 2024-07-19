@@ -1,10 +1,10 @@
-
 table {
   border-collapse: collapse;
   width: 100%;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: left;
@@ -12,7 +12,7 @@ th, td {
 
 th {
   background-color: #3a475099;
-  font-size: .85rem;
+  font-size: 0.85rem;
 }
 
 tr:hover {
@@ -36,9 +36,9 @@ tr:hover {
 }
 
 .circle {
-  width: 100px; 
+  width: 100px;
   height: 100px;
-  border-radius: 50%; 
+  border-radius: 50%;
   background-color: #3a4750bd;
   display: flex;
   justify-content: center;

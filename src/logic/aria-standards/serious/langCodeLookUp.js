@@ -8257,9 +8257,9 @@ const langCodes = {
   zyn: 'Yongnan Zhuang',
   zyp: 'Zyphe Chin',
   zza: 'Zazaki',
-  zzj: 'Zuojiang Zhuang'
+  zzj: 'Zuojiang Zhuang',
 };
 
 module.exports = {
-  langCodes
+  langCodes,
 };

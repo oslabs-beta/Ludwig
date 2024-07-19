@@ -2,8 +2,7 @@ const vscode = require('vscode');
 const { JSDOM } = require('jsdom');
 const { getLineNumber } = require('../../getLineNumber');
 
-
-// test HTML 
+// test HTML
 /*
 `<div role="button" aria-braillelabel="">
 Click me
@@ -18,7 +17,7 @@ Click me
 <div role="button" aria-braillelabel="Click to interact">
 Click me
 </div>`
-*/ 
+*/
 
 // logic for if anchors have a label
 function ariaBrailleLabel(htmlTest) {
@@ -29,7 +28,7 @@ function ariaBrailleLabel(htmlTest) {
     const { window } = new JSDOM(htmlCode);
     const document = window.document;
     const ludwig = document.body;
-  
+
     const brailleElements = ludwig.querySelectorAll('[aria-braillelabel]');
 
     const brailleEleForRevision = [];
@@ -39,8 +38,8 @@ function ariaBrailleLabel(htmlTest) {
       // const lineNumber = activeEditor.document.positionAt(ele.startOffset).line;
       const ariaBrailleLabel = ele.getAttribute('aria-braillelabel');
 
-      // could push missing anchors into an object for more intentional use 
-      // could inlcude logic to make sure the aria-label matches content 
+      // could push missing anchors into an object for more intentional use
+      // could inlcude logic to make sure the aria-label matches content
       const lineNumber = getLineNumber(activeEditor.document, ele.outerHTML, set);
       set.add(lineNumber);
       if (!ariaBrailleLabel || ariaBrailleLabel === ele.tagName) {
@@ -55,5 +54,5 @@ function ariaBrailleLabel(htmlTest) {
 // export to extension.ts
 
 module.exports = {
-    ariaBrailleLabel
+  ariaBrailleLabel,
 };
