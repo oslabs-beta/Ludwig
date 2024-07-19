@@ -9,17 +9,10 @@
   },
   "plugins": ["jsx-a11y"],
   "extends": ["plugin:jsx-a11y/recommended"],
-  "env": {
-    "browser": true,
-    "es2021": true,
-    "node": true
-  },
   "rules": {
-    "no-console": "off",
     "jsx-a11y/alt-text": "error",
     "jsx-a11y/anchor-has-content": "error",
     "jsx-a11y/anchor-is-valid": "error",
-    "jsx-a11y/aria-activedescendant-has-tabindex": "warn",
     "jsx-a11y/aria-props": "error",
     "jsx-a11y/aria-proptypes": "error",
     "jsx-a11y/aria-role": "error",
@@ -31,7 +24,6 @@
     "jsx-a11y/img-redundant-alt": "error",
     "jsx-a11y/interactive-supports-focus": "error",
     "jsx-a11y/label-has-associated-control": "error",
-    "jsx-a11y/lang": "warn",
     "jsx-a11y/media-has-caption": "error",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "jsx-a11y/no-access-key": "warn",
@@ -48,6 +40,5 @@
     "jsx-a11y/role-supports-aria-props": "error",
     "jsx-a11y/scope": "warn",
     "jsx-a11y/tabindex-no-positive": "warn"
-  },
-  "ignorePatterns": ["out", "dist", "**/*.d.ts"]
+  }
 }

@@ -3,14 +3,10 @@ name: Lint and Format
 on:
   push:
     branches:
-      - dev
-      - test/*
-      - actions/*
+      - '*'
   pull_request:
     branches:
-      - dev
-      - test/*
-      - actions/*
+      - '*'
 
 permissions:
   contents: write

@@ -22,27 +22,33 @@
     "commands": [
       {
         "command": "ludwig.scanDoc",
-        "title": "Scan Document"
+        "title": "Scan Document",
+        "category": "Ludwig",
+        "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
       },
       {
         "command": "ludwig.scanAllDocs",
-        "title": "Scan All Documents"
+        "title": "Scan All Documents",
+        "category": "Ludwig",
+        "when": "workspaceFolderCount > 0"
       },
       {
-        "command": "ludwig.getResults",
-        "title": "Ludwig: Get ESLint Results"
+        "command": "ludwig.toggleLintActiveFile",
+        "title": "Toggle Lint Active File",
+        "category": "Ludwig",
+        "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
+      },
+      {
+        "command": "ludwig.toggleLintAllFiles",
+        "title": "Toggle Lint All Files",
+        "category": "Ludwig",
+        "when": "workspaceFolderCount > 0"
       },
       {
         "command": "ludwig.clearDiagnostics",
-        "title": "Ludwig: Clear ESLint Results"
-      },
-      {
-        "command": "ludwig.scanFiles",
-        "title": "Ludwig: Scan File(s) with Default Config"
-      },
-      {
-        "command": "ludwig.scanFilesWithCustomConfig",
-        "title": "Scan File(s) with Custom Config"
+        "title": "Clear ESLint Results",
+        "category": "Ludwig",
+        "when": "ludwigDiagnosticsPresent"
       }
     ],
     "viewsContainers": {
