@@ -19,7 +19,10 @@ const config = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'eslint-plugin-jsx-a11y': path.resolve(__dirname, 'node_modules/eslint-plugin-jsx-a11y'),
+      'eslint-plugin-jsx-a11y': path.resolve(
+        __dirname,
+        'node_modules/eslint-plugin-jsx-a11y'
+      ),
     },
   },
   module: {
@@ -70,7 +73,11 @@ const reactConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
           },
         },
       },
