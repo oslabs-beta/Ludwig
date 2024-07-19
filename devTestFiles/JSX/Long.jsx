@@ -19,7 +19,7 @@ function LongTest() {
       <div onMouseEnter={() => {}}>Mouse event only</div>
       <marquee>Distracting element</marquee>
       <div tabIndex="1">Positive tabindex</div>
-      <html>
+      <html lang="fr">
         <body>
           <h1>Missing lang attribute</h1>
         </body>

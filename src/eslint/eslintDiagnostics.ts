@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { ESLint } from 'eslint';
 
-
 let extensionContext: vscode.ExtensionContext;
 const diagnosticCollection: vscode.DiagnosticCollection = vscode.languages.createDiagnosticCollection('jsx_eslint');
 
@@ -70,7 +69,8 @@ function createDiagnosticsFromResults(
     result.messages.forEach((message) => {
       const range = new vscode.Range(
         new vscode.Position(message.line - 1, message.column - 1),
-        new vscode.Position(message.line - 1, message.column)
+
+        new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER),
       );
       const diagnostic = new vscode.Diagnostic(
         range,

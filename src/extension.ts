@@ -23,6 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
   registerScanAllDocsCommand(context);
   initializeEslintDiagnostics(context);
 
+
   context.subscriptions.push(sidebarWebviewDisposable);
 }
 

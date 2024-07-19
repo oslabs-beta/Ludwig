@@ -43,6 +43,7 @@
       {
         "command": "ludwig.scanFilesWithCustomConfig",
         "title": "Scan File(s) with Custom Config"
+
       }
     ],
     "viewsContainers": {
