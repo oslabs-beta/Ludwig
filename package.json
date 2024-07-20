@@ -46,7 +46,7 @@
       },
       {
         "command": "ludwig.clearDiagnostics",
-        "title": "Clear ESLint Results",
+        "title": "Clear Accessibility Warnings",
         "category": "Ludwig",
         "when": "ludwigDiagnosticsPresent"
       },

@@ -45,6 +45,11 @@ const config = {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!extension.js'],
+    }),
+  ],
   devtool: 'nosources-source-map',
   infrastructureLogging: {
     level: 'log',
@@ -80,7 +85,7 @@ const reactConfig = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [],
   devtool: 'source-map',
   infrastructureLogging: {
     level: 'log',
