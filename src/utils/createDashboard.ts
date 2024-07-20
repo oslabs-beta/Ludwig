@@ -47,6 +47,7 @@ function getWebviewContent(scriptUri: vscode.Uri, cssUri: vscode.Uri): string {
     </head>
     <body>
       <div id="root">Loading...</div>
+      <canvas id="progressionChart"/>
       <script src="${scriptUri}"></script>
     </body>
     </html>

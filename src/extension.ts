@@ -7,6 +7,7 @@ import { SidebarWebviewProvider } from './views/SidebarWebviewProvider';
 // import { registerScanFilesWithCustomConfigCommand } from './commands/scanFiles';
 // import { initializeEslintDiagnostics } from './eslint/eslintDiagnostics';
 // import { registerDocumentEvents } from './commands/documentEvents';
+import { registerResetLibraryCommand } from './commands/libraryCommands';
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "ludwig" is now active!');
@@ -18,6 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   initializeLinting(context);
+  registerResetLibraryCommand(context);
   // registerHighlightElementsCommand(context);
   // registerToggleOffCommand(context);
   // registerHoverProvider(context);

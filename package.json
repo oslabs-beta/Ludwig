@@ -22,19 +22,19 @@
     "commands": [
       {
         "command": "ludwig.scanDoc",
-        "title": "Scan Document",
+        "title": "xxx Scan Document",
         "category": "Ludwig",
         "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
       },
       {
         "command": "ludwig.scanAllDocs",
-        "title": "Scan All Documents",
+        "title": "xxx Scan All Documents",
         "category": "Ludwig",
         "when": "workspaceFolderCount > 0"
       },
       {
         "command": "ludwig.toggleLintActiveFile",
-        "title": "Toggle Lint Active File",
+        "title": "Toggle Lint Active File", 
         "category": "Ludwig",
         "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
       },

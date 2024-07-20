@@ -44,6 +44,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
     vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics),
     vscode.commands.registerCommand('ludwig.saveLintResults', saveLintResults)
+    // vscode.commands.registerCommand('ludwig.resetLib', resetLib)
   );
 
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
@@ -166,6 +167,10 @@ function saveLintResultToLibrary(lintResult: LintResult) {
   if (fs.existsSync(resultsLibPath)) {
     const existingData = fs.readFileSync(resultsLibPath, 'utf-8');
     resultsLib = JSON.parse(existingData);
+  }
+  //logical check for # of exsisting results, delete oldest if > 10
+  if (resultsLib.length >= 10) {
+    resultsLib.shift();
   }
 
   resultsLib.push(lintResult);
