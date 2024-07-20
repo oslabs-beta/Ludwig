@@ -21,6 +21,11 @@
   "contributes": {
     "commands": [
       {
+        "command": "ludwig.showDashboard",
+        "title": "Ludwig: Show Dashboard",
+        "category": "Ludwig"
+      },
+      {
         "command": "ludwig.scanDoc",
         "title": "xxx Scan Document",
         "category": "Ludwig",

@@ -91,5 +91,35 @@ const reactConfig = {
     level: 'log',
   },
 };
-
-module.exports = [config, reactConfig];
+// Add configuration for progressionChart.ts
+const chartConfig = {
+  target: 'web',
+  mode: 'development',
+  entry: './src/charts/progressionChart.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'progressionChart.js',
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [],
+  devtool: 'source-map',
+  infrastructureLogging: {
+    level: 'log',
+  },
+};
+module.exports = [config, reactConfig, chartConfig];

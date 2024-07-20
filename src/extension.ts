@@ -8,6 +8,7 @@ import { SidebarWebviewProvider } from './views/SidebarWebviewProvider';
 // import { initializeEslintDiagnostics } from './eslint/eslintDiagnostics';
 // import { registerDocumentEvents } from './commands/documentEvents';
 import { registerResetLibraryCommand } from './commands/libraryCommands';
+import { createDashboard } from './utils/createDashboard';
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('Congratulations, your extension "ludwig" is now active!');
@@ -20,6 +21,11 @@ export function activate(context: vscode.ExtensionContext) {
 
   initializeLinting(context);
   registerResetLibraryCommand(context);
+  context.subscriptions.push(
+    vscode.commands.registerCommand('ludwig.showDashboard', () => {
+      createDashboard(context);
+    })
+  );
   // registerHighlightElementsCommand(context);
   // registerToggleOffCommand(context);
   // registerHoverProvider(context);

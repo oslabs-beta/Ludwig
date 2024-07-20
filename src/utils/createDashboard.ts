@@ -3,13 +3,13 @@ import * as path from 'path';
 
 let dashboard: vscode.WebviewPanel | undefined;
 
-export function createDashboard(context: vscode.ExtensionContext) {
+export function createDashboard(context: vscode.ExtensionContext): vscode.WebviewPanel {
   if (dashboard) {
-    dashboard.reveal(vscode.ViewColumn.Beside);
+    dashboard.reveal(vscode.ViewColumn.Two);
     return dashboard;
   }
 
-  dashboard = vscode.window.createWebviewPanel('ludwig-dashboard', 'Ludwig Dashboard', vscode.ViewColumn.Beside, {
+  dashboard = vscode.window.createWebviewPanel('ludwig-dashboard', 'Ludwig Dashboard', vscode.ViewColumn.Two, {
     enableScripts: true,
     retainContextWhenHidden: true,
 
@@ -17,7 +17,7 @@ export function createDashboard(context: vscode.ExtensionContext) {
   });
 
   const scriptUri = dashboard.webview.asWebviewUri(
-    vscode.Uri.file(path.join(context.extensionPath, 'dist', 'dashboard.js'))
+    vscode.Uri.file(path.join(context.extensionPath, 'dist', 'progressionChart.js'))
   );
   const cssUri = dashboard.webview.asWebviewUri(
     vscode.Uri.file(path.join(context.extensionPath, 'dist', 'dashboard.css'))
@@ -47,7 +47,7 @@ function getWebviewContent(scriptUri: vscode.Uri, cssUri: vscode.Uri): string {
     </head>
     <body>
       <div id="root">Loading...</div>
-      <canvas id="progressionChart"/>
+      <canvas id="progressionChart"></canvas>
       <script src="${scriptUri}"></script>
     </body>
     </html>

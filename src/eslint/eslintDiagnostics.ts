@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
 import { ruleSeverityMapping } from './ruleSeverityMapping';
+import { createDashboard } from '../utils/createDashboard';
 
 let extensionContext: vscode.ExtensionContext;
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
@@ -86,7 +87,11 @@ export async function lintDocument(document: vscode.TextDocument, saveResults: b
     // Save results to central JSON library
     if (saveResults) {
       saveLintResultToLibrary(lintResult);
+      updateDashboard();
     }
+    const dashboard = createDashboard(extensionContext);
+    dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
+
     const fileName = path.basename(document.fileName);
     const numIssues = lintResult.details.length;
     showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
@@ -168,14 +173,22 @@ function saveLintResultToLibrary(lintResult: LintResult) {
     const existingData = fs.readFileSync(resultsLibPath, 'utf-8');
     resultsLib = JSON.parse(existingData);
   }
+  const exists = resultsLib.some(
+    (result: LintResult) =>
+      result.summary.filepath === lintResult.summary.filepath &&
+      result.summary.dateCreated === lintResult.summary.dateCreated &&
+      result.summary.timeCreated === lintResult.summary.timeCreated
+  );
   //logical check for # of exsisting results, delete oldest if > 10
-  if (resultsLib.length >= 10) {
-    resultsLib.shift();
+  if (!exists) {
+    if (resultsLib.length >= 10) {
+      resultsLib.shift();
+    }
+
+    resultsLib.push(lintResult);
+
+    fs.writeFileSync(resultsLibPath, JSON.stringify(resultsLib, null, 2));
   }
-
-  resultsLib.push(lintResult);
-
-  fs.writeFileSync(resultsLibPath, JSON.stringify(resultsLib, null, 2));
 }
 
 async function saveLintResults() {
@@ -183,9 +196,28 @@ async function saveLintResults() {
   if (editor) {
     await lintDocument(editor.document, true);
     vscode.window.showInformationMessage('Lint results saved');
+    updateDashboard();
   } else {
     vscode.window.showInformationMessage('No active editor to lint and save results');
   }
+}
+
+function updateDashboard() {
+  const resultsLibPath = path.join(extensionContext.extensionPath, 'resultsLib.json');
+  const data = fs.readFileSync(resultsLibPath, 'utf-8');
+  const resultsLib = JSON.parse(data);
+
+  const labels = resultsLib.map((result: any) => result.summary.dateCreated);
+  const errorCounts = resultsLib.map((result: any) => result.summary.errors);
+
+  const panel = createDashboard(extensionContext);
+  panel.webview.postMessage({
+    command: 'loadData',
+    data: {
+      labels,
+      errorCounts,
+    },
+  });
 }
 
 async function toggleLintActiveFile() {
