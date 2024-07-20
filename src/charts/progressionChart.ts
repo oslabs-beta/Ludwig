@@ -1,9 +1,11 @@
 interface ChartMessage {
   command: string;
   errorCount?: number;
+  warnings?: number;
   data?: {
     labels: string[];
     errorCounts: number[];
+    warnings: number[];
   };
 }
 
@@ -20,9 +22,18 @@ async function createChart(): Promise<any> {
         {
           label: 'Errors Over Time',
           data: [] as number[],
-          borderColor: 'rgba(75, 192, 192, 1)',
+          borderColor: 'rgba(224, 17, 73, 1)',
           borderWidth: 1,
           fill: false,
+          tension: 0.1,
+        },
+        {
+          label: 'Warnings Over Time',
+          data: [] as number[],
+          borderColor: 'rgba(251, 200, 49, 1)',
+          borderWidth: 1,
+          fill: false,
+          tension: 0.1,
         },
       ],
     },
@@ -55,11 +66,12 @@ createChart().then((createdChart) => {
       //this updateErrors message is used to add data to the chart dynamically if you want to add a single data point like linting one file after running command
       case 'updateErrors': {
         //get date as a string
-        const timestamp = new Date().toLocaleDateString();
+        const timestamp = new Date().toLocaleTimeString();
 
         //add timestamp and errorCount to chart as data point
         (chart.data.labels as string[]).push(timestamp);
         (chart.data.datasets[0].data as number[]).push(message.errorCount || 0);
+        (chart.data.datasets[1].data as number[]).push(message.warnings || 0);
         chart.update();
         break;
       }
@@ -70,6 +82,7 @@ createChart().then((createdChart) => {
         if (data) {
           chart.data.labels = data.labels;
           chart.data.datasets[0].data = data.errorCounts;
+          chart.data.datasets[1].data = data.warnings;
           chart.update();
         }
         break;

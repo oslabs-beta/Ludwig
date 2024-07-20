@@ -207,8 +207,9 @@ function updateDashboard() {
   const data = fs.readFileSync(resultsLibPath, 'utf-8');
   const resultsLib = JSON.parse(data);
 
-  const labels = resultsLib.map((result: any) => result.summary.dateCreated);
+  const labels = resultsLib.map((result: any) => result.summary.timeCreated);
   const errorCounts = resultsLib.map((result: any) => result.summary.errors);
+  const warnings = resultsLib.map((result: any) => result.summary.warnings);
 
   const panel = createDashboard(extensionContext);
   panel.webview.postMessage({
@@ -216,6 +217,7 @@ function updateDashboard() {
     data: {
       labels,
       errorCounts,
+      warnings,
     },
   });
 }
