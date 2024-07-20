@@ -51,6 +51,11 @@
         "when": "ludwigDiagnosticsPresent"
       },
       {
+        "command": "ludwig.saveLintResults",
+        "title": "Save Lint Results",
+        "category": "Ludwig"
+      },
+      {
         "command": "ludwig.highlightElements",
         "title": "Highlight HTML",
         "category": "Ludwig",

@@ -42,7 +42,8 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   context.subscriptions.push(
     vscode.commands.registerCommand('ludwig.toggleLintActiveFile', toggleLintActiveFile),
     vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
-    vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics)
+    vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics),
+    vscode.commands.registerCommand('ludwig.saveLintResults', saveLintResults)
   );
 
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
@@ -68,7 +69,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   });
 }
 
-export async function lintDocument(document: vscode.TextDocument) {
+export async function lintDocument(document: vscode.TextDocument, saveResults: boolean = false) {
   if (!isAllFilesLintingEnabled) {
     diagnosticCollection.clear();
   }
@@ -82,8 +83,9 @@ export async function lintDocument(document: vscode.TextDocument) {
     diagnosticCollection.set(document.uri, diagnostics);
 
     // Save results to central JSON library
-    saveLintResultToLibrary(lintResult);
-
+    if (saveResults) {
+      saveLintResultToLibrary(lintResult);
+    }
     const fileName = path.basename(document.fileName);
     const numIssues = lintResult.details.length;
     showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
@@ -115,8 +117,11 @@ function createLintResultFromESLintResults(document: vscode.TextDocument, result
         customSeverity: customSeverity,
       });
 
-      if (message.severity === 2) errors++;
-      else if (message.severity === 1) warnings++;
+      if (message.severity === 2) {
+        errors++;
+      } else if (message.severity === 1) {
+        warnings++;
+      }
     });
   });
 
@@ -168,6 +173,16 @@ function saveLintResultToLibrary(lintResult: LintResult) {
   fs.writeFileSync(resultsLibPath, JSON.stringify(resultsLib, null, 2));
 }
 
+async function saveLintResults() {
+  const editor = vscode.window.activeTextEditor;
+  if (editor) {
+    await lintDocument(editor.document, true);
+    vscode.window.showInformationMessage('Lint results saved');
+  } else {
+    vscode.window.showInformationMessage('No active editor to lint and save results');
+  }
+}
+
 async function toggleLintActiveFile() {
   isActiveLintingEnabled = !isActiveLintingEnabled;
   isAllFilesLintingEnabled = false;
@@ -216,25 +231,6 @@ async function lintAllFiles() {
   }
 }
 
-export function createDiagnosticsFromResults(
-  document: vscode.TextDocument,
-  results: ESLint.LintResult[]
-): vscode.Diagnostic[] {
-  return results.flatMap((result) =>
-    result.messages.map((message) => {
-      const start = new vscode.Position(message.line - 1, message.column - 1);
-      const end = new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER);
-      const range = new vscode.Range(start, end);
-
-      return new vscode.Diagnostic(
-        range,
-        message.message,
-        message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
-      );
-    })
-  );
-}
-
 function updateStatusBarItem() {
   console.log(`Updating status bar. Active: ${isActiveLintingEnabled}, All: ${isAllFilesLintingEnabled}`);
   if (isActiveLintingEnabled) {
@@ -261,3 +257,22 @@ function showTemporaryInfoMessage(
     setTimeout(() => statusBarMessage.dispose(), timeout);
   }
 }
+
+// export function createDiagnosticsFromResults(
+//   document: vscode.TextDocument,
+//   results: ESLint.LintResult[]
+// ): vscode.Diagnostic[] {
+//   return results.flatMap((result) =>
+//     result.messages.map((message) => {
+//       const start = new vscode.Position(message.line - 1, message.column - 1);
+//       const end = new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER);
+//       const range = new vscode.Range(start, end);
+
+//       return new vscode.Diagnostic(
+//         range,
+//         message.message,
+//         message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
+//       );
+//     })
+//   );
+// }
