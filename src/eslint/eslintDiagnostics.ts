@@ -1,245 +1,158 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-//import { ESLint } from 'eslint';
-//import { ruleSeverityMapping } from './ruleSeverityMapping';
-import { eslintScanFiles } from './eslintFileScanner';
-
-let extensionContext: vscode.ExtensionContext;
-const diagnosticCollection: vscode.DiagnosticCollection = vscode.languages.createDiagnosticCollection('jsx_eslint');
-
-interface LintIssue {
-  ruleId: string;
-  severity: number;
-  message: string;
-  line: number;
-  column: number;
-  endLine?: number;
-  endColumn?: number;
-  nodeType?: string;
-  customSeverity?: number;
-}
-interface LintResult {
-  summary: {
-    dateCreated: string;
-    timeCreated: string;
-    activeWorkspace: string;
-    filepath: string;
-    errors: number;
-    warnings: number;
-  };
-  details: LintIssue[];
-}
-
-export function initializeEslintDiagnostics(context: vscode.ExtensionContext) {
-  extensionContext = context;
-  registerGetResultsCommand(context);
-  registerClearFileDiagnostics(context);
-}
-
-// export async function runESLint(document: vscode.TextDocument): Promise<ESLint.LintResult[]> {
-//   const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-//   const userConfig = {};
-//   // // to be used later for user-defined 'exclude wokspace' paths
-//   // const workspacePath = workspaceFolder ? workspaceFolder.uri.fsPath : path.dirname(document.uri.fsPath);
-
-//   const eslint = new ESLint({
-//     useEslintrc: false,
-//     overrideConfigFile: path.join(extensionContext.extensionPath, 'src/eslint/.eslintrc.accessibility.json'),
-//     // removed overrideConfig that contained same settings as .eslintrc.accessibility.json
-//     overrideConfig: userConfig,
-//     resolvePluginsRelativeTo: extensionContext.extensionPath,
-//   });
-
-//   const text = document.getText();
-//   const results = await eslint.lintText(text, {
-//     filePath: document.fileName,
-//   });
-//   console.log(results);
-
-//   return results;
-// }
-
-export async function setESLintDiagnostics() {
-  const editor = vscode.window.activeTextEditor;
-  if (editor) {
-    const document = editor.document;
-    const results = await eslintScanFiles([document.uri], extensionContext);
-    if (results) {
-      const diagnostics = createDiagnosticsFromLintResult(document, results);
-      diagnosticCollection.set(document.uri, diagnostics);
-      const fileName = path.basename(document.fileName);
-      const numErrors = diagnostics.length;
-      const message = `*${fileName}* processed successfully! ${numErrors} errors found.`;
-      vscode.window.showInformationMessage(message);
-    }
-  }
-}
-
-export async function registerClearFileDiagnostics(context: vscode.ExtensionContext) {
-  const disposable = vscode.commands.registerCommand('ludwig.clearDiagnostics', () => {
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      diagnosticCollection.delete(editor.document.uri);
-      vscode.window.showInformationMessage('Diagnostics cleared for the current file.');
-    }
-  });
-
-  context.subscriptions.push(disposable);
-}
-
-function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResult: LintResult): vscode.Diagnostic[] {
-  const diagnostics: vscode.Diagnostic[] = [];
-  lintResult.details.forEach((issue) => {
-    const range = new vscode.Range(
-      new vscode.Position(issue.line - 1, issue.column - 1),
-      new vscode.Position(issue.endLine ? issue.endLine - 1 : issue.line - 1, Number.MAX_SAFE_INTEGER)
-    );
-
-    const diagnostic = new vscode.Diagnostic(
-      range,
-      `${issue.message} (severity: ${issue.customSeverity})`,
-      issue.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
-    );
-    (diagnostic as any).customSeverity = issue.customSeverity;
-
-    diagnostics.push(diagnostic);
-  });
-  return diagnostics;
-}
-
-// function createDiagnosticsFromResults(
-//   document: vscode.TextDocument,
-//   results: ESLint.LintResult[]
-// ): vscode.Diagnostic[] {
-//   const diagnostics: vscode.Diagnostic[] = [];
-//   results.forEach((result) => {
-//     result.messages.forEach((message) => {
-//       const range = new vscode.Range(
-//         new vscode.Position(message.line - 1, message.column - 1),
-//         new vscode.Position(message.line - 1, message.column)
-//       );
-
-//       const ruleId = message.ruleId || 'unknown-rule';
-//       const customSeverity = ruleSeverityMapping[ruleId] || 1;
-
-//       const diagnostic = new vscode.Diagnostic(
-//         range,
-//        `${message.message} (severity: ${customSeverity})`,
-//         message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
-//       );
-//       (diagnostic as any).customSeverity = customSeverity;
-
-//       diagnostics.push(diagnostic);
-//     });
-//   });
-//   return diagnostics;
-// }
-// Checks if command is already registered, otherwise it kept registering it at every activation event
-async function registerGetResultsCommand(context: vscode.ExtensionContext) {
-  const commandId = 'ludwig.getResults';
-  const registeredCommands = await vscode.commands.getCommands();
-
-  if (!registeredCommands.includes(commandId)) {
-    const disposable = vscode.commands.registerCommand(commandId, setESLintDiagnostics);
-    context.subscriptions.push(disposable);
-  }
-}
-
-/*
-import * as vscode from 'vscode';
-import * as path from 'path';
-//import { ESLint } from 'eslint';
-//import { ruleSeverityMapping } from './ruleSeverityMapping';
-import { eslintScanFiles } from './eslintFileScanner';
+import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
 let extensionContext: vscode.ExtensionContext;
-const diagnosticCollection: vscode.DiagnosticCollection = vscode.languages.createDiagnosticCollection('jsx_eslint');
+const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
+
+let statusBarItem: vscode.StatusBarItem;
+let isActiveLintingEnabled = false;
+let isAllFilesLintingEnabled = false;
+let _currentLintedFile: vscode.Uri | undefined;
 
 export function initializeLinting(context: vscode.ExtensionContext) {
   extensionContext = context;
-  registerGetResultsCommand(context);
-  registerClearFileDiagnostics(context);
-}
+  context.subscriptions.push(
+    vscode.commands.registerCommand('ludwig.toggleLintActiveFile', toggleLintActiveFile),
+    vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
+    vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics)
+  );
 
-export async function runESLint(document: vscode.TextDocument): Promise<ESLint.LintResult[]> {
-  const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
-  const userConfig = {};
-  // // to be used later for user-defined 'exclude wokspace' paths
-  // const workspacePath = workspaceFolder ? workspaceFolder.uri.fsPath : path.dirname(document.uri.fsPath);
+  statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  statusBarItem.command = 'ludwig.toggleLintActiveFile';
+  context.subscriptions.push(statusBarItem);
+  updateStatusBarItem();
 
-  const eslint = new ESLint({
-    useEslintrc: false,
-    overrideConfigFile: path.join(extensionContext.extensionPath, 'src/eslint/.eslintrc.accessibility.json'),
-    // removed overrideConfig that contained same settings as .eslintrc.accessibility.json
-    overrideConfig: userConfig,
-    resolvePluginsRelativeTo: extensionContext.extensionPath,
+  vscode.window.onDidChangeActiveTextEditor(async (editor) => {
+    updateStatusBarItem();
+    if (editor && isActiveLintingEnabled) {
+      await lintDocument(editor.document);
+    }
   });
 
-  const text = document.getText();
-  const results = await eslint.lintText(text, {
-    filePath: document.fileName,
+  vscode.workspace.onDidChangeTextDocument(() => {
+    updateStatusBarItem();
   });
-  console.log(results);
 
-  return results;
+  vscode.workspace.onDidSaveTextDocument(async (document) => {
+    if (isAllFilesLintingEnabled) {
+      await lintDocument(document);
+    }
+  });
 }
 
-export async function setESLintDiagnostics() {
-  const editor = vscode.window.activeTextEditor;
-  if (editor) {
-    const document = editor.document;
-    const results = await runESLint(document);
+export async function lintDocument(document: vscode.TextDocument) {
+  if (!isAllFilesLintingEnabled) {
+    diagnosticCollection.clear();
+  }
+
+  _currentLintedFile = document.uri;
+
+  const results = await runESLint(document, extensionContext);
+  if (results !== null) {
     const diagnostics = createDiagnosticsFromResults(document, results);
     diagnosticCollection.set(document.uri, diagnostics);
     const fileName = path.basename(document.fileName);
     const numErrors = diagnostics.length;
-    const message = `*${fileName}* processed successfully! ${numErrors} errors found.`;
-    vscode.window.showInformationMessage(message);
+    showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numErrors} errors found.`);
+  } else {
+    diagnosticCollection.delete(document.uri);
+    const fileName = path.basename(document.fileName);
+    showTemporaryInfoMessage(`Linting failed for ${fileName}`);
+  }
+  updateStatusBarItem();
+}
+
+async function toggleLintActiveFile() {
+  isActiveLintingEnabled = !isActiveLintingEnabled;
+  isAllFilesLintingEnabled = false;
+  if (isActiveLintingEnabled) {
+    showTemporaryInfoMessage('Linting enabled for active file');
+    await lintActiveFile();
+  } else {
+    diagnosticCollection.clear();
+    _currentLintedFile = undefined;
+    showTemporaryInfoMessage('Linting disabled for active file');
+  }
+  updateStatusBarItem();
+}
+
+async function toggleLintAllFiles() {
+  isAllFilesLintingEnabled = !isAllFilesLintingEnabled;
+  isActiveLintingEnabled = false;
+  if (isAllFilesLintingEnabled) {
+    showTemporaryInfoMessage('Linting enabled for all files');
+    await lintAllFiles();
+  } else {
+    showTemporaryInfoMessage('Linting disabled for all files');
+    clearDiagnostics();
+  }
+  updateStatusBarItem();
+}
+
+function clearDiagnostics() {
+  diagnosticCollection.clear();
+  _currentLintedFile = undefined;
+  showTemporaryInfoMessage('Diagnostics cleared for active workspace.');
+  updateStatusBarItem();
+}
+
+async function lintActiveFile() {
+  const editor = vscode.window.activeTextEditor;
+  if (editor) {
+    await lintDocument(editor.document);
   }
 }
 
-export async function registerClearFileDiagnostics(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('ludwig.clearDiagnostics', () => {
-    const editor = vscode.window.activeTextEditor;
-    if (editor) {
-      diagnosticCollection.delete(editor.document.uri);
-      vscode.window.showInformationMessage('Diagnostics cleared for the current file.');
-    }
-  });
-
-  context.subscriptions.push(disposable);
+async function lintAllFiles() {
+  const documents = vscode.workspace.textDocuments;
+  for (const document of documents) {
+    await lintDocument(document);
+  }
 }
 
-function createDiagnosticsFromResults(
+export function createDiagnosticsFromResults(
   document: vscode.TextDocument,
   results: ESLint.LintResult[]
 ): vscode.Diagnostic[] {
-  const diagnostics: vscode.Diagnostic[] = [];
-  results.forEach((result) => {
-    result.messages.forEach((message) => {
-      const range = new vscode.Range(
-        new vscode.Position(message.line - 1, message.column - 1),
-        new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER),
-      );
-      const diagnostic = new vscode.Diagnostic(
+  return results.flatMap((result) =>
+    result.messages.map((message) => {
+      const start = new vscode.Position(message.line - 1, message.column - 1);
+      const end = new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER);
+      const range = new vscode.Range(start, end);
+
+      return new vscode.Diagnostic(
         range,
         message.message,
         message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
       );
-      diagnostics.push(diagnostic);
-    });
-  });
-  return diagnostics;
+    })
+  );
 }
-// Checks if command is already registered, otherwise it kept registering it at every activation event
-async function registerGetResultsCommand(context: vscode.ExtensionContext) {
-  const commandId = 'ludwig.getResults';
-  const registeredCommands = await vscode.commands.getCommands();
 
-  if (!registeredCommands.includes(commandId)) {
-    const disposable = vscode.commands.registerCommand(commandId, setESLintDiagnostics);
-    context.subscriptions.push(disposable);
+function updateStatusBarItem() {
+  console.log(`Updating status bar. Active: ${isActiveLintingEnabled}, All: ${isAllFilesLintingEnabled}`);
+  if (isActiveLintingEnabled) {
+    statusBarItem.text = '$(check) Ludwig: Active File';
+    statusBarItem.show();
+  } else if (isAllFilesLintingEnabled) {
+    statusBarItem.text = '$(check) Ludwig: All Files';
+    statusBarItem.show();
+  } else {
+    statusBarItem.text = '$(x) Ludwig: Disabled';
+    statusBarItem.show();
   }
 }
 
-*/
+function showTemporaryInfoMessage(
+  message: string,
+  timeout: number = 3000,
+  messageType: 'info' | 'statusBar' = 'statusBar'
+) {
+  if (messageType === 'info') {
+    vscode.window.showInformationMessage(message);
+  } else {
+    const statusBarMessage = vscode.window.setStatusBarMessage(message, timeout);
+    setTimeout(() => statusBarMessage.dispose(), timeout);
+  }
+}

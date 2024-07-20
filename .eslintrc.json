@@ -30,5 +30,14 @@
     "semi": "off",
     "prettier/prettier": "warn"
   },
-  "ignorePatterns": ["dist", "**/*.d.ts", "src/logic/aria-standards"]
+  "ignorePatterns": ["dist", "**/*.d.ts", "src/logic/aria-standards"],
+  "overrides": [
+    {
+      "files": ["webpack.config.js"],
+      "parser": "espree",
+      "parserOptions": {
+        "ecmaVersion": 2020
+      }
+    }
+  ]
 }

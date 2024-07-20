@@ -1,4 +1,3 @@
-/* 
 import * as vscode from 'vscode';
 import { initializeLinting } from './eslint/eslintDiagnostics';
 import { registerScanAllDocsCommand } from './commands/scanAllDocsCommand';
@@ -27,8 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {}
-*/
 
+/*
 import * as vscode from 'vscode';
 import { registerScanFilesCommand } from './commands/scanFiles';
 import { registerScanFilesWithCustomConfigCommand } from './commands/scanFiles';
@@ -61,3 +60,4 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate(): any {}
+*/
