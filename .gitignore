@@ -3,5 +3,6 @@ dist
 node_modules
 .vscode-test/
 *.vsix
+resultsLib.json
 ludwigReports/*
 !ludwigReports/.gitkeep

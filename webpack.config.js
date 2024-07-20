@@ -19,10 +19,7 @@ const config = {
   resolve: {
     extensions: ['.ts', '.js'],
     alias: {
-      'eslint-plugin-jsx-a11y': path.resolve(
-        __dirname,
-        'node_modules/eslint-plugin-jsx-a11y'
-      ),
+      'eslint-plugin-jsx-a11y': path.resolve(__dirname, 'node_modules/eslint-plugin-jsx-a11y'),
     },
   },
   module: {
@@ -48,6 +45,11 @@ const config = {
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*', '!extension.js'],
+    }),
+  ],
   devtool: 'nosources-source-map',
   infrastructureLogging: {
     level: 'log',
@@ -73,11 +75,7 @@ const reactConfig = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react',
-              '@babel/preset-typescript',
-            ],
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
           },
         },
       },
@@ -87,11 +85,41 @@ const reactConfig = {
       },
     ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  plugins: [],
   devtool: 'source-map',
   infrastructureLogging: {
     level: 'log',
   },
 };
-
-module.exports = [config, reactConfig];
+// Add configuration for progressionChart.ts
+const chartConfig = {
+  target: 'web',
+  mode: 'development',
+  entry: './src/charts/progressionChart.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'progressionChart.js',
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [],
+  devtool: 'source-map',
+  infrastructureLogging: {
+    level: 'log',
+  },
+};
+module.exports = [config, reactConfig, chartConfig];
