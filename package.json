@@ -56,6 +56,11 @@
         "category": "Ludwig"
       },
       {
+        "command": "ludwig.resetLib",
+        "title": "Delete Local Library",
+        "category": "Ludwig"
+      },
+      {
         "command": "ludwig.highlightElements",
         "title": "Highlight HTML",
         "category": "Ludwig",
