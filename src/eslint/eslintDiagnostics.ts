@@ -1,7 +1,10 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fs from 'fs';
 import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
+import { ruleSeverityMapping } from './ruleSeverityMapping';
+
 let extensionContext: vscode.ExtensionContext;
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
 
@@ -9,6 +12,30 @@ let statusBarItem: vscode.StatusBarItem;
 let isActiveLintingEnabled = false;
 let isAllFilesLintingEnabled = false;
 let _currentLintedFile: vscode.Uri | undefined;
+
+interface LintIssue {
+  ruleId: string;
+  severity: number;
+  message: string;
+  line: number;
+  column: number;
+  endLine?: number;
+  endColumn?: number;
+  nodeType?: string;
+  customSeverity?: number;
+}
+
+interface LintResult {
+  summary: {
+    dateCreated: string;
+    timeCreated: string;
+    activeWorkspace: string;
+    filepath: string;
+    errors: number;
+    warnings: number;
+  };
+  details: LintIssue[];
+}
 
 export function initializeLinting(context: vscode.ExtensionContext) {
   extensionContext = context;
@@ -50,17 +77,95 @@ export async function lintDocument(document: vscode.TextDocument) {
 
   const results = await runESLint(document, extensionContext);
   if (results !== null) {
-    const diagnostics = createDiagnosticsFromResults(document, results);
+    const lintResult = createLintResultFromESLintResults(document, results);
+    const diagnostics = createDiagnosticsFromLintResult(document, lintResult);
     diagnosticCollection.set(document.uri, diagnostics);
+
+    // Save results to central JSON library
+    saveLintResultToLibrary(lintResult);
+
     const fileName = path.basename(document.fileName);
-    const numErrors = diagnostics.length;
-    showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numErrors} errors found.`);
+    const numIssues = lintResult.details.length;
+    showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
   } else {
     diagnosticCollection.delete(document.uri);
     const fileName = path.basename(document.fileName);
     showTemporaryInfoMessage(`Linting failed for ${fileName}`);
   }
   updateStatusBarItem();
+}
+
+function createLintResultFromESLintResults(document: vscode.TextDocument, results: ESLint.LintResult[]): LintResult {
+  const details: LintIssue[] = [];
+  let errors = 0;
+  let warnings = 0;
+
+  results.forEach((result) => {
+    result.messages.forEach((message) => {
+      const customSeverity = ruleSeverityMapping[message.ruleId || 'unknown'] || 0;
+      details.push({
+        ruleId: message.ruleId || 'unknown',
+        severity: message.severity || 0,
+        message: message.message || '',
+        line: message.line || 0,
+        column: message.column || 0,
+        endLine: message.endLine,
+        endColumn: message.endColumn,
+        nodeType: message.nodeType,
+        customSeverity: customSeverity,
+      });
+
+      if (message.severity === 2) errors++;
+      else if (message.severity === 1) warnings++;
+    });
+  });
+
+  return {
+    summary: {
+      dateCreated: new Date().toISOString().split('T')[0],
+      timeCreated: new Date().toTimeString().split(' ')[0],
+      activeWorkspace: vscode.workspace.name || 'Unknown',
+      filepath: document.uri.fsPath,
+      errors,
+      warnings,
+    },
+    details,
+  };
+}
+
+function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResult: LintResult): vscode.Diagnostic[] {
+  return lintResult.details.map((issue) => {
+    const range = new vscode.Range(
+      new vscode.Position(issue.line - 1, issue.column - 1),
+      new vscode.Position(
+        issue.endLine ? issue.endLine - 1 : issue.line - 1,
+        issue.endColumn || Number.MAX_SAFE_INTEGER
+      )
+    );
+
+    const diagnostic = new vscode.Diagnostic(
+      range,
+      `${issue.message} (severity: ${issue.customSeverity})`,
+      issue.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
+    );
+    (diagnostic as any).customSeverity = issue.customSeverity;
+
+    return diagnostic;
+  });
+}
+
+function saveLintResultToLibrary(lintResult: LintResult) {
+  const resultsLibPath = path.join(extensionContext.extensionPath, 'resultsLib.json');
+  let resultsLib = [];
+
+  if (fs.existsSync(resultsLibPath)) {
+    const existingData = fs.readFileSync(resultsLibPath, 'utf-8');
+    resultsLib = JSON.parse(existingData);
+  }
+
+  resultsLib.push(lintResult);
+
+  fs.writeFileSync(resultsLibPath, JSON.stringify(resultsLib, null, 2));
 }
 
 async function toggleLintActiveFile() {
