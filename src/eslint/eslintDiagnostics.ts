@@ -86,8 +86,9 @@ export async function lintDocument(document: vscode.TextDocument, saveResults: b
 
     // Save results to central JSON library
     if (saveResults) {
-      saveLintResultToLibrary(lintResult);
-      updateDashboard();
+      saveLintResultToLibrary(lintResult, document);
+      //dont want to add to dashboard while in lint ALL FILES mode
+      // updateDashboard();
     }
     const dashboard = createDashboard(extensionContext);
     dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
@@ -165,61 +166,113 @@ function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResu
   });
 }
 
-function saveLintResultToLibrary(lintResult: LintResult) {
-  const resultsLibPath = path.join(extensionContext.extensionPath, 'resultsLib.json');
-  let resultsLib = [];
+// Helper function to create a safe file name based on the document's URI
+function createSafeFileName(document: vscode.TextDocument): string {
+  const workspaceFolder = vscode.workspace.getWorkspaceFolder(document.uri);
+  const relativePath = workspaceFolder
+    ? path.relative(workspaceFolder.uri.fsPath, document.uri.fsPath)
+    : document.uri.fsPath;
+  const sanitizedPath = relativePath.replace(/[\\/:]/g, '_'); // Replace path separators with underscores
+  return sanitizedPath + '.json';
+}
 
-  if (fs.existsSync(resultsLibPath)) {
-    const existingData = fs.readFileSync(resultsLibPath, 'utf-8');
+function saveLintResultToLibrary(lintResult: LintResult, document: vscode.TextDocument) {
+  const resultsDir = path.join(extensionContext.extensionPath, 'Summary_Library');
+
+  // Create the results directory if it doesn't exist
+  if (!fs.existsSync(resultsDir)) {
+    fs.mkdirSync(resultsDir, { recursive: true });
+  }
+
+  const fileName = createSafeFileName(document);
+  const resultsFilePath = path.join(resultsDir, fileName);
+
+  let resultsLib = [];
+  //check if results file exists
+  if (fs.existsSync(resultsFilePath)) {
+    const existingData = fs.readFileSync(resultsFilePath, 'utf-8');
     resultsLib = JSON.parse(existingData);
   }
-  const exists = resultsLib.some(
-    (result: LintResult) =>
-      result.summary.filepath === lintResult.summary.filepath &&
-      result.summary.dateCreated === lintResult.summary.dateCreated &&
-      result.summary.timeCreated === lintResult.summary.timeCreated
-  );
-  //logical check for # of exsisting results, delete oldest if > 10
-  if (!exists) {
+
+  if (resultsLib.length !== 0) {
+    //logical check for # of exsisting results, delete oldest if > 10
     if (resultsLib.length >= 10) {
       resultsLib.shift();
     }
-
-    resultsLib.push(lintResult);
-
-    fs.writeFileSync(resultsLibPath, JSON.stringify(resultsLib, null, 2));
   }
+  resultsLib.push(lintResult);
+
+  fs.writeFileSync(resultsFilePath, JSON.stringify(resultsLib, null, 2));
 }
 
-async function saveLintResults() {
+async function saveLintResults(lintResult: LintResult) {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     await lintDocument(editor.document, true);
     vscode.window.showInformationMessage('Lint results saved');
-    updateDashboard();
+    updateDashboard(lintResult);
   } else {
     vscode.window.showInformationMessage('No active editor to lint and save results');
   }
 }
 
-function updateDashboard() {
-  const resultsLibPath = path.join(extensionContext.extensionPath, 'resultsLib.json');
-  const data = fs.readFileSync(resultsLibPath, 'utf-8');
-  const resultsLib = JSON.parse(data);
+function updateDashboard(lintResult: LintResult) {
+  //THIS PIECE NEEDS TO 1. Find filepath of active editor 2. get name of file from filepath 3. look into Summary_Library
+  // 4. make chart from summary to Dashboard for only the file that you run save results command on so it doesnt add data to the chart from seperate files as if it was one file
+  const editor = vscode.window.activeTextEditor;
+  if (editor) {
+    const currentFile = editor.document.uri.fsPath;
 
-  const labels = resultsLib.map((result: any) => result.summary.timeCreated);
-  const errorCounts = resultsLib.map((result: any) => result.summary.errors);
-  const warnings = resultsLib.map((result: any) => result.summary.warnings);
+    console.log('currentFile: ', currentFile);
 
-  const panel = createDashboard(extensionContext);
-  panel.webview.postMessage({
-    command: 'loadData',
-    data: {
-      labels,
-      errorCounts,
-      warnings,
-    },
-  });
+    const resultsLibDir = path.resolve(extensionContext.extensionPath, 'Summary_Library');
+    const resultsLibPath = path.resolve(resultsLibDir, `${currentFile}.json`);
+
+    console.log('resultsLibPath: ', resultsLibPath);
+
+    if (!fs.existsSync(resultsLibPath)) {
+      console.error(`Results library path does not exist: ${resultsLibPath}`);
+      return;
+    }
+
+    const data = fs.readFileSync(resultsLibPath, 'utf-8');
+    const resultsLib = JSON.parse(data);
+
+    if (!Array.isArray(resultsLib)) {
+      console.error(`Results library is not an array: ${resultsLib}`);
+      return;
+    }
+    resultsLib.forEach((result, index) => {
+      if (!result.summary) {
+        console.error(`Missing summary in result at index ${index}:`, result);
+      } else {
+        console.log(`Summary at index ${index}:`, result.summary);
+      }
+    });
+
+    const labels = resultsLib.map((result: any) => result.summary.timeCreated);
+    const errorCounts = resultsLib.map((result: any) => result.summary.errors);
+    const warnings = resultsLib.map((result: any) => result.summary.warnings);
+
+    const panel = createDashboard(extensionContext);
+    if (
+      !resultsLib.some(
+        (result: any) =>
+          result.summary.filepath === lintResult.summary.filepath &&
+          result.summary.dateCreated === lintResult.summary.dateCreated &&
+          result.summary.timeCreated === lintResult.summary.timeCreated
+      )
+    ) {
+      panel.webview.postMessage({
+        command: 'loadData',
+        data: {
+          labels,
+          errorCounts,
+          warnings,
+        },
+      });
+    }
+  }
 }
 
 async function toggleLintActiveFile() {
@@ -314,4 +367,3 @@ function showTemporaryInfoMessage(
 //       );
 //     })
 //   );
-// }
