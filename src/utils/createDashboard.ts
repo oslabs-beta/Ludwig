@@ -46,7 +46,7 @@ function getWebviewContent(scriptUri: vscode.Uri, cssUri: vscode.Uri): string {
       <title>Main Dashboard</title>
     </head>
     <body>
-      <div id="root">Loading...</div>
+      <div id="root">Loading... fyi this is coming from createDashboard.ts</div>
       <canvas id="progressionChart"></canvas>
       <script src="${scriptUri}"></script>
     </body>
