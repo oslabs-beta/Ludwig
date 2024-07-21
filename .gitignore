@@ -6,3 +6,5 @@ node_modules
 resultsLib.json
 ludwigReports/*
 !ludwigReports/.gitkeep
+Summary_Library/*
+!Summary_Library/persistent

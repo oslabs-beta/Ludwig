@@ -87,21 +87,25 @@ export async function lintDocument(document: vscode.TextDocument, saveResults: b
     // Save results to central JSON library
     if (saveResults) {
       saveLintResultToLibrary(lintResult, document);
+      updateDashboard(lintResult);
+
       //dont want to add to dashboard while in lint ALL FILES mode
-      // updateDashboard();
     }
-    const dashboard = createDashboard(extensionContext);
-    dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
+    // const dashboard = createDashboard(extensionContext);
+    // dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
 
     const fileName = path.basename(document.fileName);
     const numIssues = lintResult.details.length;
     showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
+    updateStatusBarItem();
+    return lintResult;
   } else {
     diagnosticCollection.delete(document.uri);
     const fileName = path.basename(document.fileName);
     showTemporaryInfoMessage(`Linting failed for ${fileName}`);
+    updateStatusBarItem();
+    return null;
   }
-  updateStatusBarItem();
 }
 
 function createLintResultFromESLintResults(document: vscode.TextDocument, results: ESLint.LintResult[]): LintResult {
@@ -205,30 +209,28 @@ function saveLintResultToLibrary(lintResult: LintResult, document: vscode.TextDo
   fs.writeFileSync(resultsFilePath, JSON.stringify(resultsLib, null, 2));
 }
 
-async function saveLintResults(lintResult: LintResult) {
+async function saveLintResults() {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
-    await lintDocument(editor.document, true);
-    vscode.window.showInformationMessage('Lint results saved');
-    updateDashboard(lintResult);
-  } else {
-    vscode.window.showInformationMessage('No active editor to lint and save results');
+    const lintResult = await lintDocument(editor.document, true);
+    if (lintResult) {
+      updateDashboard(lintResult);
+      vscode.window.showInformationMessage('Lint results saved');
+      console.log('Lint results saved and updated dashboard');
+    } else {
+      vscode.window.showInformationMessage('No active editor to lint and save results');
+    }
   }
 }
 
 function updateDashboard(lintResult: LintResult) {
-  //THIS PIECE NEEDS TO 1. Find filepath of active editor 2. get name of file from filepath 3. look into Summary_Library
-  // 4. make chart from summary to Dashboard for only the file that you run save results command on so it doesnt add data to the chart from seperate files as if it was one file
+  console.log(lintResult); //to avoid lint errors
   const editor = vscode.window.activeTextEditor;
   if (editor) {
     const currentFile = editor.document.uri.fsPath;
-
-    console.log('currentFile: ', currentFile);
-
     const resultsLibDir = path.resolve(extensionContext.extensionPath, 'Summary_Library');
-    const resultsLibPath = path.resolve(resultsLibDir, `${currentFile}.json`);
-
-    console.log('resultsLibPath: ', resultsLibPath);
+    const fileName = createSafeFileName(editor.document);
+    const resultsLibPath = path.join(resultsLibDir, fileName);
 
     if (!fs.existsSync(resultsLibPath)) {
       console.error(`Results library path does not exist: ${resultsLibPath}`);
@@ -242,36 +244,23 @@ function updateDashboard(lintResult: LintResult) {
       console.error(`Results library is not an array: ${resultsLib}`);
       return;
     }
-    resultsLib.forEach((result, index) => {
-      if (!result.summary) {
-        console.error(`Missing summary in result at index ${index}:`, result);
-      } else {
-        console.log(`Summary at index ${index}:`, result.summary);
-      }
+
+    const recentResults = resultsLib.slice(-10);
+
+    const chartData = {
+      labels: recentResults.map((result) => result.summary.timeCreated),
+      errorCounts: recentResults.map((result) => result.summary.errors),
+      warnings: recentResults.map((result) => result.summary.warnings),
+    };
+
+    const dashboard = createDashboard(extensionContext);
+    dashboard.webview.postMessage({
+      command: 'loadData',
+      fileName: path.basename(currentFile),
+      data: chartData,
     });
-
-    const labels = resultsLib.map((result: any) => result.summary.timeCreated);
-    const errorCounts = resultsLib.map((result: any) => result.summary.errors);
-    const warnings = resultsLib.map((result: any) => result.summary.warnings);
-
-    const panel = createDashboard(extensionContext);
-    if (
-      !resultsLib.some(
-        (result: any) =>
-          result.summary.filepath === lintResult.summary.filepath &&
-          result.summary.dateCreated === lintResult.summary.dateCreated &&
-          result.summary.timeCreated === lintResult.summary.timeCreated
-      )
-    ) {
-      panel.webview.postMessage({
-        command: 'loadData',
-        data: {
-          labels,
-          errorCounts,
-          warnings,
-        },
-      });
-    }
+  } else {
+    console.error('No active editor to update dashboard');
   }
 }
 
