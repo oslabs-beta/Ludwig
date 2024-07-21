@@ -1,0 +1,10 @@
+# Ignore an entire directory
+src/logic/aria-standards/serious linguist-generated=true
+Summary_Library/* linguist-generated=true
+ludwigReports/* linguist-generated=true
+devTestFiles/* linguist-generated=true
+dist/* linguist-generated=true
+
+*.ts linguist-language=TypeScript
+
+node_modules/* linguist-vendored=true
