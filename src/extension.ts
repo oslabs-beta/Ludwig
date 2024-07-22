@@ -7,7 +7,7 @@ import { SidebarWebviewProvider } from './views/SidebarWebviewProvider';
 // import { registerScanFilesWithCustomConfigCommand } from './commands/scanFiles';
 // import { initializeEslintDiagnostics } from './eslint/eslintDiagnostics';
 // import { registerDocumentEvents } from './commands/documentEvents';
-import { registerResetLibraryCommand } from './commands/libraryCommands';
+// import { registerResetLibraryCommand } from './commands/libraryCommands';
 import { createDashboard } from './utils/createDashboard';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -20,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   initializeLinting(context);
-  registerResetLibraryCommand(context);
+  // registerResetLibraryCommand(context);
   context.subscriptions.push(
     vscode.commands.registerCommand('ludwig.showDashboard', () => {
       createDashboard(context);

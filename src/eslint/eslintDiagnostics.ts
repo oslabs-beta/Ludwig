@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as fs from 'fs';
+import * as fs from 'fs/promises';
 import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
+// import { simpleLintResultHash } from '../utils/simpleLintResultHash';
 import { ruleSeverityMapping } from './ruleSeverityMapping';
 import { createDashboard } from '../utils/createDashboard';
 
@@ -76,32 +77,37 @@ export async function lintDocument(document: vscode.TextDocument, saveResults: b
     diagnosticCollection.clear();
   }
 
-  _currentLintedFile = document.uri;
+  // _currentLintedFile = document.uri;
+  const fileName = path.basename(document.fileName);
+  try {
+    const results = await runESLint(document, extensionContext);
+    if (results !== null) {
+      const lintResult = createLintResultFromESLintResults(document, results);
+      const diagnostics = createDiagnosticsFromLintResult(document, lintResult);
+      diagnosticCollection.set(document.uri, diagnostics);
 
-  const results = await runESLint(document, extensionContext);
-  if (results !== null) {
-    const lintResult = createLintResultFromESLintResults(document, results);
-    const diagnostics = createDiagnosticsFromLintResult(document, lintResult);
-    diagnosticCollection.set(document.uri, diagnostics);
+      // Save results to central JSON library
+      if (saveResults) {
+        saveLintResultToLibrary(lintResult, document);
+        updateDashboard(lintResult);
 
-    // Save results to central JSON library
-    if (saveResults) {
-      saveLintResultToLibrary(lintResult, document);
-      //dont want to add to dashboard while in lint ALL FILES mode
-      // updateDashboard();
+        //dont want to add to dashboard while in lint ALL FILES mode
+      }
+      // const dashboard = createDashboard(extensionContext);
+      // dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
+
+      const numIssues = lintResult.details.length;
+      showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
+      updateStatusBarItem();
+      return lintResult;
     }
-    const dashboard = createDashboard(extensionContext);
-    dashboard.webview.postMessage({ command: 'updateErrors', errorCount: lintResult.summary.errors });
-
-    const fileName = path.basename(document.fileName);
-    const numIssues = lintResult.details.length;
-    showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
-  } else {
+  } catch (error) {
+    console.error(`Linting failed for ${fileName}:`, error);
     diagnosticCollection.delete(document.uri);
-    const fileName = path.basename(document.fileName);
     showTemporaryInfoMessage(`Linting failed for ${fileName}`);
+    updateStatusBarItem();
+    return null;
   }
-  updateStatusBarItem();
 }
 
 function createLintResultFromESLintResults(document: vscode.TextDocument, results: ESLint.LintResult[]): LintResult {
@@ -176,103 +182,145 @@ function createSafeFileName(document: vscode.TextDocument): string {
   return sanitizedPath + '.json';
 }
 
-function saveLintResultToLibrary(lintResult: LintResult, document: vscode.TextDocument) {
-  const resultsDir = path.join(extensionContext.extensionPath, 'Summary_Library');
+function simpleLintResultHash(lintResult: LintResult): string {
+  // Create a string representation of the important parts of the lint result
+  const relevantData = `${lintResult.summary.errors}-${lintResult.summary.warnings}-${lintResult.details
+    .map((d) => `${d.ruleId}-${d.severity}-${d.message}`)
+    .sort()
+    .join('|')}`;
 
-  // Create the results directory if it doesn't exist
-  if (!fs.existsSync(resultsDir)) {
-    fs.mkdirSync(resultsDir, { recursive: true });
+  // Use a simple hash function
+  let hash = 0;
+  for (let i = 0; i < relevantData.length; i++) {
+    const char = relevantData.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+
+  // Return the hash as a string
+  return hash.toString(16);
+}
+
+interface HashedLintResult extends LintResult {
+  hash: string;
+}
+
+async function saveLintResultToLibrary(lintResult: LintResult, document: vscode.TextDocument) {
+  const resultsDir = path.join(extensionContext.extensionPath, 'Summary_Library');
+  console.log('Saving lint result to library...');
+  console.log('Results directory:', resultsDir);
+
+  try {
+    await fs.mkdir(resultsDir, { recursive: true });
+  } catch (error) {
+    console.error('Failed to create results directory:', error);
+    return;
   }
 
   const fileName = createSafeFileName(document);
   const resultsFilePath = path.join(resultsDir, fileName);
+  console.log('Results file path:', resultsFilePath);
 
   let resultsLib = [];
-  //check if results file exists
-  if (fs.existsSync(resultsFilePath)) {
-    const existingData = fs.readFileSync(resultsFilePath, 'utf-8');
+  try {
+    const existingData = await fs.readFile(resultsFilePath, 'utf-8');
     resultsLib = JSON.parse(existingData);
-  }
-
-  if (resultsLib.length !== 0) {
-    //logical check for # of exsisting results, delete oldest if > 10
-    if (resultsLib.length >= 10) {
-      resultsLib.shift();
-    }
-  }
-  resultsLib.push(lintResult);
-
-  fs.writeFileSync(resultsFilePath, JSON.stringify(resultsLib, null, 2));
-}
-
-async function saveLintResults(lintResult: LintResult) {
-  const editor = vscode.window.activeTextEditor;
-  if (editor) {
-    await lintDocument(editor.document, true);
-    vscode.window.showInformationMessage('Lint results saved');
-    updateDashboard(lintResult);
-  } else {
-    vscode.window.showInformationMessage('No active editor to lint and save results');
-  }
-}
-
-function updateDashboard(lintResult: LintResult) {
-  //THIS PIECE NEEDS TO 1. Find filepath of active editor 2. get name of file from filepath 3. look into Summary_Library
-  // 4. make chart from summary to Dashboard for only the file that you run save results command on so it doesnt add data to the chart from seperate files as if it was one file
-  const editor = vscode.window.activeTextEditor;
-  if (editor) {
-    const currentFile = editor.document.uri.fsPath;
-
-    console.log('currentFile: ', currentFile);
-
-    const resultsLibDir = path.resolve(extensionContext.extensionPath, 'Summary_Library');
-    const resultsLibPath = path.resolve(resultsLibDir, `${currentFile}.json`);
-
-    console.log('resultsLibPath: ', resultsLibPath);
-
-    if (!fs.existsSync(resultsLibPath)) {
-      console.error(`Results library path does not exist: ${resultsLibPath}`);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
+      console.error('Failed to read results file:', error);
       return;
     }
+    console.log('No existing results file found. Creating a new one.');
+  }
+  const newHashedResult: HashedLintResult = {
+    ...lintResult,
+    hash: simpleLintResultHash(lintResult),
+  };
+  console.log('New hashed lint result:', newHashedResult);
 
-    const data = fs.readFileSync(resultsLibPath, 'utf-8');
-    const resultsLib = JSON.parse(data);
+  if (resultsLib.length > 0 && resultsLib[resultsLib.length - 1].hash === newHashedResult.hash) {
+    console.log('Lint results unchanged. Skipping save operation.');
+    return;
+  }
 
-    if (!Array.isArray(resultsLib)) {
-      console.error(`Results library is not an array: ${resultsLib}`);
-      return;
-    }
-    resultsLib.forEach((result, index) => {
-      if (!result.summary) {
-        console.error(`Missing summary in result at index ${index}:`, result);
-      } else {
-        console.log(`Summary at index ${index}:`, result.summary);
-      }
-    });
+  if (resultsLib.length >= 10) {
+    resultsLib.shift();
+  }
+  resultsLib.push(newHashedResult);
+  console.log('Updated results library:', resultsLib);
 
-    const labels = resultsLib.map((result: any) => result.summary.timeCreated);
-    const errorCounts = resultsLib.map((result: any) => result.summary.errors);
-    const warnings = resultsLib.map((result: any) => result.summary.warnings);
-
-    const panel = createDashboard(extensionContext);
-    if (
-      !resultsLib.some(
-        (result: any) =>
-          result.summary.filepath === lintResult.summary.filepath &&
-          result.summary.dateCreated === lintResult.summary.dateCreated &&
-          result.summary.timeCreated === lintResult.summary.timeCreated
-      )
-    ) {
-      panel.webview.postMessage({
-        command: 'loadData',
-        data: {
-          labels,
-          errorCounts,
-          warnings,
-        },
-      });
+  try {
+    await fs.writeFile(resultsFilePath, JSON.stringify(resultsLib, null, 2));
+    console.log(`${resultsFilePath}:  Lint results saved successfully.`);
+    await updateDashboard(lintResult);
+  } catch (error) {
+    console.error('Failed to write lint results:', error);
+  }
+}
+async function saveLintResults() {
+  const editor = vscode.window.activeTextEditor;
+  if (editor) {
+    const lintResult = await lintDocument(editor.document, true);
+    if (lintResult) {
+      updateDashboard(lintResult);
+      vscode.window.showInformationMessage('Lint results saved');
+      console.log('Lint results saved and updated dashboard');
+    } else {
+      vscode.window.showInformationMessage('No active editor to lint and save results');
     }
   }
+}
+
+async function updateDashboard(lintResult: LintResult) {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    console.error('No active editor to update dashboard');
+    return;
+  }
+
+  const currentFile = editor.document.uri.fsPath;
+  const resultsLibDir = path.join(extensionContext.extensionPath, 'Summary_Library');
+  const fileName = createSafeFileName(editor.document);
+  const resultsLibPath = path.join(resultsLibDir, fileName);
+
+  let recentResults: HashedLintResult[] = [];
+  try {
+    const data = await fs.readFile(resultsLibPath, 'utf-8');
+    recentResults = JSON.parse(data);
+  } catch (error) {
+    console.error('Error reading results file:', error);
+    // If there's an error reading the file, we'll start with an empty array
+    recentResults = [];
+  }
+
+  // Add the current lintResult to recentResults
+  const currentHashedResult: HashedLintResult = {
+    ...lintResult,
+    hash: simpleLintResultHash(lintResult),
+  };
+
+  // Only add the current result if it's different from the last one
+  if (recentResults.length === 0 || recentResults[recentResults.length - 1].hash !== currentHashedResult.hash) {
+    recentResults.push(currentHashedResult);
+    // Keep only the last 10 results
+    recentResults = recentResults.slice(-10);
+  }
+
+  // Format data for the chart
+  const chartData = {
+    labels: recentResults.map((result) => result.summary.timeCreated),
+    errorCounts: recentResults.map((result) => result.summary.errors),
+    warnings: recentResults.map((result) => result.summary.warnings),
+  };
+
+  const dashboard = createDashboard(extensionContext);
+  dashboard.webview.postMessage({
+    command: 'loadData',
+    fileName: path.basename(currentFile),
+    data: chartData,
+  });
+
+  console.log('Dashboard updated with latest data');
 }
 
 async function toggleLintActiveFile() {
@@ -312,7 +360,7 @@ function clearDiagnostics() {
 async function lintActiveFile() {
   const editor = vscode.window.activeTextEditor;
   if (editor) {
-    await lintDocument(editor.document);
+    await lintDocument(editor.document, true);
   }
 }
 
