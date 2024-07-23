@@ -21,11 +21,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "ludwig.showDashboard",
-        "title": "Ludwig: Show Dashboard",
-        "category": "Ludwig"
-      },
-      {
         "command": "ludwig.toggleLintActiveFile",
         "title": "Toggle Lint Active File",
         "category": "Ludwig",
@@ -56,6 +51,11 @@
       {
         "command": "ludwig.updateDashboard",
         "title": "XXXX - Update Dashboard - XXXX",
+        "category": "Ludwig"
+      },
+      {
+        "command": "ludwig.showLintingMenu",
+        "title": "Ludwig: Change Linting Mode",
         "category": "Ludwig"
       }
     ],

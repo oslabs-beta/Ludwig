@@ -46,12 +46,13 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand('ludwig.updateDashboard', updateDashboardCommand),
     vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
     vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics),
+    vscode.commands.registerCommand('ludwig.showLintingMenu', showLintingMenu),
     vscode.commands.registerCommand('ludwig.saveLintResults', saveLintResults),
     vscode.commands.registerCommand('ludwig.resetLib', resetLib)
   );
 
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
-  statusBarItem.command = 'ludwig.toggleLintActiveFile';
+  statusBarItem.command = 'ludwig.showLintingMenu';
   context.subscriptions.push(statusBarItem);
   updateStatusBarItem();
 
@@ -348,42 +349,6 @@ async function updateDashboard(lintResult: LintResult) {
   console.log('Dashboard updated with latest data');
 }
 
-async function toggleLintActiveFile() {
-  if (isActiveLintingEnabled) {
-    isActiveLintingEnabled = false;
-  } else {
-    isActiveLintingEnabled = true;
-    isAllFilesLintingEnabled = false;
-  }
-  updateStatusBarItem();
-  if (isActiveLintingEnabled) {
-    showTemporaryInfoMessage('Linting enabled for active file');
-    await lintActiveFile();
-  } else {
-    diagnosticCollection.clear();
-    showTemporaryInfoMessage('Linting disabled');
-  }
-}
-
-async function toggleLintAllFiles() {
-  if (isAllFilesLintingEnabled) {
-    isAllFilesLintingEnabled = false;
-  } else {
-    isAllFilesLintingEnabled = true;
-    isActiveLintingEnabled = false;
-  }
-
-  updateStatusBarItem();
-  if (isAllFilesLintingEnabled) {
-    showTemporaryInfoMessage('Linting enabled for workspace');
-    await lintAllFiles();
-  } else {
-    diagnosticCollection.clear();
-    _currentLintedFile = undefined;
-    showTemporaryInfoMessage('Linting disabled');
-  }
-}
-
 function clearDiagnostics() {
   diagnosticCollection.clear();
   _currentLintedFile = undefined;
@@ -410,17 +375,77 @@ function updateStatusBarItem() {
 
   if (isActiveLintingEnabled) {
     statusBarItem.text = '$(check-all) Ludwig: Active File';
-    statusBarItem.command = 'ludwig.toggleLintActiveFile';
   } else if (isAllFilesLintingEnabled) {
     statusBarItem.text = '$(check) Ludwig: All Files';
-    statusBarItem.command = 'ludwig.toggleLintAllFiles';
   } else {
     statusBarItem.text = '$(circle-slash) Ludwig: Disabled';
-    statusBarItem.command = 'ludwig.toggleLintActiveFile'; // Or you could create a new command to enable linting
   }
 
-  statusBarItem.tooltip = 'Click to toggle linting mode';
+  statusBarItem.command = 'ludwig.showLintingMenu';
+  statusBarItem.tooltip = 'Click to change linting mode';
   statusBarItem.show();
+}
+
+async function showLintingMenu() {
+  const selected = await vscode.window.showQuickPick(
+    [
+      { label: 'Lint Active File', description: isActiveLintingEnabled ? '(current)' : '' },
+      { label: 'Lint All Files', description: isAllFilesLintingEnabled ? '(current)' : '' },
+      {
+        label: 'Disable Linting',
+        description: !isActiveLintingEnabled && !isAllFilesLintingEnabled ? '(current)' : '',
+      },
+    ],
+    { placeHolder: 'Select linting mode' }
+  );
+
+  if (selected) {
+    switch (selected.label) {
+      case 'Lint Active File':
+        await toggleLintActiveFile(true);
+        break;
+      case 'Lint All Files':
+        await toggleLintAllFiles(true);
+        break;
+      case 'Disable Linting':
+        await disableLinting();
+        break;
+    }
+  }
+}
+async function toggleLintActiveFile(enable: boolean) {
+  isActiveLintingEnabled = enable;
+  isAllFilesLintingEnabled = false;
+  updateStatusBarItem();
+
+  if (isActiveLintingEnabled) {
+    showTemporaryInfoMessage('Linting enabled for active file');
+    await lintActiveFile();
+  } else {
+    showTemporaryInfoMessage('Linting disabled for active file');
+  }
+}
+
+async function toggleLintAllFiles(enable: boolean) {
+  isAllFilesLintingEnabled = enable;
+  isActiveLintingEnabled = false;
+  updateStatusBarItem();
+
+  if (isAllFilesLintingEnabled) {
+    showTemporaryInfoMessage('Linting enabled for all files');
+    await lintAllFiles();
+  } else {
+    showTemporaryInfoMessage('Linting disabled for all files');
+  }
+}
+
+async function disableLinting() {
+  isActiveLintingEnabled = false;
+  isAllFilesLintingEnabled = false;
+  updateStatusBarItem();
+  diagnosticCollection.clear();
+  _currentLintedFile = undefined;
+  showTemporaryInfoMessage('Linting disabled');
 }
 
 function showTemporaryInfoMessage(

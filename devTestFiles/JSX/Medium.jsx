@@ -15,9 +15,7 @@ function LongTest() {
         </body>
       </html>
       <iframe src="https://example.com"></iframe>
-      <video src="video.mp4" autoPlay>No captions</video>
-      <div accessKey="s">Access key</div>
-      <select onChange={() => {}}>
+    
         <option>Option 1</option>
         <option>Option 2</option>
       </select>
