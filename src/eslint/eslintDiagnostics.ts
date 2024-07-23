@@ -389,26 +389,54 @@ function updateStatusBarItem() {
 async function showLintingMenu() {
   const selected = await vscode.window.showQuickPick(
     [
-      { label: 'Lint Active File', description: isActiveLintingEnabled ? '(current)' : '' },
-      { label: 'Lint All Files', description: isAllFilesLintingEnabled ? '(current)' : '' },
       {
-        label: 'Disable Linting',
+        label: '$(file) Lint Active File',
+        description: isActiveLintingEnabled ? '(current)' : '',
+        detail: 'Enable linting for the currently active file only',
+      },
+      {
+        label: '$(files) Lint All Files',
+        description: isAllFilesLintingEnabled ? '(current)' : '',
+        detail: 'Enable linting for all files in the workspace',
+      },
+      {
+        label: '$(stop) Disable Linting',
         description: !isActiveLintingEnabled && !isAllFilesLintingEnabled ? '(current)' : '',
+        detail: 'Turn off all linting',
+      },
+      {
+        label: '$(graph) Update Dashboard / Generate Report',
+        description: '📊 Visualize',
+        detail: 'Update the dashboard with latest linting results for the active file',
+      },
+      {
+        label: '$(trash) Reset Linting Library',
+        description: '⚠️ Caution',
+        detail: '*Deletes* all saved linting results  $(arrow-right) Use this to start fresh',
       },
     ],
-    { placeHolder: 'Select linting mode' }
+    {
+      placeHolder: 'Select linting mode',
+      matchOnDescription: true,
+      matchOnDetail: true,
+    }
   );
-
   if (selected) {
     switch (selected.label) {
-      case 'Lint Active File':
+      case '$(file) Lint Active File':
         await toggleLintActiveFile(true);
         break;
-      case 'Lint All Files':
+      case '$(files) Lint All Files':
         await toggleLintAllFiles(true);
         break;
-      case 'Disable Linting':
+      case '$(stop) Disable Linting':
         await disableLinting();
+        break;
+      case '$(graph) Update Dashboard / Generate Report':
+        await updateDashboardCommand();
+        break;
+      case '$(trash) Reset Linting Library':
+        await resetLib();
         break;
     }
   }
