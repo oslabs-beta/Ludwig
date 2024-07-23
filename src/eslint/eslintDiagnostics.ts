@@ -43,10 +43,11 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   extensionContext = context;
   context.subscriptions.push(
     vscode.commands.registerCommand('ludwig.toggleLintActiveFile', toggleLintActiveFile),
+    vscode.commands.registerCommand('ludwig.updateDashboard', updateDashboardCommand),
     vscode.commands.registerCommand('ludwig.toggleLintAllFiles', toggleLintAllFiles),
     vscode.commands.registerCommand('ludwig.clearDiagnostics', clearDiagnostics),
-    vscode.commands.registerCommand('ludwig.saveLintResults', saveLintResults)
-    // vscode.commands.registerCommand('ludwig.resetLib', resetLib)
+    vscode.commands.registerCommand('ludwig.saveLintResults', saveLintResults),
+    vscode.commands.registerCommand('ludwig.resetLib', resetLib)
   );
 
   statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
@@ -89,7 +90,7 @@ export async function lintDocument(document: vscode.TextDocument, saveResults: b
       // Save results to central JSON library
       if (saveResults) {
         saveLintResultToLibrary(lintResult, document);
-        updateDashboard(lintResult);
+        // updateDashboard(lintResult);
 
         //dont want to add to dashboard while in lint ALL FILES mode
       }
@@ -160,7 +161,6 @@ function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResu
         issue.endColumn || Number.MAX_SAFE_INTEGER
       )
     );
-
     const diagnostic = new vscode.Diagnostic(
       range,
       `${issue.message} (severity: ${issue.customSeverity})`,
@@ -252,7 +252,7 @@ async function saveLintResultToLibrary(lintResult: LintResult, document: vscode.
   try {
     await fs.writeFile(resultsFilePath, JSON.stringify(resultsLib, null, 2));
     console.log(`${resultsFilePath}:  Lint results saved successfully.`);
-    await updateDashboard(lintResult);
+    // await updateDashboard(lintResult);
   } catch (error) {
     console.error('Failed to write lint results:', error);
   }
@@ -262,12 +262,37 @@ async function saveLintResults() {
   if (editor) {
     const lintResult = await lintDocument(editor.document, true);
     if (lintResult) {
-      updateDashboard(lintResult);
       vscode.window.showInformationMessage('Lint results saved');
-      console.log('Lint results saved and updated dashboard');
     } else {
       vscode.window.showInformationMessage('No active editor to lint and save results');
     }
+  }
+}
+
+async function updateDashboardCommand() {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    vscode.window.showInformationMessage('No active editor to update dashboard');
+    return;
+  }
+
+  const document = editor.document;
+  const fileName = createSafeFileName(document);
+  const resultsFilePath = path.join(extensionContext.extensionPath, 'Summary_Library', fileName);
+
+  try {
+    const data = await fs.readFile(resultsFilePath, 'utf-8');
+    const resultsLib = JSON.parse(data);
+    if (resultsLib.length > 0) {
+      const latestResult = resultsLib[resultsLib.length - 1];
+      await updateDashboard(latestResult);
+      vscode.window.showInformationMessage('Dashboard updated successfully');
+    } else {
+      vscode.window.showInformationMessage('No lint results available to update dashboard');
+    }
+  } catch (error) {
+    console.error('Failed to read lint results or update dashboard:', error);
+    vscode.window.showErrorMessage('Failed to update dashboard');
   }
 }
 
@@ -324,30 +349,39 @@ async function updateDashboard(lintResult: LintResult) {
 }
 
 async function toggleLintActiveFile() {
-  isActiveLintingEnabled = !isActiveLintingEnabled;
-  isAllFilesLintingEnabled = false;
+  if (isActiveLintingEnabled) {
+    isActiveLintingEnabled = false;
+  } else {
+    isActiveLintingEnabled = true;
+    isAllFilesLintingEnabled = false;
+  }
+  updateStatusBarItem();
   if (isActiveLintingEnabled) {
     showTemporaryInfoMessage('Linting enabled for active file');
     await lintActiveFile();
   } else {
     diagnosticCollection.clear();
-    _currentLintedFile = undefined;
-    showTemporaryInfoMessage('Linting disabled for active file');
+    showTemporaryInfoMessage('Linting disabled');
   }
-  updateStatusBarItem();
 }
 
 async function toggleLintAllFiles() {
-  isAllFilesLintingEnabled = !isAllFilesLintingEnabled;
-  isActiveLintingEnabled = false;
   if (isAllFilesLintingEnabled) {
-    showTemporaryInfoMessage('Linting enabled for all files');
+    isAllFilesLintingEnabled = false;
+  } else {
+    isAllFilesLintingEnabled = true;
+    isActiveLintingEnabled = false;
+  }
+
+  updateStatusBarItem();
+  if (isAllFilesLintingEnabled) {
+    showTemporaryInfoMessage('Linting enabled for workspace');
     await lintAllFiles();
   } else {
-    showTemporaryInfoMessage('Linting disabled for all files');
-    clearDiagnostics();
+    diagnosticCollection.clear();
+    _currentLintedFile = undefined;
+    showTemporaryInfoMessage('Linting disabled');
   }
-  updateStatusBarItem();
 }
 
 function clearDiagnostics() {
@@ -373,16 +407,20 @@ async function lintAllFiles() {
 
 function updateStatusBarItem() {
   console.log(`Updating status bar. Active: ${isActiveLintingEnabled}, All: ${isAllFilesLintingEnabled}`);
+
   if (isActiveLintingEnabled) {
-    statusBarItem.text = '$(check) Ludwig: Active File';
-    statusBarItem.show();
+    statusBarItem.text = '$(check-all) Ludwig: Active File';
+    statusBarItem.command = 'ludwig.toggleLintActiveFile';
   } else if (isAllFilesLintingEnabled) {
     statusBarItem.text = '$(check) Ludwig: All Files';
-    statusBarItem.show();
+    statusBarItem.command = 'ludwig.toggleLintAllFiles';
   } else {
-    statusBarItem.text = '$(x) Ludwig: Disabled';
-    statusBarItem.show();
+    statusBarItem.text = '$(circle-slash) Ludwig: Disabled';
+    statusBarItem.command = 'ludwig.toggleLintActiveFile'; // Or you could create a new command to enable linting
   }
+
+  statusBarItem.tooltip = 'Click to toggle linting mode';
+  statusBarItem.show();
 }
 
 function showTemporaryInfoMessage(
@@ -398,20 +436,28 @@ function showTemporaryInfoMessage(
   }
 }
 
-// export function createDiagnosticsFromResults(
-//   document: vscode.TextDocument,
-//   results: ESLint.LintResult[]
-// ): vscode.Diagnostic[] {
-//   return results.flatMap((result) =>
-//     result.messages.map((message) => {
-//       const start = new vscode.Position(message.line - 1, message.column - 1);
-//       const end = new vscode.Position(message.line - 1, Number.MAX_SAFE_INTEGER);
-//       const range = new vscode.Range(start, end);
+async function resetLib() {
+  const libraryPath = path.join(extensionContext.extensionPath, 'Summary_Library');
+  const answer = await vscode.window.showWarningMessage(
+    'Are you sure you want to reset the Ludwig Summary Library? This action cannot be undone.',
+    'Yes',
+    'No'
+  );
 
-//       return new vscode.Diagnostic(
-//         range,
-//         message.message,
-//         message.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
-//       );
-//     })
-//   );
+  if (answer !== 'Yes') {
+    return;
+  }
+  try {
+    await fs.rm(libraryPath, { recursive: true, force: true });
+    vscode.window.showInformationMessage('Ludwig Report Library has been reset successfully.');
+    console.log('Summary_Library folder deleted successfully');
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+      vscode.window.showInformationMessage('Ludwig Report Library was already empty.');
+      console.log('Summary_Library folder does not exist');
+    } else {
+      vscode.window.showErrorMessage('Failed to reset Ludwig Report Library. Please try again.');
+      console.error('Error deleting Summary_Library folder:', error);
+    }
+  }
+}
