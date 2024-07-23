@@ -2,11 +2,11 @@
 
 # Ludwig VS
 
-Ludwig VS is a VS Code linter that makes writing accessible HTML easier for developers. Ludwig offers in-line highlighting of HTML that is not in compliance with WCAG and WAI-ARIA standards and provides recommendations to enhance the accessibility of your HTML code.
+Ludwig VS is a VS Code linter that makes writing accessible HTML and JSX easier for developers. Ludwig offers linting of HTML and JSX files that are not in compliance with WCAG and WAI-ARIA AA standards and provides recommendations to enhance the accessibility of your code. Additionally, it creates a chart in a dashboard to show the number of accessibilty errors and warnings over time with real-time updates to track progress save historical data.
 
-One sixth of the world’s population will experience a disability at some point in their lifetime, but 98% of websites contain inaccessibility issues, making them challenging for individuals with disabilities to use. Ludwig tackles this problem directly by providing a reliable tool that developers can leverage during the development process, rather than relying solely on post-development accessibility testing. Ludwig highlights HTML accessibility errors in real-time, such as missing ARIA-attributes or empty tags. When a developer hovers over the highlighted code, a hover message will display the root issue and provide further documentation for reference. Additionally, the Ludwig dashboard panel offers a comprehensive overview of the errors in a developer’s HTML and provides a custom accessibility score for the developer to gauge and improve their web content’s accessibility.
+One sixth of the world’s population will experience a disability at some point in their lifetime, but 98% of websites contain inaccessibility issues, making them challenging for individuals with disabilities to use. Ludwig tackles this problem directly by providing a reliable tool that developers can leverage during the development process, rather than relying solely on post-development accessibility testing. Ludwig annotates HTML and JSX accessibility errors in real-time, such as missing ARIA-attributes or ensuring all interactive elements are accessible via keyboard. As well, the Ludwig dashboard panel offers a real-time overview of the errors in a developer’s code and provides line by line information for the developer to gauge and improve their web content’s accessibility.
 
-Ludwig tests HTML for over 85 of the most critical and common accessibility guidelines outlined by WAI-ARIA. We still plan on expanding Ludwig’s capabilities to provide coverage for all guidelines as well as by providing testing for JSX. If you or someone you know would like to contribute to Ludwig, please contact us!
+Ludwig tests HTML and JSX for over 100 of the most critical and common accessibility guidelines outlined by WAI-ARIA. We still plan on expanding Ludwig’s capabilities to provide coverage for all guidelines as well as by providing more robust data visualizations. If you or someone you know would like to contribute to Ludwig, please contact us!
 
 Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
@@ -14,34 +14,55 @@ Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
 Download Ludwig VS from the VS Code extensions marketplace.
 
-To start a Ludwig session, open the command palette and type <b>> Ludwig: Compose</b>. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write.
+To start Ludwig, navigate to the document that you want scanned and click on "Ludwig: Disabled" to enable it. This should pop up a drop down menu from the command palette with these options:
 
-To take a break and deactivate the extension, type <b>> Ludwig: Caesura</b> into the command line. This will terminate the current session and deactivate highlighting and recommendations.
+___________________________add picture of commands in  palette-------------------------------------
+<br><br><font color="gold"> Lint Active File (Toggle)<br> Lint All Files (Toggle) <br> Disable Linting (Toggle) <br> Update Dashboard / Generate Report <br> Reset Library </font></b><br>
+
+Errors and warnings found in current active editor will be reported in the 'Problems' tab in the bottom panel, in addition to highlighting the line where the error was found. 
+
+--------------need to update with gifs of finished product:---------------------------------------
 
 <p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
-To scan your document and generate your accessibility score, press the Ludwig logo on the activity bar (sidebar to the left), then press "Scan Document."
+To scan your document and generate your accessibility score,run the command "Update Dashboard / Generate Report", then press "Scan Document."
 
 <p align="center"><img src="./assets/ludwig-scan-interface.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
+--------------------------------------------------------------------------------------------------
+
+# Deep Dive
+Powered by ESlint: <br>
+Ludwig utilizes the JSX a11y ESLint plugin to parse through the user's codebase and extract accessibility errors/warnings using a custom formatter. [Read More](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y#readme)
+
+Logic behind Accessibility Score: <br>
+Referenced Google Lighthouse's accessibility severity weighting and implemented the 
+
 # User Best Practices
 
-Please note that Ludwig is currently in Beta and functions best when used with proper HTML formatting. Therefore, to ensure proper formatting, please use a well-established linting tool such as [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
+Please note that Ludwig is currently in Beta and functions best when used with proper HTML and JSX formatting. Therefore, to ensure proper formatting, please use a well-established linting tool such as [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode).
 
 # Open Source Work
 
-| Feature / Bug                                      | Status      |
-| -------------------------------------------------- | ----------- |
-| Fix inconsistent highlights on parent elements     | In Progress |
-| Expand coverage to JSX                             | To-Do       |
-| Expand coverage to non-serious/critical guidelines | To-Do       |
-
+| Feature / Bug                                          | Status      |
+| --------------------------------------------------     | ----------- |
+| Create further dashboard tools for data visulizations  | In progress |
+| Prioritize errors and warnings based on severity score | To-Do       |
+| Integrate AI tools to help automate error fixing       | To-Do       |
+   
 # Contributors
+Version 2.0 Team: <br>
+Anar Gasimov | [LinkedIn](https://www.linkedin.com/in/anargasimov/) <br>
+Benson Cheng | [LinkedIn](https://www.linkedin.com/in/bensonhpcheng/) <br>
+Kristian Schott | [LinkedIn](https://www.linkedin.com/in/kristian-schott/) <br>
+Saagar Mehta | [LinkedIn](https://www.linkedin.com/in/saagar-mehta-a86981110/) <br>
+Spencer Hezzelwood | [LinkedIn](https://www.linkedin.com/in/spencer-lane-hezzelwood-650b9a19/) <br>
 
+Version 1.0 Team: <br>
 Connie Johnson | [LinkedIn](https://www.linkedin.com/in/connie-johnson-7a33152a4) <br>
+Harold Reeves | [LinkedIn](https://www.linkedin.com/in/haroldreeves/) <br>
 Jake Johnson | [LinkedIn](https://www.linkedin.com/in/jake527/) <br>
 Prashay Mehta | [LinkedIn](https://www.linkedin.com/in/prashaymehta/) <br>
-Harold Reeves | [LinkedIn](https://www.linkedin.com/in/haroldreeves/) <br>
 Tyler Spicer | [LinkedIn](https://www.linkedin.com/in/tyler-e-spicer/) <br>
 
 # Licensing Info
