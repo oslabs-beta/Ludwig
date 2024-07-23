@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import * as vscode from 'vscode';
 import { compileLogic } from '../logic/logicCompiler';
 import { ariaObject } from '../logic/aria-standards/aria-object';
@@ -19,7 +21,7 @@ export async function highlightElements(document: vscode.TextDocument) {
 
   if (activeEditor) {
     // invoke compileLogic to get object with ARIA recommendations
-    const ariaRecommendations = await compileLogic(activeEditor);
+    const ariaRecommendations = await compileLogic(activeEditor)[0];
     console.log('ariaRecommendations: ', ariaRecommendations);
 
     // populate recsByLineNumber

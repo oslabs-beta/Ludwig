@@ -40,7 +40,7 @@ export async function runESLint(
   const results = await eslint.lintText(text, {
     filePath: document.fileName,
   });
-  console.log(results);
+  console.log('results we need!!!!!: ', results);
 
   return results;
 }

@@ -5,7 +5,13 @@
 /************************************************************************************************
  * To expand on the idea... we could form custom prompts to get better results from the chatbot *
  ************************************************************************************************/
-
+interface AriaObject {
+  [key: string]: {
+    link: string;
+    desc: string;
+    additionalLinks: string[];
+  };
+}
 export const ariaObject = {
   areaAltText: {
     link: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H24.html',

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 import * as vscode from 'vscode';
 import { createDashboard } from '../utils/createDashboard';
 import { compileLogic } from '../logic/logicCompiler';
@@ -12,7 +14,7 @@ export function registerScanDocCommand(context: vscode.ExtensionContext) {
       console.log('Scan In Progress...');
     }
 
-    const ariaRecs = await compileLogic(activeEditor);
+    const ariaRecs = await compileLogic(activeEditor)[0];
     console.log('ariaRecs:', ariaRecs);
     const panel = createDashboard(context);
     panel.webview.postMessage({ ariaRecs: ariaRecs });

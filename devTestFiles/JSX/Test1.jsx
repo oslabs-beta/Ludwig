@@ -49,14 +49,9 @@ function TestComponent({ title, onClick }) {
       {/* HTML element without lang attribute */}
       <html />
       {/* Iframe without title */}
-      <iframe src="some-source" />
       {/* Redundant alt text */}
-      <img
-        src="image.jpg"
-        alt="Image of an image"
-      />
+      
       {/* Interactive element missing focus */}
-      <a href="https://example.com" />
       {/* Label missing associated control */}
       <label>Missing control</label>
       {/* Missing lang attribute */}
