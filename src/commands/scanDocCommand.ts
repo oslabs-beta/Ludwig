@@ -1,25 +1,25 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+// /* eslint-disable @typescript-eslint/no-var-requires */
 
-import * as vscode from 'vscode';
-import { createDashboard } from '../utils/createDashboard';
-import { compileLogic } from '../logic/logicCompiler';
+// import * as vscode from 'vscode';
+// import { createDashboard } from '../utils/createDashboard';
+// import { compileLogic } from '../logic/logicCompiler';
 
-export function registerScanDocCommand(context: vscode.ExtensionContext) {
-  const disposable = vscode.commands.registerCommand('ludwig.scanDoc', async () => {
-    const activeEditor = vscode.window.activeTextEditor;
-    if (!activeEditor || activeEditor.document.languageId !== 'html') {
-      return vscode.window.showInformationMessage('Activate an HTML document first');
-    } else {
-      vscode.window.showInformationMessage('Scan In Progress...');
-      console.log('Scan In Progress...');
-    }
+// export function registerScanDocCommand(context: vscode.ExtensionContext) {
+//   const disposable = vscode.commands.registerCommand('ludwig.scanDoc', async () => {
+//     const activeEditor = vscode.window.activeTextEditor;
+//     if (!activeEditor || activeEditor.document.languageId !== 'html') {
+//       return vscode.window.showInformationMessage('Activate an HTML document first');
+//     } else {
+//       vscode.window.showInformationMessage('Scan In Progress...');
+//       console.log('Scan In Progress...');
+//     }
 
-    const ariaRecs = await compileLogic(activeEditor)[0];
-    console.log('ariaRecs:', ariaRecs);
-    const panel = createDashboard(context);
-    panel.webview.postMessage({ ariaRecs: ariaRecs });
-    console.log('Message posted to webview');
-    vscode.window.showInformationMessage('Scan complete!');
-  });
-  context.subscriptions.push(disposable);
-}
+//     const ariaRecs = await compileLogic(activeEditor)[0];
+//     console.log('ariaRecs:', ariaRecs);
+//     const panel = createDashboard(context);
+//     panel.webview.postMessage({ ariaRecs: ariaRecs });
+//     console.log('Message posted to webview');
+//     vscode.window.showInformationMessage('Scan complete!');
+//   });
+//   context.subscriptions.push(disposable);
+// }

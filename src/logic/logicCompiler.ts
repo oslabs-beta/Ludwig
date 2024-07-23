@@ -35,8 +35,8 @@ export interface AriaRecommendations {
   totalElements: number;
 }
 
-export function cloneDomFromSource(source: any) {
-  const htmlCode = addLineNumbersToHtml(source.document.getText());
+export function cloneDomFromSource(doc: any) {
+  const htmlCode = addLineNumbersToHtml(doc.getText());
   const { window } = new JSDOM(htmlCode, {
     url: 'http://ciafund.gov',
     pretendToBeVisual: true,
@@ -47,11 +47,11 @@ export function cloneDomFromSource(source: any) {
   return { document, body };
 }
 
-export async function compileLogic(activeEditor: vscode.TextEditor) {
+export async function compileLogic(doc: vscode.TextDocument) {
   const ariaRecommendations: AriaRecommendations = {
     totalElements: 0,
   };
-  const { document, body } = cloneDomFromSource(activeEditor);
+  const { body } = cloneDomFromSource(doc);
   function tag(element: any) {
     return body.querySelectorAll(element);
   }
@@ -75,37 +75,45 @@ export async function compileLogic(activeEditor: vscode.TextEditor) {
   const warnings = 0;
   // const filePath = document.fileName;
 
+  console.log('Compiling logic...');
   for (const [key, value] of Object.entries(ariaRecommendations)) {
-    value.forEach((ariaIssue: any) => {
-      const description: string = ariaObject[key].desc;
+    if (key === 'totalElements' || key === 'criticalIssuesByType') {
+      continue;
+    }
+    console.log(`Checking ${key}...`);
+    for (const ariaIssue of value) {
+      // const description: any = ariaObject[key].desc;
+      // const description = ;
       const issue: LintIssue = {
         ruleId: key,
         severity: 2,
-        message: description,
+        message: ariaObject[key].desc,
         line: ariaIssue[0],
-        column: 0,
+        column: doc.lineAt(ariaIssue[0]).range.start.character,
         endLine: ariaIssue[0],
         endColumn: 100,
-        nodeType: 'node',
-        customSeverity: 10,
+        // nodeType: 'node',
+        // customSeverity: 10,
       };
       details.push(issue);
       errors++;
-    });
+    }
   }
+  console.log('Finished checking all critical ARIA rules.');
 
   const lintResult: LintResult = {
     summary: {
       dateCreated: new Date().toISOString().split('T')[0],
       timeCreated: new Date().toTimeString().split(' ')[0],
       activeWorkspace: vscode.workspace.name || 'Unknown',
-      filepath: document.uri.fsPath,
+      filepath: doc.uri.fsPath,
       errors,
       warnings,
     },
     details,
   };
 
+  console.log('Compiled logic. Generating criticalIssuesByType...');
   ariaRecommendations.criticalIssuesByType = {};
   for (const key in ariaRecommendations) {
     if (key !== 'totalElements' && key !== 'criticalIssuesByType') {
@@ -115,8 +123,11 @@ export async function compileLogic(activeEditor: vscode.TextEditor) {
 
   ariaRecommendations.totalElements = body.querySelectorAll('*').length;
 
-  const compileResult = [ariaRecommendations, lintResult];
-  return compileResult;
+  console.log('Finished generating criticalIssuesByType.');
+  console.log('Finished compiling logic. Returning lintResult...');
+
+  console.log('Final before exit', lintResult);
+  return lintResult;
 }
 
 function addLineNumbersToHtml(htmlCode: string) {
