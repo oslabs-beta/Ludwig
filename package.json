@@ -21,25 +21,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "ludwig.showDashboard",
-        "title": "Ludwig: Show Dashboard",
-        "category": "Ludwig"
-      },
-      {
-        "command": "ludwig.scanDoc",
-        "title": "xxx Scan Document",
-        "category": "Ludwig",
-        "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
-      },
-      {
-        "command": "ludwig.scanAllDocs",
-        "title": "xxx Scan All Documents",
-        "category": "Ludwig",
-        "when": "workspaceFolderCount > 0"
-      },
-      {
         "command": "ludwig.toggleLintActiveFile",
-        "title": "Toggle Lint Active File", 
+        "title": "Toggle Lint Active File",
         "category": "Ludwig",
         "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
       },
@@ -66,16 +49,14 @@
         "category": "Ludwig"
       },
       {
-        "command": "ludwig.highlightElements",
-        "title": "Highlight HTML",
-        "category": "Ludwig",
-        "when": "editorLangId == html"
+        "command": "ludwig.updateDashboard",
+        "title": "XXXX - Update Dashboard - XXXX",
+        "category": "Ludwig"
       },
       {
-        "command": "ludwig.toggleOff",
-        "title": "Highlight HTML - **OFF**",
-        "category": "Ludwig",
-        "when": "editorLangId == html"
+        "command": "ludwig.showLintingMenu",
+        "title": "Ludwig: Change Linting Mode",
+        "category": "Ludwig"
       }
     ],
     "viewsContainers": {
