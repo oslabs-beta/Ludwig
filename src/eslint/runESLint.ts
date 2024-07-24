@@ -2,7 +2,6 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { ESLint } from 'eslint';
 
-// let extensionContext: vscode.ExtensionContext;
 type SupportedLanguage = 'html' | 'javascriptreact' | 'typescriptreact';
 
 export async function runESLint(
@@ -25,7 +24,6 @@ export async function runESLint(
   const configFileName = configFileMap[document.languageId as SupportedLanguage];
   const configFilePath = path.join(context.extensionPath, 'dist', 'eslint', 'configs', configFileName);
 
-  // Get user settings
   const config = vscode.workspace.getConfiguration('ludwig');
   const userConfig = config.get(`eslintConfig.${document.languageId}`) || {};
 
@@ -40,7 +38,6 @@ export async function runESLint(
   const results = await eslint.lintText(text, {
     filePath: document.fileName,
   });
-  console.log('results we need!!!!!: ', results);
 
   return results;
 }

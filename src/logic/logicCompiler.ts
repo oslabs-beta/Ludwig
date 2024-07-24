@@ -24,7 +24,6 @@ interface LintResult {
   details: LintIssue[];
 }
 
-// import { strict } from 'assert';
 import { ariaObject } from './aria-standards/aria-object';
 import * as Critical from './aria-standards/critical';
 import * as vscode from 'vscode';
@@ -73,7 +72,6 @@ export async function compileLogic(doc: vscode.TextDocument) {
 
   let errors = 0;
   const warnings = 0;
-  // const filePath = document.fileName;
 
   console.log('Compiling logic...');
   for (const [key, value] of Object.entries(ariaRecommendations)) {
@@ -82,8 +80,6 @@ export async function compileLogic(doc: vscode.TextDocument) {
     }
     console.log(`Checking ${key}...`);
     for (const ariaIssue of value) {
-      // const description: any = ariaObject[key].desc;
-      // const description = ;
       const issue: LintIssue = {
         ruleId: key,
         severity: 2,
@@ -92,14 +88,11 @@ export async function compileLogic(doc: vscode.TextDocument) {
         column: doc.lineAt(ariaIssue[0]).range.start.character,
         endLine: ariaIssue[0],
         endColumn: 100,
-        // nodeType: 'node',
-        // customSeverity: 10,
       };
       details.push(issue);
       errors++;
     }
   }
-  console.log('Finished checking all critical ARIA rules.');
 
   const lintResult: LintResult = {
     summary: {
@@ -113,7 +106,6 @@ export async function compileLogic(doc: vscode.TextDocument) {
     details,
   };
 
-  console.log('Compiled logic. Generating criticalIssuesByType...');
   ariaRecommendations.criticalIssuesByType = {};
   for (const key in ariaRecommendations) {
     if (key !== 'totalElements' && key !== 'criticalIssuesByType') {
@@ -123,10 +115,6 @@ export async function compileLogic(doc: vscode.TextDocument) {
 
   ariaRecommendations.totalElements = body.querySelectorAll('*').length;
 
-  console.log('Finished generating criticalIssuesByType.');
-  console.log('Finished compiling logic. Returning lintResult...');
-
-  console.log('Final before exit', lintResult);
   return lintResult;
 }
 

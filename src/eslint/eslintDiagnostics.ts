@@ -76,7 +76,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
 
       lintingTimeout = setTimeout(() => {
         lintDocument(event.document);
-      }, 1000);
+      }, 2000);
     }
   });
 
@@ -290,7 +290,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     if (editor) {
       const lintResult = await lintDocument(editor.document, true);
       if (lintResult) {
-        vscode.window.showInformationMessage('Lint results saved');
+        vscode.window.showInformationMessage('Results saved successfully');
       } else {
         vscode.window.showInformationMessage('No active editor to lint and save results');
       }
@@ -320,7 +320,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       }
     } catch (error) {
       console.error('Failed to read lint results or update dashboard:', error);
-      vscode.window.showErrorMessage('Failed to update dashboard');
+      vscode.window.showWarningMessage('No historical data found for this file in library');
     }
   }
 
@@ -346,20 +346,17 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       recentResults = [];
     }
 
-    // Add the current lintResult to recentResults
     const currentHashedResult: HashedLintResult = {
       ...lintResult,
       hash: simpleLintResultHash(lintResult),
     };
 
-    // Only add the current result if it's different from the last one
     if (recentResults.length === 0 || recentResults[recentResults.length - 1].hash !== currentHashedResult.hash) {
       recentResults.push(currentHashedResult);
       // Keep only the last 10 results
       recentResults = recentResults.slice(-10);
     }
 
-    // Format data for the chart
     const chartData = {
       labels: recentResults.map((result) => result.summary.timeCreated),
       errorCounts: recentResults.map((result) => result.summary.errors),

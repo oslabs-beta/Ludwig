@@ -1,4 +1,3 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const path = require('path');
 
 const config = {
@@ -45,52 +44,13 @@ const config = {
       },
     ],
   },
-  plugins: [
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: ['**/*', '!extension.js'],
-    }),
-  ],
+  plugins: [],
   devtool: 'nosources-source-map',
   infrastructureLogging: {
     level: 'log',
   },
 };
 
-const reactConfig = {
-  target: 'web',
-  mode: 'development',
-  entry: './src/react-views/dashboard/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'dashboard.js',
-  },
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-          },
-        },
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
-      },
-    ],
-  },
-  plugins: [],
-  devtool: 'source-map',
-  infrastructureLogging: {
-    level: 'log',
-  },
-};
 // Add configuration for progressionChart.ts
 const chartConfig = {
   target: 'web',
@@ -117,9 +77,45 @@ const chartConfig = {
     ],
   },
   plugins: [],
-  devtool: 'source-map',
+  // devtool: 'source-map',
   infrastructureLogging: {
     level: 'log',
   },
 };
-module.exports = [config, reactConfig, chartConfig];
+module.exports = [config, chartConfig];
+
+// const reactConfig = {
+//   target: 'web',
+//   mode: 'development',
+//   entry: './src/react-views/dashboard/index.js',
+//   output: {
+//     path: path.resolve(__dirname, 'dist'),
+//     filename: 'dashboard.js',
+//   },
+//   resolve: {
+//     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+//   },
+//   module: {
+//     rules: [
+//       {
+//         test: /\.(js|jsx|ts|tsx)$/,
+//         exclude: /node_modules/,
+//         use: {
+//           loader: 'babel-loader',
+//           options: {
+//             presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+//           },
+//         },
+//       },
+//       {
+//         test: /\.css$/,
+//         use: ['style-loader', 'css-loader'],
+//       },
+//     ],
+//   },
+//   plugins: [],
+//   devtool: 'source-map',
+//   infrastructureLogging: {
+//     level: 'log',
+//   },
+// };
