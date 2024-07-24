@@ -10,7 +10,7 @@ export function uniqueIDsCheck(nodes: any[]) {
 
     if (idSet.has(id)) {
       const lineNumber = getLineNumber(node);
-      recs.push([node.outerHTML, lineNumber]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     } else {
       idSet.add(id);
     }

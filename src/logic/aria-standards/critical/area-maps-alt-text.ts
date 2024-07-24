@@ -12,7 +12,7 @@ export function areaAltTextCheck(nodes: any[]) {
     if (!altText && !ariaLabel && !ariaLabelledby) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

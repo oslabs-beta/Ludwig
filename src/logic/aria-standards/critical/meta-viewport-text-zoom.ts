@@ -23,7 +23,7 @@ export function metaViewportCheck(nodes: any[]) {
 
     if (maxScale !== undefined && (maxScale < 2 || userScale === 'no' || userScale === '0')) {
       const lineNumber = getLineNumber(node);
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

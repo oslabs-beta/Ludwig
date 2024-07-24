@@ -13,7 +13,7 @@ export function metaEquivRefreshCheck(nodes: any[]) {
     if (httpEquiv === 'refresh' && content <= 72000) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 
