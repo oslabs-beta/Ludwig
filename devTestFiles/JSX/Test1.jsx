@@ -39,11 +39,7 @@ function TestComponent({ title, onClick }) {
       {/* Incorrect ARIA proptype */}
       <div aria-checked="invalid" />
       {/* Incorrect ARIA role */}
-      <div role="invalid" />
-      {/* Unsupported ARIA element */}
-      <meta aria-hidden="true" />
-      {/* Missing key events on clickable element */}
-      <div onClick={onClick} />
+
       {/* Heading with no content */}
       <h2 />
       {/* HTML element without lang attribute */}
@@ -66,7 +62,7 @@ function TestComponent({ title, onClick }) {
       {/* Mouse events missing key events */}
       <div onMouseEnter={() => {}} />
       {/* Access key attribute */}
-      <div accessKey="s" />
+      {/* <div accessKey="s" /> */}
       {/* Autofocus attribute */}
       <input autoFocus />
       {/* Distracting elements */}
@@ -74,7 +70,6 @@ function TestComponent({ title, onClick }) {
       {/* Interactive role on non-interactive element */}
       <div role="button" />
       {/* Non-interactive element with interaction handlers */}
-      <div onClick={onClick} />
       {/* Non-interactive element with interactive role */}
       <div role="button" />
       {/* Non-interactive tabindex */}
