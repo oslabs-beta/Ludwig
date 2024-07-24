@@ -5,8 +5,15 @@
 /************************************************************************************************
  * To expand on the idea... we could form custom prompts to get better results from the chatbot *
  ************************************************************************************************/
-
-export const ariaObject = {
+interface AriaObject {
+  [key: string]: {
+    link: any;
+    desc: any;
+    additionalLinks?: any[];
+    fix?: any;
+  };
+}
+export const ariaObject: AriaObject = {
   areaAltText: {
     link: 'https://www.w3.org/WAI/WCAG21/Techniques/html/H24.html',
     desc: 'Each clickable <area> within an image map has an alt, aria-label or aria-labelledby attribute value that describes the purpose of the link',

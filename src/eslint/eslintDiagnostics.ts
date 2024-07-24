@@ -5,6 +5,7 @@ import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
 import { ruleSeverityMapping } from './ruleSeverityMapping';
 import { createDashboard } from '../utils/createDashboard';
+import { compileLogic } from '../logic/logicCompiler';
 
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
 let extensionContext: vscode.ExtensionContext;
@@ -75,7 +76,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
 
       lintingTimeout = setTimeout(() => {
         lintDocument(event.document);
-      }, 1000);
+      }, 2000);
     }
   });
 
@@ -88,14 +89,28 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   });
 
   async function lintDocument(document: vscode.TextDocument, saveResults: boolean = false) {
+    // ...
     if (!isAllFilesLintingEnabled) {
       diagnosticCollection.clear();
     }
 
     // _currentLintedFile = document.uri;
     const fileName = path.basename(document.fileName);
+    console.log(`Linting ${fileName}`);
+
     try {
+      if (document.languageId === 'html') {
+        const lintResult = await compileLogic(document);
+        console.log('line 104');
+        const diagnostics = createDiagnosticsFromLintResult(document, lintResult);
+        diagnosticCollection.set(document.uri, diagnostics);
+        const numIssues = lintResult.details.length;
+        showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
+        console.log(`Finished linting ${fileName} with ${numIssues} issues`);
+        return lintResult;
+      }
       const results = await runESLint(document, extensionContext);
+      console.log(`Linting ${fileName} completed. Number of issues: ${results?.length}`);
       if (results !== null) {
         const lintResult = createLintResultFromESLintResults(document, results);
         const diagnostics = createDiagnosticsFromLintResult(document, lintResult);
@@ -108,6 +123,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
 
         const numIssues = lintResult.details.length;
         showTemporaryInfoMessage(`*${fileName}* processed successfully! ${numIssues} issues found.`);
+        console.log(`Finished linting ${fileName} with ${numIssues} issues`);
         return lintResult;
       }
     } catch (error) {
@@ -162,15 +178,20 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResult: LintResult): vscode.Diagnostic[] {
     return lintResult.details.map((issue) => {
       const range = new vscode.Range(
-        new vscode.Position(issue.line - 1, issue.column - 1),
+        new vscode.Position(issue.line - 1, issue.column),
         new vscode.Position(
           issue.endLine ? issue.endLine - 1 : issue.line - 1,
           issue.endColumn || Number.MAX_SAFE_INTEGER
         )
       );
+      let diagnosisMessage = `${issue.message} (severity: ${issue.customSeverity})`;
+
+      if (document.languageId === 'html') {
+        diagnosisMessage = `${issue.message}`;
+      }
       const diagnostic = new vscode.Diagnostic(
         range,
-        `${issue.message} (severity: ${issue.customSeverity})`,
+        diagnosisMessage,
         issue.severity === 2 ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning
       );
       (diagnostic as any).customSeverity = issue.customSeverity;
@@ -269,7 +290,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     if (editor) {
       const lintResult = await lintDocument(editor.document, true);
       if (lintResult) {
-        vscode.window.showInformationMessage('Lint results saved');
+        vscode.window.showInformationMessage('Results saved successfully');
       } else {
         vscode.window.showInformationMessage('No active editor to lint and save results');
       }
@@ -299,7 +320,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       }
     } catch (error) {
       console.error('Failed to read lint results or update dashboard:', error);
-      vscode.window.showErrorMessage('Failed to update dashboard');
+      vscode.window.showWarningMessage('No historical data found for this file in library');
     }
   }
 
@@ -325,20 +346,17 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       recentResults = [];
     }
 
-    // Add the current lintResult to recentResults
     const currentHashedResult: HashedLintResult = {
       ...lintResult,
       hash: simpleLintResultHash(lintResult),
     };
 
-    // Only add the current result if it's different from the last one
     if (recentResults.length === 0 || recentResults[recentResults.length - 1].hash !== currentHashedResult.hash) {
       recentResults.push(currentHashedResult);
       // Keep only the last 10 results
       recentResults = recentResults.slice(-10);
     }
 
-    // Format data for the chart
     const chartData = {
       labels: recentResults.map((result) => result.summary.timeCreated),
       errorCounts: recentResults.map((result) => result.summary.errors),

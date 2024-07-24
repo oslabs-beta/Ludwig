@@ -14,28 +14,19 @@ function TestComponent({ title, onClick }) {
       <a href="google">Google</a>
       {/* Missing form label */}
       <form>
-        <input
-          type="text"
-          id="name"
-        />
+        <input type="text" id="name" />
       </form>
       {/* Using <h1> for non-top-level heading */}
       <h2>Test</h2>
       <h1>Subheading</h1>
       {/* Non-interactive element assigned an interactive role */}
-      <span
-        role="button"
-        onClick={onClick}
-      >
+      <span role="button" onClick={onClick}>
         Interactive span
       </span>
       {/* ARIA activedescendant without tabindex */}
       <div aria-activedescendant="some-id" />
       {/* Incorrect ARIA prop */}
-      <div
-        aria-hidden="true"
-        aria-props="incorrect"
-      />
+      <div aria-hidden="true" aria-props="incorrect" />
       {/* Incorrect ARIA proptype */}
       <div aria-checked="invalid" />
       {/* Incorrect ARIA role */}
@@ -49,14 +40,9 @@ function TestComponent({ title, onClick }) {
       {/* HTML element without lang attribute */}
       <html />
       {/* Iframe without title */}
-      <iframe src="some-source" />
       {/* Redundant alt text */}
-      <img
-        src="image.jpg"
-        alt="Image of an image"
-      />
+
       {/* Interactive element missing focus */}
-      <a href="https://example.com" />
       {/* Label missing associated control */}
       <label>Missing control</label>
       {/* Missing lang attribute */}
@@ -88,10 +74,7 @@ function TestComponent({ title, onClick }) {
       {/* Role with missing required props */}
       <input role="switch" />
       {/* Role with unsupported ARIA props */}
-      <div
-        role="checkbox"
-        aria-level="1"
-      />
+      <div role="checkbox" aria-level="1" />
       {/* Scope attribute */}
       <th scope="row" />
       {/* Positive tabindex */}
