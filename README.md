@@ -10,8 +10,6 @@ Ludwig tests HTML and JSX against over 100 critical accessibility guidelines out
 
 Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
-
-
 # Set-Up
 
 Download Ludwig VS from the VS Code extensions marketplace.
