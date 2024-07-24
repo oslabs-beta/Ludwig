@@ -10,8 +10,6 @@ Ludwig tests HTML and JSX against over 100 critical accessibility guidelines out
 
 Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
-
-
 # Set-Up
 
 Download Ludwig VS from the VS Code extensions marketplace.
@@ -31,14 +29,9 @@ Errors and warnings found in current active editor will be reported in the 'Prob
 
 **Note:** <br/>
 - If there are no changes between updates to the dashboard, no new plots will appear on the chart.  <br/>
-- Each file has its own separate local JSON library, which generates progression charts for that specific file.
+- Each file has its own separate local JSON library, located in the Summary_Library folder created when "Lint Active File" is triggered. This library stores the linting data for that specific file.
 
---------------need to update with gifs of finished product (Lint Active Files -> Generate report -> change file -> update dashboard):------------------------
-
-<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
-
-
---------------------------------------------------------------------------------------------------
+<p align="center"><img src="./assets/showChartSpeed.gif" width='800' style="margin-top: 1em; margin-bottom: 1em;" autoplay></p>
 
 # Deep Dive
 **Powered by ESlint:**
@@ -47,6 +40,11 @@ Ludwig utilizes the JSX a11y ESLint plugin to parse through the user's codebase 
 
 **Logic behind Accessibility Score:**
 Referenced Google Lighthouse's accessibility severity weighting to implement the scoring system.
+The table below shows the corresponding weights to each accessibility warning/error.
+
+|    JSX Rules    | Custom Severity | Weighted Score |
+|-----------------|-----------------|----------------|
+| Critical Errors |
 
 # User Best Practices
 
