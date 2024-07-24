@@ -4,7 +4,8 @@ import * as fs from 'fs/promises';
 import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
 import { ruleSeverityMapping } from './ruleSeverityMapping';
-import { createDashboard } from '../utils/createDashboard';
+// import { createDashboard } from '../utils/createDashboard';
+import { createDonutDashboard } from '../utils/donutDashboard';
 import { compileLogic } from '../logic/logicCompiler';
 
 const diagnosticCollection = vscode.languages.createDiagnosticCollection('ludwig_eslint');
@@ -357,17 +358,29 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       recentResults = recentResults.slice(-10);
     }
 
-    const chartData = {
-      labels: recentResults.map((result) => result.summary.timeCreated),
+    // const chartData = {
+    //   labels: recentResults.map((result) => result.summary.timeCreated),
+    //   errorCounts: recentResults.map((result) => result.summary.errors),
+    //   warnings: recentResults.map((result) => result.summary.warnings),
+    // };
+    const donutData = {
+      labels: recentResults.flatMap((result) => result.details.map((detail) => detail.ruleId)),
       errorCounts: recentResults.map((result) => result.summary.errors),
-      warnings: recentResults.map((result) => result.summary.warnings),
+      // warnings: recentResults.map((result) => result.summary.warnings),
     };
 
-    const dashboard = createDashboard(extensionContext);
-    dashboard.webview.postMessage({
+    // const dashboard = createDashboard(extensionContext);
+    // dashboard.webview.postMessage({
+    //   command: 'loadData',
+    //   fileName: path.basename(currentFile),
+    //   data: chartData,
+    // });
+
+    const donutDashboard = createDonutDashboard(extensionContext);
+    donutDashboard.webview.postMessage({
       command: 'loadData',
       fileName: path.basename(currentFile),
-      data: chartData,
+      data: donutData,
     });
 
     console.log('Dashboard updated with latest data');

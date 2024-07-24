@@ -24,7 +24,7 @@ function LongTest() {
       <div aria-activedescendant="some-id">Missing tabindex</div>
       <header role="banner">Redundant role</header>
     </div>
-  );
+)
 }
 
 export default LongTest;
