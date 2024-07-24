@@ -20,7 +20,6 @@
 //   }
 // }
 
-
 export function getLineNumber(node: any) {
   while (node) {
     if (node.nodeType === 8) {
