@@ -10,7 +10,7 @@ export function selectHasAccessNameCheck(nodes: any[]) {
     if (!ariaLabel && !ariaLabelledBy) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

@@ -17,7 +17,7 @@ export function anchorLabelCheck(nodes: any[]) {
     // If node does not have aria-label or aria-labelledby attributes, add its line number and HTML to recs array
     if (!ariaLabel && !ariaLabelledBy) {
       const lineNumber = getLineNumber(node);
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

@@ -80,12 +80,13 @@ export async function compileLogic(doc: vscode.TextDocument) {
     }
     console.log(`Checking ${key}...`);
     for (const ariaIssue of value) {
+      console.log(`CompileLogic line 83, ariaIssue: ${ariaIssue}`);
       const issue: LintIssue = {
         ruleId: key,
         severity: 2,
         message: ariaObject[key].desc,
         line: ariaIssue[0],
-        column: doc.lineAt(ariaIssue[0]).range.start.character,
+        column: doc.lineAt(Number(ariaIssue[0]) - 1).firstNonWhitespaceCharacterIndex,
         endLine: ariaIssue[0],
         endColumn: 100,
       };
