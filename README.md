@@ -38,13 +38,58 @@ Errors and warnings found in current active editor will be reported in the 'Prob
 Ludwig utilizes the JSX a11y ESLint plugin to parse through the user's codebase and extract accessibility errors/warnings using a custom formatter. [JSX A11Y](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y#readme)
 
 
-**Logic behind Accessibility Score:**
-Referenced Google Lighthouse's accessibility severity weighting to implement the scoring system.
-The table below shows the corresponding weights to each accessibility warning/error.
+**Accessibility Score Calculation:**
+To determine a fair percentage of accessibility for a document, we referenced Google Lighthouse's weighted scoring system that considers the severity and frequency of accessibility issues. On top of that foundation we also considered the size of the document. This approach ensures a balanced and comprehensive measure of accessibility compliance.
 
-|    JSX Rules    | Custom Severity | Weighted Score |
-|-----------------|-----------------|----------------|
-| Critical Errors |
+The following logic governs how the accessibility score is calculated: <br/>
+1. Assign Weights to Different severities (W)
+2. Count Issues for each severity (C)
+3. Calculate Total Weighted Score: </br>
+
+<p align='center'> Total Score = (W<sub>1</sub>* C<sub>1</sub>) + (W<sub>2</sub>* C<sub>2</sub>)... +(W<sub>n</sub> * C<sub>n</sub>) <p/>
+
+4. Determine the overall compliance percentage by considering the total number of elements and the number of non-compliant elements in the document:
+<p align="center"><img src="./assets/CompliancePercentage.jpg" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
+5. Normalize the score to account for the size of the document and adjust the compliance percentage:
+<p align="center"><img src="./assets/Normalized&Adjusted.jpg" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
+
+
+**The table below shows the corresponding weights (W) to each accessibility warning/error.**
+
+|    JSX Rules    | Custom Severity (W) |
+|-----------------|----------------------|
+| 'jsx-a11y/alt-text' | 10 |
+| 'jsx-a11y/anchor-has-content' | 10 |
+| 'jsx-a11y/interactive-supports-focus' | 10 |
+| 'jsx-a11y/heading-has-content' | 9 |
+| 'jsx-a11y/label-has-associated-control' | 9 |
+| 'jsx-a11y/media-has-caption' | 9 |
+| 'jsx-a11y/anchor-is-valid' | 8 |
+| 'jsx-a11y/aria-role' | 8 |
+| 'jsx-a11y/aria-unsupported-elements' | 8 |
+| 'jsx-a11y/no-interactive-element-to-noninteractive-role' | 8 |
+| 'jsx-a11y/role-has-required-aria-props' | 8 |
+| 'jsx-a11y/aria-props' | 7 |
+| 'jsx-a11y/aria-proptypes' | 7 |
+| 'jsx-a11y/iframe-has-title' | 7 |
+| 'jsx-a11y/mouse-events-have-key-events' | 7 |
+| 'jsx-a11y/no-noninteractive-element-interactions' | 7 |
+| 'jsx-a11y/no-noninteractive-element-to-interactive-role' | 7 |
+| 'jsx-a11y/role-supports-aria-props' | 7 |
+| 'jsx-a11y/click-events-have-key-events' | 6 |
+| 'jsx-a11y/aria-activedescendant-has-tabindex' | 6 |
+| 'jsx-a11y/no-distracting-elements' | 6 |
+| 'jsx-a11y/no-noninteractive-tabindex' | 6 |
+| 'jsx-a11y/no-static-element-interactions' | 6 |
+| 'jsx-a11y/scope' | 6 |
+| 'jsx-a11y/tabindex-no-positive' | 6 |
+| 'jsx-a11y/html-has-lang' | 5 |
+| 'jsx-a11y/img-redundant-alt' | 5 |
+| 'jsx-a11y/lang' | 5 |
+| 'jsx-a11y/no-access-key' | 5 |
+| 'jsx-a11y/no-redundant-roles' | 5 |
+| 'jsx-a11y/no-autofocus' | 4 |
+| 'jsx-a11y/no-onchange' | 4 |
 
 # User Best Practices
 
