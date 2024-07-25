@@ -1,105 +1,108 @@
 {
-  "name": "ludwigvs",
-  "displayName": "Ludwig VS",
-  "description": "WAI-ARIA Accessibility Linter",
-  "version": "1.0.3",
+  "name": "ludwig-es",
+  "displayName": "Ludwig ES",
+  "description": "HTML-React-Angular Accessibility Toolkit",
+  "version": "2.0.0",
   "icon": "./assets/Ludwig-VSMarket.jpg",
   "publisher": "LudwigVS",
   "homepage": "https://www.ludwigvs.com",
   "engines": {
-    "vscode": "^1.84.2"
+    "vscode": "^1.91.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:html"
+    "onLanguage:html",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "ludwig.highlightElements",
-        "title": "Ludwig: Compose"
+        "command": "ludwig.clearDiagnostics",
+        "title": "Toggle Linting Off",
+        "category": "Ludwig",
+        "when": "ludwigDiagnosticsPresent"
       },
       {
-        "command": "ludwig.toggleOff",
-        "title": "Ludwig: Caesura"
+        "command": "ludwig.saveLintResults",
+        "title": "Toggle Lint Active File",
+        "category": "Ludwig"
+      },
+      {
+        "command": "ludwig.resetLib",
+        "title": "Delete Local Library",
+        "category": "Ludwig"
+      },
+      {
+        "command": "ludwig.updateDashboard",
+        "title": "Update Dashboard / Generate Report",
+        "category": "Ludwig"
+      },
+      {
+        "command": "ludwig.showLintingMenu",
+        "title": "See More Options",
+        "category": "Ludwig"
       }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "ludwigActivityBar",
-          "title": "Ludwig",
-          "icon": "assets/Ludwig-Logo-Icon.png"
-        }
-      ]
-    },
-    "views": {
-      "ludwigActivityBar": [
-        {
-          "id": "ludwigSidebarView",
-          "name": "Compose",
-          "contextualTitle": "Ludwig",
-          "type": "webview"
-        }
-      ]
-    }
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oslabs-beta/Ludwig"
+    "url": "https://github.com/vision-null/Ludwig"
   },
   "scripts": {
-    "vscode:prepublish": "npm run package",
-    "compile": "webpack",
+    "clean": "rm -rf dist",
+    "vscode:prepublish": "pnpm run package",
+    "compile": "pnpm run clean && webpack && pnpm run copy-eslint-configs",
+    "copy-eslint-configs": "mkdir -p dist/eslint/configs && cp src/eslint/configs/*.json dist/eslint/configs/",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-react": "webpack --config webpack.config.js --env target=react",
+    "watch-react": "webpack --config webpack.config.js --watch",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js",
-    "build-dashboard": "webpack --config ./react-dashboard/webpack.config.js",
-    "build-sidebar": "webpack --config ./react-sidebar/webpack.config.js",
-    "start": "nodemon ./react-dashboard/src/server.js"
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts,tsx",
+    "lint:fix": "eslint src --ext ts,tsx --fix",
+    "lint:debug": "eslint src --ext ts,tsx --debug",
+    "test": "vscode-test",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
   },
   "devDependencies": {
-    "@babel/core": "^7.23.5",
-    "@babel/preset-env": "^7.23.5",
-    "@babel/preset-react": "^7.23.3",
-    "@types/jsdom": "^21.1.6",
-    "@types/mocha": "^10.0.3",
-    "@types/node": "18.x",
-    "@types/play-sound": "^1.1.2",
-    "@types/vscode": "^1.84.2",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "@typescript-eslint/parser": "^6.9.0",
-    "autoprefixer": "^10.4.16",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.91.0",
+    "@vscode/test-cli": "^0.0.9",
     "babel-loader": "^9.1.3",
-    "css-loader": "^6.8.1",
-    "eslint": "^8.52.0",
-    "glob": "^10.3.10",
-    "html-webpack-plugin": "^5.5.3",
-    "mocha": "^10.2.0",
-    "style-loader": "^3.3.3",
-    "ts-loader": "^9.5.0",
-    "typescript": "^5.2.2",
-    "webpack": "^5.89.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "eslint": "8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.4.5",
+    "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
+    "@html-eslint/eslint-plugin": "^0.25.0",
+    "@html-eslint/parser": "^0.25.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "bufferutil": "^4.0.8",
-    "canvas": "^2.11.2",
-    "jsdom": "^22.1.0",
-    "node": "^21.1.0",
-    "nodemon": "^3.0.2",
-    "play-sound": "^1.1.6",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "utf-8-validate": "^6.0.3",
-    "victory": "^36.7.0",
-    "ws": "^8.14.2"
+    "chart.js": "^4.4.3",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "jsdom": "^24.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-minimal-pie-chart": "^8.4.0"
   }
 }
