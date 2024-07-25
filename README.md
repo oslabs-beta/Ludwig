@@ -1,14 +1,12 @@
-
 <p align="center"><img src="./assets/Ludwing-Logo-Detailed.png" width='200' style="margin-top: 10px; margin-bottom: 15px;"></p>
-
 
 # Ludwig VS
 
-Ludwig VS is a VS Code linter that makes writing accessible HTML easier for developers. Ludwig offers in-line highlighting of HTML that is not in compliance with WCAG and WAI-ARIA standards and provides recommendations to enhance the accessibility of your HTML code. 
+Ludwig VS is a VS Code linter that makes writing accessible HTML easier for developers. Ludwig offers in-line highlighting of HTML that is not in compliance with WCAG and WAI-ARIA standards and provides recommendations to enhance the accessibility of your HTML code.
 
-One sixth of the world’s population will experience a disability at some point in their lifetime, but 98% of websites contain inaccessibility issues, making them challenging for individuals with disabilities to use. Ludwig tackles this problem directly by providing a reliable tool that developers can leverage during the development process, rather than relying solely on post-development accessibility testing. Ludwig highlights HTML accessibility errors in real-time, such as missing ARIA-attributes or empty tags. When a developer hovers over the highlighted code, a hover message will display the root issue and provide further documentation for reference. Additionally, the Ludwig dashboard panel offers a comprehensive overview of the errors in a developer’s HTML and provides a custom accessibility score for the developer to gauge and improve their web content’s accessibility. 
+One sixth of the world’s population will experience a disability at some point in their lifetime, but 98% of websites contain inaccessibility issues, making them challenging for individuals with disabilities to use. Ludwig tackles this problem directly by providing a reliable tool that developers can leverage during the development process, rather than relying solely on post-development accessibility testing. Ludwig highlights HTML accessibility errors in real-time, such as missing ARIA-attributes or empty tags. When a developer hovers over the highlighted code, a hover message will display the root issue and provide further documentation for reference. Additionally, the Ludwig dashboard panel offers a comprehensive overview of the errors in a developer’s HTML and provides a custom accessibility score for the developer to gauge and improve their web content’s accessibility.
 
-Ludwig tests HTML for over 85 of the most critical and common accessibility guidelines outlined by WAI-ARIA. We still plan on expanding Ludwig’s capabilities to provide coverage for all guidelines as well as by providing testing for JSX. If you or someone you know would like to contribute to Ludwig, please contact us! 
+Ludwig tests HTML for over 85 of the most critical and common accessibility guidelines outlined by WAI-ARIA. We still plan on expanding Ludwig’s capabilities to provide coverage for all guidelines as well as by providing testing for JSX. If you or someone you know would like to contribute to Ludwig, please contact us!
 
 Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
@@ -16,17 +14,15 @@ Visit the [Ludwig](https://www.ludwigvs.com) website to learn more.
 
 Download Ludwig VS from the VS Code extensions marketplace.
 
-To start a Ludwig session, open the command palette and type <b>> Ludwig: Compose</b>. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write. 
+To start a Ludwig session, open the command palette and type <b>> Ludwig: Compose</b>. This will activate Ludwig, display highlights on any existing non-compliant HTML, and offer new highlights and feedback as you write.
 
-To take a break and deactivate the extension, type <b>> Ludwig: Caesura</b> into the command line. This will terminate the current session and deactivate highlighting and recommendations. 
+To take a break and deactivate the extension, type <b>> Ludwig: Caesura</b> into the command line. This will terminate the current session and deactivate highlighting and recommendations.
 
-<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p> 
-
+<p align="center"><img src="./assets/ludwig-compose-caesura.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 To scan your document and generate your accessibility score, press the Ludwig logo on the activity bar (sidebar to the left), then press "Scan Document."
 
-<p align="center"><img src="./assets/ludwig-scan-interface.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p> 
-
+<p align="center"><img src="./assets/ludwig-scan-interface.gif" width='600' style="margin-top: 1em; margin-bottom: 1em;"></p>
 
 # User Best Practices
 
@@ -34,11 +30,11 @@ Please note that Ludwig is currently in Beta and functions best when used with p
 
 # Open Source Work
 
-| Feature / Bug                                               | Status      |
-| ----------------------------------------------------------- | ----------- |
-| Fix inconsistent highlights on parent elements              | In Progress |
-| Expand coverage to JSX                                       | To-Do       |
-| Expand coverage to non-serious/critical guidelines          | To-Do       |
+| Feature / Bug                                      | Status      |
+| -------------------------------------------------- | ----------- |
+| Fix inconsistent highlights on parent elements     | In Progress |
+| Expand coverage to JSX                             | To-Do       |
+| Expand coverage to non-serious/critical guidelines | To-Do       |
 
 # Contributors
 
