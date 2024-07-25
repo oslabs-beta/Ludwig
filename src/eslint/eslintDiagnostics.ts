@@ -4,7 +4,7 @@ import * as fs from 'fs/promises';
 import { ESLint } from 'eslint';
 import { runESLint } from './runESLint';
 import { ruleSeverityMapping } from './ruleSeverityMapping';
-// import { createDashboard } from '../utils/createDashboard';
+import { createChartDashboard } from '../utils/chartDashboard';
 import { createDonutDashboard } from '../utils/donutDashboard';
 import { compileLogic } from '../logic/logicCompiler';
 
@@ -179,7 +179,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
   function createDiagnosticsFromLintResult(document: vscode.TextDocument, lintResult: LintResult): vscode.Diagnostic[] {
     return lintResult.details.map((issue) => {
       const range = new vscode.Range(
-        new vscode.Position(issue.line - 1, issue.column),
+        new vscode.Position(issue.line - 1, issue.column - 1),
         new vscode.Position(
           issue.endLine ? issue.endLine - 1 : issue.line - 1,
           issue.endColumn || Number.MAX_SAFE_INTEGER
@@ -298,7 +298,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     }
   }
 
-  async function updateDashboardCommand() {
+  async function updateDashboardCommand(chartType: string) {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
       vscode.window.showInformationMessage('No active editor to update dashboard');
@@ -314,7 +314,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       const resultsLib = JSON.parse(data);
       if (resultsLib.length > 0) {
         const latestResult = resultsLib[resultsLib.length - 1];
-        await updateDashboard(latestResult);
+        await updateDashboard(latestResult, chartType);
         vscode.window.showInformationMessage('Dashboard updated successfully');
       } else {
         vscode.window.showInformationMessage('No lint results available to update dashboard');
@@ -325,7 +325,7 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     }
   }
 
-  async function updateDashboard(lintResult: LintResult) {
+  async function updateDashboard(lintResult: LintResult, chartType: string) {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
       console.error('No active editor to update dashboard');
@@ -364,36 +364,50 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     //   warnings: recentResults.map((result) => result.summary.warnings),
     // };
 
-    const issuesCounts = {};
-    lintResult.details.forEach((issue) => {
-      if (issuesCounts[issue.ruleId]) {
-        issuesCounts[issue.ruleId]++;
-      } else {
-        issuesCounts[issue.ruleId] = 1;
-      }
-    });
-
-    const donutData = {
-      labels: Object.keys(issuesCounts),
-      errorCounts: Object.values(issuesCounts),
-      // warnings: recentResults.map((result) => result.summary.warnings),
-    };
-
-    // const dashboard = createDashboard(extensionContext);
+    // const dashboard = createDonutDashboard(extensionContext);
     // dashboard.webview.postMessage({
     //   command: 'loadData',
     //   fileName: path.basename(currentFile),
     //   data: chartData,
     // });
+    if (chartType === 'donut') {
+      const issuesCounts: any = {};
+      lintResult.details.forEach((issue) => {
+        if (issuesCounts[issue.ruleId]) {
+          issuesCounts[issue.ruleId]++;
+        } else {
+          issuesCounts[issue.ruleId] = 1;
+        }
+      });
 
-    const donutDashboard = createDonutDashboard(extensionContext);
-    donutDashboard.webview.postMessage({
-      command: 'loadData',
-      fileName: path.basename(currentFile),
-      data: donutData,
-    });
+      const donutData = {
+        labels: Object.keys(issuesCounts),
+        errorCounts: Object.values(issuesCounts),
+        // warnings: recentResults.map((result) => result.summary.warnings),
+      };
 
-    console.log('Dashboard updated with latest data');
+      const donutDashboard = createDonutDashboard(extensionContext);
+      donutDashboard.webview.postMessage({
+        command: 'loadData',
+        fileName: path.basename(currentFile),
+        data: donutData,
+      });
+      console.log('Donut Dashboard updated with latest data');
+    } else if (chartType === 'progression') {
+      const chartData = {
+        labels: recentResults.map((result) => result.summary.timeCreated),
+        errorCounts: recentResults.map((result) => result.summary.errors),
+        warnings: recentResults.map((result) => result.summary.warnings),
+      };
+
+      const dashboard = createChartDashboard(extensionContext);
+      dashboard.webview.postMessage({
+        command: 'loadData',
+        fileName: path.basename(currentFile),
+        data: chartData,
+      });
+    }
+    console.log('ChartDashboard updated with latest data');
   }
 
   function clearDiagnostics() {
@@ -451,9 +465,14 @@ export function initializeLinting(context: vscode.ExtensionContext) {
           detail: 'Turn off all linting',
         },
         {
-          label: '$(graph) Update Dashboard / Generate Report',
+          label: '$(graph) Generate Progression Chart',
           description: '📊 Visualize',
-          detail: 'Update the dashboard with latest linting results for the active file',
+          detail: 'Update the dashboard with errors and warnings of current file over time',
+        },
+        {
+          label: '$(graph) Generate Doughnut Chart',
+          description: '📊 Visualize',
+          detail: 'Update the dashboard with error distribution of current file',
         },
         {
           label: '$(trash) Reset Linting Library',
@@ -478,8 +497,11 @@ export function initializeLinting(context: vscode.ExtensionContext) {
         case '$(stop) Disable Linting':
           await disableLinting();
           break;
-        case '$(graph) Update Dashboard / Generate Report':
-          await updateDashboardCommand();
+        case '$(graph) Generate Progression Chart':
+          await updateDashboardCommand('progression');
+          break;
+        case '$(graph) Generate Doughnut Chart':
+          await updateDashboardCommand('donut');
           break;
         case '$(trash) Reset Linting Library':
           await resetLib();
