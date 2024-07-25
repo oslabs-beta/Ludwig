@@ -363,9 +363,19 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     //   errorCounts: recentResults.map((result) => result.summary.errors),
     //   warnings: recentResults.map((result) => result.summary.warnings),
     // };
+
+    const issuesCounts = {};
+    lintResult.details.forEach((issue) => {
+      if (issuesCounts[issue.ruleId]) {
+        issuesCounts[issue.ruleId]++;
+      } else {
+        issuesCounts[issue.ruleId] = 1;
+      }
+    });
+
     const donutData = {
-      labels: recentResults.flatMap((result) => result.details.map((detail) => detail.ruleId)),
-      errorCounts: recentResults.map((result) => result.summary.errors),
+      labels: Object.keys(issuesCounts),
+      errorCounts: Object.values(issuesCounts),
       // warnings: recentResults.map((result) => result.summary.warnings),
     };
 

@@ -13,7 +13,7 @@ export function discernibleButtonTextCheck(nodes: any[]) {
     ) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

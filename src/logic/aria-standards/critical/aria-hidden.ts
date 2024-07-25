@@ -7,7 +7,7 @@ export function ariaHiddenCheck(nodes: any[]) {
     if (node.getAttribute('aria-hidden') === 'true') {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

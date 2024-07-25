@@ -14,7 +14,7 @@ export function videoCaptionsCheck(nodes: any[]) {
     ) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 

@@ -39,7 +39,7 @@ async function createDoughnutChart(): Promise<any> {
         },
         title: {
           display: true,
-          text: 'ESLint Rules Triggered',
+          text: 'Critical Errors',
         },
         tooltip: {
           callbacks: {
@@ -63,32 +63,34 @@ async function createDoughnutChart(): Promise<any> {
 }
 
 function generateColors(count: number): string[] {
-  const baseColors = [
-    '#FF6384',
-    '#36A2EB',
-    '#FFCE56',
-    '#4BC0C0',
-    '#9966FF',
-    '#FF9F40',
-    '#FF6384',
-    '#C9CBCF',
-    '#7CFC00',
-    '#00CED1',
-    '#FF1493',
-    '#32CD32',
-    '#FFD700',
-    '#8A2BE2',
-    '#FF4500',
+  const colorPalette = [
+    'rgb(255, 140, 0)',
+    'rgb(72, 61, 139)',
+    'rgb(138, 51, 36)',
+    'rgb(47, 79, 79)',
+    'rgb(219, 112, 147)',
+    'rgb(139, 69, 19)',
+    'rgb(154, 205, 50)',
+    'rgb(210, 105, 30)',
+    'rgb(65, 105, 225)',
+    'rgb(222, 184, 135)',
+    'rgb(0, 206, 209)',
+    'rgb(250, 128, 114)',
+    'rgb(34, 139, 34)',
+    'rgb(199, 21, 133)',
+    'rgb(205, 92, 92)',
+    'rgb(32, 178, 170)',
+    'rgb(112, 128, 144)',
+    'rgb(255, 99, 71)',
   ];
 
-  // If we need more colors than in our base array, we'll generate them
-  if (count > baseColors.length) {
-    for (let i = baseColors.length; i < count; i++) {
-      baseColors.push(`hsl(${Math.random() * 360}, 70%, 50%)`);
-    }
+  const colors = [];
+
+  for (let i = 0; i < count; i++) {
+    colors.push(colorPalette[i % colorPalette.length]);
   }
 
-  return baseColors.slice(0, count);
+  return colors;
 }
 
 let chart: any;

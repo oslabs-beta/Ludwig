@@ -15,7 +15,7 @@ export function formsHaveLabelsCheck(nodes: any[]) {
 
       if (!ariaLabel && !ariaLabelledBy && !labelFors.includes(inputId)) {
         const lineNumber = getLineNumber(input);
-        recs.push([lineNumber, input.outerHTML]);
+        if (lineNumber) recs.push([lineNumber, node.outerHTML]);
       }
     });
   });

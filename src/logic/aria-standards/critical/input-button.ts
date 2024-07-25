@@ -13,7 +13,7 @@ export function inputButtonCheck(nodes: any[]) {
     if (!value && !title && !ariaLabel && !ariaLabelledBy) {
       const lineNumber = getLineNumber(node);
 
-      recs.push([lineNumber, node.outerHTML]);
+      if (lineNumber) recs.push([lineNumber, node.outerHTML]);
     }
   });
 
