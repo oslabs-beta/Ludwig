@@ -3,7 +3,7 @@ import * as path from 'path';
 
 let dashboard: vscode.WebviewPanel | undefined;
 
-export function createDashboard(context: vscode.ExtensionContext): vscode.WebviewPanel {
+export function createChartDashboard(context: vscode.ExtensionContext): vscode.WebviewPanel {
   if (dashboard) {
     dashboard.reveal(vscode.ViewColumn.Two);
     return dashboard;

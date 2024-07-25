@@ -10,6 +10,27 @@ function TestComponent({ title, onClick }) {
       <div role="button">Click me</div>
       {/* Missing alt attribute */}
       <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+      <img src="image.jpg" />
+
       {/* Invalid href attribute value */}
       <a href="google">Google</a>
       {/* Missing form label */}

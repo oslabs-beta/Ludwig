@@ -82,7 +82,34 @@ const chartConfig = {
     level: 'log',
   },
 };
-module.exports = [config, chartConfig];
+const donutConfig = {
+  target: 'web',
+  mode: 'development',
+  entry: './src/charts/doughnutChart.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'doughnutChart.js',
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [],
+  devtool: 'source-map',
+};
+module.exports = [config, chartConfig, donutConfig];
 
 // const reactConfig = {
 //   target: 'web',
