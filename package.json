@@ -21,26 +21,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "ludwig.toggleLintActiveFile",
-        "title": "Toggle Lint Active File",
-        "category": "Ludwig",
-        "when": "editorLangId =~ /html|javascriptreact|typescriptreact/"
-      },
-      {
-        "command": "ludwig.toggleLintAllFiles",
-        "title": "Toggle Lint All Files",
-        "category": "Ludwig",
-        "when": "workspaceFolderCount > 0"
-      },
-      {
         "command": "ludwig.clearDiagnostics",
-        "title": "Clear Accessibility Warnings",
+        "title": "Toggle Linting Off",
         "category": "Ludwig",
         "when": "ludwigDiagnosticsPresent"
       },
       {
         "command": "ludwig.saveLintResults",
-        "title": "Save Lint Results",
+        "title": "Toggle Lint Active File",
         "category": "Ludwig"
       },
       {
@@ -50,33 +38,15 @@
       },
       {
         "command": "ludwig.updateDashboard",
-        "title": "XXXX - Update Dashboard - XXXX",
+        "title": "Update Dashboard / Generate Report",
         "category": "Ludwig"
       },
       {
         "command": "ludwig.showLintingMenu",
-        "title": "Ludwig: Change Linting Mode",
+        "title": "See More Options",
         "category": "Ludwig"
       }
-    ],
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "ludwigActivityBar",
-          "title": "Ludwig",
-          "icon": "assets/Ludwig-Logo-Icon.png"
-        }
-      ]
-    },
-    "views": {
-      "ludwigActivityBar": [
-        {
-          "id": "ludwigPrimaryWebview",
-          "name": "Report Generator",
-          "type": "webview"
-        }
-      ]
-    }
+    ]
   },
   "repository": {
     "type": "git",

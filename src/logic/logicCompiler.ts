@@ -78,6 +78,7 @@ export async function compileLogic(doc: vscode.TextDocument) {
       continue;
     }
     for (const ariaIssue of value) {
+      console.log(`CompileLogic line 83, ariaIssue: ${ariaIssue}`);
       const issue: LintIssue = {
         ruleId: key,
         severity: 2,

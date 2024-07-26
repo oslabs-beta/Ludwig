@@ -4,13 +4,7 @@ function LongTest() {
   return (
     <div>
       <h1>Long Test with Multiple Errors</h1>
-      <img src="image.jpg" />
-      <div
-        onClick={() => {}}
-        role="button"
-      >
-        Click me
-      </div>
+
       <a href="#">Empty link</a>
       <label>Unassociated label</label>
       <input type="text" />
