@@ -218,7 +218,6 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       .sort()
       .join('|')}`;
 
-    // Use a simple hash function
     let hash = 0;
     for (let i = 0; i < relevantData.length; i++) {
       const char = relevantData.charCodeAt(i);
@@ -226,7 +225,6 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       hash = hash & hash; // Convert to 32-bit integer
     }
 
-    // Return the hash as a string
     return hash.toString(16);
   }
 
@@ -281,7 +279,6 @@ export function initializeLinting(context: vscode.ExtensionContext) {
     try {
       await fs.writeFile(resultsFilePath, JSON.stringify(resultsLib, null, 2));
       console.log(`${resultsFilePath}:  Lint results saved successfully.`);
-      // await updateDashboard(lintResult);
     } catch (error) {
       console.error('Failed to write lint results:', error);
     }
@@ -354,22 +351,9 @@ export function initializeLinting(context: vscode.ExtensionContext) {
 
     if (recentResults.length === 0 || recentResults[recentResults.length - 1].hash !== currentHashedResult.hash) {
       recentResults.push(currentHashedResult);
-      // Keep only the last 10 results
       recentResults = recentResults.slice(-10);
     }
 
-    // const chartData = {
-    //   labels: recentResults.map((result) => result.summary.timeCreated),
-    //   errorCounts: recentResults.map((result) => result.summary.errors),
-    //   warnings: recentResults.map((result) => result.summary.warnings),
-    // };
-
-    // const dashboard = createDonutDashboard(extensionContext);
-    // dashboard.webview.postMessage({
-    //   command: 'loadData',
-    //   fileName: path.basename(currentFile),
-    //   data: chartData,
-    // });
     if (chartType === 'donut') {
       const issuesCounts: any = {};
       lintResult.details.forEach((issue) => {
@@ -383,7 +367,6 @@ export function initializeLinting(context: vscode.ExtensionContext) {
       const donutData = {
         labels: Object.keys(issuesCounts),
         errorCounts: Object.values(issuesCounts),
-        // warnings: recentResults.map((result) => result.summary.warnings),
       };
 
       const donutDashboard = createDonutDashboard(extensionContext);
