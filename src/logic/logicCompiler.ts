@@ -73,21 +73,19 @@ export async function compileLogic(doc: vscode.TextDocument) {
   let errors = 0;
   const warnings = 0;
 
-  console.log('Compiling logic...');
   for (const [key, value] of Object.entries(ariaRecommendations)) {
     if (key === 'totalElements' || key === 'criticalIssuesByType') {
       continue;
     }
-    console.log(`Checking ${key}...`);
     for (const ariaIssue of value) {
       console.log(`CompileLogic line 83, ariaIssue: ${ariaIssue}`);
       const issue: LintIssue = {
         ruleId: key,
         severity: 2,
         message: ariaObject[key].desc,
-        line: ariaIssue[0],
+        line: Number(ariaIssue[0]),
         column: doc.lineAt(Number(ariaIssue[0]) - 1).firstNonWhitespaceCharacterIndex,
-        endLine: ariaIssue[0],
+        endLine: Number(ariaIssue[0]),
         endColumn: 100,
       };
       details.push(issue);
