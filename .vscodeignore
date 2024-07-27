@@ -11,3 +11,7 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
+**/.vscode-test.*
+Summary_Library/**
+ludwigReports/**
+devTestFiles/**
