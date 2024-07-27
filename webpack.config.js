@@ -51,7 +51,6 @@ const config = {
   },
 };
 
-// Add configuration for progressionChart.ts
 const chartConfig = {
   target: 'web',
   mode: 'development',
@@ -110,39 +109,3 @@ const donutConfig = {
   devtool: 'source-map',
 };
 module.exports = [config, chartConfig, donutConfig];
-
-// const reactConfig = {
-//   target: 'web',
-//   mode: 'development',
-//   entry: './src/react-views/dashboard/index.js',
-//   output: {
-//     path: path.resolve(__dirname, 'dist'),
-//     filename: 'dashboard.js',
-//   },
-//   resolve: {
-//     extensions: ['.js', '.jsx', '.ts', '.tsx'],
-//   },
-//   module: {
-//     rules: [
-//       {
-//         test: /\.(js|jsx|ts|tsx)$/,
-//         exclude: /node_modules/,
-//         use: {
-//           loader: 'babel-loader',
-//           options: {
-//             presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-//           },
-//         },
-//       },
-//       {
-//         test: /\.css$/,
-//         use: ['style-loader', 'css-loader'],
-//       },
-//     ],
-//   },
-//   plugins: [],
-//   devtool: 'source-map',
-//   infrastructureLogging: {
-//     level: 'log',
-//   },
-// };

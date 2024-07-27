@@ -4,7 +4,8 @@ node_modules
 .vscode-test/
 *.vsix
 resultsLib.json
-ludwigReports/*
+ludwigReports/**
 !ludwigReports/.gitkeep
-Summary_Library/*
+Summary_Library/**
 !Summary_Library/persistent
+devTestFiles/**
