@@ -19,9 +19,6 @@ export function createDonutDashboard(context: vscode.ExtensionContext): vscode.W
   const scriptUri = dashboard.webview.asWebviewUri(
     vscode.Uri.file(path.join(context.extensionPath, 'dist', 'doughnutChart.js'))
   );
-  // const cssUri = dashboard.webview.asWebviewUri(
-  //   vscode.Uri.file(path.join(context.extensionPath, 'dist', 'dashboard.css'))
-  // );
 
   dashboard.webview.html = getWebviewContent(scriptUri);
 

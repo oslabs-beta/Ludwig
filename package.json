@@ -40,7 +40,7 @@
       },
       {
         "command": "ludwig.saveLintResults",
-        "title": "Save Lint Results",
+        "title": "Scan File for Errors and Add to Library",
         "category": "Ludwig"
       },
       {
@@ -49,13 +49,8 @@
         "category": "Ludwig"
       },
       {
-        "command": "ludwig.updateDashboard",
-        "title": "XXXX - Update Dashboard - XXXX",
-        "category": "Ludwig"
-      },
-      {
         "command": "ludwig.showLintingMenu",
-        "title": "Ludwig: Change Linting Mode",
+        "title": "See More Options",
         "category": "Ludwig"
       }
     ],
@@ -68,15 +63,7 @@
         }
       ]
     },
-    "views": {
-      "ludwigActivityBar": [
-        {
-          "id": "ludwigPrimaryWebview",
-          "name": "Report Generator",
-          "type": "webview"
-        }
-      ]
-    }
+    "views": {}
   },
   "repository": {
     "type": "git",

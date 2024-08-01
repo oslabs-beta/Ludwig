@@ -1,11 +1,5 @@
 const { getLineNumber } = require('../../getLineNumber');
 
-// logic for if anchors have an aria-label
-/**
- * Function to check if anchor elements have an aria-label
- * @param {Array} nodes - Array of DOM nodes
- * @returns {Array} - Array of arrays containing line number and HTML of nodes without aria-label
- */
 export function anchorLabelCheck(nodes: any[]) {
   const recs: any[][] = []; // Array to store line number and HTML of nodes without aria-label
 
