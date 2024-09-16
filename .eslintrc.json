@@ -4,7 +4,7 @@
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json", "./tsconfig.test.json"]
   },
   "env": {
     "browser": true,
@@ -30,7 +30,7 @@
     "semi": "off",
     "prettier/prettier": "warn"
   },
-  "ignorePatterns": ["dist", "**/*.d.ts", "src/logic/aria-standards"],
+  "ignorePatterns": ["dist", "**/*.d.ts", "src/logic/aria-standards", "test/**/*", "webpack.config.js"],
   "overrides": [
     {
       "files": ["webpack.config.js"],
